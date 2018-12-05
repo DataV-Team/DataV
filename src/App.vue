@@ -1,17 +1,62 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" ref="app">
+    <current-data-v />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import currentDataV from './views/electronicFile/index'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    currentDataV
+  },
+  data () {
+    return {
+      scale: 0,
+      app: ''
+    }
+  },
+  methods: {
+    init () {
+      const { initConfig, setAppScale, bindReSizeEventHandler } = this
+
+      initConfig()
+
+      setAppScale()
+
+      bindReSizeEventHandler()
+    },
+    initConfig () {
+      const { width, height } = screen
+
+      this.allWidth = width
+
+      const app = this.app = this.$refs['app']
+
+      app.style.width = `${width}px`
+      app.style.height = `${height}px`
+    },
+    setAppScale () {
+      const { allWidth, app } = this
+
+      const currentWidth = document.body.clientWidth
+
+      app.style.transform = `scale(${currentWidth / allWidth})`
+    },
+    bindReSizeEventHandler () {
+      const { debounce, setAppScale } = this
+
+      if (!debounce) return
+
+      window.addEventListener('resize', debounce(100, setAppScale))
+    }
+  },
+  mounted () {
+    const { init } = this
+
+    init()
   }
 }
 </script>
@@ -19,10 +64,7 @@ export default {
 <style lang="less">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  transform-origin: left top;
+  overflow: hidden;
 }
 </style>
