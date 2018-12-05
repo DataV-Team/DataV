@@ -12,7 +12,7 @@
       <polyline class="line-7" :points="`55, 11 147, 11 167, 26 250, 26`" />
       <polyline class="line-8" :points="`158, 5 173, 16`" />
       <polyline class="line-9" :points="`200, 17 ${width - 10}, 17`" />
-      <polyline class="line-10" :points="`330, 17 ${width - 10}, 17`" />
+      <polyline class="line-10" :points="`385, 17 ${width - 10}, 17`" />
     </svg>
 
     <slot></slot>
@@ -48,7 +48,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .border-box-4 {
   position: relative;
   box-sizing: border-box;
@@ -130,13 +130,13 @@ export default {
   .line-9 {
     .sred;
     .sw3;
-    stroke-dasharray: 100 150;
+    stroke-dasharray: 100 250;
   }
 
   .line-10 {
     .sblue;
     .sw1;
-    stroke-dasharray: 80 170;
+    stroke-dasharray: 80 270;
   }
 }
 </style>
