@@ -13,7 +13,7 @@
 
         <div class="station-name">纸店收费站</div>
         <div class="left-device-num"><div>设备运行总数</div><div>120</div></div>
-        <ring-chart class="left-chart" />
+        <ring-chart class="left-chart" :data="testRingData" />
 
         <div class="station-name">沈丘收费站</div>
         <div class="left-device-num"><div>设备运行总数</div><div>188</div></div>
@@ -47,7 +47,7 @@
                 </div>
               </div>
 
-              <capsule-chart />
+              <ring-chart :data="testRingData" />
 
               <div class="device-num-container">
                 <div class="num-item">
@@ -86,7 +86,7 @@
                   <div>设备运行总数</div>
                 </div>
 
-                <ring-chart class="rtr-chart" />
+                <ring-chart class="rtr-chart" :data="testRingData" />
               </div>
             </border-box-4>
           </div>
@@ -95,28 +95,28 @@
         <border-box-4 class="right-bottom">
           <div class="rb-item">
             <div class="station-name">项城收费站</div>
-            <capsule-chart />
+            <ring-chart :data="testRingData" />
           </div>
 
           <decoration-2 class="rb-d2" :reverse="true"/>
 
           <div class="rb-item">
             <div class="station-name">周口收费站</div>
-            <capsule-chart />
+            <ring-chart :data="testRingData" />
           </div>
 
           <decoration-2 class="rb-d2" :reverse="true"/>
 
           <div class="rb-item">
             <div class="station-name">谭庄收费站南</div>
-            <capsule-chart />
+            <ring-chart :data="testRingData" />
           </div>
 
           <decoration-2 class="rb-d2" :reverse="true"/>
 
           <div class="rb-item">
             <div class="station-name">谭庄收费站北</div>
-            <capsule-chart />
+            <ring-chart :data="testRingData" />
           </div>
         </border-box-4>
 
@@ -133,7 +133,46 @@ export default {
   name: 'ElectronicFile',
   components: {
     efHeader
-  }
+  },
+  data () {
+    return {
+      testRingData: {
+        data: [
+          {
+            value: 100,
+            title: '收费系统'
+          },
+          {
+            value: 57,
+            title: '通信系统'
+          },
+          {
+            value: 66,
+            title: '监控系统'
+          },
+          {
+            value: 32,
+            title: '供配电系统'
+          },
+          {
+            value: 12,
+            title: '其他'
+          }
+        ],
+        color: [
+          '#00baff',
+          '#3de7c9',
+          '#ffffff',
+          '#ffc53d',
+          '#469f4b'
+        ],
+        active: true,
+        labelLine: true
+      }
+    }
+  },
+  methods: {},
+  created () {}
 }
 </script>
 
@@ -276,20 +315,22 @@ export default {
           line-height: 50px;
           display: flex;
           flex-direction: row;
+          font-family: "Microsoft Yahei", Arial, sans-serif;
 
           :nth-child(1) {
-            font-size: 34px;
+            font-size: @EFRTLNINFS;
             text-indent: 35px;
+            font-weight: bold;
           }
 
           :nth-child(2) {
-            font-size: 34px;
+            font-size: @EFRTLNITFS;
             margin-left: 20px;
           }
         }
       }
 
-      .capsule-chart {
+      .ring-chart {
         width: 330px;
       }
     }
@@ -368,7 +409,7 @@ export default {
         line-height: 30px;
       }
 
-      .capsule-chart {
+      .ring-chart {
         height: calc(~"100% - 50px");
       }
     }
