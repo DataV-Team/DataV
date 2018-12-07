@@ -1,9 +1,5 @@
 const { parse, stringify } = JSON
 
-/**
- * @description          deep clone obecjt
- * @return     {object}  clone
- */
 export function deepClone (object) {
   return parse(stringify(object))
 }
@@ -26,8 +22,17 @@ export function debounce (delay, callback) {
   }
 }
 
+export function multipleSum (...num) {
+  let sum = 0
+
+  num.forEach(n => (sum += n))
+
+  return sum
+}
+
 export default function (Vue) {
   Vue.prototype.deepClone = deepClone
   Vue.prototype.deleteArrayAllItems = deleteArrayAllItems
   Vue.prototype.debounce = debounce
+  Vue.prototype.multipleSum = multipleSum
 }
