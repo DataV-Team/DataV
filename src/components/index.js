@@ -11,6 +11,8 @@ import numberShow from './numberShow/index.vue'
 import capsuleChart from './capsuleChart/index.vue'
 import ringChart from './ringChart/index.vue'
 
+import loading from './loading/index.vue'
+
 export default function (Vue) {
   Vue.component('borderBox1', borderBox1)
   Vue.component('borderBox2', borderBox2)
@@ -21,4 +23,5 @@ export default function (Vue) {
   Vue.component('numberShow', numberShow)
   Vue.component('capsuleChart', capsuleChart)
   Vue.component('ringChart', ringChart)
+  Vue.component('loading', loading)
 }
