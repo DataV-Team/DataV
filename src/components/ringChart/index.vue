@@ -357,6 +357,8 @@ export default {
 </script>
 
 <style lang="less">
+@import url('../../assets/style/index.less');
+
 .ring-chart {
   position: relative;
 
@@ -376,17 +378,17 @@ export default {
     max-width: 25%;
 
     .percent-show {
-      font-size: 28px;
+      font-size: @RCPSNFS;
 
       &::after {
         content: '%';
-        font-size: 15px;
+        font-size: @RCPSAFS;
         margin-left: 5px;
       }
     }
 
     .current-label {
-      font-size: 16px;
+      font-size: @RCCLFS;
       margin-top: 5%;
       transform: rotateY(0deg);
       overflow: hidden;
@@ -410,9 +412,9 @@ export default {
     width: 100%;
     height: 30px;
     bottom: 0px;
-    font-size: 12px;
+    font-size: @RCLLFS;
     line-height: 30px;
-    color: rgba(255, 255, 255, 0.6);
+    color: @RCLLC;
     display: flex;
     justify-content: space-around;
 
