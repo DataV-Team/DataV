@@ -49,6 +49,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import url('../../assets/style/index.less');
+
 .border-box-4 {
   position: relative;
   box-sizing: border-box;
@@ -71,11 +73,11 @@ export default {
   }
 
   .sred {
-    stroke: red;
+    stroke: @BB4SCOC;
   }
 
   .sblue {
-    stroke: fade(blue, 80);
+    stroke: @BB4SCTC;
   }
 
   .sw1 {
