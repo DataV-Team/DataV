@@ -1,6 +1,5 @@
 <template>
   <div id="electronic-file">
-    <!-- <ef-header /> -->
     <div class="header">
       <div class="left">{{ technicalSupport }}</div>
       <div class="middle">{{ topMiddleTitle }}</div>
