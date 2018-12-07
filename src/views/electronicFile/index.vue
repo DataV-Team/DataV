@@ -473,7 +473,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url('../../assets/style/index.less');
+@import url('../../assets/style/electroniceFile.less');
 
 #electronic-file {
   width: 100%;

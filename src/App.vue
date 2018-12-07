@@ -5,7 +5,8 @@
 </template>
 
 <script>
-import currentDataV from './views/electronicFile/index'
+// import currentDataV from './views/electronicFile/index'
+import currentDataV from './views/manageDesk/index'
 
 export default {
   name: 'app',
