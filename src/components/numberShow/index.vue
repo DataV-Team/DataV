@@ -1,6 +1,6 @@
 <template>
   <div class="number-show">
-    <div class="number-itme" v-for="n in number.toString()" :key="n">
+    <div class="number-itme" v-for="(n, i) in number.toString()" :key="`${n}-${i}`">
       {{ n }}
     </div>
   </div>

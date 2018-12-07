@@ -2,21 +2,25 @@
   <div class="ring-chart">
     <canvas :ref="ref" />
 
-    <div class="center-info">
-      <div class="percent-show">{{percent}}</div>
-      <div class="current-label" :ref="labelRef">{{data.data[activeIndex].title}}</div>
-    </div>
+    <loading v-if="!data" />
 
-    <div class="label-line">
-      <div class="label-container">
-
-        <div class="label" v-for="(label, index) in data.data" :key="label.title">
-          <div :style="`background-color: ${data.color[index % data.data.length]}`" />
-          <div>{{ label.title }}</div>
-        </div>
-
+    <template v-else>
+      <div class="center-info" v-if="data.active">
+        <div class="percent-show">{{percent}}</div>
+        <div class="current-label" :ref="labelRef">{{data.data[activeIndex].title}}</div>
       </div>
-    </div>
+
+      <div class="label-line">
+        <div class="label-container">
+
+          <div class="label" v-for="(label, index) in data.data" :key="label.title">
+            <div :style="`background-color: ${data.color[index % data.data.length]}`" />
+            <div>{{ label.title }}</div>
+          </div>
+
+        </div>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -27,7 +31,7 @@ export default {
   data () {
     return {
       ref: `ring-chart-${(new Date()).getTime()}`,
-      canvas: '',
+      canvasDom: '',
       canvasWH: [0, 0],
       ctx: '',
 
@@ -45,6 +49,9 @@ export default {
 
       arcData: [],
       radiusData: [],
+      aroundLineData: [],
+      aroundTextData: [],
+      aroundTextFont: '13px Arial',
 
       activeIncrease: 0.005,
       activeTime: 2500,
@@ -54,15 +61,24 @@ export default {
       percent: 0,
       totalValue: 0,
 
-      activeAnimationHandler: ''
+      activeAnimationHandler: '',
+      awaitActiveHandler: ''
     }
   },
   watch: {
     data (d) {
-      console.error(d)
+      const { reDraw } = this
+
+      if (!d) return
+
+      reDraw()
     },
     activeIndex () {
+      const { doPercentAnimation, doLabelTextAnimation } = this
 
+      doPercentAnimation()
+
+      doLabelTextAnimation()
     }
   },
   methods: {
@@ -80,7 +96,7 @@ export default {
     initCanvas () {
       const { $refs, ref, labelRef, canvasWH } = this
 
-      const canvas = this.canvas = $refs[ref]
+      const canvas = this.canvasDom = $refs[ref]
 
       this.labelDom = $refs[labelRef]
 
@@ -103,14 +119,14 @@ export default {
       this.ringLineWidth = ringRadius * 0.3
     },
     draw () {
-      const { caclArcData, data: { active }, drwaActive, drwaStatic } = this
+      const { caclArcData, data: { active }, drawActive, drwaStatic } = this
 
       caclArcData()
 
-      active ? drwaActive() : drwaStatic()
+      active ? drawActive() : drwaStatic()
     },
     caclArcData () {
-      const { data: { data }, arcData } = this
+      const { data: { data } } = this
 
       const { getTotalValue, offsetAngle } = this
 
@@ -120,10 +136,12 @@ export default {
 
       let currentPercent = offsetAngle
 
+      this.arcData = []
+
       data.forEach(({ value }) => {
         const currentAngle = value / totalValue * full + currentPercent
 
-        arcData.push([
+        this.arcData.push([
           currentPercent,
           currentAngle
         ])
@@ -142,18 +160,18 @@ export default {
 
       return totalValue
     },
-    drwaActive () {
+    drawActive () {
       const { ctx, canvasWH } = this
 
       ctx.clearRect(0, 0, ...canvasWH)
 
-      const { calcRadiusData, drawRing, drwaActive } = this
+      const { calcRadiusData, drawRing, drawActive } = this
 
       calcRadiusData()
 
       drawRing()
 
-      this.activeAnimationHandler = requestAnimationFrame(drwaActive)
+      this.activeAnimationHandler = requestAnimationFrame(drawActive)
     },
     calcRadiusData () {
       const { arcData, activeAddStatus, activePercent, activeIncrease, activeIndex } = this
@@ -181,7 +199,7 @@ export default {
 
       this.activeAddStatus = false
 
-      setTimeout(turnToNextActive, activeTime)
+      this.awaitActiveHandler = setTimeout(turnToNextActive, activeTime)
     },
     turnToNextActive () {
       const { arcData, activeIndex } = this
@@ -211,7 +229,124 @@ export default {
         ctx.stroke()
       })
     },
-    drwaStatic () {}
+    doPercentAnimation () {
+      const { totalValue, percent, activeIndex, data: { data }, doPercentAnimation } = this
+
+      const currentPercent = Math.trunc(data[activeIndex].value / totalValue * 100)
+
+      if (currentPercent === percent) return
+
+      currentPercent > percent ? this.percent++ : this.percent--
+
+      setTimeout(doPercentAnimation, 20)
+    },
+    doLabelTextAnimation () {
+      let { labelDom, $refs, labelRef } = this
+
+      if (!labelDom) labelDom = this.labelDom = $refs[labelRef]
+
+      labelDom.setAttribute('class', 'current-label transform-text')
+
+      setTimeout(() => {
+        labelDom.setAttribute('class', 'current-label')
+      }, 2000)
+    },
+    drwaStatic () {
+      const { ctx, canvasWH } = this
+
+      ctx.clearRect(0, 0, ...canvasWH)
+
+      const { drawStaticRing, calcAroundLineData, drawAroundLine, calcAroundTextData, drawAroundText } = this
+
+      drawStaticRing()
+
+      calcAroundLineData()
+
+      drawAroundLine()
+
+      calcAroundTextData()
+
+      drawAroundText()
+    },
+    drawStaticRing () {
+      const { arcData, ringRadius, drawRing } = this
+
+      this.radiusData = new Array(arcData.length).fill(1).map(v => v * ringRadius)
+
+      drawRing()
+    },
+    calcAroundLineData () {
+      const { arcData, ringRadius, ringLineWidth, ringOriginPos: [x, y] } = this
+
+      const { sin, cos } = Math
+
+      const radian = arcData.map(([a, b]) => (a + (b - a) / 2))
+
+      const radius = ringRadius + ringLineWidth / 2
+
+      const aroundLineData = radian.map(r => [x + cos(r) * radius, y + sin(r) * radius])
+
+      const lineLength = 35
+
+      this.aroundLineData = aroundLineData.map(([bx, by]) => {
+        const lineEndXPos = (bx > x ? bx + lineLength : bx - lineLength)
+
+        return [
+          [bx, by],
+          [lineEndXPos, by]
+        ]
+      })
+    },
+    drawAroundLine () {
+      const { aroundLineData, data: { color }, ctx, canvas: { drawLine } } = this
+
+      const colorNum = color.length
+
+      aroundLineData.forEach(([lineBegin, lineEnd], i) => drawLine(ctx, lineBegin, lineEnd, 1, color[i % colorNum]))
+    },
+    calcAroundTextData () {
+      const { ctx, data: { data }, totalValue, aroundLineData } = this
+
+      const { ringOriginPos: [x], aroundTextFont } = this
+
+      ctx.font = aroundTextFont
+
+      this.aroundTextData = []
+
+      data.forEach(({ value, title }, i) => {
+        const percent = Math.trunc(value / totalValue * 100) + '%'
+
+        const percentWidth = ctx.measureText(percent).width
+        const titleWidth = ctx.measureText(title).width
+
+        const lineEndXPos = aroundLineData[i][1][0]
+        const lineEndYPos = aroundLineData[i][1][1]
+
+        const leftTrue = lineEndXPos < x
+
+        this.aroundTextData.push(
+          [percent, (leftTrue ? lineEndXPos - percentWidth : lineEndXPos), lineEndYPos],
+          [title, (leftTrue ? lineEndXPos - titleWidth : lineEndXPos), lineEndYPos + 15]
+        )
+      })
+    },
+    drawAroundText () {
+      const { ctx, aroundTextData, aroundTextFont } = this
+
+      ctx.font = aroundTextFont
+      ctx.fillStyle = '#fff'
+
+      aroundTextData.forEach(item => {
+        ctx.fillText(...item)
+      })
+    },
+    reDraw () {
+      const { activeAnimationHandler, draw } = this
+
+      cancelAnimationFrame(activeAnimationHandler)
+
+      draw()
+    }
   },
   mounted () {
     const { init } = this
@@ -238,6 +373,7 @@ export default {
     margin-top: -20px;
     text-align: center;
     font-family: "Microsoft Yahei", Arial, sans-serif;
+    max-width: 25%;
 
     .percent-show {
       font-size: 28px;
@@ -251,19 +387,18 @@ export default {
 
     .current-label {
       font-size: 16px;
-      margin-top: 15px;
+      margin-top: 5%;
       transform: rotateY(0deg);
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     .transform-text {
-      animation: tranform-text 1s linear;
+      animation: transform-text 2s linear;
     }
 
     @keyframes transform-text {
-      from {
-        transform: rotateY(0deg);
-      }
-
       to {
         transform: rotateY(360deg);
       }
@@ -284,12 +419,15 @@ export default {
     .label-container {
       display: flex;
       flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .label {
       display: flex;
       flex-direction: row;
       margin: 0 3px;
+      height: 20px;
 
       :nth-child(1) {
         width: 10px;
