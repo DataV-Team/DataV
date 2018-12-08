@@ -33,18 +33,21 @@ export default {
   },
   watch: {
     data () {
-      const { init } = this
+      const { init, autoScrollHandler } = this
+
+      this.fade = false
+      this.currentTopIndex = 0
+
+      autoScrollHandler && clearTimeout(autoScrollHandler)
 
       init()
     }
   },
   methods: {
     init () {
-      const { data, autoScrollHandler, getDealAfterData, getCurrentScrollData } = this
+      const { data, getDealAfterData, getCurrentScrollData } = this
 
       if (!data) return
-
-      autoScrollHandler && clearTimeout(autoScrollHandler)
 
       getDealAfterData()
 
@@ -68,14 +71,14 @@ export default {
 
       this.scrollData = tempArray
 
-      setTimeout(doFade, 1500)
+      this.autoScrollHandler = setTimeout(doFade, 1500)
     },
     doFade () {
       const { reGetCurrentScrollData } = this
 
       this.fade = true
 
-      setTimeout(reGetCurrentScrollData, 1500)
+      this.autoScrollHandler = setTimeout(reGetCurrentScrollData, 1500)
     },
     reGetCurrentScrollData () {
       const { getCurrentScrollData, dealAfterData, currentTopIndex } = this
