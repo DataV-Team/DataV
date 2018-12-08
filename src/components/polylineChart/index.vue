@@ -1,6 +1,10 @@
 <template>
   <div class="polyline-chart">
     <canvas :ref="ref" />
+
+    <div class="for-slot">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
@@ -46,6 +50,21 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
+.polyline-chart {
+  position: relative;
 
+  canvas {
+    width: 100%;
+    height: 100%;
+  }
+
+  .for-slot {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+  }
+}
 </style>
