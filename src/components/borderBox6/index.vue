@@ -59,10 +59,6 @@ export default {
   box-sizing: border-box;
   padding: 10px;
 
-  .reverse {
-    transform: rotate(180deg);
-  }
-
   .svg-container {
     position: absolute;
     top: 0px;
