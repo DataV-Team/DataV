@@ -243,9 +243,11 @@ export default {
             info: '发生故障: 2起'
           }
         ],
-        showItemNum: 5
+        showItemNum: 4
       }
     }
+  },
+  created () {
   }
 }
 </script>
