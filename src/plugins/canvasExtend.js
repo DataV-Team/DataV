@@ -1,4 +1,4 @@
-export function drawLine (ctx, lineBegin, lineEnd, lineWidth = 2, lineColor = '#000') {
+export function drawLine (ctx, lineBegin, lineEnd, lineWidth = 2, lineColor = '#000', dashArray = [10, 10]) {
   if (!ctx || !lineBegin || !lineEnd) return
 
   ctx.beginPath()
@@ -10,12 +10,32 @@ export function drawLine (ctx, lineBegin, lineEnd, lineWidth = 2, lineColor = '#
 
   ctx.lineWidth = lineWidth
   ctx.strokeStyle = lineColor
+  ctx.setLineDash(dashArray)
+
+  ctx.stroke()
+}
+
+export function drawPolyline (ctx, points, lineWidth = 2, lineColor = '#000', close = false, dashArray = [10, 10]) {
+  if (!ctx || !points.length) return
+
+  ctx.beginPath()
+
+  points.forEach((point, i) => i === 0 ? ctx.moveTo(...point) : ctx.LineTo(...point))
+
+  close && ctx.lineTo(...points[0])
+
+  ctx.closePath()
+
+  ctx.lineWidth = lineWidth
+  ctx.strokeStyle = lineColor
+  ctx.setLineDash(dashArray)
 
   ctx.stroke()
 }
 
 const canvas = {
-  drawLine
+  drawLine,
+  drawPolyline
 }
 
 export default function (Vue) {
