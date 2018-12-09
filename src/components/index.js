@@ -14,6 +14,7 @@ import capsuleChart from './capsuleChart/index.vue'
 import ringChart from './ringChart/index.vue'
 import polylineChart from './polylineChart/index.vue'
 import concentricArcChart from './concentricArcChart/index.vue'
+import arcRingChart from './arcRingChart/idnex.vue'
 
 import numberShow from './numberShow/index.vue'
 
@@ -36,6 +37,7 @@ export default function (Vue) {
   Vue.component('polylineChart', polylineChart)
   Vue.component('ringChart', ringChart)
   Vue.component('concentricArcChart', concentricArcChart)
+  Vue.component('arcRingChart', arcRingChart)
   Vue.component('numberShow', numberShow)
   Vue.component('scrollBoard', scrollBoard)
   Vue.component('loading', loading)
