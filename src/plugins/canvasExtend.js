@@ -15,16 +15,14 @@ export function drawLine (ctx, lineBegin, lineEnd, lineWidth = 2, lineColor = '#
   ctx.stroke()
 }
 
-export function drawPolyline (ctx, points, lineWidth = 2, lineColor = '#000', close = false, dashArray = [10, 10]) {
+export function drawPolyline (ctx, points, lineWidth = 2, lineColor = '#000', close = false, dashArray = [10, 0]) {
   if (!ctx || !points.length) return
 
   ctx.beginPath()
 
-  points.forEach((point, i) => i === 0 ? ctx.moveTo(...point) : ctx.LineTo(...point))
+  points.forEach((point, i) => i === 0 ? ctx.moveTo(...point) : ctx.lineTo(...point))
 
   close && ctx.lineTo(...points[0])
-
-  ctx.closePath()
 
   ctx.lineWidth = lineWidth
   ctx.strokeStyle = lineColor
