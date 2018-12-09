@@ -22,6 +22,14 @@ export function debounce (delay, callback) {
   }
 }
 
+export function randomExtend (minNum, maxNum) {
+  if (arguments.length === 1) {
+    return parseInt(Math.random() * minNum + 1, 10)
+  } else {
+    return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10)
+  }
+}
+
 export function multipleSum (...num) {
   let sum = 0
 
@@ -35,4 +43,5 @@ export default function (Vue) {
   Vue.prototype.deleteArrayAllItems = deleteArrayAllItems
   Vue.prototype.debounce = debounce
   Vue.prototype.multipleSum = multipleSum
+  Vue.prototype.randomExtend = randomExtend
 }
