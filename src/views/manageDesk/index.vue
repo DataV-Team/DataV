@@ -60,10 +60,14 @@
           <decoration-4 class="bottom-left-decoration-2" />
 
           <div class="bottom-left-item">
-            this is bottom left item
+            <div class="bli-title">机电设备完好率</div>
+            <div class="bli-value left-value">99.06</div>
+            <arc-ring-chart class="bli-chart" :data="bottomLeftChart1Data" />
           </div>
           <div class="bottom-left-item">
-            this is bottom left item
+            <div class="bli-title">任务维修平均用时</div>
+            <div class="bli-value right-value">55.0</div>
+            <concentric-arc-chart class="bli-chart" :data="bottomLeftChart2Data" />
           </div>
         </border-box-6>
 
@@ -117,6 +121,63 @@ export default {
       topLeftCard1Data: ['22.0', '66', '0'],
       // 上部左边第二个卡片数据
       topLeftCard2Data: ['0.1', '66', '0'],
+
+      // 底部左边第一个图表数据
+      bottomLeftChart1Data: {
+        data: [
+          {
+            value: 19,
+            title: '监控系统'
+          },
+          {
+            value: 16,
+            title: '收费系统'
+          },
+          {
+            value: 24,
+            title: '通信系统'
+          },
+          {
+            value: 14,
+            title: '供配电系统'
+          },
+          {
+            value: 27,
+            title: '其他'
+          }
+        ],
+        color: ['#00c0ff', '#3de7c9', '#fff']
+      },
+
+      // 底部左边第二个图表数据
+      bottomLeftChart2Data: {
+        data: [
+          {
+            value: 0.38,
+            title: '8小时以内'
+          },
+          {
+            value: 0.57,
+            title: '24小时以内'
+          },
+          {
+            value: 0.7,
+            title: '48小时以内'
+          },
+          {
+            value: 0.78,
+            title: '72小时以内'
+          },
+          {
+            value: 0.22,
+            title: '大于72小时'
+          }
+        ],
+        color: ['#00c0ff', '#3de7c9'],
+        arcArea: [0.3, 0.7],
+        arcGap: 5,
+        fontSize: 12
+      },
 
       // 底部右边第一个滚动榜单数据
       bottomRightScrollBorad1Data: {
@@ -461,6 +522,45 @@ export default {
 
   .bottom-left-item {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    .bli-title {
+      height: 80px;
+      font-size: 20px;
+      line-height: 80px;
+    }
+
+    .bli-value {
+      height: 80px;
+      line-height: 80px;
+      font-size: 48px;
+      color: rgb(0, 192, 255);
+      font-weight: bold;
+
+      &::after {
+        color: #fff;
+        font-size: 30px;
+        font-weight: normal;
+      }
+
+      &.left-value {
+        &::after {
+          content: '%'
+        }
+      }
+
+      &.right-value {
+        &::after {
+          content: '小时'
+        }
+      }
+    }
+
+    .bli-chart {
+      height: 50%;
+    }
   }
 
   .bottom-right {
