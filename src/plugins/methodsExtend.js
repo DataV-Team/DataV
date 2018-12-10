@@ -38,10 +38,19 @@ export function multipleSum (...num) {
   return sum
 }
 
+export function filterNull (arr) {
+  const tmpArr = []
+
+  arr.forEach(v => (v && tmpArr.push(v)))
+
+  return tmpArr
+}
+
 export default function (Vue) {
   Vue.prototype.deepClone = deepClone
   Vue.prototype.deleteArrayAllItems = deleteArrayAllItems
   Vue.prototype.debounce = debounce
   Vue.prototype.multipleSum = multipleSum
   Vue.prototype.randomExtend = randomExtend
+  Vue.prototype.filterNull = filterNull
 }
