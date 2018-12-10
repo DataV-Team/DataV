@@ -39,13 +39,14 @@
         </div>
 
         <div class="top-right">
-          <polyline-chart>
+          <polyline-chart :data="topRightChart1Data">
             <div class="title-item">
               设备完好率月趋势
               <decoration-3 />
             </div>
           </polyline-chart>
-          <polyline-chart>
+
+          <polyline-chart :data="topRightChart2Data">
             <div class="title-item">
               设备故障月趋势
               <decoration-3 />
@@ -121,6 +122,102 @@ export default {
       topLeftCard1Data: ['22.0', '66', '0'],
       // 上部左边第二个卡片数据
       topLeftCard2Data: ['0.1', '66', '0'],
+
+      // 上部右边第一个图表数据
+      topRightChart1Data: {
+        data: [
+          {
+            data: [
+              99.81, 99.42, 99.56, 99.23, 99.62,
+              99.36, 99.56, '', 99.81, 99.56,
+              99.42, 99.56, '', '', 99.36,
+              99.42, '', 99.56, '', '',
+              99.56, 99.23, 99.62
+            ],
+            fillColor: ['rgba(0, 186, 255, 0.3)', 'rgba(250, 250, 250, 0)'],
+            pointColor: '#00db95',
+            type: 'smoothline'
+          }
+        ],
+        color: ['#00baff'],
+        x: {
+          data: [
+            '10/01', '', '10/03', '', '10/05', '',
+            '10/07', '', '10/09', '', '10/11', '',
+            '10/13', '', '10/15', '', '10/17', '',
+            '10/19', '', '10/21', '', '10/23'
+          ]
+        },
+        y: {
+          min: 96,
+          max: 100,
+          fixed: 2,
+          num: 10,
+          unit: '%'
+        }
+      },
+
+      // 上部右边第二个图表数据
+      topRightChart2Data: {
+        data: [
+          {
+            data: [
+              5, '', '', '',
+              2, '', '', '',
+              4, '', '', '',
+              2, '', '', '',
+              2, '', '', '',
+              2
+            ],
+            dashed: true
+          },
+          {
+            data: [
+              '', 4, '', '',
+              '', 3, '', '',
+              '', 4, '', '',
+              '', 2, '', '',
+              '', 2, '', '',
+              '', 2
+            ]
+          },
+          {
+            data: [
+              '', '', 3, '',
+              '', '', 2, '',
+              '', '', 2, '',
+              '', '', 2, '',
+              '', '', 2, '',
+              '', '', 2
+            ]
+          },
+          {
+            data: [
+              '', '', '', 3,
+              '', '', '', 2,
+              '', '', '', 2,
+              '', '', '', 2,
+              '', '', '', 3,
+              '', '', '', 2
+            ]
+          }
+        ],
+        x: {
+          data: [
+            '', '', '', '', '', '', '10/07',
+            '', '', '', '', '', '', '10/14',
+            '', '', '', '', '', '', '10/21',
+            '', '', ''
+          ]
+        },
+        y: {
+          max: 6,
+          min: 0,
+          num: 6,
+          unit: '单位'
+        },
+        color: ['#00baff', '#3de7c9', '#44f23a', '#342432']
+      },
 
       // 底部左边第一个图表数据
       bottomLeftChart1Data: {
@@ -487,7 +584,6 @@ export default {
 
     .polyline-chart {
       width: 40%;
-      box-shadow: 0 0 3px red;
     }
 
     .title-item {
