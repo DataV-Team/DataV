@@ -67,5 +67,6 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   transform-origin: left top;
   overflow: hidden;
+  user-select: none;
 }
 </style>
