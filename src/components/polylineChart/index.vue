@@ -1,6 +1,14 @@
 <template>
   <div class="polyline-chart">
-    <canvas :ref="ref" />
+    <div class="canvas-container">
+      <canvas :ref="ref" />
+    </div>
+    <div v-if="data.labelLine" class="label-line">
+      <div class="label-item" v-for="(label, i) in data.labelLine" :key="label + i">
+        <div :style="`background-color: ${data.color[i % data.color.length]};`"></div>
+        <div>{{ label }}</div>
+      </div>
+    </div>
 
     <div class="for-slot">
       <slot></slot>
@@ -29,6 +37,13 @@ export default {
       yAxisMinMax: [],
       rowColumnSize: [],
       valuePointsData: []
+    }
+  },
+  watch: {
+    data (d) {
+      const { draw } = this
+
+      d && draw()
     }
   },
   methods: {
@@ -67,13 +82,17 @@ export default {
 
       drawAxis()
 
-      const { calcValuePointsData, drawValuePolyline, drawValueSmoothline, drawValuePoints } = this
+      const { calcValuePointsData, drawValueColumn, drawValuePolyline } = this
 
       calcValuePointsData()
 
+      drawValueColumn()
+
       drawValuePolyline()
 
-      drawValueSmoothline()
+      const { drawValuePoints, fillLineColor } = this
+
+      fillLineColor()
 
       drawValuePoints()
     },
@@ -197,26 +216,84 @@ export default {
               ? [xPos[i], axisOriginPos[1] - (v - min) / minus * axisWH[1]]
               : false))
     },
+    drawValueColumn () {
+      const { ctx, valuePointsData, data: { data, color }, rowColumnSize, axisOriginPos, canvas, filterNull } = this
+
+      const { getLinearGradientColor } = canvas
+
+      const colorNum = color.length
+
+      const columnWidth = rowColumnSize[1]
+
+      const offset = columnWidth / 2
+
+      data.forEach(({ columnColor, type }, i) => {
+        if (type !== 'column') return
+
+        const filterPoints = filterNull(valuePointsData[i])
+
+        filterPoints.forEach(point => {
+          const height = axisOriginPos[1] - point[1]
+
+          ctx.fillStyle = getLinearGradientColor(ctx, point, [point[0],
+            axisOriginPos[1]], columnColor || color[i % colorNum])
+
+          ctx.fillRect(point[0] - offset, point[1], columnWidth, height)
+        })
+      })
+    },
     drawValuePolyline () {
-      const { ctx, valuePointsData, canvas: { drawPolyline }, color: { hexToRgb } } = this
+      const { ctx, valuePointsData, canvas, color: { hexToRgb } } = this
 
       const { data: { data, color } } = this
 
       const colorNum = color.length
 
-      data.forEach(({ lineColor, dashed, type }, i) => type !== 'smoothline' &&
-        drawPolyline(ctx, valuePointsData[i], 1,
-          hexToRgb(lineColor || color[i % colorNum], 0.8), false, (dashed ? [5, 5] : [10, 0])))
+      data.forEach(({ lineColor, dashed, type }, i) =>
+        (!type || type === 'polyline' || type === 'smoothline') &&
+          canvas[(!type || type === 'polyline') ? 'drawPolyline' : 'drawSmoothline'](
+            ctx, valuePointsData[i], 1,
+            hexToRgb(lineColor || color[i % colorNum], 0.8), false,
+            (dashed ? [5, 5] : [10, 0]), true, true))
     },
-    drawValueSmoothline () {
+    fillLineColor () {
+      const { ctx, valuePointsData, canvas, axisOriginPos, axisWH, data: { data }, filterNull } = this
 
+      const { getLinearGradientColor } = canvas
+
+      const colorBegin = [axisOriginPos[0], axisOriginPos[1] - axisWH[1]]
+
+      data.forEach(({ fillColor, type }, i) => {
+        if (!fillColor) return
+
+        const currentValuePointData = filterNull(valuePointsData[i])
+
+        const pointNum = currentValuePointData.length
+
+        const rightBottom = [currentValuePointData[pointNum - 1][0], axisOriginPos[1]]
+        const leftBottom = [currentValuePointData[0][0], axisOriginPos[1]]
+
+        canvas[(!type || type === 'polyline') ? 'drawPolylinePath' : 'drawSmoothlinePath'](
+          ctx, currentValuePointData, false, true, true)
+
+        ctx.lineTo(...rightBottom)
+        ctx.lineTo(...leftBottom)
+
+        ctx.closePath()
+
+        ctx.fillStyle = getLinearGradientColor(ctx, colorBegin, axisOriginPos, fillColor)
+
+        ctx.fill()
+      })
     },
     drawValuePoints () {
       const { ctx, valuePointsData, data: { data, color }, canvas: { drawPoints } } = this
 
       const colorNum = color.length
 
-      data.forEach(({ pointColor }, i) => drawPoints(ctx, valuePointsData[i], 4, pointColor || color[i % colorNum]))
+      data.forEach(({ pointColor, type }, i) =>
+        type !== 'column' &&
+        drawPoints(ctx, valuePointsData[i], 4, pointColor || color[i % colorNum]))
     }
   },
   mounted () {
@@ -230,10 +307,38 @@ export default {
 <style lang="less">
 .polyline-chart {
   position: relative;
+  display: flex;
+  flex-direction: column;
 
-  canvas {
-    width: 100%;
-    height: 100%;
+  .canvas-container {
+    flex: 1;
+
+    canvas {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .label-line {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 10px;
+  }
+
+  .label-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 15px;
+    margin: 0px 3px;
+
+    :nth-child(1) {
+      width: 10px;
+      height: 10px;
+      margin-right: 5px;
+    }
   }
 
   .for-slot {
