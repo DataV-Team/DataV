@@ -21,6 +21,7 @@ export default {
 
       defaultArcRadiusArea: [0.2, 0.8],
       defaultArcGap: 3,
+      defaultArcColor: ['#00c0ff', '#3de7c9'],
 
       arcRadius: [],
       arcRadian: [],
@@ -114,17 +115,15 @@ export default {
       this.arcRadian = new Array(data.length).fill(0).map((t, i) => data[i].value * fullRadian - offsetRadian)
     },
     calcArcColor () {
-      const { ctx, data: { color }, arcRadius: [ radius ], arcLineWidth, arcOriginPos: [x, y] } = this
+      const { ctx, arcLineWidth, defaultArcColor, canvas: { getLinearGradientColor } } = this
 
-      const linearGradientColor = ctx.createLinearGradient(x, y - radius - arcLineWidth, x, y + radius + arcLineWidth)
+      const { data: { color }, arcRadius: [ radius ], arcOriginPos: [x, y] } = this
 
-      const colorGap = 1 / (color.length - 1)
+      const colors = color || defaultArcColor
 
-      color.forEach((c, i) => linearGradientColor.addColorStop(colorGap * i, c))
-
-      this.arcColor = linearGradientColor
-
-      this.ctx.strokeStyle = linearGradientColor
+      this.arcColor = getLinearGradientColor(ctx,
+        [x, y - radius - arcLineWidth],
+        [x, y + radius + arcLineWidth], colors)
     },
     drawArc () {
       const { ctx, arcRadius, arcRadian, arcOriginPos, arcLineWidth, arcColor } = this
