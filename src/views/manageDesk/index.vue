@@ -134,9 +134,9 @@ export default {
               99.42, '', 99.56, '', '',
               99.56, 99.23, 99.62
             ],
-            fillColor: ['rgba(0, 186, 255, 0.3)', 'rgba(250, 250, 250, 0)'],
+            fillColor: ['rgba(0, 186, 255, 0.3)', 'rgba(0, 186, 255, 0)'],
             pointColor: '#00db95',
-            type: 'smoothline'
+            type: 'polyline'
           }
         ],
         color: ['#00baff'],
@@ -216,6 +216,7 @@ export default {
           num: 6,
           unit: '单位'
         },
+        labelLine: ['收费系统', '收费系统', '监控系统', '供配电系统'],
         color: ['#00baff', '#3de7c9', '#44f23a', '#342432']
       },
 
