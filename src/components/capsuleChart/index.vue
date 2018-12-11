@@ -72,8 +72,6 @@ export default {
 </script>
 
 <style lang="less">
-@import url('../../assets/style/index.less');
-
 .capsule-chart {
   position: relative;
   display: flex;
@@ -88,7 +86,7 @@ export default {
     box-sizing: border-box;
     padding-right: 10px;
     text-align: right;
-    font-size: @CCLCFS;
+    font-size: 12px;
 
     div {
       height: 20px;
@@ -104,7 +102,7 @@ export default {
   }
 
   .capsule-item {
-    box-shadow: 0 0 3px @CCCIBSC;
+    box-shadow: 0 0 3px #999;
     height: 10px;
     margin: 5px 0px;
     border-radius: 5px;
@@ -122,7 +120,7 @@ export default {
     display: flex;
     flex-direction: row;
     line-height: 20px;
-    font-size: @CCULFS;
+    font-size: 12px;
   }
 
   .unit-text {

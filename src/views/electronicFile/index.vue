@@ -473,8 +473,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url('../../assets/style/electroniceFile.less');
-
 #electronic-file {
   width: 100%;
   height: 100%;
@@ -490,12 +488,12 @@ export default {
     .left {
       left: 35px;
       bottom: 0px;
-      font-size: @EFHLFS;
-      color: @EFHLTC;
+      font-size: 20px;
+      color: rgba(1, 134, 187, 0.91);
     }
 
     .middle {
-      font-size: @EFHMFS;
+      font-size: 33px;
       left: 50%;
       bottom: 0px;
       transform: translateX(-50%);
@@ -503,7 +501,7 @@ export default {
 
     .right {
       width: 140px;
-      font-size: @EFHRFS;
+      font-size: 18px;
       right: 130px;
       bottom: -20px;
       text-align: center;
@@ -521,7 +519,7 @@ export default {
 
     .left-title {
       height: 35px;
-      font-size: @EFLTFS;
+      font-size: 32px;
       text-align: center;
       line-height: 35px;
       margin-bottom: 30px;
@@ -537,13 +535,13 @@ export default {
       }
 
       :nth-child(1) {
-        font-size: @EFDNTFS;
+        font-size: 16px;
         text-indent: 20px;
       }
 
       :nth-child(2) {
-        font-size: @EFDNNFS;
-        color: @EFNC;
+        font-size: 34px;
+        color: rgb(9, 109, 217);
         font-weight: bold;
         margin-left: 30px;
       }
@@ -553,7 +551,7 @@ export default {
       height: 30px;
       line-height: 30px;
       text-indent: 20px;
-      font-size: @EFLSFS;
+      font-size: 16px;
     }
 
     .left-chart {
@@ -588,7 +586,7 @@ export default {
     .rtl-header {
       position: relative;
       height: 50px;
-      font-size: @EFRTLHFS;
+      font-size: 32px;
       line-height: 50px;
       text-align: center;
       overflow: hidden;
@@ -616,7 +614,7 @@ export default {
       margin-top: 50px;
 
       .device-num-container {
-        font-size: @EFRTLDNFS;
+        font-size: 32px;
 
         .number-show {
           margin-left: 20px;
@@ -645,13 +643,13 @@ export default {
           font-family: "Microsoft Yahei", Arial, sans-serif;
 
           :nth-child(1) {
-            font-size: @EFRTLNINFS;
+            font-size: 34px;
             text-indent: 35px;
             font-weight: bold;
           }
 
           :nth-child(2) {
-            font-size: @EFRTLNITFS;
+            font-size: 24px;
             margin-left: 20px;
           }
         }
@@ -670,7 +668,7 @@ export default {
     .rtr-title {
       height: 25px;
       line-height: 25px;
-      font-size: @EFRTRTFS;
+      font-size: 24px;
       font-weight: bold;
     }
 
@@ -688,16 +686,16 @@ export default {
         }
 
         :nth-child(1) {
-          color: @EFNC;
+          color: rgb(9, 109, 217);
           font-weight: bold;
-          font-size: @EFDNNFS;
+          font-size: 34px;
           height: 100px;
           line-height: 100px;
           margin-top: 30px;
         }
 
         :nth-child(2) {
-          font-size: @EFDNTFS;
+          font-size: 16px;
         }
       }
 
@@ -729,7 +727,7 @@ export default {
       flex: 1;
 
       .station-name {
-        font-size: @EFBSNFS;
+        font-size: 20px;
         text-align: center;
         margin-top: 20px;
         height: 30px;

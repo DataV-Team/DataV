@@ -14,8 +14,6 @@ export default {
 </script>
 
 <style lang="less">
-@import url('../../assets/style/index.less');
-
 .number-show {
   display: inline-block;
 
@@ -25,11 +23,11 @@ export default {
     padding: 0 20px;
     line-height: 70px;
     text-align: center;
-    background-color: @NSIBC;
+    background-color: rgba(4, 49, 128, 0.6);
     margin-right: 20px;
-    color: @NSINC;
+    color: rgb(8, 229, 255);
     font-weight: bold;
-    font-size: @NSIFS;
+    font-size: 45px;
   }
 }
 </style>

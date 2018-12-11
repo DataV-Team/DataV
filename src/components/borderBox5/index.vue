@@ -45,8 +45,6 @@ export default {
 </script>
 
 <style lang="less">
-@import url('../../assets/style/index.less');
-
 .border-box-5 {
   position: relative;
   box-sizing: border-box;
@@ -70,21 +68,21 @@ export default {
 
   .line-1 {
     stroke-width: 1;
-    stroke: fade(@BB5SC, 35);
+    stroke: fade(#fff, 35);
   }
 
   .line-2 {
-    stroke: fade(@BB5SC, 20);
+    stroke: fade(#fff, 20);
   }
 
   .line-3, .line-6 {
     stroke-width: 5;
-    stroke: fade(@BB5SC, 15);
+    stroke: fade(#fff, 15);
   }
 
   .line-4, .line-5 {
     stroke-width: 2;
-    stroke: fade(@BB5SC, 15);
+    stroke: fade(#fff, 15);
   }
 
 }

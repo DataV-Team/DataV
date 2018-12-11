@@ -412,8 +412,6 @@ export default {
 </script>
 
 <style lang="less">
-@import url('../../assets/style/manageDesk.less');
-
 #manage-desk {
   width: 100%;
   height: 100%;
@@ -429,13 +427,12 @@ export default {
     .left {
       left: 35px;
       bottom: 0px;
-      font-size: @MDHLFS;
-      color: @MDHLTC;
+      font-size: 20px;
+      color: rgba(1, 134, 187, 0.91);
     }
 
     .middle {
-      font-size: @MDHMFS;
-      font-weight: bold;
+      font-size: 33px;
       left: 50%;
       bottom: 0px;
       transform: translateX(-50%);
@@ -443,7 +440,7 @@ export default {
 
     .right {
       width: 140px;
-      font-size: @MDHRFS;
+      font-size: 18px;
       right: 130px;
       bottom: -20px;
       text-align: center;

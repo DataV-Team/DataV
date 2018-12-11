@@ -1,12 +1,12 @@
 <template>
-  <div id="app" ref="app">
+  <div id="app" ref="data-root">
     <current-data-v />
   </div>
 </template>
 
 <script>
-// import currentDataV from './views/electronicFile/index'
-import currentDataV from './views/manageDesk/index'
+import currentDataV from './views/electronicFile/index'
+// import currentDataV from './views/manageDesk/index'
 
 export default {
   name: 'app',
@@ -34,7 +34,7 @@ export default {
 
       this.allWidth = width
 
-      const app = this.app = this.$refs['app']
+      const app = this.app = this.$refs['data-root']
 
       app.style.width = `${width}px`
       app.style.height = `${height}px`

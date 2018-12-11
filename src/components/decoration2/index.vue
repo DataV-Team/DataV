@@ -34,25 +34,23 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import url('../../assets/style/index.less');
-
 .decoration-2 {
 
   .reverse, .normal {
-    background-color: @D2LC;
+    background-color: #3faacb;
   }
 
   .normal {
     width: 0%;
     height: 1px;
-    border-right: 1px solid @D2TC;
+    border-right: 1px solid #fff;
     animation: normal-amt 6s ease-in-out infinite;
   }
 
   .reverse {
     width: 1px;
     height: 0%;
-    border-bottom: 1px solid @D2TC;
+    border-bottom: 1px solid #fff;
     animation: reverse-amt 6s ease-in-out infinite;
   }
 

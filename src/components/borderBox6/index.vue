@@ -52,8 +52,6 @@ export default {
 </script>
 
 <style lang="less">
-@import url('../../assets/style/index.less');
-
 .border-box-6 {
   position: relative;
   box-sizing: border-box;
