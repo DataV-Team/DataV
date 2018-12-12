@@ -23,30 +23,30 @@
 
           <border-box-5 class="top-left-box-1">
             <div class="tlb-text">
-              <div>{{ topLeftCard1Data[0] }}</div>
-              <div class="small-text">{{ topLeftCard1Data[1] }}</div>
-              <div class="small-text">{{ topLeftCard1Data[2] }}</div>
+              <div>{{ chart1Data.monthSum }}</div>
+              <div class="small-text">{{ chart1Data.lastMonthSum }}</div>
+              <div class="small-text">{{ chart1Data.lastYearMonthSum }}</div>
             </div>
           </border-box-5>
 
           <border-box-5 class="top-left-box-2" :reverse="true">
             <div class="tlb-text">
-              <div>{{ topLeftCard2Data[0] }}</div>
-              <div class="small-text">{{ topLeftCard2Data[1] }}</div>
-              <div class="small-text">{{ topLeftCard2Data[2] }}</div>
+              <div>{{ chart1Data.personDayAvg }}</div>
+              <div class="small-text">{{ chart1Data.personLastMonthDayAvg }}</div>
+              <div class="small-text">{{ chart1Data.personLastYearMonthDayAvg }}</div>
             </div>
           </border-box-5>
         </div>
 
         <div class="top-right">
-          <polyline-chart :data="topRightChart1Data">
+          <polyline-chart :data="chart2Data">
             <div class="title-item">
               设备完好率月趋势
               <decoration-3 />
             </div>
           </polyline-chart>
 
-          <polyline-chart :data="topRightChart2Data">
+          <polyline-chart :data="chart3Data">
             <div class="title-item">
               设备故障月趋势
               <decoration-3 />
@@ -62,13 +62,13 @@
 
           <div class="bottom-left-item">
             <div class="bli-title">机电设备完好率</div>
-            <div class="bli-value left-value">99.06</div>
-            <arc-ring-chart class="bli-chart" :data="bottomLeftChart1Data" />
+            <div class="bli-value left-value">{{ chart4Data.deviceNormalPercent }}</div>
+            <arc-ring-chart class="bli-chart" :data="chart4Data.data" />
           </div>
           <div class="bottom-left-item">
             <div class="bli-title">任务维修平均用时</div>
-            <div class="bli-value right-value">55.0</div>
-            <concentric-arc-chart class="bli-chart" :data="bottomLeftChart2Data" />
+            <div class="bli-value right-value">{{ chart5Data.avgTime}}</div>
+            <concentric-arc-chart class="bli-chart" :data="chart5Data.data" />
           </div>
         </border-box-6>
 
@@ -78,7 +78,7 @@
               <img src="./img/1.png" />人员贡献排行榜
             </div>
 
-            <scroll-board :data="bottomRightScrollBorad1Data" />
+            <scroll-board :data="chart6Data" />
           </border-box-6>
 
           <border-box-6 class="bottom-right-item">
@@ -86,7 +86,7 @@
               <img src="./img/2.png" />故障设备排行榜
             </div>
 
-            <scroll-board :data="bottomRightScrollBorad2Data" />
+            <scroll-board :data="chart7Data" />
           </border-box-6>
 
           <border-box-6 class="bottom-right-item">
@@ -102,7 +102,7 @@
               <img src="./img/4.png" />故障位置排行榜
             </div>
 
-            <scroll-board :data="bottomRightScrollBorad4Data" />
+            <scroll-board :data="chart9Data" />
           </border-box-6>
         </div>
       </div>
@@ -116,15 +116,20 @@ export default {
   data () {
     return {
       technicalSupport: '技术支持：河南东方世纪交通科技股份有限公司',
-      topMiddleTitle: '漯周界-机电运维管理台',
+      topMiddleTitle: '机电运维管理台',
 
-      // 上部左边第一个卡片数据
-      topLeftCard1Data: ['22.0', '66', '0'],
-      // 上部左边第二个卡片数据
-      topLeftCard2Data: ['0.1', '66', '0'],
+      // 上部左边卡片数据
+      chart1Data: {
+        monthSum: 0,
+        lastMonthSum: 81,
+        lastYearMonthSum: 0,
+        personDayAvg: 0.1,
+        personLastMonthDayAvg: 0.3,
+        personLastYearMonthDayAvg: 0
+      },
 
       // 上部右边第一个图表数据
-      topRightChart1Data: {
+      chart2Data: {
         data: [
           {
             data: [
@@ -154,11 +159,12 @@ export default {
           fixed: 2,
           num: 10,
           unit: '%'
-        }
+        },
+        labelLine: ['设备完好率']
       },
 
       // 上部右边第二个图表数据
-      topRightChart2Data: {
+      chart3Data: {
         data: [
           {
             data: [
@@ -221,64 +227,70 @@ export default {
       },
 
       // 底部左边第一个图表数据
-      bottomLeftChart1Data: {
-        data: [
-          {
-            value: 19,
-            title: '监控系统'
-          },
-          {
-            value: 16,
-            title: '收费系统'
-          },
-          {
-            value: 24,
-            title: '通信系统'
-          },
-          {
-            value: 14,
-            title: '供配电系统'
-          },
-          {
-            value: 27,
-            title: '其他'
-          }
-        ],
-        color: ['#00c0ff', '#3de7c9', '#fff']
+      chart4Data: {
+        data: {
+          data: [
+            {
+              value: 19,
+              title: '监控系统'
+            },
+            {
+              value: 16,
+              title: '收费系统'
+            },
+            {
+              value: 24,
+              title: '通信系统'
+            },
+            {
+              value: 14,
+              title: '供配电系统'
+            },
+            {
+              value: 27,
+              title: '其他'
+            }
+          ],
+          color: ['#00c0ff', '#3de7c9', '#fff']
+        },
+        deviceNormalPercent: 99.01
       },
 
       // 底部左边第二个图表数据
-      bottomLeftChart2Data: {
-        data: [
-          {
-            value: 0.38,
-            title: '8小时以内'
-          },
-          {
-            value: 0.57,
-            title: '24小时以内'
-          },
-          {
-            value: 0.7,
-            title: '48小时以内'
-          },
-          {
-            value: 0.78,
-            title: '72小时以内'
-          },
-          {
-            value: 0.22,
-            title: '大于72小时'
-          }
-        ],
-        color: ['#00c0ff', '#3de7c9'],
-        arcArea: [0.3, 0.7],
-        arcGap: 5,
-        fontSize: 12
+      chart5Data: {
+        data: {
+          data: [
+            {
+              value: 0.38,
+              title: '8小时以内'
+            },
+            {
+              value: 0.57,
+              title: '24小时以内'
+            },
+            {
+              value: 0.7,
+              title: '48小时以内'
+            },
+            {
+              value: 0.78,
+              title: '72小时以内'
+            },
+            {
+              value: 0.22,
+              title: '大于72小时'
+            }
+          ],
+          color: ['#00c0ff', '#3de7c9'],
+          arcArea: [0.3, 0.7],
+          arcGap: 5,
+          fontSize: 12
+        },
+        avgTime: 55.1
       },
 
       // 底部右边第一个滚动榜单数据
-      bottomRightScrollBorad1Data: {
+      chart6Data: {
         data: [
           {
             title: '赵亚伟',
@@ -317,7 +329,7 @@ export default {
       },
 
       // 底部右边第二个滚动榜单数据
-      bottomRightScrollBorad2Data: {
+      chart7Data: {
         data: [
           {
             title: '液晶显示器',
@@ -379,7 +391,7 @@ export default {
       },
 
       // 底部右边第四个滚动榜单数据
-      bottomRightScrollBorad4Data: {
+      chart9Data: {
         data: [
           {
             title: '收费广场',
@@ -403,10 +415,58 @@ export default {
           }
         ],
         showItemNum: 4
-      }
+      },
+
+      path: '/rest/datav/manage/interface/list',
+      paths: []
+    }
+  },
+  methods: {
+    async init () {
+      const { getAllPaths, getChartsData } = this
+
+      await getAllPaths()
+
+      await getChartsData()
+    },
+    getAllPaths () {
+      const { path, $http: { get } } = this
+
+      return get(path).then(({ code, data }) => {
+        if (code === 'success') {
+          this.paths = data.interfaces
+
+          this.topMiddleTitle = data.title
+        } else {
+          console.error('数据返回异常!')
+        }
+      }).catch(e => {
+        console.error('DataV接口数据异常!')
+      })
+    },
+    getChartsData () {
+      const { paths, getChartData, getChartsData } = this
+
+      return Promise.all(paths.map(path => getChartData(path))).then(e => setTimeout(getChartsData, 30000))
+    },
+    async getChartData ({ number, url }) {
+      const { $http: { get } } = this
+
+      if (!url) return
+
+      return get(url).then(({ code, data }) => {
+        if (code === 'success') {
+          this[`chart${number}Data`] = data
+        } else {
+          console.error(`${number}接口异常`)
+        }
+      }).catch(e => console.error(`${number}接口异常`))
     }
   },
   created () {
+    const { init } = this
+
+    init()
   }
 }
 </script>
