@@ -14,7 +14,7 @@ import capsuleChart from './capsuleChart/index.vue'
 import ringChart from './ringChart/index.vue'
 import polylineChart from './polylineChart/index.vue'
 import concentricArcChart from './concentricArcChart/index.vue'
-import arcRingChart from './arcRingChart/idnex.vue'
+import arcRingChart from './arcRingChart/index.vue'
 
 import numberShow from './numberShow/index.vue'
 
