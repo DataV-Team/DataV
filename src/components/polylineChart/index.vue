@@ -3,6 +3,9 @@
     <div class="canvas-container">
       <canvas :ref="ref" />
     </div>
+
+    <loading v-if="!data" />
+
     <div v-if="data.labelLine" class="label-line">
       <div class="label-item" v-for="(label, i) in data.labelLine" :key="label + i">
         <div :style="`background-color: ${data.color[i % data.color.length]};`"></div>
@@ -41,9 +44,9 @@ export default {
   },
   watch: {
     data (d) {
-      const { draw } = this
+      const { init } = this
 
-      d && draw()
+      d && init()
     }
   },
   methods: {
@@ -112,8 +115,8 @@ export default {
 
       let [unsetMax, unsetMin] = [false, false]
 
-      !max && (max = Math.max(...data.map(({ data: td }) => Math.max(...td)))) && (unsetMax = true)
-      !min && (min = Math.min(...data.map(({ data: td }) => Math.min(...filterNull(td))))) && (unsetMin = true)
+      !max && max !== 0 && (max = Math.max(...data.map(({ data: td }) => Math.max(...td)))) && (unsetMax = true)
+      !min && min !== 0 && (min = Math.min(...data.map(({ data: td }) => Math.min(...filterNull(td))))) && (unsetMin = true)
 
       let minus = max - min
 
@@ -209,8 +212,10 @@ export default {
 
       const minus = max - min
 
+      const numberData = data.map(({ data: td }) => ({ data: td.map(v => ((!v && v === 0) || v) ? Number(v) : NaN) }))
+
       this.valuePointsData =
-        data.map(({ data: td }) =>
+        numberData.map(({ data: td }) =>
           td.map((v, i) =>
             Number.isFinite(v)
               ? [xPos[i], axisOriginPos[1] - (v - min) / minus * axisWH[1]]
@@ -223,7 +228,7 @@ export default {
 
       const colorNum = color.length
 
-      const columnWidth = rowColumnSize[1]
+      const columnWidth = rowColumnSize[1] / 3 * 2
 
       const offset = columnWidth / 2
 
