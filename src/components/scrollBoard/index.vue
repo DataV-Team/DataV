@@ -61,7 +61,11 @@ export default {
     getCurrentScrollData () {
       const { dealAfterData, data: { showItemNum }, currentTopIndex, doFade } = this
 
-      if (dealAfterData.length < showItemNum) return
+      if (dealAfterData.length < showItemNum) {
+        this.scrollData = dealAfterData
+
+        return
+      }
 
       const tempArray = dealAfterData.slice(currentTopIndex, currentTopIndex + showItemNum + 1)
 
