@@ -119,6 +119,10 @@ export default {
       this.ringLineWidth = ringRadius * 0.3
     },
     draw () {
+      const { ctx, canvasWH } = this
+
+      ctx.clearRect(0, 0, ...canvasWH)
+
       const { caclArcData, data: { active }, drawActive, drwaStatic } = this
 
       caclArcData()
@@ -134,19 +138,19 @@ export default {
 
       const full = 2 * Math.PI
 
+      const aveAngle = full / data.length
+
       let currentPercent = offsetAngle
 
       this.arcData = []
 
       data.forEach(({ value }) => {
-        const currentAngle = value / totalValue * full + currentPercent
+        const valueAngle = totalValue === 0 ? aveAngle : value / totalValue * full
 
         this.arcData.push([
           currentPercent,
-          currentAngle
+          currentPercent += valueAngle
         ])
-
-        currentPercent = currentAngle
       })
     },
     getTotalValue () {
@@ -232,7 +236,11 @@ export default {
     doPercentAnimation () {
       const { totalValue, percent, activeIndex, data: { data }, doPercentAnimation } = this
 
-      const currentPercent = Math.trunc(data[activeIndex].value / totalValue * 100)
+      if (!totalValue) return
+
+      let currentPercent = Math.trunc(data[activeIndex].value / totalValue * 100)
+
+      currentPercent === 0 && (currentPercent = 1)
 
       if (currentPercent === percent) return
 
@@ -252,10 +260,6 @@ export default {
       }, 2000)
     },
     drwaStatic () {
-      const { ctx, canvasWH } = this
-
-      ctx.clearRect(0, 0, ...canvasWH)
-
       const { drawStaticRing, calcAroundLineData, drawAroundLine, calcAroundTextData, drawAroundText } = this
 
       drawStaticRing()
@@ -276,19 +280,21 @@ export default {
       drawRing()
     },
     calcAroundLineData () {
-      const { arcData, ringRadius, ringLineWidth, ringOriginPos: [x, y] } = this
+      const { arcData, ringRadius, ringLineWidth, ringOriginPos: [x, y], data: { data }, canvas, totalValue } = this
 
-      const { sin, cos } = Math
+      const { getCircleRadianPoint } = canvas
 
       const radian = arcData.map(([a, b]) => (a + (b - a) / 2))
 
       const radius = ringRadius + ringLineWidth / 2
 
-      const aroundLineData = radian.map(r => [x + cos(r) * radius, y + sin(r) * radius])
+      const aroundLineData = radian.map(r => getCircleRadianPoint(x, y, radius, r))
 
       const lineLength = 35
 
-      this.aroundLineData = aroundLineData.map(([bx, by]) => {
+      this.aroundLineData = aroundLineData.map(([bx, by], i) => {
+        if (!data[i].value && totalValue) return [false, false]
+
         const lineEndXPos = (bx > x ? bx + lineLength : bx - lineLength)
 
         return [
@@ -302,42 +308,49 @@ export default {
 
       const colorNum = color.length
 
-      aroundLineData.forEach(([lineBegin, lineEnd], i) => drawLine(ctx, lineBegin, lineEnd, 1, color[i % colorNum]))
+      aroundLineData.forEach(([lineBegin, lineEnd], i) =>
+        lineBegin !== false &&
+        drawLine(ctx, lineBegin, lineEnd, 1, color[i % colorNum]))
     },
     calcAroundTextData () {
-      const { ctx, data: { data }, totalValue, aroundLineData } = this
+      const { data: { data }, totalValue } = this
 
-      const { ringOriginPos: [x], aroundTextFont } = this
-
-      ctx.font = aroundTextFont
-
-      this.aroundTextData = []
+      const aroundTextData = this.aroundTextData = []
 
       data.forEach(({ value, title }, i) => {
-        const percent = Math.trunc(value / totalValue * 100) + '%'
+        if (!value && totalValue) return aroundTextData.push([false, false])
 
-        const percentWidth = ctx.measureText(percent).width
-        const titleWidth = ctx.measureText(title).width
+        let percent = value / totalValue * 100
 
-        const lineEndXPos = aroundLineData[i][1][0]
-        const lineEndYPos = aroundLineData[i][1][1]
+        percent < 1 ? (percent = percent.toFixed(2)) : (percent = Math.trunc(percent))
 
-        const leftTrue = lineEndXPos < x
+        percent += '%'
 
-        this.aroundTextData.push(
-          [percent, (leftTrue ? lineEndXPos - percentWidth : lineEndXPos), lineEndYPos],
-          [title, (leftTrue ? lineEndXPos - titleWidth : lineEndXPos), lineEndYPos + 15]
-        )
+        !totalValue && (percent = '0%')
+
+        aroundTextData.push([percent, title])
       })
     },
     drawAroundText () {
-      const { ctx, aroundTextData, aroundTextFont } = this
+      const { ctx, aroundTextData, aroundTextFont, aroundLineData, ringOriginPos: [x] } = this
 
       ctx.font = aroundTextFont
       ctx.fillStyle = '#fff'
 
-      aroundTextData.forEach(item => {
-        ctx.fillText(...item)
+      aroundTextData.forEach(([percent, title], i) => {
+        if (percent === false) return
+
+        const currentPos = aroundLineData[i][1]
+
+        ctx.textAlign = 'start'
+
+        currentPos[0] < x && (ctx.textAlign = 'end')
+
+        ctx.textBaseline = 'bottom'
+        ctx.fillText(percent, ...currentPos)
+
+        ctx.textBaseline = 'top'
+        ctx.fillText(title, ...currentPos)
       })
     },
     reDraw () {
