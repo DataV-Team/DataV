@@ -27,6 +27,41 @@ function interception (fn, methods) {
     }
 
     return fn.apply(this, args)
+      .then(res => {
+        let { respCode, respMessage, serverDate, respBody, respList } = res.data
+        /**
+         * respCode:
+         * success   成功
+         * error     失败
+         * warning   警告
+         * fatalError 系统错误
+         * session_timeout 会话超时或无效
+         */
+        let temp = {
+          code: respCode,
+          msg: respMessage,
+          timestamp: serverDate,
+          data: {}
+        }
+        // 返回数据为list
+        if (respList) {
+          let data = {
+            list: respList,
+            pageIndex: res.data.pageIndex,
+            pageSize: res.data.pageSize,
+            pageCount: res.data.pages,
+            total: res.data.recCount
+          }
+          temp.data = data
+          // 开发对接接口过程中的辅助字段说明
+          if (res.data.zhConsult) {
+            temp.remarks = res.data.zhConsult
+          }
+        } else {
+          temp.data = { ...respBody }
+        }
+        return temp
+      })
   }
 }
 
