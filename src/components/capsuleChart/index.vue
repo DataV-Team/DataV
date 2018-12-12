@@ -15,10 +15,14 @@
         </div>
         <div class="unit-label">
           <div class="unit-container">
-            <div v-for="unit in unitData" :key="unit">{{ unit }}</div>
+            <div v-for="(unit, index) in unitData" :key="unit + index">{{ unit }}</div>
           </div>
           <div class="unit-text">单位</div>
         </div>
+      </div>
+
+      <div class="for-solt">
+        <slot></slot>
       </div>
     </template>
   </div>
@@ -56,7 +60,7 @@ export default {
 
       const maxValue = Math.max(...capsuleData)
 
-      this.capsuleData = capsuleData.map(v => v / maxValue)
+      this.capsuleData = capsuleData.map(v => maxValue ? v / maxValue : 0)
 
       const oneSixth = maxValue / 5
 
@@ -133,6 +137,14 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+  }
+
+  .for-solt {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
   }
 }
 </style>
