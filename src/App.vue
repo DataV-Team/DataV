@@ -1,12 +1,14 @@
 <template>
-  <div id="app" ref="data-root">
-    <current-data-v />
+  <div id="app">
+    <div class="datav-container" ref="data-root">
+      <current-data-v />
+    </div>
   </div>
 </template>
 
 <script>
-import currentDataV from './views/electronicFile/index'
-// import currentDataV from './views/manageDesk/index'
+// import currentDataV from './views/electronicFile/index'
+import currentDataV from './views/manageDesk/index'
 
 export default {
   name: 'app',
@@ -65,8 +67,15 @@ export default {
 <style lang="less">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  transform-origin: left top;
   overflow: hidden;
   user-select: none;
+  background-size: 100%;
+  background-image: url('./assets/img/bg.png');
+
+  .datav-container {
+    width: 100%;
+    height: 100%;
+    transform-origin: left top;
+  }
 }
 </style>
