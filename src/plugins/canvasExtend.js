@@ -140,6 +140,12 @@ export function getLinearGradientColor (ctx, begin, end, color) {
   return linearGradientColor
 }
 
+export function getCircleRadianPoint (x, y, radius, radian) {
+  const { sin, cos } = Math
+
+  return [x + cos(radian) * radius, y + sin(radian) * radius]
+}
+
 const canvas = {
   drawLine,
   drawPolylinePath,
@@ -149,7 +155,8 @@ const canvas = {
   drawSmoothline,
   drawBezierCurveLinePath,
   drawPoints,
-  getLinearGradientColor
+  getLinearGradientColor,
+  getCircleRadianPoint
 }
 
 export default function (Vue) {
