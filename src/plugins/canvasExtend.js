@@ -41,15 +41,22 @@ export function drawPolyline (ctx, points, lineWidth = 2, lineColor = '#000', cl
 }
 
 export function drawSmoothlinePath (ctx, points, close = false, newPath = false, moveTo = false) {
-  if (!ctx || points.length < 3) return
-
   const canDrawPoints = filterNull(points)
+
+  if (!ctx || canDrawPoints.length < 2) return
 
   close && canDrawPoints.push(canDrawPoints[0])
 
-  const lastPointIndex = canDrawPoints.length - 1
-
   newPath && ctx.beginPath()
+
+  if (canDrawPoints.length === 2) {
+    ctx.moveTo(...canDrawPoints[0])
+    ctx.lineTo(...canDrawPoints[1])
+
+    return
+  }
+
+  const lastPointIndex = canDrawPoints.length - 1
 
   moveTo && ctx.moveTo(...canDrawPoints[0])
 
