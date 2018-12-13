@@ -1,5 +1,5 @@
 {
-  "name": "jdyw_datav",
+  "name": "dataview",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "vue": "^2.5.17"
+    "highlight.js": "^9.13.1",
+    "vue": "^2.5.17",
+    "vue-router": "^3.0.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.1.1",

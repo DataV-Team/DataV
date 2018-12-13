@@ -4,6 +4,7 @@ import borderBox3 from './borderBox3/index'
 import borderBox4 from './borderBox4/index'
 import borderBox5 from './borderBox5/index'
 import borderBox6 from './borderBox6/index'
+import borderBox7 from './borderBox7/index'
 
 import decoration1 from './decoration1/index'
 import decoration2 from './decoration2/index'
@@ -22,6 +23,8 @@ import scrollBoard from './scrollBoard/index.vue'
 
 import loading from './loading/index.vue'
 
+import highlightCode from './highlightCode'
+
 export default function (Vue) {
   Vue.component('borderBox1', borderBox1)
   Vue.component('borderBox2', borderBox2)
@@ -29,6 +32,7 @@ export default function (Vue) {
   Vue.component('borderBox4', borderBox4)
   Vue.component('borderBox5', borderBox5)
   Vue.component('borderBox6', borderBox6)
+  Vue.component('borderBox7', borderBox7)
   Vue.component('decoration1', decoration1)
   Vue.component('decoration2', decoration2)
   Vue.component('decoration3', decoration3)
@@ -41,4 +45,5 @@ export default function (Vue) {
   Vue.component('numberShow', numberShow)
   Vue.component('scrollBoard', scrollBoard)
   Vue.component('loading', loading)
+  Vue.component('highlightCode', highlightCode)
 }

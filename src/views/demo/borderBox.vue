@@ -1,5 +1,5 @@
 <template>
-  <div id="border-box-demo">
+  <div id="border-box">
     <border-box-1 class="border-box-item">
       border-box-1
     </border-box-1>
@@ -39,12 +39,12 @@
 
 <script>
 export default {
-  name: 'BorderBoxDemo'
+  name: 'BorderBox'
 }
 </script>
 
 <style lang="less">
-#border-box-demo {
+#border-box {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

@@ -1,5 +1,5 @@
 <template>
-  <div id="decoration-demo">
+  <div id="decoration">
     <border-box-6 class="decoration-container">
       <decoration-1 class="decoration d1 center" />
       decoration-1
@@ -44,7 +44,7 @@ export default {
 </script>
 
 <style lang="less">
-#decoration-demo {
+#decoration {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

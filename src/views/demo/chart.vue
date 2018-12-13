@@ -1,5 +1,5 @@
 <template>
-  <div id="chart-demo">
+  <div id="chart">
     <border-box-4 class="chart-item">
       <capsule-chart :data="capsuleChartData" class="chart" />
 
@@ -278,7 +278,7 @@ color: ['#00baff', '#3de7c9', '#ffc53d', '#342432']
 
 <script>
 export default {
-  name: 'ChartDemo',
+  name: 'Chart',
   data () {
     return {
       capsuleChartData: {
@@ -599,7 +599,7 @@ export default {
 </script>
 
 <style lang="less">
-#chart-demo {
+#chart {
   display: flex;
   flex-direction: column;
 

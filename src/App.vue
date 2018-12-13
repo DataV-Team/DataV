@@ -1,81 +1,31 @@
 <template>
-  <div id="app">
-    <div class="datav-container" ref="data-root">
-      <current-data-v />
-    </div>
+  <div id="app" ref="data-root">
+    <router-view />
   </div>
 </template>
 
 <script>
-// import currentDataV from './views/electronicFile/index'
-import currentDataV from './views/manageDesk/index'
 
 export default {
-  name: 'app',
-  components: {
-    currentDataV
-  },
-  data () {
-    return {
-      scale: 0,
-      app: ''
-    }
-  },
-  methods: {
-    init () {
-      const { initConfig, setAppScale, bindReSizeEventHandler } = this
-
-      initConfig()
-
-      setAppScale()
-
-      bindReSizeEventHandler()
-    },
-    initConfig () {
-      const { width, height } = screen
-
-      this.allWidth = width
-
-      const app = this.app = this.$refs['data-root']
-
-      app.style.width = `${width}px`
-      app.style.height = `${height}px`
-    },
-    setAppScale () {
-      const { allWidth, app } = this
-
-      const currentWidth = document.body.clientWidth
-
-      app.style.transform = `scale(${currentWidth / allWidth})`
-    },
-    bindReSizeEventHandler () {
-      const { debounce, setAppScale } = this
-
-      if (!debounce) return
-
-      window.addEventListener('resize', debounce(100, setAppScale))
-    }
-  },
-  mounted () {
-    const { init } = this
-
-    init()
-  }
+  name: 'app'
 }
 </script>
 
 <style lang="less">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family:
+  'code',
+  '-apple-system',
+  'BlinkMacSystemFont',
+  'Helvetica Neue',
+  'PingFang SC',
+  'Microsoft YaHei',
+  'Source Han Sans SC',
+  'Noto Sans CJK SC',
+  'WenQuanYi Micro Hei',
+  'sans-serif';
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  user-select: none;
-  background-size: 100%;
-  background-image: url('./assets/img/bg.png');
-
-  .datav-container {
-    width: 100%;
-    height: 100%;
-    transform-origin: left top;
-  }
 }
 </style>

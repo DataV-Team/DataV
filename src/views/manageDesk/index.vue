@@ -1,7 +1,7 @@
 <template>
   <div id="manage-desk">
     <div class="header">
-      <div class="left">{{ technicalSupport }}</div>
+      <div class="left">技术支持:<a :href="technicalSupport" target="_BLANK">{{ technicalSupport }}</a></div>
       <div class="middle">{{ topMiddleTitle }}</div>
       <border-box-2 class="right">
         设备档案馆
@@ -115,8 +115,8 @@ export default {
   name: 'ManageDesk',
   data () {
     return {
-      technicalSupport: '技术支持：河南东方世纪交通科技股份有限公司',
-      topMiddleTitle: '机电运维管理台',
+      technicalSupport: 'https://github.com/jiaming743/DataV',
+      topMiddleTitle: 'Demo-机电运维管理台',
 
       // 上部左边卡片数据
       chart1Data: {
@@ -141,7 +141,7 @@ export default {
             ],
             fillColor: ['rgba(0, 186, 255, 0.3)', 'rgba(0, 186, 255, 0)'],
             pointColor: '#00db95',
-            type: 'polyline'
+            type: 'smoothline'
           }
         ],
         color: ['#00baff'],
@@ -167,63 +167,39 @@ export default {
       chart3Data: {
         data: [
           {
-            data: [
-              5, '', '', '',
-              2, '', '', '',
-              4, '', '', '',
-              2, '', '', '',
-              2, '', '', '',
-              2
-            ],
-            dashed: true
+            data: [2, 3, 6, 5, 4, 5, 2],
+            type: 'column',
+            columnColor:['rgba(0, 186, 255, 0.5)', 'rgba(0, 186, 255, 0.1)']
           },
           {
-            data: [
-              '', 4, '', '',
-              '', 3, '', '',
-              '', 4, '', '',
-              '', 2, '', '',
-              '', 2, '', '',
-              '', 2
-            ]
+            data: [1, 2, 4, 4, 5, 4, 1],
+            type: 'smoothline',
+            dashed: true,
+            fillColor:['rgba(61, 231, 201, 0.5)', 'rgba(61, 231, 201, 0.1)']
           },
           {
-            data: [
-              '', '', 3, '',
-              '', '', 2, '',
-              '', '', 2, '',
-              '', '', 2, '',
-              '', '', 2, '',
-              '', '', 2
-            ]
+            data: [0.5, 1, 3, 3, 4, 3, 0.5],
+            fillColor:['rgba(254, 217, 78, 0.5)', 'rgba(254, 217, 78, 0.1)']
           },
           {
-            data: [
-              '', '', '', 3,
-              '', '', '', 2,
-              '', '', '', 2,
-              '', '', '', 2,
-              '', '', '', 3,
-              '', '', '', 2
-            ]
+            data: [2, 3, 6, 5, 6, 5, 2]
           }
         ],
         x: {
           data: [
-            '', '', '', '', '', '', '10/07',
-            '', '', '', '', '', '', '10/14',
-            '', '', '', '', '', '', '10/21',
-            '', '', ''
+            '', '10/07',
+            '', '10/14',
+            '', '10/21', ''
           ]
         },
         y: {
-          max: 6,
+          max: 8,
           min: 0,
-          num: 6,
           unit: '单位'
         },
         labelLine: ['收费系统', '收费系统', '监控系统', '供配电系统'],
-        color: ['#00baff', '#3de7c9', '#44f23a', '#342432']
+        color: ['#00baff', '#3de7c9', '#f5d94e', '#ff5ca9'],
+        boundaryGap: true
       },
 
       // 底部左边第一个图表数据
@@ -415,58 +391,8 @@ export default {
           }
         ],
         showItemNum: 4
-      },
-
-      path: '/rest/datav/manage/interface/list',
-      paths: []
+      }
     }
-  },
-  methods: {
-    async init () {
-      const { getAllPaths, getChartsData } = this
-
-      await getAllPaths()
-
-      await getChartsData()
-    },
-    getAllPaths () {
-      const { path, $http: { get } } = this
-
-      return get(path).then(({ code, data }) => {
-        if (code === 'success') {
-          this.paths = data.interfaces
-
-          this.topMiddleTitle = data.title
-        } else {
-          console.error('数据返回异常!')
-        }
-      }).catch(e => {
-        console.error('DataV接口数据异常!')
-      })
-    },
-    getChartsData () {
-      const { paths, getChartData, getChartsData } = this
-
-      return Promise.all(paths.map(path => getChartData(path))).then(e => setTimeout(getChartsData, 30000))
-    },
-    async getChartData ({ number, url }) {
-      const { $http: { get } } = this
-
-      if (!url) return
-
-      return get(url).then(({ code, data }) => {
-        if (code === 'success') {
-          this[`chart${number}Data`] = data
-        } else {
-          console.error(`${number}接口异常`)
-        }
-      }).catch(e => console.error(`${number}接口异常`))
-    }
-  },
-  created () {
-    const { init } = this
-
-    init()
   }
 }
 </script>
@@ -475,6 +401,7 @@ export default {
 #manage-desk {
   width: 100%;
   height: 100%;
+  color: #fff;
 
   .header {
     position: relative;
@@ -489,6 +416,15 @@ export default {
       bottom: 0px;
       font-size: 20px;
       color: rgba(1, 134, 187, 0.91);
+
+      a {
+
+        &:hover,
+        &:active,
+        &:visited {
+          color: rgba(1, 134, 187, 0.91);
+        }
+      }
     }
 
     .middle {
