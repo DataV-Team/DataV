@@ -1,90 +1,165 @@
 <template>
   <div id="chart">
-    <border-box-4 class="chart-item">
+    <border-box-7 class="chart-item">
+      <radar-chart :data="radarChartData" :colors="colors" class="chart" />
+
+      <div class="config-info">
+        <div class="title">Radar-Chart</div>
+        <highlight-code>
+&lt;radar-chart :data="data" :colors="color" /&gt;
+        </highlight-code>
+
+        <highlight-code>
+data: {
+  // 必填项
+  data: [
+    {
+      // 必填项
+      data: [180, 250, 300, 500, 600]
+      // 非必须 可单独配置填充及线条颜色
+      // color: '#f92655',
+      // 非必需 可设置线条为虚线
+      dashed: true
+    },
+    {
+      data: [210, 330, 450, 261, 448]
+    }, ...
+  ],
+  label: {
+    // 必填项 空值自动跳过
+    data: ['石家庄', '周口', '南阳', '驻马店', '郑州'],
+    // 非必须 可配置label颜色
+    // color: '#fff'
+  },
+  // 非必须 不配置此项 图例下不会显示label标签
+  labelLine: ['同期', '环期'],
+  // 非必须 可配置图例最大半径比例
+  // radius: 0.8,
+  // 非必需 可配置雷达环个数
+  // circleNum: 6
+}
+        </highlight-code>
+      </div>
+    </border-box-7>
+
+    <border-box-7 class="chart-item">
       <capsule-chart :data="capsuleChartData" class="chart" />
 
       <div class="config-info">
-        <div class="header">Capsule-Chart</div>
-        <pre>
+        <div class="title">Capsule-Chart</div>
+        <highlight-code>
+&lt;capsule-chart :data="data" /&gt;
+        </highlight-code>
+
+        <highlight-code>
 data: {
+  // 必填项
   data: [
     {
       value: 85,
       title: '收费系统'
     },...
   ],
-  color: ['#00baff', '#3de7c9', '#ffffff', '#ffc53d', '#469f4b']
+  // 必填项 依次循环使用
+  color: ['#00baff', '#3de7c9', ...]
 }
-        </pre>
+        </highlight-code>
       </div>
-    </border-box-4>
+    </border-box-7>
 
-    <border-box-4 class="chart-item" :reverse="true">
+    <border-box-7 class="chart-item" :reverse="true">
       <arc-ring-chart :data="arcRingChartData" class="chart" />
       <div class="config-info">
-        <div class="header">Arc-Ring-Chart</div>
-        <pre>
+        <div class="title">Arc-Ring-Chart</div>
+
+        <highlight-code>
+&lt;capsule-chart :data="data" /&gt;
+        </highlight-code>
+
+        <highlight-code>
 data: {
+  // 必填项
   data: [
     {
       value: 38,
       title: '监控系统'
     },...
   ],
-  color: ['#00c0ff', '#3de7c9', '#fff']
+  // 必填项 依次循环使用
+  color: ['#00c0ff', '#3de7c9', ...]
 }
-        </pre>
+        </highlight-code>
       </div>
-    </border-box-4>
+    </border-box-7>
 
-    <border-box-4 class="chart-item">
+    <border-box-7 class="chart-item">
       <concentric-arc-chart :data="concentricArcChartData" class="chart" />
 
       <div class="config-info">
-        <div class="header">Concentric-Arc-Chart</div>
-        <pre>
+        <div class="title">Concentric-Arc-Chart</div>
+
+        <highlight-code>
+&lt;concentric-arc-chart :data="data" /&gt;
+        </highlight-code>
+
+        <highlight-code>
 data: {
+  // 必填项
   data: [
     {
       value: 0.38,
       title: '8小时以内'
     },...
   ],
-  color: ['#00c0ff', '#3de7c9'], // 多个颜色 即可产生对应渐变色
+  // 必填项 多个颜色自动生成渐变色
+  color: ['#00c0ff', '#3de7c9']
   arcArea: [0.3, 0.7],           // 非必须
   arcGap: 5,                     // 非必须
   fontSize: 12                   // 非必须
 }
-        </pre>
+        </highlight-code>
       </div>
-    </border-box-4>
+    </border-box-7>
 
-    <border-box-4 class="chart-item" :reverse="true">
+    <border-box-7 class="chart-item" :reverse="true">
       <ring-chart :data="ringChart1" class="chart" />
 
       <div class="config-info">
-        <div class="header">Ring-Chart</div>
-        <pre>
+        <div class="title">Ring-Chart</div>
+
+        <highlight-code>
+&lt;ring-chart :data="data" /&gt;
+        </highlight-code>
+
+        <highlight-code>
 data: {
+  // 必填项
   data: [
     {
       value: 1315,
       title: '收费站'
     },...
   ],
-  color: ['#00baff', '#3de7c9', '#ffffff', '#ffc53d', '#469f4b'],
-  active: true      // 为false时 无动态效果
+  // 必填项 依次循环使用
+  color: ['#00baff', '#3de7c9'],
+  // 为false时 无动态效果
+  active: true
 }
-        </pre>
+        </highlight-code>
       </div>
-    </border-box-4>
+    </border-box-7>
 
-    <border-box-4 class="chart-item">
+    <border-box-7 class="chart-item">
       <ring-chart :data="ringChart2" class="chart" />
 
       <div class="config-info">
-        <div class="header">Ring-chart</div>
-        <pre>
+        <div class="title">Ring-chart</div>
+
+        <highlight-code>
+&lt;ring-chart :data="data" /&gt;
+        </highlight-code>
+
+        <highlight-code>
 data: {
   data: [
     {
@@ -92,86 +167,98 @@ data: {
       title: '收费站'
     },...
   ],
-  color: ['#00baff', '#3de7c9', '#ffffff', '#ffc53d', '#469f4b'],
-  active: false      // 为true时 有动态效果
+  // 非必须 依次循环使用
+  color: ['#00baff', '#3de7c9'],
+  // 为true时 有动态效果
+  active: false,
+  // 非必须 该项可设置百分比精度 active为false时无效
+  // fixed: 2
 }
-        </pre>
+        </highlight-code>
       </div>
-    </border-box-4>
+    </border-box-7>
 
-    <border-box-4 class="chart-item" :reverse="true">
+    <border-box-7 class="chart-item" :reverse="true">
       <polyline-chart :data="polylineChartData1" class="chart" />
 
       <div class="config-info">
-        <div class="header">Polyline-chart</div>
-        <pre>
+        <div class="title">Polyline-chart</div>
+
+        <highlight-code>
+&lt;polyline-chart :data="data" /&gt;
+        </highlight-code>
+
+        <highlight-code>
 data: {
   data: [
     {
-      // 存在空位时 该点忽略
-      data: [99.81, 99.42, 99.56, 99.23, 99.62, 99.36, 99.56, '', 99.81, 99.56,
-        99.56, '', '', 99.36, 99.42, '', 99.56, '', '', 99.56, 99.23, 99.62],
-      // 配置此项 将进行颜色填充 非必须
+      // 必填项 存在空位时 该点忽略
+      data: [99.81, '', ..., '', 99.23, 99.62],
+      // 非必须 配置此项 将进行颜色填充
       fillColor: ['rgba(0, 186, 255, 0.3)', 'rgba(0, 186, 255, 0)'],
-      // 配置此项可更改数据点颜色 不配置 自动才用全局颜色 非必须
+      // 非必须 配置此项可更改数据点颜色
       pointColor: '#00db95',
-      // 配置此项可更改数据线颜色 不配置 自动采用全局颜色 并进行透明度处理 比数据点颜色略低 非必须
+      // 非必须 配置此项可更改线条颜色
       lineColor: '#ffc53d',
-      // 默认为折线 可选项有 polyline 折线 | smoothline 平滑曲线 | column 柱状 非必须
+      // 非必须 默认为折线
+      // 可选项有 polyline 折线 | smoothline 平滑曲线 | column 柱状
       type: 'polyline'
-      dashed: true // 默认为false 实线 非必须
+      // 默认为false 实线 非必须
+      dashed: true
     },...
   ],
-  color: ['#00baff', '#3de7c9', '#ffffff', '#ffc53d', '#469f4b'],
+  // 非必须 依次循环使用
+  color: ['#00baff', '#3de7c9', ...],
   x: {
     // 必填项 不想显示底部刻度 可以全留空位
-    data: [ '10/01', '', '10/03', '', '10/05', '', '10/07', '', '10/09', '', '10/11', '',
-      '10/13', '', '10/15', '', '10/17', '', '10/19', '', '10/21', '', '10/23' ],
-    unit: '%'       // 单位展示 非必须
-    // fontSize: 20 // x轴刻度字体大小 非必须
-    // offset: 30   // x轴向上偏移 此处未配置 非必须
+    data: [ '10/01', '', ..., '', '10/23' ],
+    // unit: '日期'     // 非必须 单位展示
+    // fontSize: 20     // 非必须 x轴刻度字体大小
+    // offset: 30       // 非必须 x轴向上偏移 此处未配置
   },
   y: {
-    min: 96,    // y轴最小值 未配置则自动根据数据计算 非必须
-    max: 100,   // y轴最大值 未配置则自动根据数据计算 非必须
-    fixed: 2,   // y轴刻度
-    num: 10,    // 刻度个数 默认为10 数据范围不足10则自动缩减 非必须
-    unit: '%'   // 单位展示 非必须
-    // fontSize: 20     // x轴刻度字体大小 非必须
-    // offset: 30       // x轴向上偏移 此处未配置 非必须
+    min: 96,            // 非必须 y轴最小值 未配置则自动根据数据计算
+    max: 100,           // 非必须 y轴最大值 未配置则自动根据数据计算
+    fixed: 2,           // 非必须 y轴刻度精度
+    num: 10,            // 非必须刻度个数 默认为10 数据范围不足10则自动缩减
+    unit: '%'           // 非必须 单位展示
+    // fontSize: 20     // 非必须 x轴刻度字体大小
+    // offset: 30       // 非必须 x轴向上偏移
   },
-  // boundaryGap: false // 配置为true 将不贴合边界进行绘制 非必须
+  // boundaryGap: false // 非必须 配置为true 将不贴合边界进行绘制
 }
-        </pre>
+        </highlight-code>
       </div>
-    </border-box-4>
+    </border-box-7>
 
-    <border-box-4 class="chart-item">
+    <border-box-7 class="chart-item">
       <polyline-chart :data="polylineChartData2" class="chart" />
 
       <div class="config-info">
-        <div class="header">Polyline-chart</div>
-        <pre>
+        <div class="title">Polyline-chart</div>
+
+        <highlight-code>
+&lt;polyline-chart :data="data" /&gt;
+        </highlight-code>
+
+        <highlight-code>
 data: {
   data: [
     {
-      data: [99.81, 99.42, 99.56, 99.23, 99.62, 99.36, 99.56, '', 99.81, 99.56,
-        99.42, 99.56, '', '', 99.36, 99.42, '', 99.56, '', '', 99.56, 99.23, 99.62],
+      data: [99.81, ..., 99.81, 99.56],
       fillColor: ['rgba(0, 186, 255, 0.3)', 'rgba(0, 186, 255, 0)'],
       pointColor: '#00db95',
       type: 'polyline'
     },
     {
-      data: [97.81, 97.42, 97.56, 97.23, 97.62, 97.36, 97.56, '', 97.81, 97.56,
-        97.42, 97.56, '', '', 97.36, 97.42, '', 97.56, '', '', 97.56, 97.23, 97.62],
+      data: [97.81, ..., 97.23, 97.62],
       fillColor: ['rgba(0, 219, 149, 0.3)', 'rgba(0, 219, 149, 0)'],
       type: 'smoothline'
     }
   ],
-  color: ['#00baff', '#3de7c9', '#ffffff', '#ffc53d', '#469f4b'],
+  color: ['#00baff', '#3de7c9', ...],
   x: {
-    data: ['10/01', '', '10/03', '', '10/05', '', '10/07', '', '10/09', '', '10/11', '',
-      '10/13', '', '10/15', '', '10/17', '', '10/19', '', '10/21', '', '10/23']
+    data: ['10/01', '', ..., '', '10/23']
   },
   y: {
     fixed: 2,
@@ -179,16 +266,21 @@ data: {
   },
   boundaryGap: true
 }
-        </pre>
+        </highlight-code>
       </div>
-    </border-box-4>
+    </border-box-7>
 
-    <border-box-4 class="chart-item" :reverse="true">
+    <border-box-7 class="chart-item" :reverse="true">
       <polyline-chart :data="polylineChartData3" class="chart" />
 
       <div class="config-info">
-        <div class="header">Polyline-chart</div>
-        <pre>
+        <div class="title">Polyline-chart</div>
+
+        <highlight-code>
+&lt;polyline-chart :data="data" /&gt;
+        </highlight-code>
+
+        <highlight-code>
 data: {
   data: [
     {
@@ -212,58 +304,59 @@ data: {
   },
   boundaryGap: true
 }
-        </pre>
+        </highlight-code>
       </div>
-    </border-box-4>
+    </border-box-7>
 
-    <border-box-4 class="chart-item">
+    <border-box-7 class="chart-item">
       <polyline-chart :data="polylineChartData4" class="chart" />
 
       <div class="config-info">
-        <div class="header">Polyline-chart</div>
-        <pre>
-data: [
-  {
-    data: [5, '', '', '', 2, '', '', '', 4, '', '', '',
-      2, '', '', '', 3, '', '', '', 2],
-    dashed: true
-  },
-  {
-    data: ['', 4, '', '', '', 3, '', '', '', 4, '', '',
-      '', 2, '', '', '', 1, '', '', '', 2 ],
-    fillColor: ['rgba(61, 231, 201, 0.5)', 'rgba(61, 231, 201, 0.1)']
-  },
-  {
-    data: ['', '', 3, '', '', '', 2, '', '', '', 1, '',
-      '', '', 2, '', '', '', 1, '', '', '', 2],
-    type: 'smoothline',
-    fillColor: ['rgba(255, 197, 61, 0.4)', 'rgba(255, 197, 61, 0.1)']
-  },
-  {
-    data: ['', '', '', 3, '', '', '', 1, '', '', '', 5,
-      '', '', '', 2, '', '', '', 4, '', '', '', 2],
-    type: 'column',
-    columnColor: ['rgba(52, 36, 50, 0.8)', 'rgba(52, 36, 50, 0.4)']
-  }
-],
-x: {
-  data: ['', '', '', '', '', '', '10/07', '', '', '', '', '', '', '10/14',
-    '', '', '', '', '', '', '10/21', '', '', '']
-},
-y: {
-  max: 6,
-  min: 0,
-  num: 6,
-  unit: '单位'
-},
-labelLine: ['收费系统', '收费系统', '监控系统', '供配电系统'],
-color: ['#00baff', '#3de7c9', '#ffc53d', '#342432']
-}
-        </pre>
-      </div>
-    </border-box-4>
+        <div class="title">Polyline-chart</div>
 
-    <!-- <border-box-4 class="chart-item" :reverse="true">
+        <highlight-code>
+&lt;polyline-chart :data="data" /&gt;
+        </highlight-code>
+
+        <highlight-code>
+data: [
+        data: [
+          {
+            data: [3, 4.5, 4, 6, 5, 4, 3],
+            dashed: true
+          },
+          {
+            data: [0.5, 1, 0.8, 3, 2, 1.5, 0.5],
+            fillColor: ['rgba(61, 231, 201, 0.5)', 'rgba(61, 231, 201, 0.1)']
+          },
+          {
+            data: [1, 3, 2, 4, 3, 2, 1],
+            type: 'smoothline',
+            fillColor: ['rgba(255, 197, 61, 0.4)', 'rgba(255, 197, 61, 0.1)']
+          },
+          {
+            data: [2, 2.5, 3, 5, 4, 3, 2],
+            type: 'column',
+            columnColor: ['rgba(52, 36, 50, 0.8)', 'rgba(52, 36, 50, 0.4)']
+          }
+        ],
+        x: {
+          data: ['10/01', '10/02', '10/03', '10/04', '10/05', '10/06', '10/07']
+        },
+        y: {
+          max: 6,
+          min: 0,
+          unit: '单位'
+        },
+        labelLine: ['收费系统', '收费系统', '监控系统', '供配电系统'],
+        color: ['#00baff', '#3de7c9', '#ffc53d', '#342432'],
+        boundaryGap: true
+}
+        </highlight-code>
+      </div>
+    </border-box-7>
+
+    <!-- <highlight-code class="chart-item" :reverse="true">
       <polyline-chart :data="polylineChartData" class="chart" />
 
       <div class="config-info">
@@ -271,7 +364,7 @@ color: ['#00baff', '#3de7c9', '#ffc53d', '#342432']
         <pre>
         </pre>
       </div>
-    </border-box-4> -->
+    </highlight-code> -->
 
   </div>
 </template>
@@ -530,69 +623,60 @@ export default {
       polylineChartData4: {
         data: [
           {
-            data: [
-              5, '', '', '',
-              2, '', '', '',
-              4, '', '', '',
-              2, '', '', '',
-              3, '', '', '',
-              2
-            ],
+            data: [3, 4.5, 4, 6, 5, 4, 3],
             dashed: true
           },
           {
-            data: [
-              '', 4, '', '',
-              '', 3, '', '',
-              '', 4, '', '',
-              '', 2, '', '',
-              '', 1, '', '',
-              '', 2
-            ],
+            data: [0.5, 1, 0.8, 3, 2, 1.5, 0.5],
             fillColor: ['rgba(61, 231, 201, 0.5)', 'rgba(61, 231, 201, 0.1)']
           },
           {
-            data: [
-              '', '', 3, '',
-              '', '', 2, '',
-              '', '', 1, '',
-              '', '', 2, '',
-              '', '', 1, '',
-              '', '', 2
-            ],
+            data: [1, 3, 2, 4, 3, 2, 1],
             type: 'smoothline',
             fillColor: ['rgba(255, 197, 61, 0.4)', 'rgba(255, 197, 61, 0.1)']
           },
           {
-            data: [
-              '', '', '', 3,
-              '', '', '', 1,
-              '', '', '', 5,
-              '', '', '', 2,
-              '', '', '', 4,
-              '', '', '', 2
-            ],
+            data: [2, 2.5, 3, 5, 4, 3, 2],
             type: 'column',
             columnColor: ['rgba(52, 36, 50, 0.8)', 'rgba(52, 36, 50, 0.4)']
           }
         ],
         x: {
-          data: [
-            '', '', '', '', '', '', '10/07',
-            '', '', '', '', '', '', '10/14',
-            '', '', '', '', '', '', '10/21',
-            '', '', ''
-          ]
+          data: ['10/01', '10/02', '10/03', '10/04', '10/05', '10/06', '10/07']
         },
         y: {
           max: 6,
           min: 0,
-          num: 6,
           unit: '单位'
         },
         labelLine: ['收费系统', '收费系统', '监控系统', '供配电系统'],
-        color: ['#00baff', '#3de7c9', '#ffc53d', '#342432']
-      }
+        color: ['#00baff', '#3de7c9', '#ffc53d', '#342432'],
+        boundaryGap: true
+      },
+
+      radarChartData: {
+        data: [
+          {
+            data: [180, 250, 300, 500, 600],
+            dashed: true
+          },
+          {
+            data: [210, 330, 450, 261, 299]
+          }
+        ],
+        label: {
+          data: ['石家庄', '周口', '南阳', '驻马店', '郑州'],
+          color: '#f92672',
+          fontSize: 12
+        },
+        labelLine: ['同期', '环期'],
+        circleColor: '#f92672',
+        rayLineColor: '#f92672',
+        rayLineOffset: Math.PI * 1,
+
+      },
+
+      colors: ['#00baff', '#3de7c9']
     }
   }
 }
@@ -610,6 +694,7 @@ export default {
     flex-direction: row;
     margin: 20px 0px;
     margin-left: 20%;
+    align-items: center;
   }
 
   .chart {
@@ -620,12 +705,11 @@ export default {
 
   .config-info {
     padding: 0px 30px;
-    font-size: 15px;
+    display: flex;
+    flex-direction: column;
 
-    .header {
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 10px;
+    .highlight-code {
+      margin: -30px 0px;
     }
   }
 }
