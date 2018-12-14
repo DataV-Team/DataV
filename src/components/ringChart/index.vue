@@ -54,7 +54,7 @@ export default {
       aroundTextFont: '13px Arial',
 
       activeIncrease: 0.005,
-      activeTime: 2500,
+      activeTime: 4500,
 
       offsetAngle: Math.PI * 0.5 * -1,
 
@@ -238,15 +238,18 @@ export default {
 
       if (!totalValue) return
 
-      let currentPercent = Math.trunc(data[activeIndex].value / totalValue * 100)
+      const currentValue = data[activeIndex].value
+
+      let currentPercent = Math.trunc(currentValue / totalValue * 100)
 
       currentPercent === 0 && (currentPercent = 1)
+      currentValue === 0 && (currentPercent = 0)
 
       if (currentPercent === percent) return
 
       currentPercent > percent ? this.percent++ : this.percent--
 
-      setTimeout(doPercentAnimation, 20)
+      setTimeout(doPercentAnimation, 10)
     },
     doLabelTextAnimation () {
       let { labelDom, $refs, labelRef } = this
@@ -313,22 +316,28 @@ export default {
         drawLine(ctx, lineBegin, lineEnd, 1, color[i % colorNum]))
     },
     calcAroundTextData () {
-      const { data: { data }, totalValue } = this
+      const { data: { data, fixed }, totalValue } = this
 
       const aroundTextData = this.aroundTextData = []
 
+      if (!totalValue) return data.forEach(({ v, title }, i) => aroundTextData.push([0, title]))
+
+      const dataLast = data.length - 1
+
+      let totalPercent = 0
+
       data.forEach(({ value, title }, i) => {
-        if (!value && totalValue) return aroundTextData.push([false, false])
+        if (!value) return aroundTextData.push([false, false])
 
-        let percent = value / totalValue * 100
+        let percent = Number((value / totalValue * 100).toFixed(fixed || 1))
 
-        percent < 1 ? (percent = percent.toFixed(2)) : (percent = Math.trunc(percent))
+        percent < 0.1 && (percent = 0.1)
 
-        percent += '%'
+        const currentPercent = (i === dataLast ? 100 - totalPercent : percent).toFixed(fixed || 1)
 
-        !totalValue && (percent = '0%')
+        aroundTextData.push([currentPercent, title])
 
-        aroundTextData.push([percent, title])
+        totalPercent += percent
       })
     },
     drawAroundText () {
@@ -347,7 +356,7 @@ export default {
         currentPos[0] < x && (ctx.textAlign = 'end')
 
         ctx.textBaseline = 'bottom'
-        ctx.fillText(percent, ...currentPos)
+        ctx.fillText(`${percent}%`, ...currentPos)
 
         ctx.textBaseline = 'top'
         ctx.fillText(title, ...currentPos)
