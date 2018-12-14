@@ -9,8 +9,10 @@ import 'highlight.js/styles/monokai-sublime.css'
 
 import highlight from 'highlight.js/lib/highlight'
 
+import xml from 'highlight.js/lib/languages/xml'
 import javascript from 'highlight.js/lib/languages/javascript'
 
+highlight.registerLanguage('xml', xml)
 highlight.registerLanguage('javascript', javascript)
 
 export default {

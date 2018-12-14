@@ -128,7 +128,7 @@ export default {
 
       minus = max - min
 
-      !num && (num = minus < 10 ? minus : 10)
+      !num && (num = minus < 9 ? minus + 1 : 10)
 
       const gapNum = minus / (num - 1)
 

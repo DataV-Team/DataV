@@ -1,7 +1,14 @@
 <template>
   <div id="border-box">
     <border-box-1 class="border-box-item">
-      border-box-1
+      <highlight-code class="javascript">
+// html
+@import wqe from './'
+      </highlight-code>
+
+      <highlight-code>
+        &lt;body&gt;&lt;/body&gt;
+      </highlight-code>
     </border-box-1>
 
     <border-box-2 class="border-box-item">
@@ -53,10 +60,13 @@ export default {
     position: relative;
     width: 50%;
     height: 300px;
-    text-align: center;
-    line-height: 300px;
-    font-weight: bold;
     margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    .highlight-code {
+    }
   }
 
   .bbi-2 {
