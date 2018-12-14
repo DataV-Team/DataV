@@ -14,7 +14,6 @@ export default {
 <style lang="less">
 #app {
   font-family:
-  'code',
   '-apple-system',
   'BlinkMacSystemFont',
   'Helvetica Neue',

@@ -40,8 +40,8 @@ export default {
           routerName: 'chart'
         },
         {
-          title: 'Table',
-          routerName: 'table'
+          title: 'Other',
+          routerName: 'other'
         }
       ]
     }
@@ -95,7 +95,8 @@ export default {
     width: 100%;
     height: 100%;
     overflow: scroll;
-    padding-top: 70px;
+    padding: 70px 100px 0px 100px;
+    box-sizing: border-box;
   }
 }
 </style>

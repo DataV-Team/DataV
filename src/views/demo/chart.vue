@@ -672,8 +672,7 @@ export default {
         labelLine: ['同期', '环期'],
         circleColor: '#f92672',
         rayLineColor: '#f92672',
-        rayLineOffset: Math.PI * 1,
-
+        rayLineOffset: Math.PI * 1
       },
 
       colors: ['#00baff', '#3de7c9']

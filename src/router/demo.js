@@ -6,7 +6,7 @@ const Decoration = r => require.ensure([], () => r(require('../views/demo/decora
 
 const Chart = r => require.ensure([], () => r(require('../views/demo/chart.vue')), 'demo')
 
-const Table = r => require.ensure([], () => r(require('../views/demo/table.vue')), 'datav')
+const Other = r => require.ensure([], () => r(require('../views/demo/other.vue')), 'datav')
 
 export default [
   {
@@ -30,8 +30,8 @@ export default [
     component: Chart
   },
   {
-    path: 'table',
-    name: 'table',
-    component: Table
+    path: 'other',
+    name: 'other',
+    component: Other
   }
 ]

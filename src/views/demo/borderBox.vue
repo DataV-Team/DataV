@@ -1,46 +1,67 @@
 <template>
   <div id="border-box">
     <border-box-1 class="border-box-item">
-      <highlight-code class="javascript">
-// html
-@import wqe from './'
-      </highlight-code>
-
+      <div class="title">Border-Box-1</div>
       <highlight-code>
-        &lt;body&gt;&lt;/body&gt;
+&lt;border-box-1&gt;&lt;/border-box-1&gt;
       </highlight-code>
     </border-box-1>
 
     <border-box-2 class="border-box-item">
-      <border-box-2 class="bbi-2">border-box-2</border-box-2>
+      <div class="title">Border-Box-2</div>
+      <highlight-code>
+&lt;border-box-2&gt;&lt;/border-box-2&gt;
+      </highlight-code>
     </border-box-2>
 
     <border-box-3 class="border-box-item">
-      border-box-3
+      <div class="title">Border-Box-3</div>
+      <highlight-code>
+&lt;border-box-3&gt;&lt;/border-box-3&gt;
+      </highlight-code>
     </border-box-3>
 
     <border-box-4 class="border-box-item">
-      border-box-4
+      <div class="title">Border-Box-4</div>
+      <highlight-code>
+&lt;border-box-4&gt;&lt;/border-box-4&gt;
+      </highlight-code>
     </border-box-4>
 
     <border-box-4 class="border-box-item" :reverse="true">
-      border-box-4(reverse)
+      <div class="title">Border-Box-4(reverse)</div>
+      <highlight-code>
+&lt;border-box-4 :reverse="true" &gt;&lt;/border-box-4&gt;
+      </highlight-code>
     </border-box-4>
 
     <border-box-5 class="border-box-item">
-      border-box-5
+      <div class="title">Border-Box-5</div>
+      <highlight-code>
+&lt;border-box-5&gt;&lt;/border-box-5&gt;
+      </highlight-code>
     </border-box-5>
 
     <border-box-5 class="border-box-item" :reverse="true">
-      border-box-5(reverse)
+      <div class="title">Border-Box-5(reverse)</div>
+      <highlight-code>
+&lt;border-box-5 :reverse="true" &gt;&lt;/border-box-5&gt;
+      </highlight-code>
     </border-box-5>
 
     <border-box-6 class="border-box-item">
-      <border-box-6 class="bbi-6">border-box-6</border-box-6>
-      <border-box-6 class="bbi-6">border-box-6</border-box-6>
-      <border-box-6 class="bbi-6">border-box-6</border-box-6>
-      <border-box-6 class="bbi-6">border-box-6</border-box-6>
+      <div class="title">Border-Box-6</div>
+      <highlight-code>
+&lt;border-box-6&gt;&lt;/border-box-6&gt;
+      </highlight-code>
     </border-box-6>
+
+    <border-box-7 class="border-box-item">
+      <div class="title">Border-Box-7</div>
+      <highlight-code>
+&lt;border-box-7&gt;&lt;/border-box-7&gt;
+      </highlight-code>
+    </border-box-7>
   </div>
 </template>
 
@@ -55,6 +76,7 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  padding-bottom: 100px;
 
   .border-box-item {
     position: relative;
@@ -62,27 +84,13 @@ export default {
     height: 300px;
     margin-bottom: 10px;
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-    .highlight-code {
+    .title {
+      text-indent: 0px;
     }
-  }
-
-  .bbi-2 {
-    position: absolute;
-    width: 200px;
-    height: 80px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    line-height: 50px;
-  }
-
-  .bbi-6 {
-    width: 25%;
-    height: 100%;
-    float: left;
   }
 }
 </style>

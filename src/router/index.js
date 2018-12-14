@@ -18,6 +18,7 @@ export default new Router({
       path: '/demo',
       name: 'demo',
       component: Demo,
+      redirect: { name: 'document' },
       children: [
         ...demoChildren
       ]
@@ -41,7 +42,7 @@ export default new Router({
     },
     {
       path: '*',
-      redirect: { name: 'demo' }
+      redirect: { name: 'document' }
     }
   ]
 })
