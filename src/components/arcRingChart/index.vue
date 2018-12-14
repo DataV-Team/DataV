@@ -275,22 +275,24 @@ export default {
         polyline[0] && drawPolyline(ctx, polyline, 2, color[i % colorNum], false, [10, 0], true))
     },
     drawLabelText () {
-      const { ctx, labelLinePoints, data: { data, labelFontSize }, totalValue, defaultLabelFontSize, arcOriginPos: [x] } = this
+      const { ctx, labelLinePoints, data: { data, labelFontSize, fixed }, totalValue, defaultLabelFontSize, arcOriginPos: [x] } = this
 
       ctx.font = `${labelFontSize || defaultLabelFontSize}px Arial`
 
       ctx.fillStyle = '#fff'
 
+      let totalPercent = 0
+
+      const dataLast = data.length - 1
+
       data.forEach(({ value, title }, i) => {
         if (!value && totalValue) return
 
-        let currentPercent = value / totalValue * 100
+        let currentPercent = (value / totalValue * 100).toFixed(fixed || 1)
 
-        currentPercent = (currentPercent > 1 ? Math.trunc(currentPercent) : currentPercent.toFixed(2))
+        i === dataLast && (currentPercent = (100 - totalPercent).toFixed(fixed || 1))
 
-        currentPercent += '%'
-
-        !totalValue && (currentPercent = '0%')
+        !totalValue && (currentPercent = 0)
 
         const textPos = labelLinePoints[i][2]
 
@@ -300,11 +302,13 @@ export default {
 
         ctx.textBaseline = 'bottom'
 
-        ctx.fillText(currentPercent, ...textPos)
+        ctx.fillText(`${currentPercent}%`, ...textPos)
 
         ctx.textBaseline = 'top'
 
         ctx.fillText(title, ...textPos)
+
+        totalPercent += Number(currentPercent)
       })
     }
   },

@@ -1,7 +1,9 @@
 <template>
-  <pre><code class="highlight-code" :ref="ref">
+  <div class="highlight-code">
+    <pre><code :ref="ref">
 <slot></slot>
-  </code></pre>
+    </code></pre>
+  </div>
 </template>
 
 <script>
@@ -41,7 +43,10 @@ export default {
 
 <style lang="less">
 .highlight-code {
-  font-family: 'code';
-  background-color: transparent;
+
+  code {
+    font-family: 'code';
+    background-color: transparent;
+  }
 }
 </style>
