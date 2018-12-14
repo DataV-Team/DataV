@@ -1,16 +1,31 @@
 <template>
   <div id="datav-document">
     <div class="document">
-      将src下的components及plugins复制至你的项目内
-      并在main.js中引入他们即可使用
+      <div class="title">介绍</div>
+
+      <div class="text-info">本组件库基于Vue, 用构建大屏数据展示(图表类)</div>
+      <div class="text-info">类似于echarts, 但是消耗资源更小, 更轻量, 易于使用</div>
+
+      <div class="title">使用</div>
+
+      <div class="text-info">将src下的components及plugins复制至你的项目内 </div>
+      <div class="text-info">并在main.js中引入他们即可使用</div>
 
       <highlight-code>
+// components中highlightCode组件是本例中用来增强代码高亮的, 你应该不需要它, 可以选择移除
+// main.js
 import datavComponents from './components/index.js'
 import datavPlugins from './plugin/index.js'
 
 Vue.use(datavComponents)
 Vue.use(datavPlugins)
+
+// 可以直接在Views文件夹下的dataView页面直接编写页面
+// dataView页面已做全屏缩放处理 roterPath: #/datav/view
       </highlight-code>
+
+      <div class="text-info">组件具体用法见示例</div>
+      <div class="text-info"><a href="https://github.com/jiaming743/DataV" target="_BLANK">GitHub</a></div>
     </div>
   </div>
 </template>
@@ -28,8 +43,14 @@ export default {
   flex-direction: row;
   justify-content: space-around;
 
-  .document {
-    width: 800px;
+  a {
+    color: #0084ff;
+
+    &:hover,
+    &:active,
+    &:visited {
+      color: #0084ff;
+    }
   }
 }
 </style>
