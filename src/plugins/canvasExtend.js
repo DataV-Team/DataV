@@ -147,6 +147,22 @@ export function getLinearGradientColor (ctx, begin, end, color) {
   return linearGradientColor
 }
 
+export function getRadialGradientColor (ctx, origin, begin = 0, end = 100, color) {
+  if (!ctx || !origin || !color.length) return
+
+  let colors = color
+
+  typeof colors === 'string' && (colors = [color, color])
+
+  const radialGradientColor = ctx.createRadialGradient(...origin, begin, ...origin, end)
+
+  const colorGap = 1 / (colors.length - 1)
+
+  colors.forEach((c, i) => radialGradientColor.addColorStop(colorGap * i, c))
+
+  return radialGradientColor
+}
+
 export function getCircleRadianPoint (x, y, radius, radian) {
   const { sin, cos } = Math
 
@@ -163,6 +179,7 @@ const canvas = {
   drawBezierCurveLinePath,
   drawPoints,
   getLinearGradientColor,
+  getRadialGradientColor,
   getCircleRadianPoint
 }
 
