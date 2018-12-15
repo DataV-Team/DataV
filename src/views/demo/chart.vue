@@ -666,16 +666,24 @@ export default {
         ],
         label: {
           data: ['石家庄', '周口', '南阳', '驻马店', '郑州'],
-          color: '#f92672',
+          color: 'colors',
           fontSize: 12
         },
         labelLine: ['同期', '环期'],
-        circleColor: '#f92672',
-        rayLineColor: '#f92672',
-        rayLineOffset: Math.PI * 1
+        ringLineColor: '#43ffff',
+        ringType: 'polyline',
+        // radius: 2,
+        ringFillType: 'ring',
+        // ringFillColor: 'rgba(61, 231, 201, 0.1)',
+        rayLineType: 'dashed',
+        ringFillColor: ['rgba(61, 231, 201, 0.3)', 'rgba(61, 231, 201, 0.1)']
+        // ringNum: 5
+        // ringLineType: 'line'
+        // rayLineOffset: Math.PI * 1
       },
 
-      colors: ['#00baff', '#3de7c9']
+      // colors: ['#00baff', '#3de7c9']
+      colors: ''
     }
   }
 }
