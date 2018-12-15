@@ -9,7 +9,7 @@
       <div class="label-item"
         v-for="(label, i) in data.labelLine"
         :key="label">
-        <div :style="`background-color: ${colors[i % colors.length]};`"></div>
+        <div :style="`background-color: ${drawColors[i % drawColors.length]};`"></div>
         <div>{{ label }}</div>
       </div>
     </div>
@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import defaultColors from '../../config/color.js'
+
 export default {
   name: 'RadarChart',
   data () {
@@ -28,16 +30,40 @@ export default {
 
       arcOriginPos: [],
 
+      defaultColors,
       defaultRadius: 0.8,
-      defaultCircleNum: 4,
-      defaultCircleColor: '#666',
+      defaultRingNum: 4,
+      defaultRingType: 'circle',
+      defaultRingLineType: 'dashed',
+      defaultRingLineColor: '#666',
+      defaultRingFillType: 'none',
+      defaultRayLineType: 'line',
       defaultRayLineColor: '#666',
+
       defaultRayLineOffset: Math.PI * -0.5,
       defaultLabelColor: '#fff',
       defaultLabelFS: 10,
 
+      drawColors: '',
       radius: '',
+      ringType: '',
       rayLineRadianData: [],
+      ringRadiusData: [],
+      ringPolylineData: [],
+      ringLineDash: [],
+      ringlineMultipleColor: false,
+      ringLineColor: '',
+      ringFillType: '',
+      ringFillMultipleColor: false,
+      ringFillColor: '',
+      rayLineColor: '',
+      rayLineDash: '',
+      rayLineMultipleColor: false,
+      labelPosData: [],
+      labelColor: '',
+      labelFontSize: '',
+      labelMultipleColor: false,
+
       valuePointData: []
     }
   },
@@ -88,116 +114,368 @@ export default {
       arcOriginPos[1] = canvasWH[1] / 2
     },
     draw () {
-      const { calcRadarRadius, drawRadarCircle, drawRayLine } = this
+      const { ctx, canvasWH } = this
+
+      ctx.clearRect(0, 0, ...canvasWH)
+
+      const { initColor, calcRadarRadius, calcRingType, calcRayLineRadianData } = this
+
+      initColor()
 
       calcRadarRadius()
 
-      drawRadarCircle()
+      calcRingType()
+
+      calcRayLineRadianData()
+
+      const { calcRingRadiusData, calcRingPolylineData, calcRingDrawConfig } = this
+
+      calcRingRadiusData()
+
+      calcRingPolylineData()
+
+      calcRingDrawConfig()
+
+      const { calcRingFillConfig, fillRing, drawCircleRing } = this
+
+      calcRingFillConfig()
+
+      fillRing()
+
+      drawCircleRing()
+
+      const { drawPolylineRing, calcRayLineConfig, drawRayLine, calcLabelPosData, calcLabelConfig } = this
+
+      drawPolylineRing()
+
+      calcRayLineConfig()
 
       drawRayLine()
 
-      const { drawLable, caclValuePointData, fillRadar } = this
+      calcLabelPosData()
+
+      calcLabelConfig()
+
+      const { drawLable } = this
 
       drawLable()
 
-      caclValuePointData()
+      // drawRadarCircle()
 
-      fillRadar()
+      // drawRayLine()
+
+      // const { drawLable, caclValuePointData, fillRadar } = this
+
+      // drawLable()
+
+      // caclValuePointData()
+
+      // fillRadar()
+    },
+    initColor () {
+      const { colors, defaultColors } = this
+
+      this.drawColors = colors || defaultColors
     },
     calcRadarRadius () {
       const { canvasWH, data: { radius }, defaultRadius } = this
 
       this.radius = Math.min(...canvasWH) * (radius || defaultRadius) * 0.5
     },
-    drawRadarCircle () {
-      const { ctx, arcOriginPos, radius, data, defaultCircleNum, defaultCircleColor } = this
+    calcRingType () {
+      const { data: { ringType }, defaultRingType } = this
 
-      const { circleNum, circleColor } = data
+      this.ringType = ringType || defaultRingType
+    },
+    calcRayLineRadianData () {
+      const { data: { label }, defaultRayLineOffset } = this
 
-      const trueCircleNum = circleNum || defaultCircleNum
+      const { rayLineOffset, data } = label
 
-      const gap = radius / trueCircleNum
+      const fullRadian = Math.PI * 2
 
-      ctx.strokeStyle = circleColor || defaultCircleColor
+      const radianGap = fullRadian / data.length
 
-      ctx.setLineDash([5, 5])
+      const radianOffset = rayLineOffset || defaultRayLineOffset
+
+      this.rayLineRadianData = data.map((t, i) => radianGap * i + radianOffset)
+    },
+    calcRingRadiusData () {
+      const { data: { ringNum }, defaultRingNum, radius } = this
+
+      const num = ringNum || defaultRingNum
+
+      const radiusGap = radius / num
+
+      this.ringRadiusData = new Array(num).fill(0).map((t, i) =>
+        radiusGap * (i + 1))
+    },
+    calcRingPolylineData () {
+      const { ringRadiusData, rayLineRadianData, arcOriginPos } = this
+
+      const { canvas: { getCircleRadianPoint } } = this
+
+      this.ringPolylineData = ringRadiusData.map((r, i) =>
+        rayLineRadianData.map(radian =>
+          getCircleRadianPoint(...arcOriginPos, r, radian)))
+    },
+    calcRingDrawConfig () {
+      const { defaultRingLineType, defaultRingLineColor } = this
+
+      const { data: { ringLineType, ringLineColor }, drawColors } = this
+
+      this.ringLineDash = (ringLineType || defaultRingLineType) === 'dashed' ? [5, 5] : [10, 0]
+
+      const trueRingLineColor = ringLineColor === 'colors' ? drawColors : ringLineColor
+
+      this.ringlineMultipleColor = typeof trueRingLineColor === 'object'
+
+      this.ringLineColor = trueRingLineColor || defaultRingLineColor
+    },
+    calcRingFillConfig () {
+      const { data: { ringFillType, ringFillColor }, defaultRingFillType, drawColors } = this
+
+      this.ringFillType = ringFillType || defaultRingFillType
+
+      const trueRingFillColor = this.ringFillColor = (!ringFillColor || ringFillColor === 'colors') ? drawColors : ringFillColor
+
+      this.ringFillMultipleColor = typeof trueRingFillColor === 'object'
+    },
+    fillRing () {
+      const { ringFillType, fillCoverRing, fillMulCoverRing, fillRingRing } = this
+
+      switch (ringFillType) {
+        case 'cover': fillCoverRing()
+          break
+
+        case 'mulCover': fillMulCoverRing()
+          break
+
+        case 'ring': fillRingRing()
+          break
+      }
+    },
+    fillCoverRing () {
+      const { ctx, arcOriginPos, ringFillColor, ringType, radius, ringPolylineData } = this
+
+      const { canvas: { getRadialGradientColor, drawPolylinePath } } = this
+
+      const color = getRadialGradientColor(ctx, arcOriginPos, 0, radius, ringFillColor)
+
+      ctx.beginPath()
+
+      ringType === 'circle' && ctx.arc(...arcOriginPos, radius, 0, Math.PI * 2)
+
+      ringType === 'polyline' && drawPolylinePath(ctx, ringPolylineData[ringPolylineData.length - 1])
+
+      ctx.closePath()
+
+      ctx.fillStyle = color
+
+      ctx.fill()
+    },
+    fillMulCoverRing () {
+      const { ctx, ringType, ringFillColor, arcOriginPos } = this
+
+      const { ringFillMultipleColor, ringPolylineData, ringRadiusData, deepClone } = this
+
+      const { canvas: { drawPolylinePath } } = this
+
+      !ringFillMultipleColor && (ctx.fillStyle = ringFillColor)
+
+      const colorNum = ringFillColor.length
+
+      const LastRingIndex = ringRadiusData.length - 1
+
+      ringType === 'circle' &&
+        deepClone(ringRadiusData).reverse().forEach((radius, i) => {
+          ctx.beginPath()
+
+          ctx.arc(...arcOriginPos, radius, 0, Math.PI * 2)
+
+          ringFillMultipleColor && (ctx.fillStyle = ringFillColor[(LastRingIndex - i) % colorNum])
+
+          ctx.fill()
+        })
+
+      ringType === 'polyline' &&
+        deepClone(ringPolylineData).reverse().forEach((line, i) => {
+          drawPolylinePath(ctx, line, true, true)
+
+          ringFillMultipleColor && (ctx.fillStyle = ringFillColor[(LastRingIndex - i) % colorNum])
+
+          ctx.fill()
+        })
+    },
+    fillRingRing () {
+      const { ctx, ringType, ringRadiusData, rayLineRadianData, getPointToLineDistance } = this
+
+      const { ringFillMultipleColor, arcOriginPos, ringFillColor, ringPolylineData } = this
+
+      const { canvas: { drawPolylinePath, getCircleRadianPoint } } = this
+
+      let lineWidth = ctx.lineWidth = ringRadiusData[0]
+
+      const halfLineWidth = lineWidth / 2
+
+      const colorNum = ringFillColor.length
+
+      !ringFillMultipleColor && (ctx.strokeStyle = ringFillColor)
+
+      ringType === 'circle' &&
+        ringRadiusData.forEach((r, i) => {
+          ctx.beginPath()
+
+          ctx.arc(...arcOriginPos, r - halfLineWidth, 0, Math.PI * 2)
+
+          ringFillMultipleColor && (ctx.strokeStyle = ringFillColor[i % colorNum])
+
+          ctx.stroke()
+        })
+
+      ctx.lineCap = 'round'
+
+      ctx.lineWidth = getPointToLineDistance(arcOriginPos, ringPolylineData[0][0], ringPolylineData[0][1])
+
+      ringType === 'polyline' &&
+        ringRadiusData.map(r => r - halfLineWidth).map(r =>
+          rayLineRadianData.map(radian =>
+            getCircleRadianPoint(...arcOriginPos, r, radian))).forEach((line, i) => {
+          drawPolylinePath(ctx, line, true, true)
+
+          ringFillMultipleColor && (ctx.strokeStyle = ringFillColor[i % colorNum])
+
+          ctx.stroke()
+        })
+    },
+    drawCircleRing () {
+      const { data: { ringType }, defaultRingType } = this
+
+      if ((ringType && ringType !== 'circle') || (!ringType && defaultRingType !== 'circle')) return
+
+      const { ctx, ringRadiusData, arcOriginPos, ringLineDash, ringlineMultipleColor, ringLineColor } = this
+
+      ctx.setLineDash(ringLineDash)
 
       ctx.lineWidth = 1
 
-      new Array(trueCircleNum).fill(0).forEach((t, i) => {
+      !ringlineMultipleColor && (ctx.strokeStyle = ringLineColor)
+
+      const colorNum = ringLineColor.length
+
+      ringRadiusData.forEach((r, i) => {
         ctx.beginPath()
 
-        ctx.arc(...arcOriginPos, gap * (i + 1), 0, Math.PI * 2)
+        ctx.arc(...arcOriginPos, r, 0, Math.PI * 2)
+
+        ringlineMultipleColor && (ctx.strokeStyle = ringLineColor[i % colorNum])
 
         ctx.stroke()
       })
     },
+    drawPolylineRing () {
+      const { data: { ringType }, defaultRingType } = this
+
+      if ((ringType && ringType !== 'polyline') || (!ringType && defaultRingType !== 'polyline')) return
+
+      const { ctx, ringPolylineData, ringLineDash, ringlineMultipleColor, ringLineColor } = this
+
+      const { canvas: { drawPolyline } } = this
+
+      const colorNum = ringLineColor.length
+
+      ringPolylineData.forEach((line, i) =>
+        drawPolyline(ctx, line, 1,
+          (ringlineMultipleColor ? ringLineColor[i % colorNum] : ringLineColor),
+          true, ringLineDash, true))
+    },
+    calcRayLineConfig () {
+      const { data: { rayLineType, rayLineColor }, defaultRayLineType, defaultRayLineColor, drawColors } = this
+
+      this.rayLineDash = (rayLineType || defaultRayLineType) === 'line' ? [10, 0] : [5, 5]
+
+      const trueRayLineColor = rayLineColor === 'colors' ? drawColors : rayLineColor
+
+      this.rayLineMultipleColor = typeof trueRingFillColor === 'object'
+
+      this.rayLineColor = trueRayLineColor || defaultRayLineColor
+    },
     drawRayLine () {
-      const { ctx, radius, arcOriginPos, data: td, defaultRayLineColor, defaultRayLineOffset, canvas } = this
+      const { ctx, rayLineColor, rayLineDash, ringPolylineData, arcOriginPos, rayLineMultipleColor } = this
 
-      const { label: { data }, rayLineColor, rayLineOffset } = td
+      const lastRingLineIndex = ringPolylineData.length - 1
 
-      const { getCircleRadianPoint } = canvas
+      ctx.setLineDash(rayLineDash)
 
-      const labelNum = data.length
-
-      const gapRadian = Math.PI * 2 / labelNum
-
-      const radianOffset = rayLineOffset || defaultRayLineOffset
-
-      ctx.strokeStyle = rayLineColor || defaultRayLineColor
+      !rayLineMultipleColor && (ctx.strokeStyle = rayLineColor)
 
       ctx.lineWidth = 1
 
-      ctx.setLineDash([10, 0])
+      const colorNum = rayLineColor.length
 
-      const rayLineRadianData = this.rayLineRadianData = []
-
-      new Array(labelNum).fill(0).forEach((t, i) => {
-        const currentRadian = gapRadian * (i + 1) + radianOffset
-
-        rayLineRadianData.push(currentRadian)
-
+      ringPolylineData[lastRingLineIndex].forEach((point, i) => {
         ctx.beginPath()
 
         ctx.moveTo(...arcOriginPos)
 
-        ctx.lineTo(...getCircleRadianPoint(...arcOriginPos, radius, currentRadian))
+        ctx.lineTo(...point)
+
+        rayLineMultipleColor && (ctx.strokeStyle = rayLineColor[i % colorNum])
 
         ctx.stroke()
       })
     },
+    calcLabelPosData () {
+      const { rayLineRadianData, radius, arcOriginPos } = this
+
+      const { canvas: { getCircleRadianPoint } } = this
+
+      const labelRadius = radius + 10
+
+      this.labelPosData = rayLineRadianData.map(radian =>
+        getCircleRadianPoint(...arcOriginPos, labelRadius, radian))
+    },
+    calcLabelConfig () {
+      const { defaultLabelColor, defaultLabelFS, drawColors } = this
+
+      const { data: { label: { color, fontSize } } } = this
+
+      const trueLabelColor = color === 'colors' ? drawColors : (color || defaultLabelColor)
+
+      this.labelMultipleColor = typeof trueLabelColor === 'object'
+
+      this.labelFontSize = fontSize || defaultLabelFS
+
+      this.labelColor = trueLabelColor
+    },
     drawLable () {
-      const { ctx, radius, arcOriginPos, canvas, data: td, defaultLabelColor, defaultLabelFS, rayLineRadianData } = this
+      const { ctx, arcOriginPos: [x], labelPosData, labelColor, labelFontSize, labelMultipleColor } = this
 
-      const { label: { data, color, fontSize } } = td
+      const { data: { label: { data } } } = this
 
-      const { getCircleRadianPoint } = canvas
+      ctx.font = `${labelFontSize}px Arial`
 
-      const endRadius = radius + 10
-
-      ctx.font = `${fontSize || defaultLabelFS}px Arial`
-
-      ctx.fillStyle = color || defaultLabelColor
+      !labelMultipleColor && (ctx.fillStyle = labelColor)
 
       ctx.textBaseline = 'middle'
 
-      data.forEach((label, i) => {
-        const currentEndPointPos = getCircleRadianPoint(...arcOriginPos, endRadius, rayLineRadianData[i])
+      const colorNum = labelColor.length
 
+      labelPosData.forEach((pos, i) => {
         ctx.textAlign = 'start'
 
-        currentEndPointPos[0] < arcOriginPos[0] && (ctx.textAlign = 'end')
+        pos[0] < x && (ctx.textAlign = 'end')
 
-        ctx.fillText(label, ...currentEndPointPos)
+        labelMultipleColor && (ctx.fillStyle = labelColor[i % colorNum])
 
-        ctx.fill()
+        ctx.fillText(data[i], ...pos)
       })
     },
-    caclValuePointData () {
-      const { data: { data }, arcOriginPos, radius, canvas, rayLineRadianData } = this
 
-      const { getCircleRadianPoint } = canvas
+    caclValuePointData () {
+      const { data: { data }, arcOriginPos, radius, rayLineRadianData } = this
+
+      const { canvas: { getCircleRadianPoint } } = this
 
       const maxValue = Math.max(...data.map(({ data: td }) => Math.max(...td)))
 
@@ -211,16 +489,16 @@ export default {
           r ? getCircleRadianPoint(...arcOriginPos, r, rayLineRadianData[i]) : false))
     },
     fillRadar () {
-      const { ctx, data: { data }, valuePointData, colors, canvas, color, filterNull } = this
+      const { ctx, data: { data }, valuePointData, drawColors, canvas, color, filterNull } = this
 
       const { drawPolylinePath } = canvas
 
       const { hexToRgb } = color
 
-      const colorNum = colors.length
+      const colorNum = drawColors.length
 
       valuePointData.forEach((line, i) => {
-        const lineColor = data[i].color || colors[i % colorNum]
+        const lineColor = data[i].color || drawColors[i % colorNum]
 
         data[i].dashed ? ctx.setLineDash([5, 5]) : ctx.setLineDash([10, 0])
 
