@@ -1,7 +1,8 @@
 export default [
-  '#6ed4d3',
-  '#f5738d',
-  '#f6e6da',
-  '#45415a',
-  '#ffdb65'
+  '#9cf4a7',
+  '#66d7ee',
+  '#eee966',
+  '#a866ee',
+  '#ee8f66',
+  '#ee66aa'
 ]
