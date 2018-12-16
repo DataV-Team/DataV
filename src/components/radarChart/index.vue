@@ -1,6 +1,8 @@
 <template>
   <div class="radar-chart">
 
+    <loading v-if="!data" />
+
     <div class="canvas-container">
       <canvas :ref="ref" />
     </div>
@@ -118,7 +120,7 @@ export default {
 
       ctx.clearRect(0, 0, ...canvasWH)
 
-      const { initColor, calcRadarRadius, calcRingType, calcRayLineRadianData } = this
+      const { initColor, calcRadarRadius, calcRingType } = this
 
       initColor()
 
@@ -126,29 +128,31 @@ export default {
 
       calcRingType()
 
-      calcRayLineRadianData()
+      const { calcRayLineRadianData, calcRingRadiusData, calcRingPolylineData } = this
 
-      const { calcRingRadiusData, calcRingPolylineData, calcRingDrawConfig } = this
+      calcRayLineRadianData()
 
       calcRingRadiusData()
 
       calcRingPolylineData()
 
-      calcRingDrawConfig()
+      const { calcRingDrawConfig, calcRingFillConfig, fillRing } = this
 
-      const { calcRingFillConfig, fillRing, drawCircleRing } = this
+      calcRingDrawConfig()
 
       calcRingFillConfig()
 
       fillRing()
 
-      drawCircleRing()
+      const { drawCircleRing, drawPolylineRing, calcRayLineConfig } = this
 
-      const { drawPolylineRing, calcRayLineConfig, drawRayLine, calcLabelPosData, calcLabelConfig } = this
+      drawCircleRing()
 
       drawPolylineRing()
 
       calcRayLineConfig()
+
+      const { drawRayLine, calcLabelPosData, calcLabelConfig } = this
 
       drawRayLine()
 
@@ -156,21 +160,13 @@ export default {
 
       calcLabelConfig()
 
-      const { drawLable } = this
+      const { drawLable, caclValuePointData, fillRadar } = this
 
       drawLable()
 
-      // drawRadarCircle()
+      caclValuePointData()
 
-      // drawRayLine()
-
-      // const { drawLable, caclValuePointData, fillRadar } = this
-
-      // drawLable()
-
-      // caclValuePointData()
-
-      // fillRadar()
+      fillRadar()
     },
     initColor () {
       const { colors, defaultColors } = this
@@ -188,9 +184,9 @@ export default {
       this.ringType = ringType || defaultRingType
     },
     calcRayLineRadianData () {
-      const { data: { label }, defaultRayLineOffset } = this
+      const { data: { label, rayLineOffset }, defaultRayLineOffset } = this
 
-      const { rayLineOffset, data } = label
+      const { data } = label
 
       const fullRadian = Math.PI * 2
 
@@ -394,11 +390,11 @@ export default {
 
       this.rayLineDash = (rayLineType || defaultRayLineType) === 'line' ? [10, 0] : [5, 5]
 
-      const trueRayLineColor = rayLineColor === 'colors' ? drawColors : rayLineColor
+      const trueRayLineColor = rayLineColor === 'colors' ? drawColors : (rayLineColor || defaultRayLineColor)
 
-      this.rayLineMultipleColor = typeof trueRingFillColor === 'object'
+      this.rayLineColor = trueRayLineColor
 
-      this.rayLineColor = trueRayLineColor || defaultRayLineColor
+      this.rayLineMultipleColor = typeof trueRayLineColor === 'object'
     },
     drawRayLine () {
       const { ctx, rayLineColor, rayLineDash, ringPolylineData, arcOriginPos, rayLineMultipleColor } = this
@@ -471,13 +467,12 @@ export default {
         ctx.fillText(data[i], ...pos)
       })
     },
-
     caclValuePointData () {
-      const { data: { data }, arcOriginPos, radius, rayLineRadianData } = this
+      const { data: { data, max }, arcOriginPos, radius, rayLineRadianData } = this
 
       const { canvas: { getCircleRadianPoint } } = this
 
-      const maxValue = Math.max(...data.map(({ data: td }) => Math.max(...td)))
+      const maxValue = max || Math.max(...data.map(({ data: td }) => Math.max(...td)))
 
       const valueRadius = data.map(({ data: td }) =>
         td.map(value =>
@@ -489,26 +484,29 @@ export default {
           r ? getCircleRadianPoint(...arcOriginPos, r, rayLineRadianData[i]) : false))
     },
     fillRadar () {
-      const { ctx, data: { data }, valuePointData, drawColors, canvas, color, filterNull } = this
+      const { ctx, data: { data }, valuePointData, drawColors, filterNull } = this
 
-      const { drawPolylinePath } = canvas
+      const { canvas: { drawPolylinePath } } = this
 
-      const { hexToRgb } = color
+      const { color: { hexToRgb } } = this
 
       const colorNum = drawColors.length
 
       valuePointData.forEach((line, i) => {
-        const lineColor = data[i].color || drawColors[i % colorNum]
+        const currentColor = drawColors[i % colorNum]
+
+        const lineColor = data[i].lineColor
+        const fillColor = data[i].fillColor
 
         data[i].dashed ? ctx.setLineDash([5, 5]) : ctx.setLineDash([10, 0])
 
         drawPolylinePath(ctx, filterNull(line), 1, true, true)
 
-        ctx.strokeStyle = lineColor
+        ctx.strokeStyle = lineColor || currentColor
 
         ctx.stroke()
 
-        ctx.fillStyle = hexToRgb(lineColor, 0.5)
+        ctx.fillStyle = fillColor || hexToRgb(currentColor, 0.5)
 
         ctx.fill()
       })
