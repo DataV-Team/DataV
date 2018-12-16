@@ -1,42 +1,142 @@
 <template>
   <div id="chart">
+    <border-box-7 class="attention">
+      <div class="title">Attention</div>
+
+      <div class="text-info">
+        下列组件颜色配置均绑定在节点的colors属性上
+      </div>
+
+      <div class="text-info">
+        若未绑定将自动使用默认配色
+      </div>
+
+      <div class="text-info">
+        colors所绑变量应为hex十六进制色的数组,示例如下
+      </div>
+
+      <highlight-code>
+&lt;chart :data="data" :colors="color" /&gt;
+      </highlight-code>
+
+      <highlight-code>
+// 修改默认配色方案 可直接修改./src/config/color.js
+colors: ['#9cf4a7', '#66d7ee', '#eee966', '#a866ee', '#ee8f66', '#ee66aa']
+// 数组内颜色将自动循环使用
+      </highlight-code>
+
+      <div class="text-info">
+        如在特殊颜色配置属性中使用colors关键字,将自动将该属性配置指向colors
+      </div>
+
+      <div class="text-info">
+        下列组件均不再展示colors属性绑定的变量
+      </div>
+    </border-box-7>
+
     <border-box-7 class="chart-item">
-      <radar-chart :data="radarChartData" :colors="colors" class="chart" />
+      <radar-chart :data="radarChartData1" :colors="colors" class="chart" />
 
       <div class="config-info">
         <div class="title">Radar-Chart</div>
         <highlight-code>
-&lt;radar-chart :data="data" :colors="color" /&gt;
+&lt;radar-chart :data="data" :colors="colors" /&gt;
         </highlight-code>
 
         <highlight-code>
 data: {
-  // 必填项
   data: [
     {
-      // 必填项
-      data: [180, 250, 300, 500, 600]
-      // 非必须 可单独配置填充及线条颜色
-      // color: '#f92655',
-      // 非必需 可设置线条为虚线
-      dashed: true
+      data: [450, 50, 450, 50, 450, 50] // 必须
     },
     {
-      data: [210, 330, 450, 261, 448]
+      data: [50, 450, 50, 450, 50, 450]
     }, ...
   ],
   label: {
-    // 必填项 空值自动跳过
-    data: ['石家庄', '周口', '南阳', '驻马店', '郑州'],
-    // 非必须 可配置label颜色
-    // color: '#fff'
+    data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳'] // 必须
   },
-  // 非必须 不配置此项 图例下不会显示label标签
+  labelLine: ['同期', '环期'] // 非必须 不配置此项 则不展示底部label
+}
+        </highlight-code>
+      </div>
+    </border-box-7>
+
+    <border-box-7 class="chart-item">
+      <radar-chart :data="radarChartData2" :colors="colors" class="chart" />
+
+      <div class="config-info">
+        <div class="title">Radar-Chart</div>
+        <highlight-code>
+&lt;radar-chart :data="data" :colors="colors" /&gt;
+        </highlight-code>
+
+        <highlight-code>
+data: {
+  data: [
+    {
+      data: [450, 50, 450, 50, 450, 50],
+      dashed: true // 非必须 为真时绘制虚线
+    },
+    {
+      data: [50, 450, 50, 450, 50, 450],
+      lineColor: '#9cf4df', // 非必须 可配置改数据线条颜色
+      fillColor: 'rgba(238, 233, 108, 0.5)' // 非必须 可配置改数据填充颜色
+    }
+  ],
+  label: {
+    data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳'],
+    color: 'colors', // 非必须 可配置文字颜色
+    fontSize: 10 // 非必须 可配置文字大小
+  },
   labelLine: ['同期', '环期'],
-  // 非必须 可配置图例最大半径比例
-  // radius: 0.8,
-  // 非必需 可配置雷达环个数
-  // circleNum: 6
+  rayLineType: 'dashed', // 非必须 设置径向射线为虚线
+  rayLineColor: 'colors', // 非必须 设置径向射线颜色
+  ringNum: 5, // 非必填 设置环线个数
+  ringType: 'polyline', // 非必须 设置环线为折线
+  ringFillType: 'cover', // 非必须 设置环线填充颜色类型为cover
+  ringFillColor: ['rgba(61, 231, 201, 0.3)', 'rgba(61, 231, 201, 0.1)'], // 非必须 设置环线填充色
+  ringLineType: 'line', // 非必须 设置环线线条为实线
+  ringLineColor: 'rgba(156, 244, 233, 0.2)', // 非必须 设置环线线条颜色
+  rayLineOffset: Math.PI * -1.5, // 非必须 设置雷达图旋转偏移
+  radius: 0.8, // 非必须 设置雷达图最大环线半径
+  max: 550 // 非必须 设置雷达图数据最大值
+}
+        </highlight-code>
+      </div>
+    </border-box-7>
+
+    <border-box-7 class="chart-item">
+      <radar-chart :data="radarChartData3" :colors="colors" class="chart" />
+
+      <div class="config-info">
+        <div class="title">Radar-Chart</div>
+        <highlight-code>
+&lt;radar-chart :data="data" :colors="colors" /&gt;
+        </highlight-code>
+
+        <highlight-code>
+data: {
+  // 相同配置不再赘述
+  ringFillType: 'mulCover', // 非必须 设置环线填充颜色类型为mulCover
+}
+        </highlight-code>
+      </div>
+    </border-box-7>
+
+    <border-box-7 class="chart-item">
+      <radar-chart :data="radarChartData4" :colors="colors" class="chart" />
+
+      <div class="config-info">
+        <div class="title">Radar-Chart</div>
+        <highlight-code>
+&lt;radar-chart :data="data" :colors="colors" /&gt;
+        </highlight-code>
+
+        <highlight-code>
+data: {
+  // 相同配置不再赘述
+  ringFillType: 'ring', // 非必须 设置环线填充颜色类型为ring
 }
         </highlight-code>
       </div>
@@ -374,6 +474,108 @@ export default {
   name: 'Chart',
   data () {
     return {
+      radarChartData1: {
+        data: [
+          {
+            data: [450, 50, 450, 50, 450, 50]
+          },
+          {
+            data: [50, 450, 50, 450, 50, 450]
+          }
+        ],
+        label: {
+          data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
+        },
+        labelLine: ['同期', '环期']
+      },
+
+      radarChartData2: {
+        data: [
+          {
+            data: [450, 50, 450, 50, 450, 50],
+            dashed: true
+          },
+          {
+            data: [50, 450, 50, 450, 50, 450],
+            lineColor: '#9cf4df',
+            fillColor: 'rgba(238, 233, 108, 0.5)'
+          }
+        ],
+        label: {
+          data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳'],
+          color: 'colors',
+          fontSize: 10
+        },
+        labelLine: ['同期', '环期'],
+        rayLineType: 'dashed',
+        rayLineColor: 'colors',
+        ringNum: 5,
+        ringType: 'polyline',
+        ringFillType: 'cover',
+        ringFillColor: ['rgba(61, 231, 201, 0.3)', 'rgba(61, 231, 201, 0.1)'],
+        ringLineType: 'line',
+        ringLineColor: 'rgba(156, 244, 233, 0.2)',
+        rayLineOffset: Math.PI * -1.5,
+        radius: 0.8,
+        max: 550
+      },
+
+      radarChartData3: {
+        data: [
+          {
+            data: [450, 50, 450, 50, 450, 50]
+          },
+          {
+            data: [50, 450, 50, 450, 50, 450]
+          }
+        ],
+        label: {
+          data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳'],
+          color: 'colors',
+          fontSize: 10
+        },
+        labelLine: ['同期', '环期'],
+        rayLineType: 'dashed',
+        rayLineColor: 'colors',
+        ringNum: 5,
+        ringType: 'polyline',
+        ringFillType: 'mulCover',
+        ringFillColor: ['rgba(61, 231, 201, 0.1)'],
+        ringLineType: 'line',
+        ringLineColor: 'rgba(156, 244, 233, 0.2)',
+        rayLineOffset: Math.PI * -1.5,
+        radius: 0.8,
+        max: 550
+      },
+
+      radarChartData4: {
+        data: [
+          {
+            data: [450, 50, 450, 50, 450, 50]
+          },
+          {
+            data: [50, 450, 50, 450, 50, 450]
+          }
+        ],
+        label: {
+          data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳'],
+          color: 'colors',
+          fontSize: 10
+        },
+        labelLine: ['同期', '环期'],
+        rayLineType: 'dashed',
+        rayLineColor: 'colors',
+        ringNum: 5,
+        ringType: 'polyline',
+        ringFillType: 'ring',
+        ringFillColor: ['rgba(61, 231, 201, 0.3)', 'rgba(61, 231, 201, 0.1)'],
+        ringLineType: 'line',
+        ringLineColor: 'rgba(156, 244, 233, 0.2)',
+        rayLineOffset: Math.PI * -1.5,
+        radius: 0.8,
+        max: 550
+      },
+
       capsuleChartData: {
         data: [
           {
@@ -654,35 +856,6 @@ export default {
         boundaryGap: true
       },
 
-      radarChartData: {
-        data: [
-          {
-            data: [180, 250, 300, 500, 600],
-            dashed: true
-          },
-          {
-            data: [210, 330, 450, 261, 299]
-          }
-        ],
-        label: {
-          data: ['石家庄', '周口', '南阳', '驻马店', '郑州'],
-          color: 'colors',
-          fontSize: 12
-        },
-        labelLine: ['同期', '环期'],
-        ringLineColor: '#43ffff',
-        ringType: 'polyline',
-        // radius: 2,
-        ringFillType: 'ring',
-        // ringFillColor: 'rgba(61, 231, 201, 0.1)',
-        rayLineType: 'dashed',
-        ringFillColor: ['rgba(61, 231, 201, 0.3)', 'rgba(61, 231, 201, 0.1)']
-        // ringNum: 5
-        // ringLineType: 'line'
-        // rayLineOffset: Math.PI * 1
-      },
-
-      // colors: ['#00baff', '#3de7c9']
       colors: ''
     }
   }
@@ -693,6 +866,16 @@ export default {
 #chart {
   display: flex;
   flex-direction: column;
+
+  .attention {
+    width: 80%;
+    margin-left: 20%;
+    text-align: center;
+
+    .highlight-code {
+      margin: -40px 0px;
+    }
+  }
 
   .chart-item {
     width: 80%;
