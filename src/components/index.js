@@ -11,6 +11,7 @@ import decoration2 from './decoration2/index'
 import decoration3 from './decoration3/index'
 import decoration4 from './decoration4/index'
 import decoration5 from './decoration5/index'
+import loading from './loading/index.vue'
 
 import capsuleChart from './capsuleChart/index.vue'
 import ringChart from './ringChart/index.vue'
@@ -20,10 +21,8 @@ import arcRingChart from './arcRingChart/index.vue'
 import radarChart from './radarChart/index.vue'
 
 import numberShow from './numberShow/index.vue'
-
+import percentPond from './percentPond/index.vue'
 import scrollBoard from './scrollBoard/index.vue'
-
-import loading from './loading/index.vue'
 
 import highlightCode from './highlightCode'
 
@@ -41,6 +40,7 @@ export default function (Vue) {
   Vue.component('decoration3', decoration3)
   Vue.component('decoration4', decoration4)
   Vue.component('decoration5', decoration5)
+  Vue.component('loading', loading)
 
   Vue.component('capsuleChart', capsuleChart)
   Vue.component('polylineChart', polylineChart)
@@ -50,7 +50,8 @@ export default function (Vue) {
   Vue.component('radarChart', radarChart)
 
   Vue.component('numberShow', numberShow)
+  Vue.component('percentPond', percentPond)
   Vue.component('scrollBoard', scrollBoard)
-  Vue.component('loading', loading)
+
   Vue.component('highlightCode', highlightCode)
 }
