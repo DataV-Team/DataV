@@ -1,6 +1,8 @@
 <template>
   <div id="chart">
-    <border-box-7 class="attention">
+    <side-nav :nav="navData" />
+
+    <border-box-7 class="attention" id="attention">
       <div class="title">Attention</div>
 
       <div class="text-info">
@@ -34,7 +36,7 @@ colors: ['#9cf4a7', '#66d7ee', '#eee966', '#a866ee', '#ee8f66', '#ee66aa']
       </div>
     </border-box-7>
 
-    <border-box-7 class="chart-item">
+    <border-box-7 class="chart-item" id="radar-chart">
       <radar-chart :data="radarChartData1" :colors="colors" class="chart" />
 
       <div class="config-info">
@@ -118,6 +120,7 @@ data: {
         <highlight-code>
 data: {
   // 相同配置不再赘述
+  ringFillColor: ['rgba(61, 231, 201, 0.1)'],
   ringFillType: 'mulCover', // 非必须 设置环线填充颜色类型为mulCover
 }
         </highlight-code>
@@ -136,6 +139,7 @@ data: {
         <highlight-code>
 data: {
   // 相同配置不再赘述
+  ringFillColor: ['rgba(61, 231, 201, 0.1)'],
   ringFillType: 'ring', // 非必须 设置环线填充颜色类型为ring
 }
         </highlight-code>
@@ -474,6 +478,17 @@ export default {
   name: 'Chart',
   data () {
     return {
+      navData: [
+        {
+          title: 'Attention',
+          target: 'attention'
+        },
+        {
+          title: 'Radar-Chart',
+          target: 'radar-chart'
+        }
+      ],
+
       radarChartData1: {
         data: [
           {
