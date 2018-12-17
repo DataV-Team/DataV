@@ -13,6 +13,13 @@ const View = r => require.ensure([], () => r(require('../views/dataView/index.vu
 Vue.use(Router)
 
 export default new Router({
+  scrollBehavior (to, from, savedPosition) {
+    if (to.hash) {
+      return {
+        selector: to.hash
+      }
+    }
+  },
   routes: [
     {
       path: '/demo',
