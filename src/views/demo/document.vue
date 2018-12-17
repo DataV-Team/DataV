@@ -12,7 +12,6 @@
       <div class="text-info">并在main.js中引入他们即可使用</div>
 
       <highlight-code>
-// components中highlightCode组件是本例中用来增强代码高亮的, 你应该不需要它, 可以选择移除
 // main.js
 import datavComponents from './components/index.js'
 import datavPlugins from './plugin/index.js'

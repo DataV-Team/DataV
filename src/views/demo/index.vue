@@ -45,6 +45,18 @@ export default {
         }
       ]
     }
+  },
+  methods: {
+    initActiveIndex () {
+      const { $route: { name }, menuData } = this
+
+      this.activeIndex = menuData.findIndex(({ routerName }) => routerName === name)
+    }
+  },
+  created () {
+    const { initActiveIndex } = this
+
+    initActiveIndex()
   }
 }
 </script>
