@@ -6,9 +6,13 @@ import './assets/style/index.less'
 
 import plugins from './plugins/index'
 
+import auxiliary from './auxiliary/index'
+
 import components from './components/index'
 
 Vue.use(plugins)
+
+Vue.use(auxiliary)
 
 Vue.use(components)
 

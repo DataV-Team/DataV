@@ -22,9 +22,8 @@ import radarChart from './radarChart/index.vue'
 
 import numberShow from './numberShow/index.vue'
 import percentPond from './percentPond/index.vue'
+import waterLevelPond from './waterLevelPond/index.vue'
 import scrollBoard from './scrollBoard/index.vue'
-
-import highlightCode from './highlightCode'
 
 export default function (Vue) {
   Vue.component('borderBox1', borderBox1)
@@ -51,7 +50,6 @@ export default function (Vue) {
 
   Vue.component('numberShow', numberShow)
   Vue.component('percentPond', percentPond)
+  Vue.component('waterLevelPond', waterLevelPond)
   Vue.component('scrollBoard', scrollBoard)
-
-  Vue.component('highlightCode', highlightCode)
 }
