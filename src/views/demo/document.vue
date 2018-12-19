@@ -8,8 +8,11 @@
 
       <div class="title">使用</div>
 
-      <div class="text-info">将src下的components及plugins复制至你的项目内 </div>
-      <div class="text-info">并在main.js中引入他们即可使用</div>
+      <div class="text-info">你需要将如下文件复制至你的项目内</div>
+      <div class="text-info">./src/plugins</div>
+      <div class="text-info">./src/components</div>
+      <div class="text-info">./src/config</div>
+      <div class="text-info">并在main.js中引入plugins和components</div>
 
       <highlight-code>
 // main.js
