@@ -8,6 +8,8 @@ const Chart = r => require.ensure([], () => r(require('../views/demo/chart.vue')
 
 const Other = r => require.ensure([], () => r(require('../views/demo/other.vue')), 'datav')
 
+const Show = r => require.ensure([], () => r(require('../views/demo/show.vue')), 'datav')
+
 export default [
   {
     path: 'document',
@@ -33,5 +35,10 @@ export default [
     path: 'other',
     name: 'other',
     component: Other
+  },
+  {
+    path: 'show',
+    name: 'show',
+    component: Show
   }
 ]
