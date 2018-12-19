@@ -42,6 +42,10 @@ export default {
         {
           title: 'Other',
           routerName: 'other'
+        },
+        {
+          title: 'Show',
+          routerName: 'show'
         }
       ]
     }

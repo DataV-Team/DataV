@@ -2,6 +2,78 @@
   <div id="other">
     <border-box-7 class="other-item">
       <div class="component">
+        <scroll-board :index="true" :data="scrollBoardData1" :columnWidth="[50, 50, 50]" :textAlign="['center', 'center']" />
+      </div>
+
+      <div class="config-info">
+        <div class="title">Water-Level-Pond</div>
+
+        <highlight-code>
+&lt;scroll-board :data="data" :index="true" :columnWidth="columnWidth" :textAlign="textAlign" /&gt;
+        </highlight-code>
+
+        <highlight-code>
+data: {
+  data: [ // 必须 每行数据的数组长度应保持一致
+    ['张三', '男', '这里是地址'],
+    ['李四', '女', '这里是地址'],
+    ['王五', '男', '这里是地址'],
+    ['赵六', '女', '这里是地址'],
+    ['钱七', '男', '这里是地址'],
+    ['孙八', '女', '这里是地址'],
+    ['杨九', '男', '这里是地址'],
+    ['吴十', '女', '这里是地址']
+  ]
+}
+// 非必须 设置每一栏的宽度 允许插入空位 空位均分宽度
+columnWidth: [50, 50, 50]
+// 非必须 设置每一栏的对齐方式 允许插入空位 默认居左
+textAlign: ['center', 'center']
+// index 非必须 属性为真时 自动添加序号
+// rowNum 非必须 可以设置展示行数
+// oddBG 非必须 可以设置奇数行背景色
+// evenBG 非必须 可以设置偶数行背景色
+// titBG 非必须 可设置表头背景色
+// carousel 非必须 设置为page 滚动时整页滚动
+        </highlight-code>
+      </div>
+    </border-box-7>
+
+    <border-box-7 class="other-item">
+      <div class="component">
+        <scroll-board :data="scrollBoardData2" carousel="page" :columnWidth="[50, 50]" :textAlign="['center', 'center']" />
+      </div>
+
+      <div class="config-info">
+        <div class="title">Water-Level-Pond</div>
+
+        <highlight-code>
+&lt;scroll-board :data="data" carousel="page" :columnWidth="columnWidth" :textAlign="textAlign" /&gt;
+        </highlight-code>
+
+        <highlight-code>
+data: {
+  data: [
+    ['张三', '男', '这里是地址'],
+    ['李四', '女', '这里是地址'],
+    ['王五', '男', '这里是地址'],
+    ['赵六', '女', '这里是地址'],
+    ['钱七', '男', '这里是地址'],
+    ['孙八', '女', '这里是地址'],
+    ['杨九', '男', '这里是地址'],
+    ['吴十', '女', '这里是地址']
+  ],
+  // 非必须 添加此项自动生成表头
+  title: ['姓名', '性别', '地址']
+}
+columnWidth: [50, 50]
+textAlign: ['center', 'center']
+        </highlight-code>
+      </div>
+    </border-box-7>
+
+    <border-box-7 class="other-item">
+      <div class="component">
         <water-level-pond :level="[60, 40]" />
       </div>
 
@@ -94,15 +166,39 @@
 export default {
   name: 'Other',
   data () {
-    return {}
+    return {
+      scrollBoardData1: {
+        data: [
+          ['张三', '男', '这里是地址这里是地址这里是地址这里是地址'],
+          ['李四', '女', '这里是地址这里是地址这里是地址这里是地址'],
+          ['王五', '男', '这里是地址这里是地址这里是地址这里是地址'],
+          ['赵六', '女', '这里是地址这里是地址这里是地址这里是地址'],
+          ['钱七', '男', '这里是地址这里是地址这里是地址这里是地址'],
+          ['孙八', '女', '这里是地址这里是地址这里是地址这里是地址'],
+          ['杨九', '男', '这里是地址这里是地址这里是地址这里是地址'],
+          ['吴十', '女', '这里是地址这里是地址这里是地址这里是地址']
+        ]
+      },
+      scrollBoardData2: {
+        data: [
+          ['张三', '男', '这里是地址这里是地址这里是地址这里是地址'],
+          ['李四', '女', '这里是地址这里是地址这里是地址这里是地址'],
+          ['王五', '男', '这里是地址这里是地址这里是地址这里是地址'],
+          ['赵六', '女', '这里是地址这里是地址这里是地址这里是地址'],
+          ['钱七', '男', '这里是地址这里是地址这里是地址这里是地址'],
+          ['孙八', '女', '这里是地址这里是地址这里是地址这里是地址'],
+          ['杨九', '男', '这里是地址这里是地址这里是地址这里是地址'],
+          ['吴十', '女', '这里是地址这里是地址这里是地址这里是地址']
+        ],
+        title: ['姓名', '性别', '地址']
+      }
+    }
   }
 }
 </script>
 
 <style lang="less">
 #other {
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
 
@@ -133,6 +229,11 @@ export default {
     .highlight-code {
       margin: -30px 0px;
     }
+  }
+
+  .scroll-board {
+    width: 350px;
+    height: 200px;
   }
 
   .water-level-pond {

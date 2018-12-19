@@ -1,16 +1,41 @@
 <template>
-  <div class="scroll-board">
+  <div class="scroll-board" :ref="ref">
 
     <loading v-if="!data" />
 
     <template v-else>
-      <div :class="`scroll-item ${item.index % 2 === 0 ? 'deep' : 'light'} ${fade && index === 0 && 'fade'}`"
-        v-for="(item, index) in scrollData"
-        :key="item.title + index"
-        :style="`height: ${100 / (data.showItemNum || 5)}%`">
-        <div class="index">{{ item.index }}</div>
-        <div class="title">{{ item.title }}</div>
-        <div class="info">{{ item.info }}</div>
+      <div class="title-container"
+        v-if="titleData"
+        :style="`background-color:${titleTrueBG};`">
+        <div :class="`title-item ${textTrueAlign[ti]}`"
+          v-for="(title, ti) in titleData" :key="title + ti"
+          :style="`width: ${columnTrueWidth[ti]};`">
+          {{ title }}
+        </div>
+      </div>
+
+      <div class="row-container">
+        <div :class="`row-item ${row.fade && 'fade'}`"
+          :style="`height: ${rowHeight}%;background-color:${row.index % 2 === 0 ? evenTrueBG : oddTrueBG};`"
+          v-for="(row, ri) in scrollData"
+          :key="row.data + ri">
+
+          <div :class="`row-item-info ${textTrueAlign[ii]}`"
+            v-for="(info, ii) in row.data"
+            :key="info">
+
+            <div :class="`rii-width ${ii === 0 && index && 'index-container'}`" :style="`width: ${columnTrueWidth[ii]};`">
+              <template v-if="ii === 0 && index">
+                <div class="index" :style="`background-color:${titleTrueBG};`">{{ info }}</div>
+              </template>
+
+              <template v-else>
+                {{ info }}
+              </template>
+            </div>
+
+          </div>
+        </div>
       </div>
     </template>
   </div>
@@ -19,138 +44,318 @@
 <script>
 export default {
   name: 'scroll-board',
-  props: ['data'],
+  props: ['data', 'index', 'rowNum', 'titBG', 'oddBG', 'evenBG', 'columnWidth', 'textAlign', 'carousel'],
   data () {
     return {
-      dealAfterData: [],
+      ref: `scroll-board-${(new Date()).getTime()}`,
+      container: '',
+      containerWH: [],
 
-      fade: false,
-      scrollData: [],
-      currentTopIndex: 0,
+      defaultRowNum: 5,
+      defaultTitleBG: '#00BAFF',
+      defaultOddBG: '#003B51',
+      defaultEvenBG: '#0A2732',
 
-      autoScrollHandler: ''
+      waitTime: 2000,
+
+      rowTrueNum: '',
+      rowHeight: '',
+      titleTrueBG: '',
+      oddTrueBG: '',
+      evenTrueBG: '',
+      columnTrueWidth: [],
+      textTrueAlign: [],
+
+      currentIndex: 0,
+
+      allRowNum: 0,
+      allColumnNum: 0,
+      titleData: '',
+      allRowData: [],
+      scrollData: []
     }
   },
   watch: {
     data () {
-      const { init, autoScrollHandler } = this
+      // const { init, autoScrollHandler } = this
 
-      this.fade = false
-      this.currentTopIndex = 0
+      // this.fade = false
+      // this.currentTopIndex = 0
 
-      autoScrollHandler && clearTimeout(autoScrollHandler)
+      // autoScrollHandler && clearTimeout(autoScrollHandler)
 
-      init()
+      // init()
     }
   },
   methods: {
     init () {
-      const { data, getDealAfterData, getCurrentScrollData } = this
+      const { data, initDom, dealData, calcConfig, getCurrentScrollData } = this
+
+      initDom()
 
       if (!data) return
 
-      getDealAfterData()
+      dealData()
 
-      getCurrentScrollData()
+      calcConfig()
+
+      getCurrentScrollData(true)
     },
-    getDealAfterData () {
-      const { data: { data } } = this
+    initDom () {
+      const { $refs, ref } = this
 
-      this.dealAfterData = data.map(({ title, info }, i) => ({ index: i + 1, title, info }))
+      const container = this.container = $refs[ref]
+
+      this.containerWH[0] = container.clientWidth
+      this.containerWH[1] = container.clientHeight
     },
-    getCurrentScrollData () {
-      const { dealAfterData, data: { showItemNum }, currentTopIndex, doFade } = this
+    dealData () {
+      const { data: { data, title }, index, deepClone } = this
 
-      if (dealAfterData.length < showItemNum) {
-        this.scrollData = dealAfterData
+      if (title) (this.titleData = index ? ['', ...title] : [...title])
+
+      this.allRowData = deepClone(data).map((row, i) =>
+        ({ index: i + 1, data: index ? [i + 1, ...row] : row }))
+    },
+    calcConfig () {
+      const { calcAllRowColumnNum, calcRowNum, calcRowHeight } = this
+
+      calcAllRowColumnNum()
+
+      calcRowNum()
+
+      calcRowHeight()
+
+      const { calcTitleBG, oddAndEvenRowBG, calcColumnWidth } = this
+
+      calcTitleBG()
+
+      oddAndEvenRowBG()
+
+      calcColumnWidth()
+
+      const { calcTextAlign } = this
+
+      calcTextAlign()
+    },
+    calcAllRowColumnNum () {
+      const { data: { data }, index } = this
+
+      this.allRowNum = data.length
+
+      this.allColumnNum = data[0].length + (index ? 1 : 0)
+    },
+    calcRowNum () {
+      const { rowNum, defaultRowNum } = this
+
+      this.rowTrueNum = parseInt(rowNum || defaultRowNum)
+    },
+    calcRowHeight () {
+      const { rowTrueNum } = this
+
+      this.rowHeight = 100 / rowTrueNum
+    },
+    calcTitleBG () {
+      const { titleBG, defaultTitleBG } = this
+
+      this.titleTrueBG = titleBG || defaultTitleBG
+    },
+    oddAndEvenRowBG () {
+      const { oddBG, evenBG, defaultOddBG, defaultEvenBG } = this
+
+      this.oddTrueBG = oddBG || defaultOddBG
+      this.evenTrueBG = evenBG || defaultEvenBG
+    },
+    calcColumnWidth () {
+      const { columnWidth, allColumnNum, filterNull, multipleSum, containerWH: [allWidth] } = this
+
+      const userSetColumnWidth = columnWidth || []
+
+      const setColumnData = filterNull(userSetColumnWidth)
+
+      const useWidth = multipleSum(...setColumnData.map(w => parseInt(w)))
+
+      const avgNum = allColumnNum - setColumnData.length
+
+      const avgWidth = (allWidth - useWidth) / avgNum + 'px'
+
+      this.columnTrueWidth = new Array(allColumnNum).fill(0).map((t, i) =>
+        userSetColumnWidth[i] ? `${userSetColumnWidth[i]}px` : avgWidth)
+    },
+    calcTextAlign () {
+      const { textAlign, allColumnNum, index } = this
+
+      const userSetTextAlign = textAlign || []
+
+      const textTrueAlign = new Array(allColumnNum).fill('left').map((d, i) =>
+        userSetTextAlign[i] || d)
+
+      index && textTrueAlign.unshift('')
+
+      this.textTrueAlign = textTrueAlign
+    },
+    getCurrentScrollData (init = false) {
+      init && (this.currentIndex = 0)
+
+      const { currentIndex, rowTrueNum, allRowData, deepClone, carousel } = this
+
+      let dealAfterRowData = deepClone(allRowData).map(row => ({ ...row, fade: false }))
+
+      if (init && allRowData.length < rowTrueNum) {
+        this.scrollData = dealAfterRowData
 
         return
       }
 
-      const tempArray = dealAfterData.slice(currentTopIndex, currentTopIndex + showItemNum + 1)
+      const needNum = carousel === 'page' ? rowTrueNum * 2 : rowTrueNum + 1
 
-      const appendNum = showItemNum - tempArray.length + 1
+      const tempScrollData = dealAfterRowData.slice(currentIndex, currentIndex + needNum)
 
-      tempArray.push(...dealAfterData.slice(0, appendNum))
+      let stillNum = needNum - tempScrollData.length
 
-      this.scrollData = tempArray
+      while (stillNum) {
+        tempScrollData.push(...deepClone(dealAfterRowData).slice(0, stillNum))
 
-      this.autoScrollHandler = setTimeout(doFade, 1500)
+        stillNum = needNum - tempScrollData.length
+      }
+
+      this.scrollData = tempScrollData
+
+      const { doFade, waitTime } = this
+
+      setTimeout(doFade, waitTime)
     },
     doFade () {
-      const { reGetCurrentScrollData } = this
+      const { rowTrueNum, carousel, scrollData, allRowNum, currentIndex } = this
 
-      this.fade = true
+      if (carousel === 'page') {
+        scrollData.forEach((item, i) => i < rowTrueNum && (item.fade = true))
 
-      this.autoScrollHandler = setTimeout(reGetCurrentScrollData, 1500)
+        const tempIndex = currentIndex + rowTrueNum
+
+        const minus = tempIndex - allRowNum
+
+        this.currentIndex = minus >= 0 ? minus : tempIndex
+      } else {
+        scrollData[0].fade = true
+
+        this.currentIndex = currentIndex + 1 === allRowNum ? 0 : currentIndex + 1
+      }
+
+      const { getCurrentScrollData } = this
+
+      this.animationHandler = setTimeout(getCurrentScrollData, 1000)
     },
-    reGetCurrentScrollData () {
-      const { getCurrentScrollData, dealAfterData, currentTopIndex } = this
+    stopAnimation () {
+      const { animationHandler } = this
 
-      this.fade = false
-
-      const tempNextIndex = currentTopIndex + 1
-
-      this.currentTopIndex = (tempNextIndex === dealAfterData.length ? 0 : tempNextIndex)
-
-      getCurrentScrollData()
+      clearTimeout(animationHandler)
     }
   },
-  created () {
+  mounted () {
     const { init } = this
 
     init()
+  },
+  destroyed () {
+    const { stopAnimation } = this
+
+    stopAnimation()
   }
 }
 </script>
 
 <style lang="less">
 .scroll-board {
+  position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 
-  .fade {
-    height: 0% !important;
-  }
-
-  .deep {
-    background-color: rgba(9, 37, 50, 0.4);
-  }
-
-  .light {
-    background-color: rgba(10, 32, 50, 0.3);
-  }
-
-  .scroll-item {
+  .title-container {
+    height: 35px;
+    font-size: 14px;
+    flex-shrink: 0;
     display: flex;
     flex-direction: row;
+  }
+
+  .title-item {
+    display: flex;
     align-items: center;
-    transition: all 1s;
+
+    &.left {
+      justify-content: flex-start;
+    }
+
+    &.right {
+      justify-content: flex-end;
+    }
+
+    &.center {
+      justify-content: center;
+    }
+  }
+
+  .row-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
+  }
 
-    .index {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
+  .row-item {
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    transition: all 0.5s;
+
+    &.fade {
+      height: 0% !important;
+    }
+  }
+
+  .row-item-info {
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    vertical-align:middle;
+    font-size: 13px;
+
+    &.left {
+      text-align: left;
+    }
+
+    &.right {
+      text-align: right;
+    }
+
+    &.center {
       text-align: center;
-      line-height: 20px;
-      font-size: 14px;
-      background-color: #00baff;
-      margin-left: 10px;
     }
+  }
 
-    .title {
-      font-size: 12px;
-      width: 25%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
+  .rii-width {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
-    .info {
-      font-size: 14px;
-    }
+  .index-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .index {
+    font-size: 12px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 </style>
