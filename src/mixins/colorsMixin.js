@@ -5,14 +5,18 @@ export default {
     return {
       defaultColors,
 
-      drawColors: ''
+      drawColors: '',
+
+      drawColorsMul: false
     }
   },
   methods: {
     initColors () {
       const { colors, defaultColors } = this
 
-      this.drawColors = colors || defaultColors
+      const trueDrawColors = this.drawColors = colors || defaultColors
+
+      this.drawColorsMul = trueDrawColors instanceof Array
     }
   }
 }
