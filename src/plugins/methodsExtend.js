@@ -82,6 +82,22 @@ export function getArrayMin (array) {
     n instanceof Array ? getArrayMin(n) : n))
 }
 
+export function getAxisPointsPos ([max, min], value, axisOriginPos, axisWH, tagPos, horizon) {
+  const minus = max - min
+
+  const percent = (value - min) / minus
+
+  const length = percent * (horizon ? axisWH[0] : axisWH[1])
+
+  return horizon ? [
+    axisOriginPos[0] + length,
+    tagPos[1]
+  ] : [
+    tagPos[0],
+    axisOriginPos[1] - length
+  ]
+}
+
 export default function (Vue) {
   Vue.prototype.deepClone = deepClone
   Vue.prototype.deleteArrayAllItems = deleteArrayAllItems
@@ -94,4 +110,5 @@ export default function (Vue) {
   Vue.prototype.getArrayMaxMin = getArrayMaxMin
   Vue.prototype.getArrayMax = getArrayMax
   Vue.prototype.getArrayMin = getArrayMin
+  Vue.prototype.getAxisPointsPos = getAxisPointsPos
 }
