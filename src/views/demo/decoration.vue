@@ -50,10 +50,18 @@
     </border-box-7>
 
     <border-box-7 class="decoration-container">
-      <decoration-5 class="decoration d4r center" :reverse="true" />
+      <decoration-5 class="decoration d4r center" />
       <div class="title">Decoration-5</div>
       <highlight-code>
 &lt;decoration-5 /&gt;
+      </highlight-code>
+    </border-box-7>
+
+    <border-box-7 class="decoration-container">
+      <decoration-6 class="decoration d4r center" />
+      <div class="title">Decoration-6</div>
+      <highlight-code>
+&lt;decoration-6 /&gt;
       </highlight-code>
     </border-box-7>
 

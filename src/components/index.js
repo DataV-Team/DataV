@@ -11,6 +11,7 @@ import decoration2 from './decoration2/index'
 import decoration3 from './decoration3/index'
 import decoration4 from './decoration4/index'
 import decoration5 from './decoration5/index'
+import decoration6 from './decoration6/index'
 import loading from './loading/index.vue'
 
 import capsuleChart from './capsuleChart/index.vue'
@@ -39,6 +40,7 @@ export default function (Vue) {
   Vue.component('decoration3', decoration3)
   Vue.component('decoration4', decoration4)
   Vue.component('decoration5', decoration5)
+  Vue.component('decoration6', decoration6)
   Vue.component('loading', loading)
 
   Vue.component('capsuleChart', capsuleChart)
