@@ -20,11 +20,14 @@ import polylineChart from './polylineChart/index.vue'
 import concentricArcChart from './concentricArcChart/index.vue'
 import arcRingChart from './arcRingChart/index.vue'
 import radarChart from './radarChart/index.vue'
+import columnChart from './columnChart/index.vue'
 
 import numberShow from './numberShow/index.vue'
 import percentPond from './percentPond/index.vue'
 import waterLevelPond from './waterLevelPond/index.vue'
 import scrollBoard from './scrollBoard/index.vue'
+
+import labelLine from './labelLine'
 
 export default function (Vue) {
   Vue.component('borderBox1', borderBox1)
@@ -49,9 +52,12 @@ export default function (Vue) {
   Vue.component('concentricArcChart', concentricArcChart)
   Vue.component('arcRingChart', arcRingChart)
   Vue.component('radarChart', radarChart)
+  Vue.component('columnChart', columnChart)
 
   Vue.component('numberShow', numberShow)
   Vue.component('percentPond', percentPond)
   Vue.component('waterLevelPond', waterLevelPond)
   Vue.component('scrollBoard', scrollBoard)
+
+  Vue.component('labelLine', labelLine)
 }
