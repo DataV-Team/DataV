@@ -169,6 +169,12 @@ export function getCircleRadianPoint (x, y, radius, radian) {
   return [x + cos(radian) * radius, y + sin(radian) * radius]
 }
 
+export function getTextsWidth (ctx, texts) {
+  if (!ctx || !texts) return
+
+  return texts.map(text => ctx.measureText(text).width)
+}
+
 const canvas = {
   drawLine,
   drawPolylinePath,
@@ -180,7 +186,8 @@ const canvas = {
   drawPoints,
   getLinearGradientColor,
   getRadialGradientColor,
-  getCircleRadianPoint
+  getCircleRadianPoint,
+  getTextsWidth
 }
 
 export default function (Vue) {

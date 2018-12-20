@@ -36,6 +36,23 @@ colors: ['#9cf4a7', '#66d7ee', '#eee966', '#a866ee', '#ee8f66', '#ee66aa']
       </div>
     </border-box-7>
 
+    <border-box-7 class="chart-item" id="column-chart">
+      <column-chart :data="columnChartData1" :colors="colors" class="chart" />
+
+      <div class="config-info">
+        <div class="title">Column-Chart</div>
+        <highlight-code>
+&lt;column-chart :data="data" :colors="colors" /&gt;
+        </highlight-code>
+
+        <highlight-code>
+data: {
+  data: []
+}
+        </highlight-code>
+      </div>
+    </border-box-7>
+
     <border-box-7 class="chart-item" id="radar-chart">
       <radar-chart :data="radarChartData1" :colors="colors" class="chart" />
 
@@ -484,10 +501,39 @@ export default {
           target: 'attention'
         },
         {
+          title: 'Column-Chart',
+          target: 'column-chart'
+        },
+        {
           title: 'Radar-Chart',
           target: 'radar-chart'
         }
       ],
+
+      columnChartData1: {
+        data: [
+          [180, 290, 420, 200, 350, 219],
+          [
+            [45, 32, 66],
+            [122, 49, 218],
+            [40, 129, 216],
+            [45, 66, 45],
+            [110, 120, 201],
+            [23, 40, 12]
+          ]
+        ],
+        x: {
+          data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
+        },
+        y: {
+          grid: true,
+          unit: '次',
+          min: 0,
+          max: 600
+        },
+        columnBG: 'rgba(250, 250, 250, 0.2)',
+        roundColumn: true
+      },
 
       radarChartData1: {
         data: [

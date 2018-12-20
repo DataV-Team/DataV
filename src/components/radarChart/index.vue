@@ -7,14 +7,7 @@
       <canvas :ref="ref" />
     </div>
 
-    <div class="label-line">
-      <div class="label-item"
-        v-for="(label, i) in data.labelLine"
-        :key="label">
-        <div :style="`background-color: ${drawColors[i % drawColors.length]};`"></div>
-        <div>{{ label }}</div>
-      </div>
-    </div>
+    <label-line :label="data.labelLine" :colors="drawColors" />
   </div>
 </template>
 
@@ -538,28 +531,6 @@ export default {
   canvas {
     width: 100%;
     height: 100%;
-  }
-
-  .label-line {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    font-size: 10px;
-
-    .label-item {
-      height: 20px;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      margin: 0px 5px 5px 5px;
-
-      :nth-child(1) {
-        width: 10px;
-        height: 10px;
-        margin-right: 5px;
-      }
-    }
   }
 }
 </style>
