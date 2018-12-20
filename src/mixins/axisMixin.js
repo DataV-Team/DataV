@@ -9,6 +9,8 @@ export default {
 
       defaultXAxisLineColor: 'rgba(255, 255, 255, 0.3)',
       defaultYAxisLineColor: 'rgba(255, 255, 255, 0.3)',
+      defaultGridColor: 'rgba(255, 255, 255, 0.3)',
+      defaultGridType: 'line',
 
       horizon: false,
       // user data's max and min value
@@ -31,7 +33,11 @@ export default {
       xTagColor: '',
       yTagColor: '',
       xTagColorMul: false,
-      yTagColorMul: false
+      yTagColorMul: false,
+      xGridColor: '',
+      yGridColor: '',
+      xGridColorMul: false,
+      yGridColorMul: false
     }
   },
   methods: {
@@ -54,7 +60,7 @@ export default {
 
       calcAxisOriginPos()
 
-      const { calcAxisWH, calcValueTagPos, calcLabelTagPos, calcTagGap, calcTagColor } = this
+      const { calcAxisWH, calcValueTagPos, calcLabelTagPos, calcTagGap, calcTagColor, calcGridColor } = this
 
       calcAxisWH()
 
@@ -65,11 +71,15 @@ export default {
       calcTagGap()
 
       calcTagColor()
+
+      calcGridColor()
     },
     calcMaxMinValue () {
       const { data: { data }, multipleSum, filterNull, getArrayMaxMin } = this
 
-      const trueValue = data.map(item =>
+      const valueData = data.map(item => item.data)
+
+      const trueValue = valueData.map(item =>
         item.map(v =>
           v ? (typeof v === 'number' ? v : multipleSum(...filterNull(v))) : false))
 
@@ -231,12 +241,31 @@ export default {
 
       this.yTagColorMul = yTagColor instanceof Array
     },
+    calcGridColor () {
+      const { drawColors, data, defaultGridColor } = this
+
+      const { x: { gridColor: xgc }, y: { gridColor: ygc } } = data
+
+      let xGridColor = xgc || defaultGridColor
+      let yGridColor = ygc || defaultGridColor
+
+      xGridColor === 'colors' && (xGridColor = drawColors)
+      yGridColor === 'colors' && (yGridColor = drawColors)
+
+      this.xGridColor = xGridColor
+      this.yGridColor = yGridColor
+
+      this.xGridColorMul = xGridColor instanceof Array
+      this.yGridColorMul = yGridColor instanceof Array
+    },
     drawAxis () {
-      const { drawAxisLine, drawAxisTag } = this
+      const { drawAxisLine, drawAxisTag, drawGrid } = this
 
       drawAxisLine()
 
       drawAxisTag()
+
+      drawGrid()
     },
     drawAxisLine () {
       const { ctx, defaultXAxisLineColor, defaultYAxisLineColor, axisOriginPos, axisWH, data } = this
@@ -300,6 +329,54 @@ export default {
       })
 
       this.ctx.fill()
+    },
+    drawGrid () {
+      const { horizon, labelTagPos, valueTagPos, axisOriginPos, ctx, data, axisWH } = this
+
+      const { xGridColor, xGridColorMul, yGridColor, yGridColorMul, axisType } = this
+
+      const { x: { grid: xG, gridType: xT }, y: { grid: yG, gridType: yT }, boundaryGap } = data
+
+      const xAxisData = horizon ? valueTagPos : labelTagPos
+      const yAxisData = horizon ? labelTagPos : valueTagPos
+
+      ctx.lineWidth = 1
+
+      !xGridColorMul && (ctx.strokeStyle = xGridColor)
+
+      const xGridColorNum = xGridColor.length
+
+      ctx.setLineDash(xT === 'dashed' ? [5, 5] : [10, 0])
+
+      xG && xAxisData.forEach(([x, y], i) => {
+        xGridColorMul && (ctx.strokeStyle = xGridColor[i % xGridColorNum])
+
+        if (!horizon && i === 0 && axisType === 'line' && !boundaryGap) return
+        if (horizon && i === 0) return
+
+        ctx.beginPath()
+        ctx.moveTo(x, axisOriginPos[1])
+        ctx.lineTo(x, axisOriginPos[1] - axisWH[1])
+        ctx.stroke()
+      })
+
+      !yGridColorMul && (ctx.strokeStyle = yGridColor)
+
+      const yGridColorNum = yGridColor.length
+
+      ctx.setLineDash(yT === 'dashed' ? [5, 5] : [10, 0])
+
+      yG && yAxisData.forEach(([x, y], i) => {
+        yGridColorMul && (ctx.strokeStyle = yGridColor[i % yGridColorNum])
+
+        if (!horizon && i === 0) return
+        if (horizon && i === 0 && axisType === 'line' && !boundaryGap) return
+
+        ctx.beginPath()
+        ctx.moveTo(axisOriginPos[0], y)
+        ctx.lineTo(axisOriginPos[0] + axisWH[0], y)
+        ctx.stroke()
+      })
     }
   }
 }
