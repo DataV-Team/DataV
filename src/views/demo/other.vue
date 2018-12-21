@@ -148,6 +148,45 @@ textAlign: ['center', 'center']
 
     <border-box-7 class="other-item">
       <div class="component">
+        <percent-arc :percent="66" :ringLineWidth="10" :arcLineWidth="20" arcType="round">66</percent-arc>
+      </div>
+
+      <div class="config-info">
+        <div class="title">Percent-Arc</div>
+
+        <highlight-code>
+&lt;percent-arc :percent="66" :ringLineWidth="10" :arcLineWidth="20" arcType="round"&gt;66&lt;percent-arc/&gt;
+        </highlight-code>
+
+        <highlight-code>
+// 内置slot 可以置入任意元素
+// percent 必须 设置弧度程度
+// arcType 非必须 设置是否为圆角弧形 round | butt
+// raidus 非必须 设置环半径
+// ringLineWidth 非必须 设置环线宽度
+// arcLineWidth 非必须 设置弧线宽度
+// ringColor 非必须 设置环线颜色 只能设置一种颜色
+// arcColor 非必须 设置弧线颜色 可以设置多种 多种自动渐变
+        </highlight-code>
+      </div>
+    </border-box-7>
+
+    <border-box-7 class="other-item">
+      <div class="component">
+        <percent-arc :percent="66" ringColor="#c7166f" :arcColor="['#2755fe', '#ff12cb']">66</percent-arc>
+      </div>
+
+      <div class="config-info">
+        <div class="title">Percent-Arc</div>
+
+        <highlight-code>
+&lt;percent-arc :percent="66" ringColor="#c7166f" :arcColor="['#2755fe', '#ff12cb']"&gt;66&lt;percent-arc/&gt;
+        </highlight-code>
+      </div>
+    </border-box-7>
+
+    <border-box-7 class="other-item">
+      <div class="component">
         <number-show :number="1399" />
       </div>
 
@@ -244,6 +283,13 @@ export default {
   .percent-pond {
     width: 300px;
     height: 80px;
+  }
+
+  .percent-arc {
+    width: 200px;
+    height: 200px;
+    font-size: 50px;
+    color: aqua;
   }
 }
 </style>

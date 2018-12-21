@@ -1270,6 +1270,7 @@ export default {
     width: 80%;
     margin-left: 20%;
     text-align: center;
+    margin-bottom: 20px;
 
     .highlight-code {
       margin: -40px 0px;

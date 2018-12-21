@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     initAxis () {
-      const { calcMaxMinValue, calcValueAxisTag, calcLabelAxisTag, calcXYAxisFS } = this
+      const { calcMaxMinValue, calcValueAxisTag, calcLabelAxisTag } = this
 
       calcMaxMinValue()
 
@@ -52,27 +52,31 @@ export default {
 
       calcLabelAxisTag()
 
-      calcXYAxisFS()
+      const { calcXYAxisFS, calcXYLabelMaxWidth, calcAxisMargin } = this
 
-      const { calcXYLabelMaxWidth, calcAxisMargin, calcAxisOriginPos } = this
+      calcXYAxisFS()
 
       calcXYLabelMaxWidth()
 
       calcAxisMargin()
 
-      calcAxisOriginPos()
+      const { calcAxisOriginPos, calcAxisWH, calcValueTagPos } = this
 
-      const { calcAxisWH, calcValueTagPos, calcLabelTagPos, calcTagGap, calcTagColor, calcGridColor } = this
+      calcAxisOriginPos()
 
       calcAxisWH()
 
       calcValueTagPos()
+
+      const { calcLabelTagPos, calcTagGap, calcTagColor } = this
 
       calcLabelTagPos()
 
       calcTagGap()
 
       calcTagColor()
+
+      const { calcGridColor } = this
 
       calcGridColor()
     },
