@@ -66,6 +66,14 @@
     </border-box-7>
 
     <border-box-7 class="decoration-container">
+      <decoration-7 class="decoration d4r center">Decoration</decoration-7>
+      <div class="title">Decoration-7</div>
+      <highlight-code>
+&lt;decoration-7&gt;Decoration&lt;dtn-7 /&gt;
+      </highlight-code>
+    </border-box-7>
+
+    <border-box-7 class="decoration-container">
       <loading class="decoration center" />
       <div class="title">Loading</div>
       <highlight-code>
