@@ -57,6 +57,14 @@ data: {
   x: {
     // 必须 允许空位 空位保留占位
     data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
+  },
+  labelLine: {
+    // 非必须 若不配置 自动使用全角色 多个颜色 循环使用
+    color: '#2b7bfb',
+    // 非必须
+    data: ['车流量'],
+    // 非必须 rect | rectangle 正方形 或长方形
+    type: 'rectangle'
   }
 }
         </highlight-code>
@@ -219,9 +227,10 @@ data: {
 },
         </highlight-code>
       </div>
+      <div id="radar-chart" />
     </border-box-7>
 
-    <border-box-7 class="chart-item" id="radar-chart">
+    <border-box-7 class="chart-item">
       <radar-chart :data="radarChartData1" :colors="colors" class="chart" />
 
       <div class="config-info">
@@ -243,7 +252,10 @@ data: {
   label: {
     data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳'] // 必须
   },
-  labelLine: ['同期', '环期'] // 非必须 不配置此项 则不展示底部label
+  // 非必须 不配置该项则不绘制底部label
+  labelLine: {
+    data: ['同期', '环期']
+  }
 }
         </highlight-code>
       </div>
@@ -689,9 +701,12 @@ export default {
           data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
         },
         y: {
+        },
+        labelLine: {
+          color: '#2b7bfb',
+          data: ['车流量'],
+          type: 'rectangle'
         }
-        // showColumnBG: true,
-        // bgColor: 'rgba(200, 200, 200, 0.2)'
       },
 
       columnChartData2: {
@@ -712,9 +727,12 @@ export default {
           unit: '次',
           grid: true,
           gridColor: '#333'
+        },
+        labelLine: {
+          color: '#2b7bfb',
+          data: ['车流量'],
+          type: 'rectangle'
         }
-        // showColumnBG: true,
-        // bgColor: 'rgba(200, 200, 200, 0.2)'
       },
 
       columnChartData3: {
@@ -733,6 +751,11 @@ export default {
           unit: '次',
           grid: true,
           gridColor: '#333'
+        },
+        labelLine: {
+          color: '#2b7bfb',
+          data: ['车流量'],
+          type: 'rectangle'
         },
         showColumnBG: true,
         bgColor: 'rgba(200, 200, 200, 0.2)'
@@ -779,6 +802,11 @@ export default {
           unit: '次',
           grid: true,
           gridColor: '#333'
+        },
+        labelLine: {
+          color: ['#247af7', '#47bf97', '#e3b4a2', '#fafb5d', '#ff23d4'],
+          data: ['玩具', '书本', '食品', '服装', '娱乐'],
+          type: 'rectangle'
         }
       },
 
@@ -799,6 +827,11 @@ export default {
         y: {
           data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
         },
+        labelLine: {
+          color: '#2b7bfb',
+          data: ['车流量'],
+          type: 'rectangle'
+        },
         columnType: 'round',
         horizon: true,
         showColumnBG: true
@@ -814,75 +847,23 @@ export default {
         x: {
           data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳'],
           noAxisLine: true,
-          noAxisTag: true
+          noAxisTag: true,
+          offset: 10
         },
         y: {
           min: 0,
           max: 450,
           noAxisLine: true,
-          noAxisTag: true
+          noAxisTag: true,
+          offset: 1
+        },
+        labelLine: {
+          color: '#2b7bfb',
+          data: ['车流量'],
+          type: 'rectangle'
         },
         showColumnBG: true
       },
-
-      // columnChartData1: {
-      //   data: [
-      //     {
-      //       data: [180, 290, 420, 200, 350, 219]
-      //     },
-      //     {
-      //       data: [
-      //         [45, 32, 66],
-      //         [122, 49, 218],
-      //         [40, 129, 216],
-      //         [45, 66, 45],
-      //         [110, 120, 201],
-      //         [23, 40, 12]
-      //       ]
-      //     }
-      //   ],
-      //   x: {
-      //     data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
-      //   },
-      //   y: {
-      //     grid: true,
-      //     gridType: 'dashed',
-      //     unit: '次',
-      //     min: 0,
-      //     max: 600
-      //   }
-      // },
-
-      // columnChartData1: {
-      //   data: [
-      //     {
-      //       data: [180, 290, 420, 200, 350, 219]
-      //     },
-      //     {
-      //       data: [
-      //         [45, 32, 66],
-      //         [122, 49, 218],
-      //         [40, 129, 216],
-      //         [45, 66, 45],
-      //         [110, 120, 201],
-      //         [23, 40, 12]
-      //       ]
-      //     }
-      //   ],
-      //   x: {
-      //     grid: true,
-      //     unit: '次',
-      //     min: 0,
-      //     max: 600
-      //   },
-      //   y: {
-      //     data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
-      //   },
-      //   bgColor: 'rgba(250, 250, 250, 0.1)',
-      //   columnType: 'round',
-      //   showColumnBG: true,
-      //   horizon: true
-      // },
 
       radarChartData1: {
         data: [
@@ -896,7 +877,9 @@ export default {
         label: {
           data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
         },
-        labelLine: ['同期', '环期']
+        labelLine: {
+          data: ['同期', '环期']
+        }
       },
 
       radarChartData2: {
@@ -916,7 +899,9 @@ export default {
           color: 'colors',
           fontSize: 10
         },
-        labelLine: ['同期', '环期'],
+        labelLine: {
+          data: ['同期', '环期']
+        },
         rayLineType: 'dashed',
         rayLineColor: 'colors',
         ringNum: 5,
@@ -944,7 +929,9 @@ export default {
           color: 'colors',
           fontSize: 10
         },
-        labelLine: ['同期', '环期'],
+        labelLine: {
+          data: ['同期', '环期']
+        },
         rayLineType: 'dashed',
         rayLineColor: 'colors',
         ringNum: 5,
@@ -972,7 +959,9 @@ export default {
           color: 'colors',
           fontSize: 10
         },
-        labelLine: ['同期', '环期'],
+        labelLine: {
+          data: ['同期', '环期']
+        },
         rayLineType: 'dashed',
         rayLineColor: 'colors',
         ringNum: 5,
