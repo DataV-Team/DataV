@@ -38,7 +38,6 @@ export default {
       showColumnBG: false,
       bgColor: '',
       bgColorMul: false,
-      mulItemDrawType: '',
       columnData: []
     }
   },
@@ -75,7 +74,7 @@ export default {
       drawColumn()
     },
     calcColumnConfig () {
-      const { horizon, data, labelTagGap, valueTagGap, defaultMulItemDrawType, defaultColumnType } = this
+      const { data, labelTagGap, defaultMulItemDrawType, defaultColumnType } = this
 
       const { data: td, columnType, mulItemDrawType } = data
 
@@ -83,10 +82,8 @@ export default {
 
       const columnWidth = this.columnWidth = labelTagGap / (td.length + 1)
 
-      const halfColumnWidth = columnWidth / 2
-
       this.columnItemREPos = new Array(td.length).fill(0).map((t, i) =>
-        i * columnWidth + halfColumnWidth).map(pos => pos - halfGap)
+        (i + 1) * columnWidth).map(pos => pos - halfGap)
 
       this.columnType = columnType || defaultColumnType
 
@@ -108,32 +105,55 @@ export default {
       this.bgColorMul = trueBGColor instanceof Array
     },
     calcColumnData () {
-      const { labelTagPos, horizon, defaultMulItemDrawType, data } = this
+      const { labelAxisPos, horizon, defaultMulItemDrawType, data, filterNull } = this
 
-      const { getAxisPointsPos, axisMaxMin, axisOriginPos, axisWH } = this
+      const { getAxisPointsPos, axisMaxMin, axisOriginPos, axisWH, deepClone, multipleSum } = this
 
       const { mulItemDrawType, data: td } = data
 
-      this.mulItemDrawType = mulItemDrawType || defaultMulItemDrawType
+      const trueMulItemDrawType = this.mulItemDrawType = mulItemDrawType || defaultMulItemDrawType
 
-      const columnData = td.map(({ data: values }, i) => {
-        const beginPos = []
-
+      this.columnData = td.map(({ data: values }, i) =>
         values.map((v, j) => {
-          if (!v) return
+          if (!v) return false
+
+          let beginPoint = labelAxisPos[j]
 
           if (v instanceof Array) {
-            return v.map()
+            return v.map((ci, k) => {
+              if (!ci) return false
+
+              if (trueMulItemDrawType === 'cover') {
+                return [
+                  beginPoint,
+                  getAxisPointsPos(axisMaxMin, ci, axisOriginPos, axisWH, beginPoint, horizon)
+                ]
+              } else {
+                const beReutrn = [
+                  deepClone(beginPoint),
+                  getAxisPointsPos(axisMaxMin,
+                    multipleSum(...filterNull(v.slice(0, k + 1))), axisOriginPos, axisWH, beginPoint, horizon)
+                ]
+
+                beginPoint = deepClone(beReutrn[1])
+
+                return beReutrn
+              }
+            })
           } else {
-            return getAxisPointsPos(axisMaxMin, v, axisOriginPos, axisWH, labelTagPos[j], horizon)
+            if (!v) return false
+
+            return [
+              deepClone(beginPoint),
+              getAxisPointsPos(axisMaxMin, v, axisOriginPos, axisWH, beginPoint, horizon)
+            ]
           }
-        })
-      })
+        }))
     },
     drawColumnBG () {
-      const { ctx, showColumnBG, columnWidth, columnItemREPos, axisWH } = this
+      const { ctx, showColumnBG, columnWidth, axisWH } = this
 
-      const { labelTagPos, bgColor, bgColorMul, horizon, axisOriginPos } = this
+      const { bgColor, bgColorMul, horizon, labelAxisPos } = this
 
       const { columnType, data } = this
 
@@ -151,16 +171,16 @@ export default {
 
       ctx.lineCap = columnType
 
-      const halfColumnWidth = bgColumnWidth  / 2
+      const halfColumnWidth = bgColumnWidth / 2
 
-      labelTagPos.forEach(([x, y], i) => {
-        const movePos = horizon ? [axisOriginPos[0], y] : [x, axisOriginPos[1]]
-        const endPos = horizon ? [axisOriginPos[0] + axisWH[0], y] : [x, axisOriginPos[1] - axisWH[1]]
+      labelAxisPos.forEach((pos, i) => {
+        const movePos = pos
+        const endPos = horizon ? [pos[0] + axisWH[0], pos[1]] : [pos[0], pos[1] - axisWH[1]]
 
         if (columnType === 'round') {
           if (horizon) {
             movePos[0] += halfColumnWidth
-            endPos[1] -= halfColumnWidth
+            endPos[0] -= halfColumnWidth
           } else {
             movePos[1] -= halfColumnWidth
             endPos[1] += halfColumnWidth
@@ -178,7 +198,116 @@ export default {
       })
     },
     drawColumn () {
+      const { ctx, drawColors, drawColorsMul, data: { data: td }, horizon } = this
+
+      const { columnWidth, columnItemREPos, columnData, getREPos, canvas } = this
+
+      const { axisOriginPos, axisWH, columnType, getRoundLinePoints } = this
+
+      const { getLinearGradientColor } = canvas
+
+      const halfColumnWidth = columnWidth / 2
+
+      ctx.lineWidth = columnWidth
+
+      !drawColorsMul && (ctx.strokeStyle = drawColors)
+
+      ctx.setLineDash([10, 0])
+
+      ctx.lineCap = columnType
+
+      const drawColorsNum = drawColors.length
+
+      const linearGradientColorPos = horizon ? [
+        axisOriginPos,
+        [axisOriginPos[0] + axisWH[0], axisOriginPos[1]]
+      ] : [
+        axisOriginPos,
+        [axisOriginPos[0], axisOriginPos[1] - axisWH[1]]
+      ]
+
+      columnData.forEach((column, i) => {
+        drawColorsMul && (ctx.strokeStyle = drawColors[i % drawColorsNum])
+
+        let currentFillColor = td[i].fillColor
+
+        currentFillColor === 'colors' && (currentFillColor = drawColors)
+
+        const currentFillColorMul = currentFillColor instanceof Array
+
+        const currentFillColorNum = currentFillColorMul ? currentFillColor.length : 0
+
+        currentFillColor && (ctx.strokeStyle = getLinearGradientColor(ctx, ...linearGradientColorPos, currentFillColor))
+
+        column[0][0][0] instanceof Array && column.forEach((ci, j) =>
+          ci.forEach((cii, k) => {
+            if (!cii) return
+
+            drawColorsMul && (ctx.strokeStyle = drawColors[(i + k) % drawColorsNum])
+
+            if (currentFillColorMul) (ctx.strokeStyle = currentFillColor[k % currentFillColorNum])
+
+            ctx.beginPath()
+
+            let currentREPos = cii.map(tci => getREPos(tci, columnItemREPos[i]))
+
+            columnType === 'round' && (currentREPos = getRoundLinePoints(currentREPos, halfColumnWidth))
+
+            ctx.moveTo(...currentREPos[0])
+            ctx.lineTo(...currentREPos[1])
+
+            ctx.stroke()
+          }))
+
+        !(column[0][0][0] instanceof Array) && column.forEach((ci, j) => {
+          if (!ci) return
+
+          ctx.beginPath()
+
+          let currentREPos = ci.map(tci => getREPos(tci, columnItemREPos[i]))
+
+          columnType === 'round' && (currentREPos = getRoundLinePoints(currentREPos, halfColumnWidth))
+
+          ctx.moveTo(...currentREPos[0])
+          ctx.lineTo(...currentREPos[1])
+
+          ctx.stroke()
+        })
+      })
     },
+    getREPos ([x, y], datum) {
+      const { horizon } = this
+
+      return [
+        horizon ? x : x + datum,
+        horizon ? y + datum : y
+      ]
+    },
+    getRoundLinePoints ([pa, pb], columnWidth) {
+      const { horizon } = this
+
+      let [a, b, c, d] = [0, 0, 0, 0]
+
+      if (horizon) {
+        a = pa[0] + columnWidth
+        b = pa[1]
+        c = pb[0] - columnWidth
+        d = pb[1]
+      } else {
+        a = pa[0]
+        b = pa[1] - columnWidth
+        c = pb[0]
+        d = pb[1] + columnWidth
+      }
+
+      return horizon ? [
+        [a > c ? c : a, b],
+        [c, d]
+      ] : [
+        [a, b],
+        [c, b > d ? d : b]
+      ]
+    }
   },
   mounted () {
     const { init } = this
