@@ -25,6 +25,7 @@ import columnChart from './columnChart/index.vue'
 
 import numberShow from './numberShow/index.vue'
 import percentPond from './percentPond/index.vue'
+import percentArc from './percentArc/index.vue'
 import waterLevelPond from './waterLevelPond/index.vue'
 import scrollBoard from './scrollBoard/index.vue'
 
@@ -58,6 +59,7 @@ export default function (Vue) {
 
   Vue.component('numberShow', numberShow)
   Vue.component('percentPond', percentPond)
+  Vue.component('percentArc', percentArc)
   Vue.component('waterLevelPond', waterLevelPond)
   Vue.component('scrollBoard', scrollBoard)
 
