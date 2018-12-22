@@ -41,7 +41,7 @@ export function multipleSum (...num) {
 export function filterNull (arr) {
   const tmpArr = []
 
-  arr.forEach(v => (v && tmpArr.push(v)))
+  arr.forEach(v => ((v || v === 0) && tmpArr.push(v)))
 
   return tmpArr
 }
