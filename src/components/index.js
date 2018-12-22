@@ -22,6 +22,7 @@ import concentricArcChart from './concentricArcChart/index.vue'
 import arcRingChart from './arcRingChart/index.vue'
 import radarChart from './radarChart/index.vue'
 import columnChart from './columnChart/index.vue'
+import pointChart from './pointChart/index.vue'
 
 import numberShow from './numberShow/index.vue'
 import percentPond from './percentPond/index.vue'
@@ -56,6 +57,7 @@ export default function (Vue) {
   Vue.component('arcRingChart', arcRingChart)
   Vue.component('radarChart', radarChart)
   Vue.component('columnChart', columnChart)
+  Vue.component('pointChart', pointChart)
 
   Vue.component('numberShow', numberShow)
   Vue.component('percentPond', percentPond)
