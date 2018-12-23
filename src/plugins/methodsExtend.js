@@ -82,7 +82,34 @@ export function getArrayMin (array) {
     n instanceof Array ? getArrayMin(n) : n))
 }
 
-export function getAxisPointsPos ([max, min], value, axisOriginPos, axisWH, tagPos, horizon) {
+export function getAxisPointsPos ([max, min], values, axisOriginPos, axisWH, tagPos, horizon) {
+  const minus = max - min
+
+  return values.map((value, i) => {
+    if (!value && value !== 0) return false
+
+    if (value instanceof Array) {
+      return value.map(v =>
+        getAxisPointPos([max, min], v, axisOriginPos, axisWH, tagPos[i], horizon))
+    }
+
+    if (value) console.error('111')
+
+    const percent = (value - min) / minus
+
+    const length = percent * (horizon ? axisWH[0] : axisWH[1])
+
+    return horizon ? [
+      axisOriginPos[0] + length,
+      tagPos[i][1]
+    ] : [
+      tagPos[i][0],
+      axisOriginPos[1] - length
+    ]
+  })
+}
+
+export function getAxisPointPos ([max, min], value, axisOriginPos, axisWH, tagPos, horizon) {
   const minus = max - min
 
   const percent = (value - min) / minus
@@ -110,5 +137,6 @@ export default function (Vue) {
   Vue.prototype.getArrayMaxMin = getArrayMaxMin
   Vue.prototype.getArrayMax = getArrayMax
   Vue.prototype.getArrayMin = getArrayMin
+  Vue.prototype.getAxisPointPos = getAxisPointPos
   Vue.prototype.getAxisPointsPos = getAxisPointsPos
 }
