@@ -29,6 +29,8 @@ export default {
       mulValueAdd: true,
       horizon: false,
 
+      echelonOffset: 10,
+
       columnData: [],
       columnItemSeriesNum: 0,
       columnItemAllWidth: 0,
@@ -158,32 +160,26 @@ export default {
           labelAxisTagPos,
           horizon
         ))
-
-      console.error(this.valuePointPos)
     },
     drawFigure () {
-      const { data: { data, roundColumn }, valuePointPos } = this
+      const { data: { data }, valuePointPos } = this
 
-      const { drawColumn, drawRoundColumn, drawLeftEchelon, drawRightEchelon, drawPolyline, drawSmoothline } = this
+      const { drawColumn, drawEchelon, drawline } = this
 
       data.forEach((series, i) => {
         switch (series.type) {
-          case 'leftEchelon': drawLeftEchelon(series, valuePointPos[i], i)
-            break
-          case 'rightEchelon': drawRightEchelon(series, valuePointPos[i], i)
-            break
-          case 'polyline': drawPolyline(series, valuePointPos[i], i)
-            break
-          case 'smoothline': drawSmoothline(series, valuePointPos[i], i)
+          case 'leftEchelon':
+          case 'rightEchelon': drawEchelon(series, valuePointPos[i], i)
             break
 
-          default: roundColumn ? drawRoundColumn(series, valuePointPos[i], i) : drawColumn(series, valuePointPos[i], i)
+          case 'polyline':
+          case 'smoothline': drawline(series, valuePointPos[i], i)
+            break
+
+          default: drawColumn(series, valuePointPos[i], i)
             break
         }
       })
-    },
-    getCurrentColor (i) {
-      // const { drawColors } = this
     },
     getGradientColor (value, colors) {
       const { data: { localGradient }, axisAnglePos, horizon } = this
@@ -205,46 +201,60 @@ export default {
       }
     },
     drawColumn ({ fillColor }, points, i) {
-      const { columnItemWidth, columnItemOffset, labelAxisTagPos, getOffsetPoint } = this
-
-      const { ctx, drawColors, getGradientColor, deepClone } = this
+      const { ctx, columnItemWidth, drawColors } = this
 
       ctx.setLineDash([10, 0])
-
       ctx.lineWidth = columnItemWidth
 
-      const currentColor = fillColor || drawColors[i]
+      const color = fillColor || drawColors[i]
+      const colorNum = color.length
+      const drawColorNum = drawColors.length
+
+      const { columnItemOffset, labelAxisTagPos, getOffsetPoint } = this
 
       const currentOffset = columnItemOffset.shift()
+      const offsetTagPos = labelAxisTagPos.map(p => getOffsetPoint(p, currentOffset))
 
-      const offsetTagPos = deepClone(labelAxisTagPos).map(p => getOffsetPoint(p, currentOffset))
+      const { getGradientColor, getRoundColumnPoint, data: { roundColumn } } = this
 
-      points.forEach((point, i) => {
-        if (point[0] instanceof Array) {
-          let lastEnd = offsetTagPos[i]
+      ctx.lineCap = roundColumn ? 'round' : 'butt'
 
-          point.forEach((item, j) => {
-            const beginPoint = getOffsetPoint(item, currentOffset)
+      const seriesColumn = points[0][0] instanceof Array
 
-            // if (j === 0) return
-            if (j === 1) return
-            if (j === 2) return
+      seriesColumn && points.forEach((series, i) => {
+        let lastEnd = offsetTagPos[i]
 
-            ctx.beginPath()
-            ctx.strokeStyle = 'blue'
-            ctx.moveTo(...beginPoint)
-            ctx.lineTo(...lastEnd)
-            ctx.stroke()
+        series.forEach((item, j) => {
+          const currentPoint = getOffsetPoint(item, currentOffset)
 
-            lastEnd = deepClone(beginPoint)
-          })
-          return
-        }
+          let columnPoint = [lastEnd, currentPoint]
+
+          roundColumn && (columnPoint = getRoundColumnPoint(columnPoint))
+
+          if (typeof color === 'string') {
+            ctx.strokeStyle = drawColors[(i + j) % drawColorNum]
+          } else {
+            ctx.strokeStyle = color[(i + j) % colorNum]
+          }
+
+          ctx.beginPath()
+          ctx.moveTo(...columnPoint[0])
+          ctx.lineTo(...columnPoint[1])
+          ctx.stroke()
+
+          lastEnd = currentPoint
+        })
+      })
+
+      !seriesColumn && points.forEach((point, i) => {
+        let columnPoint = [offsetTagPos[i], getOffsetPoint(point, currentOffset)]
+
+        roundColumn && (columnPoint = getRoundColumnPoint(columnPoint))
 
         ctx.beginPath()
-        ctx.strokeStyle = getGradientColor(point, currentColor)
-        ctx.moveTo(...getOffsetPoint(point, currentOffset))
-        ctx.lineTo(...offsetTagPos[i])
+        ctx.strokeStyle = getGradientColor(point, color)
+        ctx.moveTo(...columnPoint[0])
+        ctx.lineTo(...columnPoint[1])
         ctx.stroke()
       })
     },
@@ -255,11 +265,180 @@ export default {
         ? [x, y + offset]
         : [x + offset, y]
     },
-    drawRoundColumn () {},
-    drawLeftEchelon () {},
-    drawRightEchelon () {},
-    drawPolyline () {},
-    drawSmoothline () {},
+    getRoundColumnPoint ([pa, pb]) {
+      const { horizon, columnItemWidth } = this
+
+      const radius = columnItemWidth / 2
+
+      let [a, b, c, d] = [0, 0, 0, 0]
+
+      if (horizon) {
+        a = pa[0] + radius
+        b = pa[1]
+        c = pb[0] - radius
+        d = pb[1]
+      } else {
+        a = pa[0]
+        b = pa[1] - radius
+        c = pb[0]
+        d = pb[1] + radius
+      }
+
+      return horizon ? [
+        [a > c ? c : a, b],
+        [c, d]
+      ] : [
+        [a, b],
+        [c, b > d ? d : b]
+      ]
+    },
+    drawline ({ lineColor, fillColor, pointColor, lineType, lineDash, type }, points, i) {
+      const { drawColors, ctx, axisOriginPos: [x, y], horizon } = this
+
+      const { color: { hexToRgb }, getGradientColor, getTopPoint } = this
+
+      const drawColorNum = drawColors.length
+      const currentColor = drawColors[i % drawColorNum]
+
+      let currentLineColor = hexToRgb(currentColor, 0.6)
+      let currentPointColor = currentColor
+
+      lineColor && (currentLineColor = lineColor)
+      pointColor && (currentPointColor = pointColor)
+
+      let currentLineType = lineType || 'line'
+      let currentLineDash = currentLineType === 'dashed' ? (lineDash || [5, 5]) : [10, 0]
+
+      ctx.strokeStyle = currentLineColor
+
+      const { canvas: { drawPolylinePath, drawPolyline, drawPoints } } = this
+      const { canvas: { drawSmoothlinePath, drawSmoothline } } = this
+
+      const lineFun = type === 'polyline' ? [drawPolylinePath, drawPolyline] : [drawSmoothlinePath, drawSmoothline]
+
+      if (fillColor) {
+        const lastPoint = points[points.length - 1]
+
+        ctx.fillStyle = getGradientColor(getTopPoint(points), fillColor)
+
+        lineFun[0](ctx, points, false, true, true)
+        ctx.lineTo(...(horizon ? [x, lastPoint[1]] : [lastPoint[0], y]))
+        ctx.lineTo(...(horizon ? [x, points[0][1]] : [points[0][0], y]))
+
+        ctx.closePath()
+        ctx.fill()
+      }
+
+      lineFun[1](ctx, points, 1, currentLineColor, false, currentLineDash, true, true)
+
+      drawPoints(ctx, points, 2, currentPointColor)
+    },
+    getTopPoint (points) {
+      const { horizon } = this
+
+      let topIndex = 0
+
+      const xPos = points.map(([x]) => x)
+      const yPos = points.map(([, y]) => y)
+
+      if (horizon) {
+        const top = Math.max(...xPos)
+
+        topIndex = xPos.findIndex(v => v === top)
+      }
+
+      if (!horizon) {
+        const top = Math.min(...yPos)
+
+        topIndex = yPos.findIndex(v => v === top)
+      }
+
+      console.error(topIndex)
+
+      return points[topIndex]
+    },
+    drawEchelon ({ fillColor, type }, points, i) {
+      const { data: { roundColumn } } = this
+
+      const seriesColumn = points[0][0] instanceof Array
+
+      if (seriesColumn || roundColumn) return
+
+      const { ctx, columnItemOffset, labelAxisTagPos, getOffsetPoint } = this
+
+      const currentOffset = columnItemOffset.shift()
+      const offsetTagPos = labelAxisTagPos.map(p => getOffsetPoint(p, currentOffset))
+
+      const { drawColors, getGradientColor, getEchelonPoints } = this
+
+      const drawColorsNum = drawColors.length
+
+      const color = fillColor || drawColors[i % drawColorsNum]
+
+      const { canvas: { drawPolylinePath } } = this
+
+      points.forEach((point, i) => {
+        const topPoint = getOffsetPoint(point, currentOffset)
+        const bottomPoint = offsetTagPos[i]
+
+        const echelonPoints = getEchelonPoints(topPoint, bottomPoint, type)
+
+        drawPolylinePath(ctx, echelonPoints, true, true)
+
+        ctx.fillStyle = getGradientColor(point, color)
+
+        ctx.fill()
+      })
+    },
+    getEchelonPoints ([tx, ty], [bx, by], type) {
+      const { columnItemWidth, echelonOffset, horizon } = this
+
+      const halfWidth = columnItemWidth / 2
+
+      const echelonPoint = []
+
+      if (horizon) {
+        let enhance = tx - bx < echelonOffset
+
+        if (type === 'leftEchelon') {
+          echelonPoint[0] = [tx, ty + halfWidth]
+          echelonPoint[1] = [bx, ty + halfWidth]
+          echelonPoint[2] = [bx + echelonOffset, by - halfWidth]
+          echelonPoint[3] = [tx, ty - halfWidth]
+        }
+
+        if (type === 'rightEchelon') {
+          echelonPoint[0] = [tx, ty - halfWidth]
+          echelonPoint[1] = [bx, ty - halfWidth]
+          echelonPoint[2] = [bx + echelonOffset, by + halfWidth]
+          echelonPoint[3] = [tx, ty + halfWidth]
+        }
+
+        if (enhance) echelonPoint.splice(2, 1)
+      }
+
+      if (!horizon) {
+        let enhance = by - ty < echelonOffset
+
+        if (type === 'leftEchelon') {
+          echelonPoint[0] = [tx + halfWidth, ty]
+          echelonPoint[1] = [tx + halfWidth, by]
+          echelonPoint[2] = [tx - halfWidth, by - echelonOffset]
+          echelonPoint[3] = [tx - halfWidth, ty]
+        }
+
+        if (type === 'rightEchelon') {
+          echelonPoint[0] = [tx - halfWidth, ty]
+          echelonPoint[1] = [tx - halfWidth, by]
+          echelonPoint[2] = [tx + halfWidth, by - echelonOffset]
+          echelonPoint[3] = [tx + halfWidth, ty]
+        }
+
+        if (enhance) echelonPoint.splice(2, 1)
+      }
+
+      return echelonPoint
+    },
     drawCenterOriginTypeColumnChart () {}
     // draw () {
     //   const { clearCanvas, initColors, initAxis, drawAxis, calcColumnConfig, drawColumnBG } = this
