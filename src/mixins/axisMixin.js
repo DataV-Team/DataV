@@ -108,13 +108,17 @@ export default {
       if (agValueSeries.length) this.agValueMaxMin = calcValueMaxMin(agValueSeries)
     },
     calcValueMaxMin (data) {
-      const { mulValueAdd, calcMulValueAdd, getArrayMaxMin } = this
+      const { mulValueAdd, calcMulValueAdd, getArrayMax, getArrayMin } = this
 
       let valueSeries = data.map(({ data: td }) => td)
 
+      const min = getArrayMin(valueSeries)
+
       mulValueAdd && (valueSeries = calcMulValueAdd(valueSeries))
 
-      return getArrayMaxMin(valueSeries)
+      const max = getArrayMax(valueSeries)
+
+      return [max, min]
     },
     calcMulValueAdd (values) {
       const { multipleSum, filterNull } = this
