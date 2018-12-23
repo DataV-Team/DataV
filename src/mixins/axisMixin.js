@@ -1,111 +1,156 @@
 export default {
   data () {
     return {
-      defaultHorizon: false,
-      defaultXAxisFS: 10,
-      defaultYAxisFS: 10,
-      defaultXOffset: 30,
-      defaultRotateAngel: 30,
+      defaultAxisLineColor: '#666',
+      defaultAxisTagColor: '#666',
+      defaultGridLineColor: '#666',
+      defaultTagColor: '#666',
 
-      defaultXAxisLineColor: 'rgba(255, 255, 255, 0.3)',
-      defaultYAxisLineColor: 'rgba(255, 255, 255, 0.3)',
-      defaultGridColor: 'rgba(255, 255, 255, 0.3)',
-      defaultGridType: 'line',
-      defaultAxisLabelGap: 5,
+      defaultGridLineType: 'line',
+      defaultGridLineDash: [5, 5],
 
-      horizon: false,
-      // user data's max and min value
+      defaultXAxisOffset: 30,
+      defaultAxisLineTagGap: 5,
+      defaultAxisFontSize: 10,
+      defaultAxisFontFamily: 'Arial',
+
       valueMaxMin: [],
-      // axis's max and min value
-      axisMaxMin: [],
-      // label's max width where x and y Axis
-      labelXYMaxWidth: [],
+      agValueMaxMin: [],
+
+      valueAxisMaxMin: [],
+      agValueAxisMaxMin: [],
+
       valueAxisTag: [],
+      agValueAxisTag: [],
+
       labelAxisTag: [],
-      xyAxisFS: [],
-      xyAxisUnitWidth: [],
-      axisMargin: [],
+      agLabelAxisTag: [],
+
+      xAxisTagBA: ['', ''],
+      agXAxisTagBA: ['', ''],
+      yAxisTagBA: ['', ''],
+      agYAxisTagBA: ['', ''],
+
+      addBAValueAxisTag: [],
+      addBAAGValueAxisTag: [],
+
+      addBALabelAxisTag: [],
+      addBAAGLabelAxisTag: [],
+
+      axisUnit: [],
+
+      axisFontSize: 0,
+      axisFontFamily: '',
+
+      axisOffset: [],
+
       axisOriginPos: [],
       axisWH: [],
-      valueTagPos: [],
-      labelTagPos: [],
-      labelAxisPos: [],
-      valueTagGap: 0,
-      labelTagGap: 0,
-      xTagColor: '',
-      yTagColor: '',
-      xTagColorMul: false,
-      yTagColorMul: false,
-      xGridColor: '',
-      yGridColor: '',
-      xGridColorMul: false,
-      yGridColorMul: false
+
+      axisAnglePos: {},
+
+      valueAxisTagPos: [],
+      agValueAxisTagPos: [],
+
+      labelAxisTagPos: [],
+      agLabelAxisTagPos: [],
+
+      tagAlign: {}
     }
   },
   methods: {
     initAxis () {
-      const { calcMaxMinValue, calcValueAxisTag, calcLabelAxisTag } = this
+      const { calcValuesMaxMin, calcValueAxisData, calcLabelAxisData } = this
 
-      calcMaxMinValue()
+      calcValuesMaxMin()
 
-      calcValueAxisTag()
+      calcValueAxisData()
 
-      calcLabelAxisTag()
+      calcLabelAxisData()
 
-      const { calcXYAxisFS, calcXYLabelMaxWidth, calcAxisMargin } = this
+      const { calcTagBA, calcAddBATag, calcAxisUnit } = this
 
-      calcXYAxisFS()
+      calcTagBA()
 
-      calcXYLabelMaxWidth()
+      calcAddBATag()
 
-      calcAxisMargin()
+      calcAxisUnit()
 
-      const { calcAxisOriginPos, calcAxisWH, calcValueTagPos } = this
+      const { calcAxisFontData, calcAxisOffset, calcAxisAreaData } = this
 
-      calcAxisOriginPos()
+      calcAxisFontData()
 
-      calcAxisWH()
+      calcAxisOffset()
 
-      calcValueTagPos()
+      calcAxisAreaData()
 
-      const { calcLabelTagPos, calcTagGap, calcTagColor } = this
+      const { calcAxisAnglePos, calcValueAxisTagPos, calcLabelAxisTagPos } = this
 
-      calcLabelTagPos()
+      calcAxisAnglePos()
 
-      calcTagGap()
+      calcValueAxisTagPos()
 
-      calcTagColor()
+      calcLabelAxisTagPos()
 
-      const { calcGridColor } = this
+      const { calcTagAlign } = this
 
-      calcGridColor()
+      calcTagAlign()
     },
-    calcMaxMinValue () {
-      const { data: { data }, multipleSum, filterNull, getArrayMaxMin } = this
+    calcValuesMaxMin () {
+      const { data: { data }, calcValueMaxMin } = this
 
-      const valueData = data.map(item => item.data)
+      const valueSeries = data.filter(({ againstAxis }) => !againstAxis)
 
-      const trueValue = valueData.map(item =>
-        item.map(v =>
-          v ? (typeof v === 'number' ? v : multipleSum(...filterNull(v))) : false))
+      if (valueSeries.length) this.valueMaxMin = calcValueMaxMin(valueSeries)
 
-      this.valueMaxMin = getArrayMaxMin(trueValue)
+      const agValueSeries = data.filter(({ againstAxis }) => againstAxis)
+
+      if (agValueSeries.length) this.agValueMaxMin = calcValueMaxMin(agValueSeries)
     },
-    calcValueAxisTag () {
-      const { valueMaxMin: [ valueMax, valueMin ], data, defaultHorizon } = this
+    calcValueMaxMin (data) {
+      const { mulValueAdd, calcMulValueAdd, getArrayMaxMin } = this
 
-      const { horizon } = data
+      let valueSeries = data.map(({ data: td }) => td)
 
-      this.horizon = horizon || defaultHorizon
+      mulValueAdd && (valueSeries = calcMulValueAdd(valueSeries))
 
-      let { max, min, num, fixed } = data[horizon ? 'x' : 'y']
+      return getArrayMaxMin(valueSeries)
+    },
+    calcMulValueAdd (values) {
+      const { multipleSum, filterNull } = this
+
+      return values.map(series =>
+        filterNull(series).map(n =>
+          n instanceof Array ? multipleSum(...filterNull(n)) : n))
+    },
+    calcValueAxisData () {
+      const { horizon, data: { x, ax, y, ay }, calcValueAxisTag } = this
+
+      const { valueMaxMin, agValueMaxMin, getValueAxisMaxMin } = this
+
+      const valueAxis = horizon ? [x, ax] : [y, ay]
+
+      if (valueMaxMin.length) {
+        const valueAxisTag = this.valueAxisTag = calcValueAxisTag(valueMaxMin, valueAxis[0])
+
+        this.valueAxisMaxMin = getValueAxisMaxMin(valueAxisTag)
+      }
+
+      if (agValueMaxMin.length) {
+        const agValueAxisTag = this.agValueAxisTag = calcValueAxisTag(agValueMaxMin, valueAxis[1])
+
+        this.agValueAxisMaxMin = getValueAxisMaxMin(agValueAxisTag)
+      }
+    },
+    calcValueAxisTag ([vmax, vmin], { max, min, num, fixed, data } = {}) {
+      if (data) return data
 
       let [trueMax, trueMin] = [max, min]
 
-      const thirdValueMinus = parseInt((valueMax - valueMin) / 3)
+      const thirdValueMinus = parseInt((vmax - vmin) / 3)
 
-      !max && (max !== 0) && (trueMax = valueMax + thirdValueMinus)
-      !min && (min !== 0) && (trueMin = valueMin - thirdValueMinus)
+      !max && (max !== 0) && (trueMax = vmax + thirdValueMinus)
+      !min && (min !== 0) && (trueMin = vmin - thirdValueMinus)
 
       const trueMinus = trueMax - trueMin
 
@@ -114,323 +159,417 @@ export default {
 
       const valueGap = trueMinus / (num - 1)
 
-      const valueAxisTag = this.valueAxisTag = Array(num).fill(0).map((t, i) =>
+      return Array(num).fill(0).map((t, i) =>
         (trueMin + i * valueGap).toFixed(fixed))
-
-      const lastValueAxisTagIndex = valueAxisTag.length - 1
-
-      this.axisMaxMin = [parseFloat(valueAxisTag[lastValueAxisTagIndex]), parseFloat(valueAxisTag[0])]
     },
-    calcLabelAxisTag () {
-      const { data, horizon } = this
+    getValueAxisMaxMin (valueTag) {
+      const lastIndex = valueTag.length - 1
 
-      this.labelAxisTag = data[horizon ? 'y' : 'x'].data
+      return [
+        parseFloat(valueTag[lastIndex]),
+        parseFloat(valueTag[0])
+      ]
     },
-    calcXYAxisFS () {
-      const { defaultXAxisFS, defaultYAxisFS } = this
+    calcLabelAxisData () {
+      const { horizon, data: { x, ax, y, ay } } = this
 
-      const { data: { x: { fontSize: xfs }, y: { fontSize: yfs } } } = this
+      const labelAxis = horizon ? [y, ay] : [x, ax]
 
-      this.xyAxisFS = [xfs || defaultXAxisFS, yfs || defaultYAxisFS]
+      if (labelAxis[0] && labelAxis[0].data) this.labelAxisTag = labelAxis[0].data
+
+      if (labelAxis[1] && labelAxis[1].data) this.agLabelAxisTag = labelAxis[1].data
     },
-    calcXYLabelMaxWidth () {
-      const { ctx, valueAxisTag, labelAxisTag, horizon, xyAxisFS } = this
+    calcTagBA () {
+      const { data: { x, ax, y, ay } } = this
 
-      const { canvas: { getTextsWidth } } = this
+      if (x && x.tagBefore) this.xAxisTagBA[0] = x.tagBefore
+      if (ax && ax.tagBefore) this.agXAxisTagBA[0] = ax.tagBefore
+      if (y && y.tagBefore) this.yAxisTagBA[0] = y.tagBefore
+      if (ay && ay.tagBefore) this.agYAxisTagBA[0] = ay.tagBefore
 
-      const { data: { x: { unit: xUN }, y: { unit: yUN } } } = this
-
-      ctx.font = `${xyAxisFS[0]}px Arial`
-
-      this.labelXYMaxWidth[0] = Math.max(...getTextsWidth(ctx, horizon ? valueAxisTag : labelAxisTag))
-
-      this.xyAxisUnitWidth[0] = ctx.measureText(xUN || '').width
-
-      ctx.font = `${xyAxisFS[1]}px Arial`
-
-      this.labelXYMaxWidth[1] = Math.max(...getTextsWidth(ctx, horizon ? labelAxisTag : valueAxisTag))
-
-      this.xyAxisUnitWidth[1] = ctx.measureText(yUN || '').width
+      if (x && x.tagAfter) this.xAxisTagBA[1] = x.tagAfter
+      if (ax && ax.tagAfter) this.agXAxisTagBA[1] = ax.tagAfter
+      if (y && y.tagAfter) this.yAxisTagBA[1] = y.tagAfter
+      if (ay && ay.tagAfter) this.agYAxisTagBA[1] = ay.tagAfter
     },
-    calcAxisMargin () {
-      const { defaultXOffset, labelXYMaxWidth, data, xyAxisUnitWidth } = this
+    calcAddBATag () {
+      const { xAxisTagBA, agXAxisTagBA, yAxisTagBA, agYAxisTagBA } = this
 
-      const { offset: xOF, unitWidth: xUW } = data.x
+      const { valueAxisTag, agValueAxisTag, labelAxisTag, agLabelAxisTag } = this
 
-      const { offset: yOF, unitHeight: yUH } = data.y
+      const { horizon, addBATag } = this
 
-      this.axisMargin[0] = yUH || defaultXOffset
-      this.axisMargin[1] = xUW || xyAxisUnitWidth[0] + 10
-      this.axisMargin[2] = xOF || defaultXOffset
-      this.axisMargin[3] = yOF || labelXYMaxWidth[1] + 10
+      const valueTagBA = horizon ? [xAxisTagBA, agXAxisTagBA] : [yAxisTagBA, agYAxisTagBA]
+
+      const labelTagBA = horizon ? [yAxisTagBA, agYAxisTagBA] : [xAxisTagBA, agXAxisTagBA]
+
+      if (valueAxisTag.length) this.addBAValueAxisTag = addBATag(valueAxisTag, valueTagBA[0])
+      if (agValueAxisTag.length) this.addBAAGValueAxisTag = addBATag(agValueAxisTag, valueTagBA[1])
+      if (labelAxisTag.length) this.addBALabelAxisTag = addBATag(labelAxisTag, labelTagBA[0])
+      if (agLabelAxisTag.length) this.addBAAGLabelAxisTag = addBATag(agLabelAxisTag, labelTagBA[1])
     },
-    calcAxisOriginPos () {
-      const { axisMargin, canvasWH } = this
-
-      this.axisOriginPos[0] = axisMargin[3]
-      this.axisOriginPos[1] = canvasWH[1] - axisMargin[2]
+    addBATag (tags, ba) {
+      return tags.map(tag => tag ? `${ba[0]}${tag}${ba[1]}` : tag)
     },
-    calcAxisWH () {
-      const { axisMargin, canvasWH } = this
+    calcAxisUnit () {
+      const { data: { x, ax, y, ay } } = this
 
-      this.axisWH[0] = canvasWH[0] - axisMargin[1] - axisMargin[3]
-      this.axisWH[1] = canvasWH[1] - axisMargin[0] - axisMargin[2]
+      if (x && x.unit) this.axisUnit[0] = x.unit
+      if (ax && ax.unit) this.axisUnit[1] = ax.unit
+      if (y && y.unit) this.axisUnit[2] = y.unit
+      if (ay && ay.unit) this.axisUnit[3] = ay.unit
     },
-    calcValueTagPos () {
-      const { axisWH, valueAxisTag, horizon, axisOriginPos: [x, y] } = this
+    calcAxisFontData () {
+      const { defaultAxisFontSize, defaultAxisFontFamily } = this
 
-      const valueTagNum = valueAxisTag.length
+      const { data: { axisFontSize, axisFontFamily } } = this
 
-      const gapWidth = (horizon ? axisWH[0] : axisWH[1]) / (valueTagNum - 1)
+      this.axisFontSize = axisFontSize || defaultAxisFontSize
 
-      this.valueTagPos = new Array(valueTagNum).fill(0).map((t, i) =>
-        horizon ? [x + gapWidth * i, y + 5] : [x - 5, y - gapWidth * i])
+      this.axisFontFamily = axisFontFamily || defaultAxisFontFamily
     },
-    calcLabelTagPos () {
-      const { axisWH, labelAxisTag, horizon, axisOriginPos: [x, y], data } = this
+    calcAxisOffset () {
+      const { horizon, axisUnit, defaultXAxisOffset } = this
 
-      const { defaultAxisLabelGap, axisType } = this
+      const { addBAValueAxisTag, addBAAGValueAxisTag, addBALabelAxisTag, addBAAGLabelAxisTag } = this
 
-      const { boundaryGap } = data
+      const { axisFontSize, axisFontFamily, defaultAxisLineTagGap } = this
 
-      const labelNum = labelAxisTag.length
+      const { data: { x, ax, y, ay } } = this
 
-      const gapAllWidth = horizon ? axisWH[1] : axisWH[0]
+      const { ctx, canvas: { getTextsWidth }, boundaryGap } = this
 
-      const tempArray = new Array(labelNum).fill(0)
+      ctx.font = `${axisFontSize}px ${axisFontFamily}`
 
-      if (axisType === 'column' || (axisType === 'line' && boundaryGap)) {
-        const gapWidth = gapAllWidth / labelNum
+      this.axisOffset[0] = (ax && ax.offset) || defaultXAxisOffset
+      this.axisOffset[2] = (x && x.offset) || defaultXAxisOffset
 
-        const halfGapWidth = gapWidth / 2
+      const horizonAxisTags = horizon
+        ? [addBALabelAxisTag, addBAAGLabelAxisTag]
+        : [addBAValueAxisTag, addBAAGValueAxisTag]
 
-        this.labelAxisPos = tempArray.map((t, i) =>
-          horizon ? [x, y - gapWidth * i - halfGapWidth]
-            : [x + gapWidth * i + halfGapWidth, y])
+      this.axisOffset[3] = (y && y.offset) ||
+        Math.max(...getTextsWidth(ctx, [axisUnit[2] || '']),
+          ...getTextsWidth(ctx, horizonAxisTags[0].length ? horizonAxisTags[0] : 0)) + defaultAxisLineTagGap
 
-        this.labelTagPos = tempArray.map((t, i) =>
-          horizon ? [x - defaultAxisLabelGap, y - gapWidth * i - halfGapWidth]
-            : [x + gapWidth * i + halfGapWidth, y + defaultAxisLabelGap])
+      // axis offset 1
+      const xAxisTags = horizon ? addBAValueAxisTag : addBALabelAxisTag
+
+      let xAxisTagsHalfWidth = 0
+
+      xAxisTags.length && (xAxisTagsHalfWidth = ctx.measureText(xAxisTags.length - 1).width / 2)
+
+      let rightOffset = Math.max(...getTextsWidth(ctx, [axisUnit[3] || '']),
+        ...getTextsWidth(ctx, [axisUnit[0] || '']),
+        ...getTextsWidth(ctx, horizonAxisTags[1].length ? horizonAxisTags[1] : [''])) + defaultAxisLineTagGap
+
+      !boundaryGap && (rightOffset += xAxisTagsHalfWidth)
+
+      this.axisOffset[1] = (ay && ay.offset) || rightOffset
+
+      if (y && y.noTag) this.axisOffset[3] = 1
+      if (ay && ay.noTag) this.axisOffset[1] = 1
+    },
+    calcAxisAreaData () {
+      const { canvasWH, axisOffset, axisWH, axisOriginPos } = this
+
+      axisWH[0] = canvasWH[0] - axisOffset[1] - axisOffset[3]
+      axisWH[1] = canvasWH[1] - axisOffset[0] - axisOffset[2]
+
+      axisOriginPos[0] = axisOffset[3]
+      axisOriginPos[1] = axisWH[1] + axisOffset[0]
+    },
+    calcAxisAnglePos () {
+      const { axisWH, axisOriginPos, axisAnglePos } = this
+
+      axisAnglePos.leftTop = [axisOriginPos[0], axisOriginPos[1] - axisWH[1]]
+      axisAnglePos.rightTop = [axisOriginPos[0] + axisWH[0], axisOriginPos[1] - axisWH[1]]
+
+      axisAnglePos.leftBottom = axisOriginPos
+      axisAnglePos.rightBottom = [axisOriginPos[0] + axisWH[0], axisOriginPos[1]]
+    },
+    calcValueAxisTagPos () {
+      const { horizon, axisOriginPos, axisAnglePos } = this
+
+      const { valueAxisTag, agValueAxisTag, getValueAxisTagPos } = this
+
+      if (valueAxisTag) this.valueAxisTagPos = getValueAxisTagPos(valueAxisTag, axisOriginPos)
+
+      const basePoint = horizon ? axisAnglePos.leftTop : axisAnglePos.rightBottom
+
+      if (agValueAxisTag) this.agValueAxisTagPos = getValueAxisTagPos(agValueAxisTag, basePoint)
+    },
+    getValueAxisTagPos (tags, [x, y]) {
+      const { horizon, axisWH } = this
+
+      const tagsNum = tags.length
+
+      const areaLength = horizon ? axisWH[0] : axisWH[1]
+
+      const tagGap = areaLength / (tagsNum - 1)
+
+      return new Array(tagsNum).fill(0).map((t, i) =>
+        horizon ? [x + tagGap * i, y] : [x, y - tagGap * i])
+    },
+    calcLabelAxisTagPos () {
+      const { horizon, getLabelAxisTagPos, axisAnglePos } = this
+
+      const { labelAxisTag, agLabelAxisTag, axisOriginPos } = this
+
+      if (labelAxisTag.length) this.labelAxisTagPos = getLabelAxisTagPos(labelAxisTag, axisOriginPos)
+
+      const basePoint = horizon ? axisAnglePos.rightBottom : axisAnglePos.leftTop
+
+      if (agLabelAxisTag.length) this.agLabelAxisTagPos = getLabelAxisTagPos(agLabelAxisTag, basePoint)
+    },
+    getLabelAxisTagPos (tags, [x, y]) {
+      const { horizon, axisWH, boundaryGap } = this
+
+      const tagsNum = tags.length
+
+      const areaLength = horizon ? axisWH[1] : axisWH[0]
+
+      const tagGap = areaLength / (boundaryGap ? tagsNum : tagsNum - 1)
+
+      const halfGap = tagGap / 2
+
+      const tempPos = new Array(tagsNum).fill(0)
+
+      if (boundaryGap) {
+        return tempPos.map((t, i) =>
+          horizon ? [x, y - (tagGap * i) - halfGap] : [x + (tagGap * i) + halfGap, y])
       }
 
-      if (axisType === 'line' && !boundaryGap) {
-        const gapWidth = gapAllWidth / (labelNum - 1)
-
-        this.labelAxisPos = tempArray.map((t, i) =>
-          horizon ? [x, y - gapWidth]
-            : [x + gapWidth * i, y])
-
-        this.labelTagPos = tempArray.map((t, i) =>
-          horizon ? [x - defaultAxisLabelGap, y - gapWidth]
-            : [x + gapWidth * i, y + defaultAxisLabelGap])
+      if (!boundaryGap) {
+        return tempPos.map((t, i) =>
+          horizon ? [x, y + tagGap * i] : [x + tagGap * i, y])
       }
     },
-    calcTagGap () {
-      const { horizon, valueTagPos, labelTagPos } = this
+    calcTagAlign () {
+      const { tagAlign } = this
 
-      const v = horizon ? '0' : '1'
-
-      this.valueTagGap = Math.abs(valueTagPos[0][v] - valueTagPos[1][v])
-
-      const l = horizon ? '1' : '0'
-
-      this.labelTagGap = Math.abs(labelTagPos[0][l] - labelTagPos[1][l])
-    },
-    calcTagColor () {
-      const { defaultXAxisLineColor, defaultYAxisLineColor, drawColors, data } = this
-
-      const { x: { color: xc }, y: { color: yc } } = data
-
-      let xTagColor = xc || defaultXAxisLineColor
-
-      xTagColor === 'colors' && (xTagColor = drawColors)
-
-      let yTagColor = yc || defaultYAxisLineColor
-
-      yTagColor === 'colors' && (yTagColor = drawColors)
-
-      this.xTagColor = xTagColor
-
-      this.xTagColorMul = xTagColor instanceof Array
-
-      this.yTagColor = yTagColor
-
-      this.yTagColorMul = yTagColor instanceof Array
-    },
-    calcGridColor () {
-      const { drawColors, data, defaultGridColor } = this
-
-      const { x: { gridColor: xgc }, y: { gridColor: ygc } } = data
-
-      let xGridColor = xgc || defaultGridColor
-      let yGridColor = ygc || defaultGridColor
-
-      xGridColor === 'colors' && (xGridColor = drawColors)
-      yGridColor === 'colors' && (yGridColor = drawColors)
-
-      this.xGridColor = xGridColor
-      this.yGridColor = yGridColor
-
-      this.xGridColorMul = xGridColor instanceof Array
-      this.yGridColorMul = yGridColor instanceof Array
+      tagAlign.x = ['center', 'top']
+      tagAlign.y = ['right', 'middle']
+      tagAlign.ax = ['center', 'bottom']
+      tagAlign.ay = ['left', 'center']
     },
     drawAxis () {
-      const { drawAxisLine, drawAxisTag, drawUnit, drawGrid } = this
+      const { drawAxisLine, drawAxisTag, drawAxisUnit } = this
 
       drawAxisLine()
 
       drawAxisTag()
 
-      drawUnit()
+      drawAxisUnit()
 
-      drawGrid()
+      const { drawAxisGrid } = this
+
+      drawAxisGrid()
     },
     drawAxisLine () {
-      const { ctx, defaultXAxisLineColor, defaultYAxisLineColor, axisOriginPos, axisWH, data } = this
+      const { ctx, horizon, axisOriginPos, axisAnglePos } = this
 
-      const { x: { lineColor: xlc, noAxisLine: xNAL }, y: { lineColor: ylc, noAxisLine: yNAL } } = data
+      const { defaultAxisLineColor, agValueAxisTag, agLabelAxisTag } = this
 
-      if (xNAL && yNAL) return
+      const { data: { x, ax, y, ay } } = this
 
       ctx.lineWidth = 1
 
-      if (!xNAL) {
-        ctx.strokeStyle = xlc || defaultXAxisLineColor
+      if (!x.noAxisLine) {
+        ctx.strokeStyle = (x && x.axisLineColor) || defaultAxisLineColor
         ctx.beginPath()
         ctx.moveTo(...axisOriginPos)
-        ctx.lineTo(axisOriginPos[0] + axisWH[0], axisOriginPos[1])
+        ctx.lineTo(...axisAnglePos.rightBottom)
         ctx.stroke()
       }
 
-      if (!yNAL) {
-        ctx.strokeStyle = ylc || defaultYAxisLineColor
+      if (!y.noAxisLine) {
+        ctx.strokeStyle = (y && y.axisLineColor) || defaultAxisLineColor
         ctx.beginPath()
         ctx.moveTo(...axisOriginPos)
-        ctx.lineTo(axisOriginPos[0], axisOriginPos[1] - axisWH[1])
+        ctx.lineTo(...axisAnglePos.leftTop)
+        ctx.stroke()
+      }
+
+      const agValueAxis = horizon ? ay : ax
+
+      if (agValueAxisTag.length && (!agValueAxis || !agValueAxis.noAxisLine)) {
+        ctx.strokeStyle = (agValueAxis && agValueAxis.axisLineColor) || defaultAxisLineColor
+        ctx.beginPath()
+        ctx.moveTo(...(horizon ? axisAnglePos.leftTop : axisAnglePos.rightTop))
+        ctx.lineTo(...(horizon ? axisAnglePos.rightTop : axisAnglePos.rightBottom))
+        ctx.stroke()
+      }
+
+      const agLebalAxis = horizon ? ax : ay
+
+      if (agLabelAxisTag.length && (!agLebalAxis || !agLebalAxis.noAxisLine)) {
+        ctx.strokeStyle = (agLebalAxis && agLebalAxis.axisLineColor) || defaultAxisLineColor
+        ctx.beginPath()
+        ctx.moveTo(...(horizon ? axisAnglePos.rightTop : axisAnglePos.leftTop))
+        ctx.lineTo(...(horizon ? axisAnglePos.rightBottom : axisAnglePos.rightTop))
         ctx.stroke()
       }
     },
     drawAxisTag () {
-      const { ctx, horizon, valueTagPos, labelTagPos, valueAxisTag, labelAxisTag } = this
+      const { horizon, tagAlign, defaultAxisLineTagGap: offset } = this
 
-      const { xTagColor, xTagColorMul, yTagColor, yTagColorMul, xyAxisFS } = this
+      const { data: { x, ax, y, ay }, drawAxisSeriesTag } = this
 
-      const { data: { x: { noAxisTag: xNAT, rotate }, y: { noAxisTag: yNAT } } } = this
+      const xAxis = horizon ? ['addBAValueAxisTag', 'valueAxisTagPos'] : ['addBALabelAxisTag', 'labelAxisTagPos']
+      const yAxis = horizon ? ['addBALabelAxisTag', 'labelAxisTagPos'] : ['addBAValueAxisTag', 'valueAxisTagPos']
+      const agXAxis = horizon ? ['addBAAGValueAxisTag', 'agValueAxisTagPos'] : ['addBAAGLabelAxisTag', 'agLabelAxisTagPos']
+      const agYAxis = horizon ? ['addBAAGLabelAxisTag', 'agLabelAxisTagPos'] : ['addBAAGValueAxisTag', 'agValueAxisTagPos']
 
-      if (xNAT && yNAT) return
+      drawAxisSeriesTag(...xAxis.map(td => this[td]), x, tagAlign.x, [0, offset], x && x.rotate)
+      drawAxisSeriesTag(...yAxis.map(td => this[td]), y, tagAlign.y, [-offset, 0])
+      drawAxisSeriesTag(...agXAxis.map(td => this[td]), ax, tagAlign.ax, [0, -offset])
+      drawAxisSeriesTag(...agYAxis.map(td => this[td]), ay, tagAlign.ay, [offset, 0])
+    },
+    drawAxisSeriesTag (tags, tagPos, { fontSize, fontFamily, tagColor } = {}, align, offset, rotate = false) {
+      const { ctx, defaultAxisFontSize, defaultAxisFontFamily, defaultTagColor, drawColors } = this
 
-      const xAxisData = horizon ? valueTagPos : labelTagPos
-      const yAxisData = horizon ? labelTagPos : valueTagPos
+      let color = tagColor || defaultTagColor
 
-      const xTagData = horizon ? valueAxisTag : labelAxisTag
-      const yTagData = horizon ? labelAxisTag : valueAxisTag
+      color === 'colors' && (color = drawColors)
 
-      !xTagColorMul && (ctx.fillStyle = xTagColor)
+      const colorNum = color.length
 
-      const xTagColorNum = xTagColor.length
+      const mulColor = color instanceof Array
 
-      ctx.font = `${xyAxisFS[0]}px Arial`
+      ctx.font = `${fontSize || defaultAxisFontSize}px ${fontFamily || defaultAxisFontFamily}`
 
-      ctx.textAlign = 'center'
-      ctx.textBaseline = 'top'
+      !mulColor && (ctx.fillStyle = color)
 
-      if (rotate) ctx.textAlign = 'left'
+      ctx.textAlign = align[0]
+      ctx.textBaseline = align[1]
 
-      !xNAT && xAxisData.forEach((pos, i) => {
-        if (!xTagData[i]) return
+      tags.forEach((tag, i) => {
+        if (!tag && tag !== 0) return
+
+        const currentPos = [tagPos[i][0] + offset[0], tagPos[i][1] + offset[1]]
+
+        mulColor && (ctx.fillStyle = color[i % colorNum])
 
         if (rotate) {
           ctx.save()
-          ctx.translate(...pos)
+          ctx.translate(...currentPos)
           ctx.rotate(Math.PI / 4)
         }
 
-        xTagColorMul && (ctx.fillStyle = xTagColor[i % xTagColorNum])
-
-        ctx.fillText(xTagData[i], ...(rotate ? [0, 0] : pos))
+        ctx.fillText(tag, ...(rotate ? [0, 0] : currentPos))
 
         if (rotate) ctx.restore()
       })
-
-      !yTagColorMul && (ctx.fillStyle = yTagColor)
-
-      const yTagColorNum = yTagColor.length
-
-      ctx.font = `${xyAxisFS[1]}px Arial`
-
-      ctx.textAlign = 'right'
-      ctx.textBaseline = 'middle'
-
-      !yNAT && yAxisData.forEach((pos, i) => {
-        if (!yTagData[i]) return
-
-        xTagColorMul && (ctx.fillStyle = yTagColor[i % yTagColorNum])
-
-        ctx.fillText(yTagData[i], ...pos)
-      })
-
-      this.ctx.fill()
     },
-    drawUnit () {
-      const { ctx, data, axisOriginPos, canvasWH, defaultAxisLabelGap } = this
+    drawAxisUnit () {
+      const { axisOriginPos, canvasWH, drawUnit, defaultAxisLineTagGap } = this
 
-      const { x: { unit: xUN, fontSize: xFS }, y: { unit: yUN, fontSize: yFS } } = data
+      const { data: { x, ax, y, ay }, axisAnglePos } = this
 
-      ctx.font = `${xFS}px Arial`
+      if (x) {
+        const pos = [canvasWH[0], axisOriginPos[1] + defaultAxisLineTagGap]
+        drawUnit(x, pos, ['right', 'top'])
+      }
 
-      ctx.textAlign = 'right'
-      ctx.textBaseline = 'top'
-      ctx.fillText(xUN || '', canvasWH[0], axisOriginPos[1] + defaultAxisLabelGap)
+      if (ax) {
+        const pos = [canvasWH[0], axisAnglePos.rightTop[1] - defaultAxisLineTagGap]
+        drawUnit(ax, pos, ['right', 'bottom'])
+      }
 
-      ctx.font = `${yFS}px Arial`
+      if (y) {
+        const pos = [axisOriginPos[0] - defaultAxisLineTagGap, 0]
+        drawUnit(y, pos, ['right', 'top'])
+      }
 
-      ctx.fillText(yUN || '', axisOriginPos[0], 0)
+      if (ay) {
+        const pos = [axisAnglePos.rightTop[0] + defaultAxisLineTagGap, 0]
+        drawUnit(ay, pos, ['left', 'top'])
+      }
     },
-    drawGrid () {
-      const { horizon, labelTagPos, valueTagPos, axisOriginPos, ctx, data, axisWH } = this
+    drawUnit ({ unit, unitColor, fontSize, fontFamily }, pos, align) {
+      const { defaultTagColor, defaultAxisFontSize, defaultAxisFontFamily } = this
 
-      const { xGridColor, xGridColorMul, yGridColor, yGridColorMul, axisType } = this
+      const { ctx } = this
 
-      const { x: { grid: xG, gridType: xT }, y: { grid: yG, gridType: yT }, boundaryGap } = data
+      if (!unit) return
 
-      const xAxisData = horizon ? valueTagPos : labelTagPos
-      const yAxisData = horizon ? labelTagPos : valueTagPos
+      ctx.font = `${fontSize || defaultAxisFontSize}px ${fontFamily || defaultAxisFontFamily}`
+
+      ctx.fillStyle = unitColor || defaultTagColor
+
+      ctx.textAlign = align[0]
+      ctx.textBaseline = align[1]
+
+      ctx.fillText(unit, ...pos)
+    },
+    drawAxisGrid () {
+      const { valueAxisTagPos, agValueAxisTagPos, labelAxisTagPos, agLabelAxisTagPos } = this
+
+      const { valueAxisTag, agValueAxisTag, labelAxisTag, agLabelAxisTag } = this
+
+      const { data: { x, ax, y, ay }, horizon, drawGrid, boundaryGap } = this
+
+      const xAxis = horizon ? [valueAxisTag, valueAxisTagPos] : [labelAxisTag, labelAxisTagPos]
+
+      if (xAxis[0].length) drawGrid(x, ...xAxis, false, false, true, ...(boundaryGap ? [false, false] : [true, true]))
+
+      const yAxis = horizon ? [labelAxisTag, labelAxisTagPos] : [valueAxisTag, valueAxisTagPos]
+
+      if (yAxis[0].length) drawGrid(y, ...yAxis, true, true, false, !horizon)
+
+      const agXAxis = horizon ? [agValueAxisTag, agValueAxisTagPos] : [agLabelAxisTag, agLabelAxisTagPos]
+
+      if (agXAxis[0].length) drawGrid(ax, ...agXAxis, false, false, false, ...(boundaryGap ? [false, false] : [true, true]))
+
+      const agYAxis = horizon ? [agLabelAxisTag, agLabelAxisTagPos] : [agValueAxisTag, agValueAxisTagPos]
+
+      if (agYAxis[0].length) drawGrid(ay, ...agYAxis, true, false, false, true)
+    },
+    drawGrid (axis = {}, gridTag, gridPos, horizon = true, right = true, top = true, noFirst = false, noLast = false) {
+      const { grid, gridLineColor, gridLineType, gridLineDash } = axis
+
+      if (!grid) return
+
+      const { defaultGridLineType, defaultGridLineColor, defaultGridLineDash } = this
+
+      const { ctx, drawColors, axisWH } = this
+
+      const trueGridLineType = gridLineType || defaultGridLineType
+      const trueGridLineDash = trueGridLineType === 'dashed' ? (gridLineDash || defaultGridLineDash) : [10, 0]
+
+      ctx.setLineDash(trueGridLineDash)
+
+      let color = gridLineColor || defaultGridLineColor
+
+      color === 'colors' && (color = drawColors)
+
+      const mulColor = color instanceof Array
+
+      const colorNum = color.length
+
+      !mulColor && (ctx.strokeStyle = color)
 
       ctx.lineWidth = 1
 
-      !xGridColorMul && (ctx.strokeStyle = xGridColor)
+      const gridLastIndex = gridPos.length - 1
 
-      const xGridColorNum = xGridColor.length
+      gridPos.forEach((pos, i) => {
+        if (!gridTag[i] && gridTag[i] !== 0) return
 
-      ctx.setLineDash(xT === 'dashed' ? [5, 5] : [10, 0])
+        if (i === 0 && noFirst) return
 
-      xG && xAxisData.forEach(([x, y], i) => {
-        xGridColorMul && (ctx.strokeStyle = xGridColor[i % xGridColorNum])
-
-        if (!horizon && i === 0 && axisType === 'line' && !boundaryGap) return
-        if (horizon && i === 0) return
+        if (i === gridLastIndex && noLast) return
 
         ctx.beginPath()
-        ctx.moveTo(x, axisOriginPos[1])
-        ctx.lineTo(x, axisOriginPos[1] - axisWH[1])
-        ctx.stroke()
-      })
 
-      !yGridColorMul && (ctx.strokeStyle = yGridColor)
+        mulColor && (ctx.strokeStyle = color[i % colorNum])
 
-      const yGridColorNum = yGridColor.length
+        ctx.moveTo(...pos)
+        ctx.lineTo(...(horizon
+          ? [right ? pos[0] + axisWH[0] : pos[0] - axisWH[0], pos[1]]
+          : [pos[0], top ? pos[1] - axisWH[1] : pos[1] + axisWH[1]]))
 
-      ctx.setLineDash(yT === 'dashed' ? [5, 5] : [10, 0])
-
-      yG && yAxisData.forEach(([x, y], i) => {
-        yGridColorMul && (ctx.strokeStyle = yGridColor[i % yGridColorNum])
-
-        if (!horizon && i === 0) return
-        if (horizon && i === 0 && axisType === 'line' && !boundaryGap) return
-
-        ctx.beginPath()
-        ctx.moveTo(axisOriginPos[0], y)
-        ctx.lineTo(axisOriginPos[0] + axisWH[0], y)
         ctx.stroke()
       })
     }
