@@ -36,7 +36,7 @@ colors: ['#9cf4a7', '#66d7ee', '#eee966', '#a866ee', '#ee8f66', '#ee66aa']
       </div>
     </border-box-7>
 
-    <border-box-7 class="chart-item">
+    <!-- <border-box-7 class="chart-item">
       <point-chart :data="pointChartData1" :colors="colors" class="chart" />
 
       <div class="config-info">
@@ -50,7 +50,7 @@ data: {
 }
         </highlight-code>
       </div>
-    </border-box-7>
+    </border-box-7> -->
 
     <border-box-7 class="chart-item">
       <column-chart :data="columnChartData1" :colors="colors" class="chart" />
@@ -62,27 +62,7 @@ data: {
         </highlight-code>
 
         <highlight-code>
-data: {
-  data: [
-    { // 必须 允许空位 空位数据不参与绘制
-      data: [180, 290, 420, 200, 350, 219],
-      // 非必须 可单独设置该列数据填充色 多个颜色自动渐变 允许colors指代
-      fillColor: ['#247efc', '#ff2fdb']
-    }, ...
-  ],
-  x: {
-    // 必须 允许空位 空位保留占位
-    data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
-  },
-  labelLine: {
-    // 非必须 若不配置 自动使用全角色 多个颜色 循环使用
-    color: '#2b7bfb',
-    // 非必须
-    data: ['车流量'],
-    // 非必须 rect | rectangle 正方形 或长方形
-    type: 'rectangle'
-  }
-}
+// 1111
         </highlight-code>
       </div>
     </border-box-7>
@@ -97,22 +77,7 @@ data: {
         </highlight-code>
 
         <highlight-code>
-// 相同配置不再赘述
-data: {
-  x: {
-    // 非必须 设置是否绘制网格
-    grid: true,
-    // 非必须 设置网格类型 line | dashed 虚实线
-    gridType: 'dashed'
-  },
-  y: {
-    min: 0, // 非必须 强制设定该轴最小值
-    max: 450, // 非必须 强制设定该轴最大值
-    unit: '次', // 非必须 设置该轴单位
-    grid: true,
-    gridColor: '#333' // 非必须 设置网格颜色 允许colors指代
-  }
-}
+// 2222
         </highlight-code>
       </div>
     </border-box-7>
@@ -123,17 +88,10 @@ data: {
       <div class="config-info">
         <div class="title">Column-Chart</div>
         <highlight-code>
-&lt;column-chart :data="data" :colors="colors" /&gt;
         </highlight-code>
 
         <highlight-code>
-// 相同配置不再赘述
-data: {
-  // 非必须 配置该项 将绘制背景色
-  showColumnBG: true,
-  // 非必须 可设置背景色 多个颜色将自动循环使用
-  bgColor: 'rgba(200, 200, 200, 0.2)'
-}
+// 333
         </highlight-code>
       </div>
     </border-box-7>
@@ -144,43 +102,10 @@ data: {
       <div class="config-info">
         <div class="title">Column-Chart</div>
         <highlight-code>
-&lt;column-chart :data="data" :colors="colors" /&gt;
         </highlight-code>
 
         <highlight-code>
-// 相同配置不再赘述
-data: {
-  data: [
-    {
-      data: [180, 290, 420, 200, 350, 219],
-      fillColor: '#247af7'
-    },
-    {
-      data: [
-        [32, 110, 75],
-        [66, 80, 15],
-        [125, 136, 116],
-        [110, 66, 67],
-        [84, 20, 50],
-        [69, 28, 45]
-      ],
-      fillColor: ['#47bf97', '#292163', '#fafb5d']
-    },
-    {
-      data: [250, 120, 350, 333, 125, 200],
-      fillColor: '#ff23d4'
-    }
-  ],
-  x: {
-    data: [ '布拉迪斯拉发', '斯里巴加湾市', ...],
-    // 非必须 旋转该轴文字以适应长标签 仅在轴生效
-    rotate: true,
-    // 非必须 设置该轴偏移
-    offset: 60,
-    // 设置该轴宽度或长度 | unitHeight
-    unitWidth: 10
-  }
-}
+// 44444
         </highlight-code>
       </div>
     </border-box-7>
@@ -195,25 +120,7 @@ data: {
         </highlight-code>
 
         <highlight-code>
-// 相同配置不再赘述
-data: {
-  data: [
-    x: {
-      min: 0,
-      max: 450,
-      unit: '次',
-      grid: true,
-      gridColor: '#333'
-    },
-    y: {
-      data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
-    },
-    // 非必须 配置该项可以绘制圆角柱
-    columnType: 'round',
-    // 非必须 水平柱状图需配置该项
-    horizon: true,
-    showColumnBG: true
-},
+// 55555
         </highlight-code>
       </div>
     </border-box-7>
@@ -228,19 +135,7 @@ data: {
         </highlight-code>
 
         <highlight-code>
-// 相同配置不再赘述
-data: {
-  x: {
-    // 非必须 配置该项将不绘制坐标线
-    noAxisLine: true,
-    // 非必须 配置该项将不绘制坐标刻度标识
-    noAxisTag: true
-  },
-  y: {
-    noAxisLine: true,
-    noAxisTag: true
-  }
-},
+// 66666
         </highlight-code>
       </div>
       <div id="radar-chart" />
@@ -252,7 +147,6 @@ data: {
       <div class="config-info">
         <div class="title">Radar-Chart</div>
         <highlight-code>
-&lt;radar-chart :data="data" :colors="colors" /&gt;
         </highlight-code>
 
         <highlight-code>
@@ -742,81 +636,10 @@ export default {
           {
             data: [180, 290, 420, 200, 350, 219],
             fillColor: ['#247efc', '#ff2fdb']
-          }
-        ],
-        x: {
-          data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
-        },
-        y: {
-        },
-        labelLine: {
-          color: '#2b7bfb',
-          data: ['车流量'],
-          type: 'rectangle'
-        }
-      },
-
-      columnChartData2: {
-        data: [
-          {
-            data: [180, 290, 420, 200, 350, 219],
-            fillColor: ['#247efc', '#ff2fdb']
-          }
-        ],
-        x: {
-          data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳'],
-          grid: true,
-          gridType: 'dashed'
-        },
-        y: {
-          min: 0,
-          max: 450,
-          unit: '次',
-          grid: true,
-          gridColor: '#333'
-        },
-        labelLine: {
-          color: '#2b7bfb',
-          data: ['车流量'],
-          type: 'rectangle'
-        }
-      },
-
-      columnChartData3: {
-        data: [
-          {
-            data: [180, 290, 420, 200, 350, 219],
-            fillColor: ['#247efc', '#ff2fdb']
-          }
-        ],
-        x: {
-          data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
-        },
-        y: {
-          min: 0,
-          max: 450,
-          unit: '次',
-          grid: true,
-          gridColor: '#333'
-        },
-        labelLine: {
-          color: '#2b7bfb',
-          data: ['车流量'],
-          type: 'rectangle'
-        },
-        showColumnBG: true,
-        bgColor: 'rgba(200, 200, 200, 0.2)'
-      },
-
-      columnChartData4: {
-        data: [
-          {
-            data: [180, 290, 420, 200, 350, 219],
-            fillColor: '#247af7'
           },
           {
             data: [
-              [32, 110, 75],
+              [30, 110, 75],
               [66, 80, 15],
               [125, 136, 116],
               [110, 66, 67],
@@ -826,91 +649,191 @@ export default {
             fillColor: ['#47bf97', '#e3b4a2', '#fafb5d']
           },
           {
-            data: [250, 120, 350, 333, 125, 200],
-            fillColor: '#ff23d4'
+            data: [11, 17, 19, 30, 20, 25],
+            type: 'polyline',
+            againstAxis: true
           }
         ],
         x: {
-          data: [
-            '布拉迪斯拉发',
-            '斯里巴加湾市',
-            '达累斯萨拉姆',
-            '亚的斯亚贝巴',
-            '特古西加尔巴',
-            '下诺夫哥罗德'
-          ],
-          offset: 60,
-          rotate: true,
-          unitWidth: 10
-        },
-        y: {
-          min: 0,
-          max: 450,
-          unit: '次',
-          grid: true,
-          gridColor: '#333'
-        },
-        labelLine: {
-          color: ['#247af7', '#47bf97', '#e3b4a2', '#fafb5d', '#ff23d4'],
-          data: ['玩具', '书本', '食品', '服装', '娱乐'],
-          type: 'rectangle'
-        }
-      },
-
-      columnChartData5: {
-        data: [
-          {
-            data: [250, 120, 350, 333, 125, 200],
-            fillColor: ['#247efc', '#ff2fdb']
-          }
-        ],
-        x: {
-          min: 0,
-          max: 450,
-          unit: '次',
-          grid: true,
-          gridColor: '#333'
-        },
-        y: {
           data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
         },
+        y: {
+          // data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
+        },
+        ax: {
+        },
+        ay: {
+        },
         labelLine: {
           color: '#2b7bfb',
           data: ['车流量'],
           type: 'rectangle'
         },
-        columnType: 'round',
-        horizon: true,
-        showColumnBG: true
+        spaceBetween: true,
+        // horizon: true,
+        localGradient: true
       },
 
-      columnChartData6: {
-        data: [
-          {
-            data: [250, 120, 350, 333, 125, 200],
-            fillColor: ['#247efc', '#ff2fdb']
-          }
-        ],
-        x: {
-          data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳'],
-          noAxisLine: true,
-          noAxisTag: true,
-          offset: 10
-        },
-        y: {
-          min: 0,
-          max: 450,
-          noAxisLine: true,
-          noAxisTag: true,
-          offset: 1
-        },
-        labelLine: {
-          color: '#2b7bfb',
-          data: ['车流量'],
-          type: 'rectangle'
-        },
-        showColumnBG: true
-      },
+      columnChartData2: '',
+      columnChartData3: '',
+      columnChartData4: '',
+      columnChartData5: '',
+      columnChartData6: '',
+
+      // columnChartData2: {
+      //   data: [
+      //     {
+      //       data: [180, 290, 420, 200, 350, 219],
+      //       fillColor: ['#247efc', '#ff2fdb']
+      //     }
+      //   ],
+      //   x: {
+      //     data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳'],
+      //     grid: true,
+      //     gridType: 'dashed'
+      //   },
+      //   y: {
+      //     min: 0,
+      //     max: 450,
+      //     unit: '次',
+      //     grid: true,
+      //     gridColor: '#333'
+      //   },
+      //   labelLine: {
+      //     color: '#2b7bfb',
+      //     data: ['车流量'],
+      //     type: 'rectangle'
+      //   }
+      // },
+
+      // columnChartData3: {
+      //   data: [
+      //     {
+      //       data: [180, 290, 420, 200, 350, 219],
+      //       fillColor: ['#247efc', '#ff2fdb']
+      //     }
+      //   ],
+      //   x: {
+      //     data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
+      //   },
+      //   y: {
+      //     min: 0,
+      //     max: 450,
+      //     unit: '次',
+      //     grid: true,
+      //     gridColor: '#333'
+      //   },
+      //   labelLine: {
+      //     color: '#2b7bfb',
+      //     data: ['车流量'],
+      //     type: 'rectangle'
+      //   },
+      //   showColumnBG: true,
+      //   bgColor: 'rgba(200, 200, 200, 0.2)'
+      // },
+      // columnChartData4: {
+      //   data: [
+      //     {
+      //       data: [180, 290, 420, 200, 350, 219],
+      //       fillColor: '#247af7'
+      //     },
+      //     {
+      //       data: [
+      //         [32, 110, 75],
+      //         [66, 80, 15],
+      //         [125, 136, 116],
+      //         [110, 66, 67],
+      //         [84, 20, 50],
+      //         [69, 28, 45]
+      //       ],
+      //       fillColor: ['#47bf97', '#e3b4a2', '#fafb5d']
+      //     },
+      //     {
+      //       data: [250, 120, 350, 333, 125, 200],
+      //       fillColor: '#ff23d4'
+      //     }
+      //   ],
+      //   x: {
+      //     data: [
+      //       '布拉迪斯拉发',
+      //       '斯里巴加湾市',
+      //       '达累斯萨拉姆',
+      //       '亚的斯亚贝巴',
+      //       '特古西加尔巴',
+      //       '下诺夫哥罗德'
+      //     ],
+      //     offset: 60,
+      //     rotate: true,
+      //     unitWidth: 10
+      //   },
+      //   y: {
+      //     min: 0,
+      //     max: 450,
+      //     unit: '次',
+      //     grid: true,
+      //     gridColor: '#333'
+      //   },
+      //   labelLine: {
+      //     color: ['#247af7', '#47bf97', '#e3b4a2', '#fafb5d', '#ff23d4'],
+      //     data: ['玩具', '书本', '食品', '服装', '娱乐'],
+      //     type: 'rectangle'
+      //   }
+      // },
+
+      // columnChartData5: {
+      //   data: [
+      //     {
+      //       data: [250, 120, 350, 333, 125, 200],
+      //       fillColor: ['#247efc', '#ff2fdb']
+      //     }
+      //   ],
+      //   x: {
+      //     min: 0,
+      //     max: 450,
+      //     unit: '次',
+      //     grid: true,
+      //     gridColor: '#333'
+      //   },
+      //   y: {
+      //     data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
+      //   },
+      //   labelLine: {
+      //     color: '#2b7bfb',
+      //     data: ['车流量'],
+      //     type: 'rectangle'
+      //   },
+      //   columnType: 'round',
+      //   horizon: true,
+      //   showColumnBG: true
+      // },
+
+      // columnChartData6: {
+      //   data: [
+      //     {
+      //       data: [250, 120, 350, 333, 125, 200],
+      //       fillColor: ['#247efc', '#ff2fdb']
+      //     }
+      //   ],
+      //   x: {
+      //     data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳'],
+      //     noAxisLine: true,
+      //     noAxisTag: true,
+      //     offset: 10
+      //   },
+      //   y: {
+      //     min: 0,
+      //     max: 450,
+      //     noAxisLine: true,
+      //     noAxisTag: true,
+      //     offset: 1
+      //   },
+      //   labelLine: {
+      //     color: '#2b7bfb',
+      //     data: ['车流量'],
+      //     type: 'rectangle'
+      //   },
+      //   showColumnBG: true
+      // },
 
       radarChartData1: {
         data: [
