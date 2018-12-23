@@ -93,8 +93,6 @@ export function getAxisPointsPos ([max, min], values, axisOriginPos, axisWH, tag
         getAxisPointPos([max, min], v, axisOriginPos, axisWH, tagPos[i], horizon))
     }
 
-    if (value) console.error('111')
-
     const percent = (value - min) / minus
 
     const length = percent * (horizon ? axisWH[0] : axisWH[1])
