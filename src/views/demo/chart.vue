@@ -634,24 +634,22 @@ export default {
       columnChartData1: {
         data: [
           {
-            data: [180, 290, 420, 200, 350, 219],
-            fillColor: ['#247efc', '#ff2fdb']
+            data: [10, 290, 420, 200, 350, 219],
+            fillColor: ['#247efc', '#ff2fdb'],
+            type: 'leftEchelon'
           },
           {
-            data: [
-              [30, 110, 75],
-              [66, 80, 15],
-              [125, 136, 116],
-              [110, 66, 67],
-              [84, 20, 50],
-              [69, 28, 45]
-            ],
-            fillColor: ['#47bf97', '#e3b4a2', '#fafb5d']
+            data: [150, 280, 370, 160, 277, 188],
+            fillColor: ['#47bf97', '#e3b4a2'],
+            type: 'rightEchelon'
           },
           {
             data: [11, 17, 19, 30, 20, 25],
-            type: 'polyline',
-            againstAxis: true
+            // fillColor: ['red', 'orange'],
+            type: 'smoothline',
+            againstAxis: true,
+            lineType: 'dashed',
+            lineDash: [2, 2]
           }
         ],
         x: {
@@ -671,6 +669,7 @@ export default {
         },
         spaceBetween: true,
         // horizon: true,
+        // roundColumn: true,
         localGradient: true
       },
 
