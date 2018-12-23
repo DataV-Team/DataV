@@ -13,11 +13,11 @@ import canvasMixin from '../../mixins/canvasMixin.js'
 
 import colorsMixin from '../../mixins/colorsMixin.js'
 
-import axisMixinEx from '../../mixins/axisMixinEx.js'
+import axisMixin from '../../mixins/axisMixin.js'
 
 export default {
   name: 'PointChart',
-  mixins: [canvasMixin, colorsMixin, axisMixinEx],
+  mixins: [canvasMixin, colorsMixin, axisMixin],
   props: ['data', 'colors'],
   data () {
     return {
