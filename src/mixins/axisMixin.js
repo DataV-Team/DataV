@@ -355,7 +355,7 @@ export default {
       tagAlign.x = ['center', 'top']
       tagAlign.y = ['right', 'middle']
       tagAlign.ax = ['center', 'bottom']
-      tagAlign.ay = ['left', 'center']
+      tagAlign.ay = ['left', 'middle']
     },
     drawAxis () {
       const { drawAxisLine, drawAxisTag, drawAxisUnit } = this
@@ -379,7 +379,7 @@ export default {
 
       ctx.lineWidth = 1
 
-      if (!x.noAxisLine) {
+      if (!x || !x.noAxisLine) {
         ctx.strokeStyle = (x && x.axisLineColor) || defaultAxisLineColor
         ctx.beginPath()
         ctx.moveTo(...axisOriginPos)
@@ -387,7 +387,7 @@ export default {
         ctx.stroke()
       }
 
-      if (!y.noAxisLine) {
+      if (!y || !y.noAxisLine) {
         ctx.strokeStyle = (y && y.axisLineColor) || defaultAxisLineColor
         ctx.beginPath()
         ctx.moveTo(...axisOriginPos)
@@ -425,10 +425,10 @@ export default {
       const agXAxis = horizon ? ['addBAAGValueAxisTag', 'agValueAxisTagPos'] : ['addBAAGLabelAxisTag', 'agLabelAxisTagPos']
       const agYAxis = horizon ? ['addBAAGLabelAxisTag', 'agLabelAxisTagPos'] : ['addBAAGValueAxisTag', 'agValueAxisTagPos']
 
-      drawAxisSeriesTag(...xAxis.map(td => this[td]), x, tagAlign.x, [0, offset], x && x.rotate)
-      drawAxisSeriesTag(...yAxis.map(td => this[td]), y, tagAlign.y, [-offset, 0])
-      drawAxisSeriesTag(...agXAxis.map(td => this[td]), ax, tagAlign.ax, [0, -offset])
-      drawAxisSeriesTag(...agYAxis.map(td => this[td]), ay, tagAlign.ay, [offset, 0])
+      if (!x || !x.noAxisTag) drawAxisSeriesTag(...xAxis.map(td => this[td]), x, tagAlign.x, [0, offset], x && x.rotate)
+      if (!y || !y.noAxisTag) drawAxisSeriesTag(...yAxis.map(td => this[td]), y, tagAlign.y, [-offset, 0])
+      if (!ax || !ax.noAxisTag) drawAxisSeriesTag(...agXAxis.map(td => this[td]), ax, tagAlign.ax, [0, -offset])
+      if (!ay || !ay.noAxisTag) drawAxisSeriesTag(...agYAxis.map(td => this[td]), ay, tagAlign.ay, [offset, 0])
     },
     drawAxisSeriesTag (tags, tagPos, { fontSize, fontFamily, tagColor } = {}, align, offset, rotate = false) {
       const { ctx, defaultAxisFontSize, defaultAxisFontFamily, defaultTagColor, drawColors } = this
@@ -456,6 +456,9 @@ export default {
         mulColor && (ctx.fillStyle = color[i % colorNum])
 
         if (rotate) {
+          ctx.textAlign = 'left'
+          ctx.textBaseline = 'top'
+
           ctx.save()
           ctx.translate(...currentPos)
           ctx.rotate(Math.PI / 4)
@@ -516,7 +519,15 @@ export default {
 
       const xAxis = horizon ? [valueAxisTag, valueAxisTagPos] : [labelAxisTag, labelAxisTagPos]
 
-      if (xAxis[0].length) drawGrid(x, ...xAxis, false, false, true, ...(boundaryGap ? [false, false] : [true, true]))
+      let xLLLineStatus = [false, false]
+
+      if (horizon) {
+        xLLLineStatus = [true, false]
+      } else {
+        xLLLineStatus = boundaryGap ? [false, false] : [true, true]
+      }
+
+      if (xAxis[0].length) drawGrid(x, ...xAxis, false, false, true, ...xLLLineStatus)
 
       const yAxis = horizon ? [labelAxisTag, labelAxisTagPos] : [valueAxisTag, valueAxisTagPos]
 
