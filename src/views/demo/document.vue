@@ -8,22 +8,17 @@
 
       <div class="title">使用</div>
 
-      <div class="text-info">你需要将如下文件复制至你的项目内</div>
-      <div class="text-info">./src/plugins</div>
-      <div class="text-info">./src/components</div>
-      <div class="text-info">./src/config</div>
-      <div class="text-info">并在main.js中引入plugins和components</div>
+      <div class="text-info">你需要将DataV文件夹复制至你的项目内</div>
+      <div class="text-info">并在main.js中引入使用</div>
 
       <highlight-code>
 // main.js
-import datavComponents from './components/index.js'
-import datavPlugins from './plugin/index.js'
+import dataV from './DataV/index.js'
 
-Vue.use(datavComponents)
-Vue.use(datavPlugins)
+Vue.use(dataV)
 
 // 可以直接在Views文件夹下的dataView页面直接编写页面
-// dataView页面已做全屏缩放处理 roterPath: #/datav/view
+// dataView页面已做全屏缩放处理 routerPath: #/datav/view
       </highlight-code>
 
       <div class="text-info">组件具体用法见示例</div>

@@ -281,6 +281,8 @@ data: {
         </highlight-code>
       </div>
     </border-box-7>
+
+    <div id="polyline-chart" />
   </div>
 </template>
 
@@ -306,7 +308,8 @@ export default {
           color: '#2b7bfb',
           data: ['车流量'],
           type: 'rectangle'
-        }
+        },
+        showValueText: true
       },
 
       columnChartData2: {
@@ -462,7 +465,7 @@ export default {
             '十一月份', '十二月份'
           ],
           offset: 40,
-          rotate: true
+          rotate: 20
         },
         y: {
           grid: true,
