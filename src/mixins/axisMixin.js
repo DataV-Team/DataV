@@ -158,7 +158,7 @@ export default {
 
       const trueMinus = trueMax - trueMin
 
-      !num && trueMinus < 9 && (num = trueMinus + 1)
+      !num && trueMinus < 9 && (num = Math.ceil(trueMinus) + 1)
       !num && (num = 10)
 
       const valueGap = trueMinus / (num - 1)
@@ -267,7 +267,7 @@ export default {
         ...getTextsWidth(ctx, [axisUnit[0] || '']),
         ...getTextsWidth(ctx, horizonAxisTags[1].length ? horizonAxisTags[1] : [''])) + defaultAxisLineTagGap
 
-      boundaryGap && (rightOffset += (xAxisTagsHalfWidth + 5))
+      ;(!boundaryGap || horizon) && (rightOffset += (xAxisTagsHalfWidth + 5))
 
       this.axisOffset[1] = (ay && ay.offset) || rightOffset
 
@@ -461,7 +461,7 @@ export default {
 
           ctx.save()
           ctx.translate(...currentPos)
-          ctx.rotate(Math.PI / 4)
+          ctx.rotate(rotate * Math.PI / 180)
         }
 
         ctx.fillText(tag, ...(rotate ? [0, 0] : currentPos))
