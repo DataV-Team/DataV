@@ -31,6 +31,7 @@ import waterLevelPond from './waterLevelPond/index.vue'
 import scrollBoard from './scrollBoard/index.vue'
 
 import labelLine from './labelLine'
+import forSlot from './forSlot'
 
 export default function (Vue) {
   Vue.component('borderBox1', borderBox1)
@@ -66,4 +67,5 @@ export default function (Vue) {
   Vue.component('scrollBoard', scrollBoard)
 
   Vue.component('labelLine', labelLine)
+  Vue.component('forSlot', forSlot)
 }

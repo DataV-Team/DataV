@@ -7,6 +7,8 @@
     </div>
 
     <label-line :label="data.labelLine" :colors="drawColors" />
+
+    <for-slot><slot></slot></for-slot>
   </div>
 </template>
 
@@ -20,6 +22,7 @@ import axisMixin from '../../mixins/axisMixin.js'
 export default {
   name: 'ColumnChart',
   mixins: [colorsMixin, canvasMixin, axisMixin],
+  props: ['data', 'colors'],
   data () {
     return {
       ref: `radar-chart-${(new Date()).getTime()}`,
@@ -47,7 +50,13 @@ export default {
       valuePointPos: []
     }
   },
-  props: ['data', 'colors'],
+  watch: {
+    data (d) {
+      const { draw } = this
+
+      d && draw()
+    }
+  },
   methods: {
     async init () {
       const { initCanvas, initColors } = this
@@ -327,7 +336,7 @@ export default {
     getOffsetPoints (points, offset) {
       const { getOffsetPoint } = this
 
-      return points.map(point => getOffsetPoint(point, offset))
+      return points.map(point => point ? getOffsetPoint(point, offset) : false)
     },
     getRoundColumnPoint ([pa, pb], cw = false) {
       const { horizon, columnItemWidth: dciw } = this
@@ -512,7 +521,7 @@ export default {
 
       const { ctx, defaultValueColor, defaultValueFontSize, valuePointPos, drawTexts } = this
 
-      const offset = horizon ? [10, 0] : [0, -5]
+      const offset = horizon ? [5, 0] : [0, -5]
 
       const trueOffset = valueTextOffset || offset
 
