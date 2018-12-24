@@ -267,7 +267,7 @@ export default {
         ...getTextsWidth(ctx, [axisUnit[0] || '']),
         ...getTextsWidth(ctx, horizonAxisTags[1].length ? horizonAxisTags[1] : [''])) + defaultAxisLineTagGap
 
-      !boundaryGap && (rightOffset += xAxisTagsHalfWidth)
+      boundaryGap && (rightOffset += (xAxisTagsHalfWidth + 5))
 
       this.axisOffset[1] = (ay && ay.offset) || rightOffset
 
