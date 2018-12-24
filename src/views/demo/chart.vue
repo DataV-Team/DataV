@@ -2,39 +2,9 @@
   <div id="chart">
     <side-nav :nav="navData" />
 
-    <border-box-7 class="attention" id="attention">
-      <div class="title">Attention</div>
+    <attention />
 
-      <div class="text-info">
-        下列组件颜色配置均绑定在节点的colors属性上
-      </div>
-
-      <div class="text-info">
-        若未绑定将自动使用默认配色
-      </div>
-
-      <div class="text-info">
-        colors所绑变量应为hex十六进制色的数组,示例如下
-      </div>
-
-      <highlight-code>
-&lt;chart :data="data" :colors="color" /&gt;
-      </highlight-code>
-
-      <highlight-code>
-// 修改默认配色方案 可直接修改./src/config/color.js
-colors: ['#9cf4a7', '#66d7ee', '#eee966', '#a866ee', '#ee8f66', '#ee66aa']
-// 数组内颜色将自动循环使用
-      </highlight-code>
-
-      <div class="text-info">
-        如在特殊颜色配置属性中使用colors关键字,将自动将该属性配置指向colors
-      </div>
-
-      <div class="text-info" id="column-chart">
-        下列组件均不再展示colors属性绑定的变量
-      </div>
-    </border-box-7>
+    <column-chart-demo />
 
     <!-- <border-box-7 class="chart-item">
       <point-chart :data="pointChartData1" :colors="colors" class="chart" />
@@ -51,95 +21,6 @@ data: {
         </highlight-code>
       </div>
     </border-box-7> -->
-
-    <border-box-7 class="chart-item">
-      <column-chart :data="columnChartData1" :colors="colors" class="chart" />
-
-      <div class="config-info">
-        <div class="title">Column-Chart</div>
-        <highlight-code>
-&lt;column-chart :data="data" :colors="colors" /&gt;
-        </highlight-code>
-
-        <highlight-code>
-// 1111
-        </highlight-code>
-      </div>
-    </border-box-7>
-
-    <border-box-7 class="chart-item">
-      <column-chart :data="columnChartData2" :colors="colors" class="chart" />
-
-      <div class="config-info">
-        <div class="title">Column-Chart</div>
-        <highlight-code>
-&lt;column-chart :data="data" :colors="colors" /&gt;
-        </highlight-code>
-
-        <highlight-code>
-// 2222
-        </highlight-code>
-      </div>
-    </border-box-7>
-
-    <border-box-7 class="chart-item">
-      <column-chart :data="columnChartData3" :colors="colors" class="chart" />
-
-      <div class="config-info">
-        <div class="title">Column-Chart</div>
-        <highlight-code>
-        </highlight-code>
-
-        <highlight-code>
-// 333
-        </highlight-code>
-      </div>
-    </border-box-7>
-
-    <border-box-7 class="chart-item">
-      <column-chart :data="columnChartData4" :colors="colors" class="chart" />
-
-      <div class="config-info">
-        <div class="title">Column-Chart</div>
-        <highlight-code>
-        </highlight-code>
-
-        <highlight-code>
-// 44444
-        </highlight-code>
-      </div>
-    </border-box-7>
-
-    <border-box-7 class="chart-item">
-      <column-chart :data="columnChartData5" :colors="colors" class="chart" />
-
-      <div class="config-info">
-        <div class="title">Column-Chart</div>
-        <highlight-code>
-&lt;column-chart :data="data" :colors="colors" /&gt;
-        </highlight-code>
-
-        <highlight-code>
-// 55555
-        </highlight-code>
-      </div>
-    </border-box-7>
-
-    <border-box-7 class="chart-item">
-      <column-chart :data="columnChartData6" :colors="colors" class="chart" />
-
-      <div class="config-info">
-        <div class="title">Column-Chart</div>
-        <highlight-code>
-&lt;column-chart :data="data" :colors="colors" /&gt;
-        </highlight-code>
-
-        <highlight-code>
-// 66666
-        </highlight-code>
-      </div>
-      <div id="radar-chart" />
-    </border-box-7>
 
     <border-box-7 class="chart-item">
       <radar-chart :data="radarChartData1" :colors="colors" class="chart" />
@@ -581,8 +462,16 @@ data: [
 </template>
 
 <script>
+import attention from './chart/attention.vue'
+
+import columnChartDemo from './chart/columnChartDemo'
+
 export default {
   name: 'Chart',
+  components: {
+    attention,
+    columnChartDemo
+  },
   data () {
     return {
       navData: [
@@ -634,205 +523,204 @@ export default {
       columnChartData1: {
         data: [
           {
-            data: [10, 290, 420, 200, 350, 219],
-            fillColor: ['#247efc', '#ff2fdb'],
-            type: 'leftEchelon'
-          },
-          {
-            data: [150, 280, 370, 160, 277, 188],
-            fillColor: ['#47bf97', '#e3b4a2'],
-            type: 'rightEchelon'
-          },
-          {
-            data: [11, 17, 19, 30, 20, 25],
-            // fillColor: ['red', 'orange'],
-            type: 'smoothline',
-            againstAxis: true,
-            lineType: 'dashed',
-            lineDash: [2, 2]
+            data: [150, 290, 420, 200, 350, 219],
+            fillColor: ['#247efc', '#ff2fdb']
           }
         ],
         x: {
           data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
         },
         y: {
-          // data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
+          unit: '辆'
         },
-        ax: {
+        labelLine: {
+          color: '#2b7bfb',
+          data: ['车流量'],
+          type: 'rectangle'
+        }
+      },
+
+      columnChartData2: {
+        data: [
+          {
+            data: [150, 290, 420, 200, 350, 219],
+            fillColor: ['#247efc', '#ff2fdb']
+          }
+        ],
+        x: {
+          data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
         },
-        ay: {
+        y: {
+          unit: '辆',
+          grid: true,
+          gridLineType: 'dashed',
+          gridLineDash: [2, 2],
+          num: 6
         },
         labelLine: {
           color: '#2b7bfb',
           data: ['车流量'],
           type: 'rectangle'
         },
+        showColumnBG: true,
+        columnBGColor: 'rgba(100, 100, 100, 0.3)'
+      },
+
+      columnChartData3: {
+        data: [
+          {
+            data: [150, 290, 420, 200, 350, 219],
+            fillColor: '#247efc'
+          },
+          {
+            data: [
+              [35, 70, 40],
+              [74, 180, 45],
+              [37, 200, 145],
+              [35, 89, 30],
+              [65, 100, 48],
+              [55, 90, 70]
+            ],
+            fillColor: ['#ff2fdb', '#e3b4a2', '#fafb5d']
+          }
+        ],
+        x: {
+          data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
+        },
+        y: {
+          unit: '万元',
+          grid: true,
+          gridLineType: 'dashed',
+          gridLineDash: [2, 2],
+          min: 0
+        },
+        labelLine: {
+          color: ['#247efc', '#ff2fdb', '#e3b4a2', '#fafb5d'],
+          data: ['玩具', '食品', '服装', '电器'],
+          type: 'rectangle'
+        },
+        showColumnBG: true,
+        columnBGColor: 'rgba(100, 100, 100, 0.3)'
+      },
+
+      columnChartData4: {
+        data: [
+          {
+            data: [150, 290, 420, 200, 350, 219],
+            fillColor: ['#247efc', '#ff2fdb']
+          },
+          {
+            data: [130, 313, 392, 180, 400, 188],
+            fillColor: ['#00BAFF', '#3DE7C9']
+          }
+        ],
+        x: {
+          data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
+        },
+        y: {
+          grid: true,
+          gridLineType: 'dashed',
+          gridLineDash: [2, 2],
+          unit: '辆'
+        },
+        labelLine: {
+          color: ['#ff2fdb', '#3DE7C9'],
+          data: ['同期', '环期'],
+          type: 'rectangle'
+        },
+        roundColumn: true,
         spaceBetween: true,
-        // horizon: true,
-        // roundColumn: true,
         localGradient: true
       },
 
-      columnChartData2: '',
-      columnChartData3: '',
-      columnChartData4: '',
-      columnChartData5: '',
-      columnChartData6: '',
+      columnChartData5: {
+        data: [
+          {
+            data: [150, 290, 420, 200, 350, 219],
+            fillColor: ['#247efc', '#ff2fdb'],
+            type: 'leftEchelon'
+          },
+          {
+            data: [130, 313, 392, 180, 400, 188],
+            fillColor: ['#00BAFF', '#3DE7C9'],
+            type: 'rightEchelon'
+          }
+        ],
+        x: {
+          data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
+        },
+        y: {
+          grid: true,
+          gridLineType: 'dashed',
+          gridLineDash: [2, 2],
+          unit: '辆',
+          num: 7
+        },
+        labelLine: {
+          color: ['#ff2fdb', '#3DE7C9'],
+          data: ['同期', '环期'],
+          type: 'rectangle'
+        },
+        showValueText: true,
+        spaceBetween: true
+      },
 
-      // columnChartData2: {
-      //   data: [
-      //     {
-      //       data: [180, 290, 420, 200, 350, 219],
-      //       fillColor: ['#247efc', '#ff2fdb']
-      //     }
-      //   ],
-      //   x: {
-      //     data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳'],
-      //     grid: true,
-      //     gridType: 'dashed'
-      //   },
-      //   y: {
-      //     min: 0,
-      //     max: 450,
-      //     unit: '次',
-      //     grid: true,
-      //     gridColor: '#333'
-      //   },
-      //   labelLine: {
-      //     color: '#2b7bfb',
-      //     data: ['车流量'],
-      //     type: 'rectangle'
-      //   }
-      // },
+      columnChartData6: {
+        data: [
+          {
+            data: [175, 125, 90, 130, 45, 65, 65, 47, 50, 52, 45, 37],
+            fillColor: ['#247efc', '#ff2fdb']
+          },
+          {
+            data: [210, 142, 128, 142, 63, 72, 68, 57, 54, 60, 49, 42],
+            fillColor: ['#00BAFF', '#3DE7C9']
+          },
+          {
+            data: [23, 18, 16, 14, 10, 8, 6, 6, 6, 6, 6, 5],
+            type: 'polyline',
+            againstAxis: true,
+            lineColor: '#ff2fdb',
+            pointColor: '#3de7c9'
+          }
+        ],
+        x: {
+          data: [
+            '一月份', '二月份',
+            '三月份', '四月份',
+            '五月份', '六月份',
+            '七月份', '八月份',
+            '九月份', '十月份',
+            '十一月份', '十二月份'
+          ],
+          offset: 40,
+          rotate: true
+        },
+        y: {
+          grid: true,
+          gridLineType: 'dashed',
+          gridLineDash: [2, 2],
+          min: 0,
+          max: 250,
+          num: 6,
+          tagAfter: 'ml'
+        },
+        ay: {
+          min: 0,
+          max: 25,
+          num: 6,
+          tagAfter: '°C'
+        },
+        labelLine: {
+          color: ['#ff2fdb', '#3DE7C9'],
+          data: ['同期', '环期'],
+          type: 'rectangle'
+        },
+        roundColumn: true,
+        localGradient: true,
+        spaceBetween: true
+      },
 
-      // columnChartData3: {
-      //   data: [
-      //     {
-      //       data: [180, 290, 420, 200, 350, 219],
-      //       fillColor: ['#247efc', '#ff2fdb']
-      //     }
-      //   ],
-      //   x: {
-      //     data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
-      //   },
-      //   y: {
-      //     min: 0,
-      //     max: 450,
-      //     unit: '次',
-      //     grid: true,
-      //     gridColor: '#333'
-      //   },
-      //   labelLine: {
-      //     color: '#2b7bfb',
-      //     data: ['车流量'],
-      //     type: 'rectangle'
-      //   },
-      //   showColumnBG: true,
-      //   bgColor: 'rgba(200, 200, 200, 0.2)'
-      // },
-      // columnChartData4: {
-      //   data: [
-      //     {
-      //       data: [180, 290, 420, 200, 350, 219],
-      //       fillColor: '#247af7'
-      //     },
-      //     {
-      //       data: [
-      //         [32, 110, 75],
-      //         [66, 80, 15],
-      //         [125, 136, 116],
-      //         [110, 66, 67],
-      //         [84, 20, 50],
-      //         [69, 28, 45]
-      //       ],
-      //       fillColor: ['#47bf97', '#e3b4a2', '#fafb5d']
-      //     },
-      //     {
-      //       data: [250, 120, 350, 333, 125, 200],
-      //       fillColor: '#ff23d4'
-      //     }
-      //   ],
-      //   x: {
-      //     data: [
-      //       '布拉迪斯拉发',
-      //       '斯里巴加湾市',
-      //       '达累斯萨拉姆',
-      //       '亚的斯亚贝巴',
-      //       '特古西加尔巴',
-      //       '下诺夫哥罗德'
-      //     ],
-      //     offset: 60,
-      //     rotate: true,
-      //     unitWidth: 10
-      //   },
-      //   y: {
-      //     min: 0,
-      //     max: 450,
-      //     unit: '次',
-      //     grid: true,
-      //     gridColor: '#333'
-      //   },
-      //   labelLine: {
-      //     color: ['#247af7', '#47bf97', '#e3b4a2', '#fafb5d', '#ff23d4'],
-      //     data: ['玩具', '书本', '食品', '服装', '娱乐'],
-      //     type: 'rectangle'
-      //   }
-      // },
-
-      // columnChartData5: {
-      //   data: [
-      //     {
-      //       data: [250, 120, 350, 333, 125, 200],
-      //       fillColor: ['#247efc', '#ff2fdb']
-      //     }
-      //   ],
-      //   x: {
-      //     min: 0,
-      //     max: 450,
-      //     unit: '次',
-      //     grid: true,
-      //     gridColor: '#333'
-      //   },
-      //   y: {
-      //     data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
-      //   },
-      //   labelLine: {
-      //     color: '#2b7bfb',
-      //     data: ['车流量'],
-      //     type: 'rectangle'
-      //   },
-      //   columnType: 'round',
-      //   horizon: true,
-      //   showColumnBG: true
-      // },
-
-      // columnChartData6: {
-      //   data: [
-      //     {
-      //       data: [250, 120, 350, 333, 125, 200],
-      //       fillColor: ['#247efc', '#ff2fdb']
-      //     }
-      //   ],
-      //   x: {
-      //     data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳'],
-      //     noAxisLine: true,
-      //     noAxisTag: true,
-      //     offset: 10
-      //   },
-      //   y: {
-      //     min: 0,
-      //     max: 450,
-      //     noAxisLine: true,
-      //     noAxisTag: true,
-      //     offset: 1
-      //   },
-      //   labelLine: {
-      //     color: '#2b7bfb',
-      //     data: ['车流量'],
-      //     type: 'rectangle'
-      //   },
-      //   showColumnBG: true
-      // },
+      columnChartData7: '',
 
       radarChartData1: {
         data: [
@@ -1234,17 +1122,6 @@ export default {
 #chart {
   display: flex;
   flex-direction: column;
-
-  .attention {
-    width: 80%;
-    margin-left: 20%;
-    text-align: center;
-    margin-bottom: 20px;
-
-    .highlight-code {
-      margin: -40px 0px;
-    }
-  }
 
   .chart-item {
     width: 80%;
