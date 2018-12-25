@@ -112,23 +112,7 @@ data: {
       </div>
     </border-box-7>
 
-    <border-box-7 class="chart-item">
-      <!-- <polyline-chart :data="polylineChartData4" class="chart" /> -->
-
-      <div class="config-info">
-        <div class="title">Polyline-chart</div>
-
-        <highlight-code>
-&lt;polyline-chart :data="data" /&gt;
-        </highlight-code>
-
-        <highlight-code>
-data: [
-// 44444444
-}
-        </highlight-code>
-      </div>
-    </border-box-7>
+    <div id="point-chart" />
   </div>
 </template>
 
@@ -148,6 +132,11 @@ export default {
           data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
         },
         y: {
+        },
+        labelLine: {
+          data: ['车流量'],
+          color: ['#3de7c9'],
+          type: 'rectangle'
         },
         showValueText: true,
         valueTextOffset: [10, -5]
@@ -195,6 +184,11 @@ export default {
           fixed: 2,
           num: 10,
           unit: '%'
+        },
+        labelLine: {
+          data: ['同期', '环期'],
+          color: ['#275afe', '#3de7c9'],
+          type: 'rectangle'
         }
       },
 
@@ -212,7 +206,11 @@ export default {
         x: {
           data: ['10/01', '10/02', '10/03', '10/04', '10/05', '10/06', '10/07']
         },
-        labelLine: ['收费系统', '收费系统', '监控系统', '供配电系统'],
+        labelLine: {
+          data: ['同期', '环期'],
+          color: ['#ff2db8', '#3de7c9'],
+          type: 'rectangle'
+        },
         color: ['#00baff', '#3de7c9', '#ffc53d', '#342432'],
         boundaryGap: true
       },

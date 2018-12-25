@@ -77,8 +77,8 @@ x: {
   tagBefore: 'before',
   // 非必须 设置该轴标签after字符
   tagAfter: 'after',
-  // 非必须 设置x轴 展示标签旋转 仅在x轴有效
-  rotate: true
+  // 非必须 设置x轴 展示标签旋转度数 仅在x轴有效
+  rotate: 20
 },
 // y轴 也可设置data 设置data 下列专有配置自动失效
 y: {

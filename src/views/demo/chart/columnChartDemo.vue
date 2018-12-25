@@ -46,14 +46,14 @@ data: {
         <highlight-code>
 // 相同配置不再赘述
 data: {
-y: {
-  grid: true,
-  gridLineType: 'dashed',
-  gridLineDash: [2, 2],
-  num: 6
-},
-showColumnBG: true,
-columnBGColor: 'rgba(100, 100, 100, 0.3)'
+  y: {
+    grid: true,
+    gridLineType: 'dashed',
+    gridLineDash: [2, 2],
+    num: 6
+  },
+  showColumnBG: true,
+  columnBGColor: 'rgba(100, 100, 100, 0.3)'
 }
         </highlight-code>
       </div>
@@ -179,7 +179,8 @@ data: {
   ],
   x: {
     offset: 40,
-    rotate: true
+    // 旋转角度
+    rotate: 20
   },
   y: {
     tagAfter: 'ml'
@@ -206,15 +207,16 @@ data: {
 data: {
   data: [
     {
-      data: [150, 290, 420, 200, 350, 219],
-      fillColor: ['#247efc', '#ff2fdb']
+      data: [330, 290, 330, 400, 330, 290, 330],
+      fillColor: ['rgba(0, 186, 255, 0.3)', 'rgba(0, 186, 255, 0)']
     },
     {
-      data: [150, 265, 400, 205, 315, 165],
+      data: [260, 265, 280, 450, 280, 265, 260],
       type: 'smoothline',
       lineType: 'dashed',
       againstAxis: true,
-      fillColor: ['rgba(48, 222, 210, 0.5)', 'rgba(48, 222, 210, 0)']
+      lineColor: '#3de7c9',
+      fillColor: ['rgba(0, 219, 149, 0.3)', 'rgba(0, 219, 149, 0)']
     }
   ]
 }
@@ -320,7 +322,7 @@ export default {
           }
         ],
         x: {
-          data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
+          data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳', '']
         },
         y: {
           unit: '辆',
@@ -495,26 +497,29 @@ export default {
       columnChartData7: {
         data: [
           {
-            data: [150, 290, 420, 200, 350, 219],
-            fillColor: ['#247efc', '#ff2fdb']
+            data: [330, 290, 330, 400, 330, 290, 330],
+            fillColor: ['rgba(0, 186, 255, 0.3)', 'rgba(0, 186, 255, 0)']
           },
           {
-            data: [150, 265, 400, 205, 315, 165],
+            data: [260, 265, 280, 450, 280, 265, 260],
             type: 'smoothline',
             lineType: 'dashed',
             againstAxis: true,
-            fillColor: ['rgba(48, 222, 210, 0.5)', 'rgba(48, 222, 210, 0)']
+            lineColor: '#3de7c9',
+            fillColor: ['rgba(0, 219, 149, 0.3)', 'rgba(0, 219, 149, 0)']
           }
         ],
         x: {
-          data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
+          data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳', '漯河']
         },
         y: {
           unit: '辆',
           grid: true,
           gridLineType: 'dashed',
           gridLineDash: [2, 2],
-          num: 6
+          num: 6,
+          min: 0,
+          max: 500
         },
         labelLine: {
           color: '#2b7bfb',
