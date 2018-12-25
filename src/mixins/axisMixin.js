@@ -2,7 +2,6 @@ export default {
   data () {
     return {
       defaultAxisLineColor: '#666',
-      defaultAxisTagColor: '#666',
       defaultGridLineColor: '#666',
       defaultTagColor: '#666',
 
