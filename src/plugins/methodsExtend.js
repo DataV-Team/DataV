@@ -108,6 +108,8 @@ export function getAxisPointsPos ([max, min], values, axisOriginPos, axisWH, tag
 }
 
 export function getAxisPointPos ([max, min], value, axisOriginPos, axisWH, tagPos, horizon) {
+  if (!value && value !== 0) return false
+
   const minus = max - min
 
   const percent = (value - min) / minus

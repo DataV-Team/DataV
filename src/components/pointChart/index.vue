@@ -5,6 +5,10 @@
     <div class="canvas-container">
       <canvas :ref="ref" />
     </div>
+
+    <label-line :label="data.labelLine" :colors="drawColors" />
+
+    <for-slot><slot></slot></for-slot>
   </div>
 </template>
 
@@ -26,22 +30,103 @@ export default {
       // axis base config
       boundaryGap: true,
       horizon: false,
-      mulValueAdd: true
+      mulValueAdd: false,
+
+      defaultPointRadius: 2,
+
+      valuePointPos: []
     }
   },
   methods: {
     async init () {
-      const { initCanvas, initColors, initAxis } = this
+      const { initCanvas, initColors, data, draw } = this
 
       await initCanvas()
 
       initColors()
 
+      data && draw()
+    },
+    draw () {
+      const { clearCanvas } = this
+
+      clearCanvas()
+
+      const { initAxis, drawAxis, calcValuePointPos } = this
+
       initAxis()
 
-      const { drawAxis } = this
-
       drawAxis()
+
+      calcValuePointPos()
+
+      const { drawPoints } = this
+
+      drawPoints()
+    },
+    calcValuePointPos () {
+      const { data: { data }, valueAxisMaxMin, getAxisPointsPos } = this
+
+      const { axisOriginPos, axisWH, labelAxisTagPos } = this
+
+      this.valuePointPos = data.map(({ data: td }, i) =>
+        getAxisPointsPos(
+          valueAxisMaxMin,
+          td,
+          axisOriginPos,
+          axisWH,
+          labelAxisTagPos,
+          false
+        ))
+    },
+    drawPoints () {
+      const { data: { data }, drawSeriesPoint, ctx } = this
+
+      ctx.setLineDash([10, 0])
+
+      data.forEach((series, i) => drawSeriesPoint(series, i))
+    },
+    drawSeriesPoint ({ color: cr, edgeColor, fillColor, radius, opacity }, i) {
+      const { drawColors, defaultPointRadius, valuePointPos, drawPoint } = this
+
+      const { color: { hexToRgb }, data: { radius: outerRadius } } = this
+
+      const drawColorsNum = drawColors.length
+
+      const baseColor = drawColors[i % drawColorsNum]
+
+      const trueEdgeColor = edgeColor || cr || baseColor
+
+      let trueFillColor = fillColor || cr || baseColor
+
+      opacity && (trueFillColor = hexToRgb(trueFillColor, opacity))
+
+      const trueRadius = radius || outerRadius || defaultPointRadius
+
+      valuePointPos[i].forEach(cp => {
+        if (!cp && cp !== 0) return
+
+        const isSeries = cp[0] instanceof Array
+
+        isSeries && cp.forEach(p => (p || p === 0) && drawPoint(p, trueEdgeColor, trueFillColor, trueRadius))
+
+        !isSeries && drawPoint(cp, trueEdgeColor, trueFillColor, trueRadius)
+      })
+    },
+    drawPoint (pos, edgeColor, fillColor, radius) {
+      const { ctx } = this
+
+      ctx.beginPath()
+
+      ctx.arc(...pos, radius, 0, Math.PI * 2)
+
+      ctx.closePath()
+
+      ctx.strokeStyle = edgeColor
+      ctx.fillStyle = fillColor
+
+      ctx.fill()
+      ctx.stroke()
     }
   },
   mounted () {
@@ -56,6 +141,7 @@ export default {
 .point-chart {
   position: relative;
   display: flex;
+  flex-direction: column;
 
   .canvas-container {
     flex: 1;
