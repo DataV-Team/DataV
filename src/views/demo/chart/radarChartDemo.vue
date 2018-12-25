@@ -86,8 +86,16 @@ data: {
         <highlight-code>
 // 相同配置不再赘述
 data: {
+  data: [
+    {
+      data: [....],
+      // 非必须 设置该列数据值标签颜色为继承
+      valueTextColor: 'inherit'
+    }
+  ],
   ringFillColor: ['rgba(61, 231, 201, 0.1)'],
   ringFillType: 'mulCover', // 非必须 设置环线填充颜色类型为mulCover
+  showValueText: true
 }
         </highlight-code>
       </div>
@@ -172,10 +180,12 @@ export default {
       radarChartData3: {
         data: [
           {
-            data: [450, 50, 450, 50, 450, 50]
+            data: [450, 50, 450, 50, 450, 50],
+            valueTextColor: 'inherit'
           },
           {
-            data: [50, 450, 50, 450, 50, 450]
+            data: [50, 450, 50, 450, 50, 450],
+            valueTextColor: 'inherit'
           }
         ],
         label: {
@@ -196,7 +206,8 @@ export default {
         ringLineColor: 'rgba(156, 244, 233, 0.2)',
         rayLineOffset: Math.PI * -1.5,
         radius: 0.8,
-        max: 550
+        max: 550,
+        showValueText: true
       },
 
       radarChartData4: {

@@ -72,6 +72,7 @@ export default {
   background-image: url('../../assets/img/bg.png');
   background-size: 100%;
   color: #fff;
+  min-width: 1400px;
 
   .menu-bar {
     position: absolute;

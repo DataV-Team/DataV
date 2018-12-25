@@ -14,8 +14,10 @@ data: {
   data: [
     {
       data: [150, 290, 420, 200, 350, 219],
-      // 非必须 强制该组数据填充色 多个颜色 自动渐变
-      fillColor: ['#247efc', '#ff2fdb']
+      fillColor: ['#247efc', '#ff2fdb'],
+      // 非必需 强制该列数据值标签颜色
+      // inherit 即为继承本列颜色 继承优先级为 fillColor lineColor colors
+      valueTextColor: 'inherit'
     }
   ],
   x: {
@@ -28,7 +30,9 @@ data: {
     color: '#2b7bfb',
     data: ['车流量'],
     type: 'rectangle'
-  }
+  },
+  // 非必需 展示数据值标签
+  showValueText: true
 }
         </highlight-code>
       </div>
@@ -149,7 +153,9 @@ data: [
     type: 'rightEchelon'
   },
   // 非必须 显示数值
-  showValueText: true
+  showValueText: true,
+  // 非必须 设置全局数据值标签颜色
+  valueTextColor: '#bbb'
 }
         </highlight-code>
       </div>
@@ -297,7 +303,8 @@ export default {
         data: [
           {
             data: [150, 290, 420, 200, 350, 219],
-            fillColor: ['#247efc', '#ff2fdb']
+            fillColor: ['#247efc', '#ff2fdb'],
+            valueTextColor: 'inherit'
           }
         ],
         x: {
@@ -322,7 +329,7 @@ export default {
           }
         ],
         x: {
-          data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳', '']
+          data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
         },
         y: {
           unit: '辆',
@@ -436,7 +443,8 @@ export default {
           type: 'rectangle'
         },
         showValueText: true,
-        spaceBetween: true
+        spaceBetween: true,
+        valueTextColor: '#bbb'
       },
 
       columnChartData6: {
