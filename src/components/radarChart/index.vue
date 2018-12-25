@@ -36,6 +36,9 @@ export default {
       defaultLabelColor: '#fff',
       defaultLabelFS: 10,
 
+      defaultValueFontSize: 10,
+      defaultValueColor: '#999',
+
       drawColors: '',
       radius: '',
       ringType: '',
@@ -132,6 +135,10 @@ export default {
       caclValuePointData()
 
       fillRadar()
+
+      const { fillValueText } = this
+
+      fillValueText()
     },
     calcRadarRadius () {
       const { canvasWH, data: { radius }, defaultRadius } = this
@@ -469,6 +476,43 @@ export default {
         ctx.fillStyle = fillColor || hexToRgb(currentColor, 0.5)
 
         ctx.fill()
+      })
+    },
+    fillValueText () {
+      const { data: { data, showValueText, valueTextFontSize } } = this
+
+      if (!showValueText) return
+
+      const { ctx, defaultValueFontSize } = this
+
+      ctx.font = `${valueTextFontSize || defaultValueFontSize}px Arial`
+
+      const { fillSeriesText } = this
+
+      data.forEach((item, i) => fillSeriesText(item, i))
+    },
+    fillSeriesText ({ valueTextColor, lineColor, fillColor, data }, i) {
+      const { ctx, drawColors, valuePointData, drawTexts } = this
+
+      const { data: { valueTextOffset, valueTextColor: outerValueTC }, defaultValueColor } = this
+
+      const trueOffset = valueTextOffset || [5, -5]
+
+      const drawColorsNum = drawColors.length
+
+      let currentColor = valueTextColor
+      currentColor === 'inherit' && (currentColor = lineColor || fillColor || drawColors[i % drawColorsNum])
+      currentColor instanceof Array && (currentColor = currentColor[0])
+
+      ctx.fillStyle = currentColor || outerValueTC || defaultValueColor
+
+      drawTexts(ctx, data, valuePointData[i], trueOffset)
+    },
+    drawTexts (ctx, values, points, [x, y] = [0, 0]) {
+      values.forEach((v, i) => {
+        if (!v && v !== 0) return
+
+        ctx.fillText(v, points[i][0] + x, points[i][1] + y)
       })
     },
     reDraw (d) {

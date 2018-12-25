@@ -192,27 +192,37 @@ export default {
       drawPFun(ctx, points, defaultPointRadius, color)
     },
     drawValues () {
-      const { ctx, data: { data, showValueText, valueTextColor, valueTextOffset, valueTextFontSize } } = this
+      const { ctx, data: { data, showValueText, valueTextOffset, valueTextFontSize } } = this
 
       if (!showValueText) return
 
-      const { defaultValueFontSize, defaultValueColor, valuePointPos, drawValue } = this
+      const { defaultValueFontSize, drawValue } = this
 
       const offset = valueTextOffset || [0, -5]
-
-      ctx.fillStyle = valueTextColor || defaultValueColor
 
       ctx.font = `${valueTextFontSize || defaultValueFontSize}px Arial`
 
       ctx.textAlign = 'center'
       ctx.textBaseline = 'bottom'
 
-      data.forEach((line, i) => drawValue(line, valuePointPos[i], offset))
+      data.forEach((line, i) => drawValue(line, i, offset))
     },
-    drawValue ({ data }, points, offset) {
-      const { ctx, getOffsetPoints } = this
+    drawValue ({ data, valueTextColor, lineColor, pointColor, fillColor }, i, offset) {
+      const { ctx, getOffsetPoints, valuePointPos, drawColors, defaultValueColor } = this
 
-      getOffsetPoints(points, offset).forEach((pos, i) => {
+      const { data: { valueTextColor: outerValueTC } } = this
+
+      const drawColorsNum = drawColors.length
+
+      let currentColor = valueTextColor
+      currentColor === 'inherit' && (currentColor = pointColor || lineColor || fillColor || drawColors[i % drawColorsNum])
+      currentColor instanceof Array && (currentColor = currentColor[0])
+
+      ctx.fillStyle = currentColor || outerValueTC || defaultValueColor
+
+      const pointsPos = valuePointPos[i]
+
+      getOffsetPoints(pointsPos, offset).forEach((pos, i) => {
         if (!data[i] && data[i] !== 0) return
 
         ctx.fillText(data[i], ...pos)

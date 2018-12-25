@@ -515,38 +515,62 @@ export default {
       return echelonPoint
     },
     drawValueText () {
-      const { data: { showValueText }, horizon, columnItemOffset, getOffsetPoints } = this
+      const { data: { showValueText }, horizon } = this
 
       if (!showValueText) return
 
-      const { data: { valueTextFontSize, valueTextColor, valueTextOffset, data } } = this
+      const { data: { valueTextFontSize, valueTextOffset, data } } = this
 
-      const { ctx, defaultValueColor, defaultValueFontSize, valuePointPos, drawTexts } = this
+      const { ctx, defaultValueFontSize } = this
 
       const offset = horizon ? [5, 0] : [0, -5]
 
       const trueOffset = valueTextOffset || offset
-
-      ctx.fillStyle = valueTextColor || defaultValueColor
 
       ctx.font = `${valueTextFontSize || defaultValueFontSize}px Arial`
 
       ctx.textAlign = horizon ? 'left' : 'center'
       ctx.textBaseline = horizon ? 'middle' : 'bottom'
 
-      data.forEach(({ data }, i) => {
-        if (data[0] instanceof Array) {
-          data.forEach((td, j) =>
-            drawTexts(ctx,
-              td,
-              getOffsetPoints(valuePointPos[i][j], columnItemOffset[i]),
-              trueOffset))
+      const { drawSeriesTextValue } = this
 
-          return
-        }
+      data.forEach((series, i) => drawSeriesTextValue(series, i, trueOffset))
+    },
+    drawSeriesTextValue ({ data, valueTextColor, fillColor, lineColor }, i, trueOffset) {
+      const { ctx, valuePointPos, columnItemOffset, drawTexts, getOffsetPoints, drawColors } = this
 
-        drawTexts(ctx, data, getOffsetPoints(valuePointPos[i], columnItemOffset[i]), trueOffset)
-      })
+      const { data: { valueTextColor: outerValueTC }, defaultValueColor } = this
+
+      const drawColorsNum = drawColors.length
+
+      let currentColor = valueTextColor
+      currentColor === 'inherit' && (currentColor = fillColor || lineColor || drawColors[i % drawColorsNum])
+      const mulColor = currentColor instanceof Array
+      const colorNum = mulColor ? currentColor.length : 0
+
+      const currentPos = valuePointPos[i]
+      const currentOffset = columnItemOffset[i]
+
+      const mulSeries = data[0] instanceof Array
+
+      if (mulSeries) {
+        data.forEach((item, j) => {
+          const pointPos = getOffsetPoints(currentPos[j], currentOffset)
+
+          item.forEach((v, l) => {
+            !currentColor && (ctx.fillStyle = defaultValueColor)
+            currentColor && (ctx.fillStyle = mulColor ? currentColor[l % colorNum] : currentColor)
+            drawTexts(ctx, [item[l]], [pointPos[l]], trueOffset)
+          })
+        })
+      }
+
+      if (!mulSeries) {
+        mulColor && (currentColor = currentColor[0])
+
+        ctx.fillStyle = currentColor || outerValueTC || defaultValueColor
+        drawTexts(ctx, data, getOffsetPoints(currentPos, currentOffset), trueOffset)
+      }
     },
     drawTexts (ctx, values, points, [x, y] = [0, 0]) {
       values.forEach((v, i) => {
