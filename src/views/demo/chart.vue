@@ -12,6 +12,8 @@
 
     <radar-chart-demo />
 
+    <div id="capsule-chart" />
+
     <border-box-7 class="chart-item">
       <capsule-chart :data="capsuleChartData" class="chart" />
 
@@ -37,6 +39,8 @@ data: {
       </div>
     </border-box-7>
 
+    <div id="arc-ring-chart" />
+
     <border-box-7 class="chart-item" :reverse="true">
       <arc-ring-chart :data="arcRingChartData" class="chart" />
       <div class="config-info">
@@ -61,6 +65,8 @@ data: {
         </highlight-code>
       </div>
     </border-box-7>
+
+    <div id="concentric-arc-chart" />
 
     <border-box-7 class="chart-item">
       <concentric-arc-chart :data="concentricArcChartData" class="chart" />
@@ -90,6 +96,8 @@ data: {
         </highlight-code>
       </div>
     </border-box-7>
+
+    <div id="ring-chart" />
 
     <border-box-7 class="chart-item" :reverse="true">
       <ring-chart :data="ringChart1" class="chart" />
@@ -203,6 +211,22 @@ export default {
         {
           title: 'Radar-Chart',
           target: 'radar-chart'
+        },
+        {
+          title: 'Capsule-Chart',
+          target: 'capsule-chart'
+        },
+        {
+          title: 'Arc-Ring-Chart',
+          target: 'arc-ring-chart'
+        },
+        {
+          title: 'Concentric-Arc-Chart',
+          target: 'concentric-arc-chart'
+        },
+        {
+          title: 'Ring-Chart',
+          target: 'ring-chart'
         }
       ],
 

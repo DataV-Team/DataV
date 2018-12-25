@@ -16,7 +16,7 @@ export default {
 <style lang="less">
 .side-nav {
   position: fixed;
-  width: 150px;
+  width: 200px;
   left: 20px;
   top: 50%;
   transform: translateY(-50%);
