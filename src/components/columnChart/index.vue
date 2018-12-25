@@ -207,11 +207,13 @@ export default {
       ctx.strokeStyle = trueColumnColor
       ctx.setLineDash([10, 0])
 
-      const { getRoundColumnPoint } = this
+      const { getRoundColumnPoint, labelAxisTag } = this
 
       ctx.lineCap = roundColumn ? 'round' : 'butt'
 
-      labelAxisTagPos.forEach(([x, y]) => {
+      labelAxisTagPos.forEach(([x, y], i) => {
+        if (!labelAxisTag[i] && labelAxisTag[i] !== 0) return
+
         const topPoint = horizon ? [x + w, y] : [x, y - h]
         let columnBGPoints = [[x, y], topPoint]
 
