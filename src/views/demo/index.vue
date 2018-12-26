@@ -1,5 +1,5 @@
 <template>
-  <div class="demo">
+  <div class="demo" ref="demo">
     <div class="menu-bar">
       <div :class="`menu-item ${activeIndex === index && 'active'}`"
         v-for="(item, index) in menuData"
@@ -51,6 +51,28 @@ export default {
     }
   },
   methods: {
+    scaleScreen () {
+      const { $refs } = this
+
+      const demoDom = $refs['demo']
+
+      const { height } = screen
+      const bdWidth = document.body.clientWidth
+      const bdHeight = document.body.clientHeight
+
+      if (bdWidth < 1500) {
+        const scale = bdWidth / 1500
+        demoDom.style.transform = `scale(${scale})`
+        demoDom.style.height = bdHeight * (height / bdHeight) * (1 / scale) + 'px'
+      }
+    },
+    bindReSizeEventHandler () {
+      const { debounce, scaleScreen } = this
+
+      if (!debounce) return
+
+      window.addEventListener('resize', debounce(100, scaleScreen))
+    },
     initActiveIndex () {
       const { $route: { name }, menuData } = this
 
@@ -61,6 +83,13 @@ export default {
     const { initActiveIndex } = this
 
     initActiveIndex()
+  },
+  mounted () {
+    const { scaleScreen, bindReSizeEventHandler } = this
+
+    scaleScreen()
+
+    bindReSizeEventHandler()
   }
 }
 </script>
@@ -72,7 +101,8 @@ export default {
   background-image: url('../../assets/img/bg.png');
   background-size: 100%;
   color: #fff;
-  min-width: 1400px;
+  min-width: 1500px;
+  transform-origin: left top;
 
   .menu-bar {
     position: absolute;

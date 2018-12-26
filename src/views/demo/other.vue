@@ -33,7 +33,7 @@ textAlign: ['center', 'center']
 // rowNum 非必须 可以设置展示行数
 // oddBG 非必须 可以设置奇数行背景色
 // evenBG 非必须 可以设置偶数行背景色
-// titBG 非必须 可设置表头背景色
+// titleBG 非必须 可设置表头背景色
 // carousel 非必须 设置为page 滚动时整页滚动
         </highlight-code>
       </div>
