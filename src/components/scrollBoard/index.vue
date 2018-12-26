@@ -29,9 +29,7 @@
                 <div class="index" :style="`background-color:${titleTrueBG};`">{{ info }}</div>
               </template>
 
-              <template v-else>
-                {{ info }}
-              </template>
+              <span v-else v-html="info" />
             </div>
 
           </div>
@@ -44,7 +42,7 @@
 <script>
 export default {
   name: 'scroll-board',
-  props: ['data', 'index', 'rowNum', 'titleBG', 'oddBG', 'evenBG', 'columnWidth', 'textAlign', 'carousel'],
+  props: ['data', 'index', 'html', 'rowNum', 'titleBG', 'oddBG', 'evenBG', 'columnWidth', 'textAlign', 'carousel'],
   data () {
     return {
       ref: `scroll-board-${(new Date()).getTime()}`,
