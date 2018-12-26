@@ -13,7 +13,7 @@
         </highlight-code>
 
         <highlight-code>
-data: {
+data: { // data内容可以是html标签 内容由v-html渲染
   data: [ // 必须 每行数据的数组长度应保持一致
     ['张三', '男', '这里是地址'],
     ['李四', '女', '这里是地址'],
