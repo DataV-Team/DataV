@@ -44,7 +44,7 @@
 <script>
 export default {
   name: 'scroll-board',
-  props: ['data', 'index', 'rowNum', 'titBG', 'oddBG', 'evenBG', 'columnWidth', 'textAlign', 'carousel'],
+  props: ['data', 'index', 'rowNum', 'titleBG', 'oddBG', 'evenBG', 'columnWidth', 'textAlign', 'carousel'],
   data () {
     return {
       ref: `scroll-board-${(new Date()).getTime()}`,
@@ -76,15 +76,10 @@ export default {
     }
   },
   watch: {
-    data () {
-      // const { init, autoScrollHandler } = this
+    data (d) {
+      const { init } = this
 
-      // this.fade = false
-      // this.currentTopIndex = 0
-
-      // autoScrollHandler && clearTimeout(autoScrollHandler)
-
-      // init()
+      d && init()
     }
   },
   methods: {

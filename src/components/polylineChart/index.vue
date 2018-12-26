@@ -42,6 +42,11 @@ export default {
     }
   },
   watch: {
+    data (d) {
+      const { draw } = this
+
+      d && draw()
+    }
   },
   methods: {
     async init () {
