@@ -307,6 +307,8 @@ export default {
 
     &.fade {
       height: 0% !important;
+      color: transparent;
+      visibility: hidden;
     }
   }
 
