@@ -49,6 +49,8 @@ export default {
       container: '',
       containerWH: [],
 
+      animationHandler: '',
+
       defaultRowNum: 5,
       defaultTitleBG: '#00BAFF',
       defaultOddBG: '#003B51',
@@ -82,11 +84,13 @@ export default {
   },
   methods: {
     init () {
-      const { data, initDom, dealData, calcConfig, getCurrentScrollData } = this
+      const { data, initDom, stopAnimation, dealData, calcConfig, getCurrentScrollData } = this
 
       initDom()
 
       if (!data) return
+
+      stopAnimation()
 
       dealData()
 
@@ -241,6 +245,8 @@ export default {
     },
     stopAnimation () {
       const { animationHandler } = this
+
+      if (!animationHandler) return
 
       clearTimeout(animationHandler)
     }
