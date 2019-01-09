@@ -71,6 +71,7 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
   font-size: 10px;
+  color: #fff;
 
   .label-item {
     height: 20px;
