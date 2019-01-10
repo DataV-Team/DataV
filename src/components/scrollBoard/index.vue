@@ -24,12 +24,12 @@
             v-for="(info, ii) in row.data"
             :key="info + Math.random()">
 
-            <div :class="`rii-width ${ii === 0 && index && 'index-container'}`" :style="`width: ${columnTrueWidth[ii]};`">
+            <div @click="emitClickEvent(row, ii)" :class="`rii-width ${ii === 0 && index && 'index-container'}`" :style="`width: ${columnTrueWidth[ii]};`">
               <template v-if="ii === 0 && index">
                 <div class="index" :style="`background-color:${titleTrueBG};`">{{ info }}</div>
               </template>
 
-              <span @click="emitClickEvent(row.data, ii)" v-else v-html="info" />
+              <span v-else v-html="info" />
             </div>
 
           </div>
@@ -49,7 +49,8 @@ export default {
       container: '',
       containerWH: [],
 
-      animationHandler: '',
+      reAnimationTimer: '',
+      doFadeTimer: '',
 
       defaultRowNum: 5,
       defaultTitleBG: '#00BAFF',
@@ -220,7 +221,7 @@ export default {
 
       const { doFade, waitTime, defaultWaitTime } = this
 
-      setTimeout(doFade, waitTime || defaultWaitTime)
+      this.doFadeTimer = setTimeout(doFade, waitTime || defaultWaitTime)
     },
     doFade () {
       const { rowTrueNum, carousel, scrollData, allRowNum, currentIndex } = this
@@ -241,17 +242,16 @@ export default {
 
       const { getCurrentScrollData } = this
 
-      this.animationHandler = setTimeout(getCurrentScrollData, 1000)
+      this.reAnimationTimer = setTimeout(getCurrentScrollData, 1000)
     },
-    emitClickEvent (rowData, columnIndex) {
-      this.$emit('click', { rowData, columnIndex })
+    emitClickEvent ({ data, index }, columnIndex) {
+      this.$emit('click', { data, rowIndex: index, columnIndex: columnIndex + 1 })
     },
     stopAnimation () {
-      const { animationHandler } = this
+      const { reAnimationTimer, doFadeTimer } = this
 
-      if (!animationHandler) return
-
-      clearTimeout(animationHandler)
+      reAnimationTimer && clearTimeout(reAnimationTimer)
+      doFadeTimer && clearTimeout(doFadeTimer)
     }
   },
   mounted () {

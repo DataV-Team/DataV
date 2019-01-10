@@ -41,7 +41,7 @@ textAlign: ['center', 'center']
 
     <border-box-7 class="other-item">
       <div class="component">
-        <scroll-board :data="scrollBoardData2" carousel="page" :columnWidth="[50, 50]" :textAlign="['center', 'center']" />
+        <scroll-board @click="test" :data="scrollBoardData2" carousel="page" :columnWidth="[50, 50]" :textAlign="['center', 'center']" />
       </div>
 
       <div class="config-info">
@@ -231,6 +231,11 @@ export default {
         ],
         title: ['姓名', '性别', '地址']
       }
+    }
+  },
+  methods: {
+    test (e) {
+      console.error(e)
     }
   }
 }
