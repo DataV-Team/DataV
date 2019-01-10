@@ -22,14 +22,14 @@
 
           <div :class="`row-item-info ${textTrueAlign[ii]}`"
             v-for="(info, ii) in row.data"
-            :key="info">
+            :key="info + Math.random()">
 
             <div :class="`rii-width ${ii === 0 && index && 'index-container'}`" :style="`width: ${columnTrueWidth[ii]};`">
               <template v-if="ii === 0 && index">
                 <div class="index" :style="`background-color:${titleTrueBG};`">{{ info }}</div>
               </template>
 
-              <span v-else v-html="info" />
+              <span @click="emitClickEvent(row.data, ii)" v-else v-html="info" />
             </div>
 
           </div>
@@ -42,7 +42,7 @@
 <script>
 export default {
   name: 'scroll-board',
-  props: ['data', 'index', 'html', 'rowNum', 'titleBG', 'oddBG', 'evenBG', 'columnWidth', 'textAlign', 'carousel'],
+  props: ['data', 'index', 'html', 'rowNum', 'titleBG', 'waitTime', 'oddBG', 'evenBG', 'columnWidth', 'textAlign', 'carousel'],
   data () {
     return {
       ref: `scroll-board-${(new Date()).getTime()}`,
@@ -56,7 +56,7 @@ export default {
       defaultOddBG: '#003B51',
       defaultEvenBG: '#0A2732',
 
-      waitTime: 2000,
+      defaultWaitTime: 2000,
 
       rowTrueNum: '',
       rowHeight: '',
@@ -218,9 +218,9 @@ export default {
 
       this.scrollData = tempScrollData
 
-      const { doFade, waitTime } = this
+      const { doFade, waitTime, defaultWaitTime } = this
 
-      setTimeout(doFade, waitTime)
+      setTimeout(doFade, waitTime || defaultWaitTime)
     },
     doFade () {
       const { rowTrueNum, carousel, scrollData, allRowNum, currentIndex } = this
@@ -242,6 +242,9 @@ export default {
       const { getCurrentScrollData } = this
 
       this.animationHandler = setTimeout(getCurrentScrollData, 1000)
+    },
+    emitClickEvent (rowData, columnIndex) {
+      this.$emit('click', { rowData, columnIndex })
     },
     stopAnimation () {
       const { animationHandler } = this
@@ -310,6 +313,7 @@ export default {
     flex-direction: row;
     flex-shrink: 0;
     transition: all 0.5s;
+    overflow: hidden;
 
     &.fade {
       height: 0% !important;
@@ -319,6 +323,7 @@ export default {
   }
 
   .row-item-info {
+    position: relative;
     display: flex;
     vertical-align: middle;
     align-items: center;
