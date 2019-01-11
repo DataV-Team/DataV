@@ -332,7 +332,11 @@ export default {
 
       const areaLength = horizon ? axisWH[1] : axisWH[0]
 
-      const tagGap = areaLength / (boundaryGap ? tagsNum : tagsNum - 1)
+      let gapColumnNum = boundaryGap ? tagsNum : tagsNum - 1
+
+      gapColumnNum === 0 && (gapColumnNum = 1)
+
+      const tagGap = areaLength / gapColumnNum
 
       const halfGap = tagGap / 2
 

@@ -132,6 +132,8 @@ export default {
           data: ['西峡', '周口', '南阳', '驻马店', '郑州', '洛阳']
         },
         y: {
+          min: 0,
+          max: 100
         },
         labelLine: {
           data: ['车流量'],
