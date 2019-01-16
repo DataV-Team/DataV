@@ -1,29 +1,15 @@
-# jdyw_datav
+# DataV
 
-## Project setup
-```
-yarn install
-```
+# Version 1.1.0
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+## Vue 大屏数据展示组件库
 
-### Compiles and minifies for production
-```
-yarn run build
-```
+## Vue Large screen data display component library
 
-### Run your tests
-```
-yarn run test
-```
+[文档官网](http://datav.jiaminghi.com/)
 
-### Lints and fixes files
-```
-yarn run lint
-```
+[Document of official website](http://datav.jiaminghi.com/)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[项目地址](https://github.com/jiaming743/DataV)
+
+[Project address](https://github.com/jiaming743/DataV)
