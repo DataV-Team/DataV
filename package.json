@@ -1,0 +1,24 @@
+{
+  "name": "@jiaminghi/data-view",
+  "version": "1.1.1",
+  "author": "JiaMing <743192023@qq.com>",
+  "description": "Vue Large screen data display component library",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jiaming743/DataV.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jiaming743/DataV/issues"
+  },
+  "keywords": [
+    "vue",
+    "chart",
+    "dataview"
+  ],
+  "homepage": "https://github.com/jiaming743/DataV#readme"
+}

@@ -1,6 +1,6 @@
 # DataV
 
-# Version 1.1.0
+# Version 1.1.1
 
 ## Vue 大屏数据展示组件库
 
