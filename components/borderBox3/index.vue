@@ -11,19 +11,21 @@
         :points="`22, 22 ${width - 4}, 22 ${width - 4}, ${height - 4} 22, ${height - 4} 22, 22`" />
     </svg>
 
-    <slot></slot>
+    <div class="border-box-content">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
 <script>
-import borderBoxMixin from '../../mixins/borderBoxMixin.js'
+import autoResize from '../../mixins/autoResize.js'
 
 export default {
   name: 'BorderBox3',
-  mixins: [borderBoxMixin],
+  mixins: [autoResize],
   data () {
     return {
-      ref: `border-box-3-${(new Date()).getTime()}`
+      ref: 'border-box-3'
     }
   }
 }
@@ -32,8 +34,8 @@ export default {
 <style lang="less">
 .dv-border-box-3 {
   position: relative;
-  box-sizing: border-box;
-  padding: 30px;
+  width: 100%;
+  height: 100%;
 
   .dv-border-svg-container {
     position: absolute;
@@ -54,6 +56,12 @@ export default {
 
   .dv-bb3-line2 {
     stroke-width: 1;
+  }
+
+  .border-box-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
   }
 }
 </style>

@@ -19,19 +19,21 @@
       <polyline :points="`${width - 7}, ${height - 30} ${width - 7}, ${height - 80}`" />
     </svg>
 
-    <slot></slot>
+    <div class="border-box-content">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
 <script>
-import borderBoxMixin from '../../mixins/borderBoxMixin.js'
+import autoResize from '../../mixins/autoResize.js'
 
 export default {
   name: 'BorderBox6',
-  mixins: [borderBoxMixin],
+  mixins: [autoResize],
   data () {
     return {
-      ref: `border-box-6-${(new Date()).getTime()}`
+      ref: 'border-box-6'
     }
   }
 }
@@ -40,8 +42,8 @@ export default {
 <style lang="less">
 .dv-border-box-6 {
   position: relative;
-  box-sizing: border-box;
-  padding: 10px;
+  width: 100%;
+  height: 100%;
 
   .dv-svg-container {
     position: absolute;
@@ -59,6 +61,12 @@ export default {
       stroke-width: 1;
       stroke: fade(#fff, 35);
     }
+  }
+
+  .border-box-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
   }
 }
 </style>

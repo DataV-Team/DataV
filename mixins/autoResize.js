@@ -12,17 +12,19 @@ export default {
     }
   },
   methods: {
-    async init () {
-      const { initWH, getDebounceInitWHFun, bindDomResizeCallback } = this
+    async autoResizeMixinInit () {
+      const { initWH, getDebounceInitWHFun, bindDomResizeCallback, afterAutoResizeMixinInit } = this
 
       await initWH()
 
       getDebounceInitWHFun()
 
       bindDomResizeCallback()
+
+      if (typeof afterAutoResizeMixinInit === 'function') afterAutoResizeMixinInit()
     },
     initWH () {
-      const { $nextTick, $refs, ref } = this
+      const { $nextTick, $refs, ref, onResize } = this
 
       return new Promise(resolve => {
         $nextTick(e => {
@@ -30,6 +32,8 @@ export default {
 
           this.width = dom.clientWidth
           this.height = dom.clientHeight
+
+          if (typeof onResize === 'function') onResize()
 
           resolve()
         })
@@ -58,9 +62,9 @@ export default {
     }
   },
   mounted () {
-    const { init } = this
+    const { autoResizeMixinInit } = this
 
-    init()
+    autoResizeMixinInit()
   },
   beforeDestroyed () {
     const { unbindDomResizeCallback } = this

@@ -1,8 +1,34 @@
 <template>
-  <div class="decoration-7">
-    <img src="./img/decoration.png" />
+  <div class="dv-decoration-7">
+    <svg width="21px" height="20px">
+      <polyline
+        stroke-width="4"
+        fill="transparent"
+        stroke="#1dc1f5"
+        points="10, 0 19, 10 10, 20"
+      />
+      <polyline
+        stroke-width="2"
+        fill="transparent"
+        stroke="#1dc1f5"
+        points="2, 0 11, 10 2, 20"
+      />
+    </svg>
     <slot></slot>
-    <img class="reverse" src="./img/decoration.png" />
+    <svg width="21px" height="20px">
+      <polyline
+        stroke-width="4"
+        fill="transparent"
+        stroke="#1dc1f5"
+        points="11, 0 2, 10 11, 20"
+      />
+      <polyline
+        stroke-width="2"
+        fill="transparent"
+        stroke="#1dc1f5"
+        points="19, 0 10, 10 19, 20"
+      />
+    </svg>
   </div>
 </template>
 
@@ -13,14 +39,11 @@ export default {
 </script>
 
 <style lang="less">
-.decoration-7 {
+.dv-decoration-7 {
   display: flex;
-  flex-direction: row;
+  width: 100%;
+  height: 100%;
   justify-content: center;
   align-items: center;
-
-  .reverse {
-    transform: rotate(180deg);
-  }
 }
 </style>

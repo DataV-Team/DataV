@@ -1,15 +1,20 @@
-# DataV
+<h1 align="center">DataV</h1>
 
-# Version 1.1.1
+<p align="center">
+    <a href="https://github.com/jiaming743/datav/blob/master/LICENSE">
+      <img src="https://img.shields.io/github/license/jiaming743/datav.svg" alt="LICENSE" />
+    </a>x
+    <a href="https://www.npmjs.com/package/@jiaminghi/datav">
+      <img src="https://img.shields.io/npm/v/@jiaminghi/data-view.svg" alt="LICENSE" />
+    </a>
+</p>
 
-## Vue 大屏数据展示组件库
+<h2 align="center">Vue large screen data display component library</h2>
 
-## Vue Large screen data display component library
+### Install with npm
 
-[文档官网](http://datav.jiaminghi.com/)
+```shell
+$ npm install @jiaminghi/data-view
+```
 
-[Document of official website](http://datav.jiaminghi.com/)
-
-[项目地址](https://github.com/jiaming743/DataV)
-
-[Project address](https://github.com/jiaming743/DataV)
+Detailed documents and examples can be viewed on the [HomePage](http://datav.jiaminghi.com).

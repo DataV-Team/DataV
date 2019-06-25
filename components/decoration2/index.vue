@@ -1,77 +1,101 @@
 <template>
-  <div class="decoration-2" :ref="ref">
-    <div :class="reverse ? 'reverse' : 'normal'" />
+  <div class="dv-decoration-2" :ref="ref">
+    <svg :width="`${width}px`" :height="`${height}px`">
+      <rect :x="x" :y="y" :width="w" :height="h" fill="#3faacb">
+        <animate
+          :attributeName="reverse ? 'height' : 'width'"
+          from="0"
+          :to="reverse ? height : width"
+          dur="6s"
+          calcMode="spline"
+          keyTimes="0;1"
+          keySplines=".42,0,.58,1"
+          repeatCount="indefinite"
+        />
+      </rect>
+
+      <rect :x="x" :y="y" width="1" height="1" fill="#fff">
+        <animate
+          :attributeName="reverse ? 'y' : 'x'"
+          from="0"
+          :to="reverse ? height : width"
+          dur="6s"
+          calcMode="spline"
+          keyTimes="0;1"
+          keySplines=".42,0,.58,1"
+          repeatCount="indefinite"
+        />
+      </rect>
+    </svg>
   </div>
 </template>
 
 <script>
+import autoResize from '../../mixins/autoResize.js'
+
 export default {
   name: 'Decoration2',
+  mixins: [autoResize],
+  props: {
+    reverse: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
-      ref: `decoration-2-${(new Date()).getTime()}`,
-      width: 0,
-      height: 0
+      ref: 'decoration-2',
+
+      x: 0,
+      y: 0,
+
+      w: 0,
+      h: 0
     }
   },
-  props: ['reverse'],
+  watch: {
+    reverse () {
+      const { calcSVGData } = this
+
+      calcSVGData()
+    }
+  },
   methods: {
-    init () {
-      const { $nextTick, $refs, ref } = this
+    afterAutoResizeMixinInit () {
+      const { calcSVGData } = this
 
-      $nextTick(e => {
-        this.width = $refs[ref].clientWidth
-        this.height = $refs[ref].clientHeight
-      })
+      calcSVGData()
+    },
+    calcSVGData () {
+      const { reverse, width, height } = this
+
+      if (reverse) {
+        this.w = 1
+        this.h = height
+        this.x = width / 2
+        this.y = 0
+      } else {
+        this.w = width
+        this.h = 1
+        this.x = 0
+        this.y = height / 2
+      }
+    },
+    onResize () {
+      const { calcSVGData } = this
+
+      calcSVGData()
     }
-  },
-  mounted () {
-    const { init } = this
-
-    init()
   }
 }
 </script>
 
-<style lang="less" scoped>
-.decoration-2 {
-
-  .reverse, .normal {
-    background-color: #3faacb;
-  }
-
-  .normal {
-    width: 0%;
-    height: 1px;
-    border-right: 1px solid #fff;
-    animation: normal-amt 6s ease-in-out infinite;
-  }
-
-  .reverse {
-    width: 1px;
-    height: 0%;
-    border-bottom: 1px solid #fff;
-    animation: reverse-amt 6s ease-in-out infinite;
-  }
-
-  @keyframes reverse-amt {
-    70% {
-      height: 100%;
-    }
-
-    100% {
-      height: 100%;
-    }
-  }
-
-  @keyframes normal-amt {
-    70% {
-      width: 100%;
-    }
-
-    100% {
-      width: 100%;
-    }
-  }
+<style lang="less">
+.dv-decoration-2 {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
 }
 </style>

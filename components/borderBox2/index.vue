@@ -11,19 +11,21 @@
       <circle cx="11" :cy="height - 11" r="1" />
     </svg>
 
-    <slot></slot>
+    <div class="border-box-content">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
 <script>
-import borderBoxMixin from '../../mixins/borderBoxMixin.js'
+import autoResize from '../../mixins/autoResize.js'
 
 export default {
   name: 'BorderBox2',
-  mixins: [borderBoxMixin],
+  mixins: [autoResize],
   data () {
     return {
-      ref: `border-box-2-${(new Date()).getTime()}`
+      ref: 'border-box-2'
     }
   }
 }
@@ -32,8 +34,8 @@ export default {
 <style lang="less">
 .dv-border-box-2 {
   position: relative;
-  box-sizing: border-box;
-  padding: 30px;
+  width: 100%;
+  height: 100%;
 
   .dv-border-svg-container {
     position: absolute;
@@ -58,6 +60,12 @@ export default {
 
   .dv-bb2-line2 {
     stroke: fade(#fff, 60);
+  }
+
+  .border-box-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
   }
 }
 </style>

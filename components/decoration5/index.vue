@@ -1,22 +1,110 @@
 <template>
-  <div class="dv-decoration-5">
-    <img src="./img/decoration.gif" />
+  <div class="dv-decoration-5" :ref="ref">
+    <svg :width="width" :height="height">
+      <polyline
+        fill="transparent"
+        stroke="#3f96a5"
+        stroke-width="3"
+        :points="line1Points"
+      >
+        <animate
+          attributeName="stroke-dasharray"
+          attributeType="XML"
+          :from="`0, ${line1Length / 2}, 0, ${line1Length / 2}`"
+          :to="`0, 0, ${line1Length}, 0`"
+          dur="1.2s"
+          begin="0s"
+          calcMode="spline"
+          keyTimes="0;1"
+          keySplines=".4,1,.49,.98"
+          repeatCount="indefinite"
+        />
+      </polyline>
+      <polyline
+        fill="transparent"
+        stroke="#3f96a5"
+        stroke-width="2"
+        :points="line2Points"
+      >
+        <animate
+          attributeName="stroke-dasharray"
+          attributeType="XML"
+          :from="`0, ${line2Length / 2}, 0, ${line2Length / 2}`"
+          :to="`0, 0, ${line2Length}, 0`"
+          dur="1.2s"
+          begin="0s"
+          calcMode="spline"
+          keyTimes="0;1"
+          keySplines=".4,1,.49,.98"
+          repeatCount="indefinite"
+        />
+      </polyline>
+    </svg>
   </div>
 </template>
 
 <script>
+import autoResize from '../../mixins/autoResize.js'
+
+import { getPolylineLength } from '@jiaminghi/charts/lib/util'
+
 export default {
-  name: 'Decoration5'
+  name: 'Decoration5',
+  mixins: [autoResize],
+  data () {
+    return {
+      ref: 'decoration-5',
+
+      line1Points: '',
+      line2Points: '',
+
+      line1Length: 0,
+      line2Length: 0,
+    }
+  },
+  methods: {
+    afterAutoResizeMixinInit () {
+      const { calcSVGData } = this
+      
+      calcSVGData()
+    },
+    calcSVGData () {
+      const { width, height } = this
+
+      let line1Points = [
+        [0, height * 0.2], [width * 0.18, height * 0.2], [width * 0.2, height * 0.4], [width * 0.25, height * 0.4],
+        [width * 0.27, height * 0.6], [width * 0.72, height * 0.6], [width * 0.75, height * 0.4],
+        [width * 0.8, height * 0.4], [width * 0.82, height * 0.2], [width, height * 0.2]
+      ]
+
+      let line2Points = [
+        [width * 0.3, height * 0.8], [width * 0.7, height * 0.8]
+      ]
+
+      const line1Length = getPolylineLength(line1Points)
+      const line2Length = getPolylineLength(line2Points)
+
+      line1Points = line1Points.map(point => point.join(',')).join(' ')
+      line2Points = line2Points.map(point => point.join(',')).join(' ')
+
+      this.line1Points = line1Points
+      this.line2Points = line2Points
+
+      this.line1Length = line1Length
+      this.line2Length = line2Length
+    },
+    onResize () {
+      const { calcSVGData } = this
+      
+      calcSVGData()
+    }
+  }
 }
 </script>
 
 <style lang="less">
 .dv-decoration-5 {
-
-  img {
-    width: 100%;
-    margin-top: -21%;
-    margin-bottom: -25%;
-  }
+  width: 100%;
+  height: 100%;
 }
 </style>

@@ -1,272 +1,306 @@
 <template>
-  <div class="water-level-pond">
-    <loading v-if="!status" />
-
-    <svg class="svg-container">
+  <div class="dv-water-pond-level">
+    <svg v-if="render">
       <defs>
-        <linearGradient :id="id" x1="0%" y1="100%" x2="0%" y2="0%">
-          <stop v-for="lc in linearGradient" :key="lc[0]"
+        <linearGradient :id="gradientId" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop v-for="lc in svgBorderGradient" :key="lc[0]"
             :offset="lc[0]"
             :stop-color="lc[1]" />
         </linearGradient>
       </defs>
 
-      <text :stroke="`url(#${id})`"
-        :fill="`url(#${id})`"
-        :x="centerPos[0] + 8"
-        :y="centerPos[1] + 8">
-        {{ (level && Math.max(...level)) || 0 }}%
+      <text
+        v-if="render"
+        :stroke="`url(#${gradientId})`"
+        :fill="`url(#${gradientId})`"
+        :x="render.area[0] / 2 + 8"
+        :y="render.area[1] / 2 + 8"
+      >
+        {{ details }}
       </text>
 
-      <ellipse v-if="!type || type === 'circle'"
-        :cx="centerPos[0] + 8"
-        :cy="centerPos[1] + 8"
-        :rx="canvasWH[0] / 2 + 5"
-        :ry="canvasWH[1] / 2 + 5"
-        :stroke="`url(#${id})`" />
+      <ellipse v-if="!shape || shape === 'round'"
+        :cx="render.area[0] / 2 + 8"
+        :cy="render.area[1] / 2 + 8"
+        :rx="render.area[0] / 2 + 5"
+        :ry="render.area[1] / 2 + 5"
+        :stroke="`url(#${gradientId})`" />
 
       <rect v-else
         x="2" y="2"
-        :rx="type === 'roundRect' && 10" :ry="type === 'roundRect' && 10"
-        :width="canvasWH[0] + 12"
-        :height="canvasWH[1] + 12"
-        :stroke="`url(#${id})`" />
+        :rx="shape === 'roundRect' ? 10 : 0"
+        :ry="shape === 'roundRect' ? 10 : 0"
+        :width="render.area[0] + 12"
+        :height="render.area[1] + 12"
+        :stroke="`url(#${gradientId})`" />
     </svg>
-    <canvas :ref="ref" :style="`border-radius: ${radius};`" />
+
+    <canvas ref="water-pond-level" :style="`border-radius: ${radius};`" />
   </div>
 </template>
 
 <script>
-import canvasMixin from '../../mixins/canvasMixin.js'
+import { deepMerge } from '@jiaminghi/charts/lib/util/index'
+
+import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
+
+import CRender from '@jiaminghi/c-render'
 
 export default {
-  name: 'WaterLevelPond',
-  mixins: [canvasMixin],
+  name: 'waterLevelPond',
+  props: {
+    config: Object,
+    default: () => ({})
+  },
   data () {
     return {
-      ref: `water-level-pond-${(new Date()).getTime()}`,
+      gradientId: `water-level-pond-${(new Date()).getTime()}`,
 
-      status: false,
+      defaultConfig: {
+        /**
+         * @description Data
+         * @type {Array<Number>}
+         * @default data = []
+         * @example data = [60, 40]
+         */
+        data: [],
+        /**
+         * @description Shape of wanter level pond
+         * @type {String}
+         * @default shape = 'rect'
+         * @example shape = 'rect' | 'roundRect' | 'round'
+         */
+        shape: 'rect',
+        /**
+         * @description Water wave number
+         * @type {Number}
+         * @default waveNum = 3
+         */
+        waveNum: 3,
+        /**
+         * @description Water wave height (px)
+         * @type {Number}
+         * @default waveHeight = 40
+         */
+        waveHeight: 40,
+        /**
+         * @description Wave opacity
+         * @type {Number}
+         * @default waveOpacity = 0.4
+         */
+        waveOpacity: 0.4,
+        /**
+         * @description Colors (Hex|rgb|rgba)
+         * @type {Array<String>}
+         * @default colors = ['#00BAFF', '#3DE7C9']
+         */
+        colors: ['#3DE7C9', '#00BAFF'],
+        /**
+         * @description Formatter
+         * @type {String}
+         * @default formatter = '{value}%'
+         */
+        formatter: '{value}%'
+      },
 
-      id: `water-level-pond-${(new Date()).getTime()}`,
+      mergedConfig: {},
 
-      defaultColor: ['#00BAFF', '#3DE7C9'],
+      render: null,
 
-      defaultWaveNum: 3,
-      defaultWaveHeight: 0.2,
-      defaultWaveOffset: -0.5,
+      svgBorderGradient: [],
 
-      waveAdded: 0.7,
+      details: '',
 
-      drawColor: '',
-      linearGradient: [],
-      waveTrueNum: '',
-      waveTrueHeight: '',
-      waveTrueWidth: '',
-      wavePoints: [],
-      bottomPoints: [],
-      overXPos: 0,
-      currentPoints: [],
-      animationHandler: ''
-    }
-  },
-  props: ['level', 'type', 'colors', 'waveNum', 'waveHeight', 'borderColor', 'noGradient'],
-  watch: {
-    level () {
-      const { checkData, draw } = this
+      waves: [],
 
-      checkData() && draw()
+      animation: false
     }
   },
   computed: {
     radius () {
-      const { type } = this
+      const { shape } = this.mergedConfig
 
-      if (type === 'circle') return '50%'
+      if (shape === 'round') return '50%'
 
-      if (type === 'rect') return '0'
+      if (shape === 'rect') return '0'
 
-      if (type === 'roundRect') return '10px'
+      if (shape === 'roundRect') return '10px'
 
-      return '50%'
+      return '0'
+    },
+    shape () {
+      const { shape } = this.mergedConfig
+
+      if (!shape) return 'rect'
+
+      return shape
+    }
+  },
+  watch: {
+    config () {
+      const { calcData, render } = this
+
+      render.delAllGraph()
+
+      this.waves = []
+
+      setTimeout(calcData, 0)
     }
   },
   methods: {
-    async init () {
-      const { initCanvas, checkData, draw } = this
+    init () {
+      const { initRender, config, calcData } = this
 
-      await initCanvas()
+      initRender()
 
-      checkData() && draw()
+      if (!config) return
+
+      calcData()
     },
-    checkData () {
-      const { level } = this
+    initRender () {
+      const { $refs } = this
 
-      this.status = false
-
-      if (!level || !level.length) return false
-
-      this.status = true
-
-      return true
+      this.render = new CRender($refs['water-pond-level'])
     },
-    draw () {
-      const { stopAnimation, clearCanvas } = this
+    calcData () {
+      const { mergeConfig, calcSvgBorderGradient, calcDetails } = this
 
-      stopAnimation()
+      mergeConfig()
 
-      clearCanvas()
+      calcSvgBorderGradient()
 
-      const { initColor, calcBorderLinearColor, calcWaveData } = this
+      calcDetails()
 
-      initColor()
+      const { addWave, animationWave } = this
 
-      calcBorderLinearColor()
+      addWave()
 
-      calcWaveData()
-
-      const { calcBottomPoints, calcOverXPos, drawWaveAnimation } = this
-
-      calcBottomPoints()
-
-      calcOverXPos()
-
-      drawWaveAnimation()
+      animationWave()
     },
-    initColor () {
-      const { colors, defaultColor } = this
+    mergeConfig () {
+      const { config, defaultConfig } = this
 
-      this.drawColor = colors || defaultColor
+      this.mergedConfig = deepMerge(deepClone(defaultConfig, true), config)
     },
-    calcBorderLinearColor () {
-      const { colors, defaultColor, borderColor } = this
+    calcSvgBorderGradient () {
+      const { colors } = this.mergedConfig
 
-      let trueColor = borderColor || colors || defaultColor
-
-      typeof trueColor === 'string' && (trueColor = [trueColor, trueColor])
-
-      const colorNum = trueColor.length
+      const colorNum = colors.length
 
       const colorOffsetGap = 100 / (colorNum - 1)
 
-      this.linearGradient = trueColor.map((c, i) => [colorOffsetGap * i, c])
+      this.svgBorderGradient = colors.map((c, i) => [colorOffsetGap * i, c])
     },
-    calcWaveData () {
-      const { waveNum, waveHeight, defaultWaveNum, defaultWaveHeight, canvasWH } = this
+    calcDetails () {
+      const { data, formatter } = this.mergedConfig
 
-      const waveTrueNum = this.waveTrueNum = waveNum || defaultWaveNum
+      if (!data.length) {
+        this.details = ''
 
-      const waveTrueHeight = this.waveTrueHeight = (waveHeight || defaultWaveHeight) * canvasWH[1]
+        return
+      }
 
-      const waveWidth = this.waveTrueWidth = canvasWH[0] / waveTrueNum
+      const maxValue = Math.max(...data)
 
-      const { waveOffset, defaultWaveOffset, addWavePoint } = this
-
-      const waveOffsetLength = waveTrueHeight * (waveOffset || defaultWaveOffset)
-
-      const waveTop = waveTrueHeight + waveOffsetLength + canvasWH[1]
-
-      const waveBottom = waveOffsetLength + canvasWH[1]
-
-      const halfWidth = waveWidth / 2
-
-      this.wavePoints = new Array(waveTrueNum * 2 + 1).fill(0).map((t, i) =>
-        [i * halfWidth, i % 2 === 0 ? waveBottom : waveTop])
-
-      addWavePoint() && addWavePoint() && addWavePoint()
+      this.details = formatter.replace('{value}', maxValue)
     },
-    addWavePoint () {
-      const { wavePoints, waveTrueWidth } = this
+    addWave () {
+      const { render, getWaveShapes, getWaveStyle, drawed } = this
 
-      const addPoint = [wavePoints[1][0] - waveTrueWidth, wavePoints[1][1]]
+      const shapes = getWaveShapes()
+      const style = getWaveStyle()
 
-      return wavePoints.unshift(addPoint)
+      this.waves = shapes.map(shape => render.add({
+        name: 'smoothline',
+        animationFrame: 300,
+        shape,
+        style,
+        drawed
+      }))
     },
-    calcBottomPoints () {
-      const { canvasWH } = this
+    getWaveShapes () {
+      const { mergedConfig, render, mergeOffset } = this
 
-      this.bottomPoints = [
-        [...canvasWH],
-        [0, canvasWH[1]]
-      ]
-    },
-    calcOverXPos () {
-      const { canvasWH: [width], waveTrueWidth } = this
+      const { waveNum, waveHeight, data } = mergedConfig
 
-      this.overXPos = width + waveTrueWidth
-    },
-    drawWaveAnimation () {
-      const { clearCanvas, drawWaveAnimation } = this
+      const [w, h] = render.area
 
-      clearCanvas()
+      const pointsNum = waveNum * 4 + 4
 
-      const { getCurrentPoints, drawCurrentWave, calcNextFramePoints } = this
+      const pointXGap = w / waveNum / 2
 
-      getCurrentPoints()
+      return data.map(v => {
+        let points = new Array(pointsNum).fill(0).map((foo, j) => {
+          const x = w - pointXGap * j
 
-      drawCurrentWave()
+          const startY = (1 - v / 100) * h
 
-      calcNextFramePoints()
+          const y = j % 2 === 0 ? startY : startY - waveHeight
 
-      this.animationHandler = requestAnimationFrame(drawWaveAnimation)
-    },
-    getCurrentPoints () {
-      const { level, wavePoints, canvasWH: [, height] } = this
+          return [x, y]
+        })
 
-      this.currentPoints = level.map(l =>
-        wavePoints.map(([x, y]) =>
-          [x, y - (l / 100 * height)]))
-    },
-    drawCurrentWave () {
-      const { currentPoints, ctx, bottomPoints, drawColor, canvasWH: [, y], noGradient } = this
+        points = points.map(p => mergeOffset(p, [pointXGap * 2, 0]))
 
-      const { canvas: { drawSmoothlinePath, getLinearGradientColor } } = this
-
-      const { color: { hexToRgb } } = this
-
-      const multipleColor = typeof drawColor === 'object'
-
-      !multipleColor && (ctx.fillStyle = drawColor)
-
-      multipleColor &&
-        !noGradient &&
-          (ctx.fillStyle = getLinearGradientColor(ctx, [0, y], [0, 0], drawColor.map(c => hexToRgb(c, 0.5))))
-
-      const colorNum = drawColor.length
-
-      currentPoints.forEach((line, i) => {
-        drawSmoothlinePath(ctx, line, false, true, true)
-
-        ctx.lineTo(...bottomPoints[0])
-        ctx.lineTo(...bottomPoints[1])
-
-        ctx.closePath()
-
-        multipleColor && noGradient && (ctx.fillStyle = drawColor[i % colorNum])
-
-        ctx.fill()
+        return { points }
       })
     },
-    calcNextFramePoints () {
-      const { wavePoints, waveAdded, addWavePoint, overXPos } = this
-
-      const addedWavePoints = wavePoints.map(([x, y]) => [x + waveAdded, y])
-
-      const lastPointIndex = addedWavePoints.length - 1
-
-      let addStatus = false
-
-      addedWavePoints[lastPointIndex][0] > overXPos &&
-        addedWavePoints.pop() && (addStatus = true)
-
-      this.wavePoints = addedWavePoints
-
-      addStatus && addWavePoint()
+    mergeOffset ([x, y], [ox, oy]) {
+      return [x + ox, y + oy]
     },
-    stopAnimation () {
-      const { animationHandler } = this
+    getWaveStyle () {
+      const { render, mergedConfig } = this
 
-      animationHandler && cancelAnimationFrame(animationHandler)
+      const h = render.area[1]
+
+      return {
+        gradientColor: mergedConfig.colors,
+        gradientType: 'linear',
+        gradientParams: [0, 0, 0, h],
+        gradientWith: 'fill',
+        opacity: mergedConfig.waveOpacity,
+        translate: [0, 0]
+      }
+    },
+    drawed ({ shape: { points } }, { ctx, area }) {
+      const firstPoint = points[0]
+      const lastPoint = points.slice(-1)[0]
+
+      const [w, h] = area
+
+      ctx.lineTo(lastPoint[0], h)
+      ctx.lineTo(firstPoint[0], h)
+
+      ctx.closePath()
+
+      ctx.fill()
+    },
+    async animationWave (repeat = 1) {
+      const { waves, render, animation } = this
+
+      if (animation) return
+
+      this.animation = true
+
+      const w = render.area[0]
+
+      waves.forEach(graph => {
+        const reset = repeat % 2 === 0
+
+        graph.attr('style', { translate: [0, 0] })
+
+        graph.animation('style', {
+          translate: [w, 0]
+        }, true)
+      })
+
+      await render.launchAnimation()
+
+      this.animation = false
+
+      if (!render.graphs.length) return
+
+      this.animationWave(repeat + 1)
     }
   },
   mounted () {
@@ -274,27 +308,21 @@ export default {
 
     init()
   },
-  destroyed () {
-    const { stopAnimation } = this
+  beforeDestroy () {
+    const { calcData, render } = this
 
-    stopAnimation()
+    render.delAllGraph()
+
+    this.waves = []
   }
 }
 </script>
 
 <style lang="less">
-.water-level-pond {
+.dv-water-pond-level {
   position: relative;
 
-  .percent-text {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    font-weight: bold;
-    transform: translate(-50%, -50%);
-  }
-
-  .svg-container {
+  svg {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -320,7 +348,6 @@ export default {
     width: calc(~"100% - 16px");
     height: calc(~"100% - 16px");
     box-sizing: border-box;
-    border-radius: 50%;
   }
 }
 </style>

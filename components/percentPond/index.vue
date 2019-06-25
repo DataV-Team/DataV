@@ -1,76 +1,246 @@
 <template>
-  <div class="percent-pond">
-    <div class="percent-text">
-      <span :style="`margin-left: ${percent * (width - 2) / 100 + 6}px`">{{ percent || 0 }}%</span>
-    </div>
+  <div class="dv-percent-pond" ref="percent-pond">
+    <svg>
+      <defs>
+        <linearGradient :id="gradientId1" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop v-for="lc in linearGradient" :key="lc[0]"
+            :offset="lc[0]"
+            :stop-color="lc[1]" />
+        </linearGradient>
 
-    <div class="percent-container">
-      <div class="p-decoration-box" />
-      <div class="p-svg-container" :ref="ref">
-        <svg :width="width" :height="height">
-          <defs>
-            <linearGradient id="linear">
-              <stop v-for="lc in linearGradient" :key="lc[0]"
-                :offset="lc[0]"
-                :stop-color="lc[1]" />
-            </linearGradient>
-          </defs>
-
-          <polyline :stroke-width="height - 1"
-            stroke="url(#linear)"
-            :points="`1, ${height * 0.5} ${percent * (width - 2) / 100}, ${height * 0.5 + 0.0001}`" />
-        </svg>
-      </div>
-      <div class="p-decoration-box" />
-    </div>
+        <linearGradient :id="gradientId2" x1="0%" y1="0%" :x2="gradient2XPos" y2="0%">
+          <stop v-for="lc in linearGradient" :key="lc[0]"
+            :offset="lc[0]"
+            :stop-color="lc[1]" />
+        </linearGradient>
+      </defs>
+      <rect
+        :x="mergedConfig ? mergedConfig.borderWidth / 2 : '0'"
+        :y="mergedConfig ? mergedConfig.borderWidth / 2 : '0'"
+        :rx="mergedConfig ? mergedConfig.borderRadius : '0'"
+        :ry="mergedConfig ? mergedConfig.borderRadius : '0'"
+        fill="transparent"
+        :stroke-width="mergedConfig ? mergedConfig.borderWidth : '0'"
+        :stroke="`url(#${gradientId1})`"
+        :width="rectWidth"
+        :height="rectHeight"
+      />
+      <polyline
+        :stroke-width="polylineWidth"
+        :stroke-dasharray="mergedConfig ? mergedConfig.lineDash.join(',') : '0'"
+        :stroke="`url(#${polylineGradient})`"
+        :points="points"
+      />
+      <text
+        :stroke="mergedConfig ? mergedConfig.textColor : '#fff'"
+        :fill="mergedConfig ? mergedConfig.textColor : '#fff'"
+        :x="width / 2"
+        :y="height / 2"
+      >
+        {{ details }}
+      </text>
+    </svg>
   </div>
 </template>
 
 <script>
+import { deepMerge } from '@jiaminghi/charts/lib/util/index'
+
+import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
+
 export default {
   name: 'PercentPond',
-  props: ['percent', 'colors'],
+  props: {
+    config: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   data () {
     return {
-      ref: `percent-pond-${(new Date()).getTime()}`,
+      gradientId1: `percent-pond-gradientId1-${(new Date()).getTime()}`,
+      gradientId2: `percent-pond-gradientId2-${(new Date()).getTime()}`,
+
       width: 0,
       height: 0,
 
-      defaultColor: ['#00BAFF', '#3DE7C9'],
+      defaultConfig: {
+        /**
+         * @description Value
+         * @type {Number}
+         * @default value = 0
+         */
+        value: 0,
+        /**
+         * @description Colors (Hex|rgb|rgba)
+         * @type {Array<String>}
+         * @default colors = ['#00BAFF', '#3DE7C9']
+         */
+        colors: ['#3DE7C9', '#00BAFF'],
+        /**
+         * @description Border width
+         * @type {Number}
+         * @default borderWidth = 3
+         */
+        borderWidth: 3,
+        /**
+         * @description Gap between border and pond
+         * @type {Number}
+         * @default borderGap = 3
+         */
+        borderGap: 3,
+        /**
+         * @description Line dash
+         * @type {Array<Number>}
+         * @default lineDash = [5, 1]
+         */
+        lineDash: [5, 1],
+        /**
+         * @description Text color
+         * @type {String}
+         * @default textColor = '#fff'
+         */
+        textColor: '#fff',
+        /**
+         * @description Border radius
+         * @type {Number}
+         * @default borderRadius = 5
+         */
+        borderRadius: 5,
+        /**
+         * @description Local Gradient
+         * @type {Boolean}
+         * @default localGradient = false
+         * @example localGradient = false | true
+         */
+        localGradient: false,
+        /**
+         * @description Formatter
+         * @type {String}
+         * @default formatter = '{value}%'
+         */
+        formatter: '{value}%'
+      },
 
-      linearGradient: []
+      mergedConfig: null
     }
   },
-  watch: {
-    colors () {
-      const { calcLinearColor } = this
+  computed: {
+    rectWidth () {
+      const { mergedConfig, width } = this
 
-      calcLinearColor()
-    }
-  },
-  methods: {
-    init () {
-      const { $nextTick, $refs, ref, calcLinearColor } = this
+      if (!mergedConfig) return 0
 
-      $nextTick(e => {
-        this.width = $refs[ref].clientWidth
-        this.height = $refs[ref].clientHeight
-      })
+      const { borderWidth } = mergedConfig
 
-      calcLinearColor()
+      return width - borderWidth
     },
-    calcLinearColor () {
-      const { colors, defaultColor } = this
+    rectHeight () {
+      const { mergedConfig, height } = this
 
-      let trueColor = colors || defaultColor
+      if (!mergedConfig) return 0
 
-      typeof trueColor === 'string' && (trueColor = [trueColor, trueColor])
+      const { borderWidth } = mergedConfig
 
-      const colorNum = trueColor.length
+      return height - borderWidth
+    },
+    points () {
+      const { mergedConfig, width, height } = this
+
+      const halfHeight = height / 2
+
+      if (!mergedConfig) return `0, ${halfHeight} 0, ${halfHeight}`
+
+      const { borderWidth, borderGap, value } = mergedConfig
+
+      const polylineLength = (width - (borderWidth + borderGap) * 2) / 100 * value
+
+      return `
+        ${borderWidth + borderGap}, ${halfHeight}
+        ${borderWidth + borderGap + polylineLength}, ${halfHeight + 0.001}
+      `
+    },
+    polylineWidth () {
+      const { mergedConfig, height } = this
+
+      if (!mergedConfig) return 0
+
+      const { borderWidth, borderGap } = mergedConfig
+
+      return height - (borderWidth + borderGap) * 2
+    },
+    linearGradient () {
+      const { mergedConfig } = this
+
+      if (!mergedConfig) return []
+
+      const { colors } = mergedConfig
+
+      const colorNum = colors.length
 
       const colorOffsetGap = 100 / (colorNum - 1)
 
-      this.linearGradient = trueColor.map((c, i) => [colorOffsetGap * i, c])
+      return colors.map((c, i) => [colorOffsetGap * i, c])
+    },
+    polylineGradient () {
+      const { gradientId1, gradientId2, mergedConfig } = this
+
+      if (!mergedConfig) return gradientId2
+
+      if (mergedConfig.localGradient) return gradientId1
+
+      return gradientId2
+    },
+    gradient2XPos () {
+      const { mergedConfig } = this
+
+      if (!mergedConfig) return '100%'
+
+      const { value } = mergedConfig
+
+      return `${200 - value}%`
+    },
+    details () {
+      const { mergedConfig } = this
+
+      if (!mergedConfig) return ''
+
+      const { value, formatter } = mergedConfig
+
+      return formatter.replace('{value}', value)
+    }
+  },
+  watch: {
+    config () {
+      const { mergeConfig } = this
+
+      mergeConfig()
+    }
+  },
+  methods: {
+    async init () {
+      const { initWH, config, mergeConfig } = this
+
+      await initWH()
+
+      if (!config) return
+
+      mergeConfig()
+    },
+    async initWH () {
+      const { $nextTick, $refs } = this
+
+      await $nextTick()
+
+      const dom = $refs['percent-pond']
+
+      this.width = dom.clientWidth
+      this.height = dom.clientHeight
+    },
+    mergeConfig () {
+      let { config, defaultConfig } = this
+
+      this.mergedConfig = deepMerge(deepClone(defaultConfig, true), config || {})
     }
   },
   mounted () {
@@ -82,58 +252,19 @@ export default {
 </script>
 
 <style lang="less">
-.percent-pond {
+.dv-percent-pond {
   display: flex;
   flex-direction: column;
 
-  .percent-text {
-    height: 30px;
-    font-size: 15px;
-    flex-shrink: 0;
-
-    span {
-      position: relative;
-      box-shadow: 0 0 3px gray;
-      padding: 0px 5px;
-      display: inline-block;
-      transform: translateX(-50%);
-
-      &::after {
-        position: absolute;
-        display: block;
-        left: 50%;
-        transform: translateX(-50%);
-        content: '';
-        width: 0px;
-        height: 0px;
-        border-width: 8px;
-        border-style: solid;
-        border-color: fade(gray, 50) transparent transparent transparent;
-      }
-    }
+  polyline {
+    transition: all 0.3s;
   }
 
-  .percent-container {
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-
-    .p-decoration-box {
-      width: 3px;
-      flex-shrink: 0;
-      box-shadow: 0 0 3px gray;
-    }
-
-    .p-svg-container {
-      flex: 1;
-      margin: 0px 3px;
-      box-shadow: 0 0 3px gray;
-
-      polyline {
-        fill: none;
-        stroke-dasharray: 5, 1;
-      }
-    }
+  text {
+    font-size: 25px;
+    font-weight: bold;
+    text-anchor: middle;
+    dominant-baseline: middle;
   }
 }
 </style>

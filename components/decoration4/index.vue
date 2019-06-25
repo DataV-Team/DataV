@@ -1,92 +1,66 @@
 <template>
-  <div :class="`decoration-4 ${reverse ? 'reverse' : 'normal'}`" :ref="ref">
-    <svg :class="`svg-container ${reverse ? 'ani-width' : 'ani-height'}`">
-      <template v-if="!reverse">
-        <polyline class="lighter-line" :points="`3, 5 3, ${height - 5}`" />
-        <polyline class="bolder-line" :points="`3, 5 3, ${height - 5}`" />
-      </template>
-
-      <template v-else>
-        <polyline class="lighter-line" :points="`5, 3 ${width - 5},3`" />
-        <polyline class="bolder-line" :points="`5, 3 ${width - 5},3`" />
-
-        <!-- <polyline class="lighter-line" :points="`5, 3 ${width - 5},3`" />
-        <polyline class="bolder-line" :points="`5, 3 ${width - 5},3`" /> -->
-      </template>
-    </svg>
+  <div class="dv-decoration-4" :ref="ref">
+    <div
+      :class="`container ${reverse ? 'reverse' : 'normal'}`"
+      :style="reverse ? `width:${width}px;height:5px` : `width:5px;height:${height}px;`"
+    >
+      <svg :width="reverse ? width : 5" :height="reverse ? 5 : height">
+        <polyline
+          stroke="rgba(255, 255, 255, 0.3)"
+          :points="reverse ? `0, 2.5 ${width}, 2.5` : `2.5, 0 2.5, ${height}`"
+        />
+        <polyline
+          class="bold-line"
+          stroke="rgba(255, 255, 255, 0.3)"
+          stroke-width="3"
+          stroke-dasharray="20, 80"
+          stroke-dashoffset="-30"
+          :points="reverse ? `0, 2.5 ${width}, 2.5` : `2.5, 0 2.5, ${height}`"
+        />
+      </svg>
+    </div>
   </div>
 </template>
 
 <script>
+import autoResize from '../../mixins/autoResize.js'
+
 export default {
   name: 'Decoration4',
+  mixins: [autoResize],
+  props: ['reverse'],
   data () {
     return {
-      ref: `decoration-4-${(new Date()).getTime()}`,
-      width: 0,
-      height: 0
+      ref: 'decoration-4'
     }
-  },
-  props: ['reverse'],
-  methods: {
-    init () {
-      const { $nextTick, $refs, ref } = this
-
-      $nextTick(e => {
-        this.width = $refs[ref].clientWidth
-        this.height = $refs[ref].clientHeight
-      })
-    }
-  },
-  mounted () {
-    const { init } = this
-
-    init()
   }
 }
 </script>
 
 <style lang="less">
-.decoration-4 {
+.dv-decoration-4 {
   position: relative;
+  width: 100%;
+  height: 100%;
 
-  &.normal {
-    width: 6px;
-  }
-
-  &.reverse {
-    height: 6px;
-  }
-
-  .svg-container {
+  .container {
+    display: flex;
+    overflow: hidden;
     position: absolute;
-
-    &.ani-height {
-      width: 100%;
-      height: 0%;
-      animation: ani-height 3s ease-in-out infinite;
-    }
-
-    &.ani-width {
-      width: 0%;
-      height: 100%;
-      animation: ani-width 3s ease-in-out infinite;
-    }
-
-    polyline {
-      fill: none;
-      stroke: fade(gray, 25);
-    }
   }
 
-  .lighter-line {
-    stroke-width: 1px;
+  .normal {
+    height: 0% !important;
+    animation: ani-height 3s ease-in-out infinite;
+    left: 50%;
+    margin-left: -2px;
   }
 
-  .bolder-line {
-    stroke-width: 3px;
-    stroke-dasharray: 20, 80;
-    stroke-dashoffset: -30;
+  .reverse {
+    width: 0% !important;
+    animation: ani-width 3s ease-in-out infinite;
+    top: 50%;
+    margin-top: -2px;
   }
 
   @keyframes ani-height {

@@ -11,30 +11,37 @@
       <polyline class="dv-bb5-line-6" :points="`15, ${height - 13} ${width - 110}, ${height - 13}`" />
     </svg>
 
-    <slot></slot>
+    <div class="border-box-content">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
 <script>
-import borderBoxMixin from '../../mixins/borderBoxMixin.js'
+import autoResize from '../../mixins/autoResize.js'
 
 export default {
   name: 'BorderBox5',
-  mixins: [borderBoxMixin],
+  mixins: [autoResize],
   data () {
     return {
-      ref: `border-box-5-${(new Date()).getTime()}`
+      ref: 'border-box-5'
     }
   },
-  props: ['reverse']
+  props: {
+    reverse: {
+      type: Boolean,
+      default: false
+    }
+  }
 }
 </script>
 
 <style lang="less">
 .dv-border-box-5 {
   position: relative;
-  box-sizing: border-box;
-  padding: 20px;
+  width: 100%;
+  height: 100%;
 
   .dv-reverse {
     transform: rotate(180deg);
@@ -71,5 +78,10 @@ export default {
     stroke: fade(#fff, 15);
   }
 
+  .border-box-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>
