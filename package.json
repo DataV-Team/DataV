@@ -1,6 +1,6 @@
 {
   "name": "@jiaminghi/data-view",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "author": "JiaMing <743192023@qq.com>",
   "description": "Vue Large screen data display component library",
   "main": "index.js",
@@ -20,5 +20,12 @@
     "chart",
     "dataview"
   ],
+  "devDependencies": {
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0"
+  },
+  "dependencies": {
+    "@jiaminghi/charts": "*"
+  },
   "homepage": "https://github.com/jiaming743/DataV#readme"
 }

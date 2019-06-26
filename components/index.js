@@ -65,5 +65,5 @@ export default function (Vue) {
   Vue.component('dvFlylineChart', flylineChart)
   Vue.component('dvDigitalFlop', digitalFlop)
 
-  // Vue.component('dvScrollBoard', scrollBoard)
+  Vue.component('dvScrollBoard', scrollBoard)
 }

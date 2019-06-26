@@ -48,9 +48,9 @@ export default {
         /**
          * @description Ring data
          * @type {Array}
-         * @default data = []
+         * @default data = [{ name: '', value: 0 }]
          */
-        data: [],
+        data: [{ name: '', value: 0 }],
         /**
          * @description Ring line width
          * @type {Number}

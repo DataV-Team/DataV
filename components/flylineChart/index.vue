@@ -153,7 +153,7 @@ import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
 import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
 
-import { randomExtend } from '../../util/index'
+import { randomExtend, getPointDistance } from '../../util/index'
 
 import autoResize from '../../mixins/autoResize.js'
 
@@ -375,6 +375,7 @@ export default {
       const { calcData } = this
 
       calcData()
+
     },
     onResize () {
       const { calcData } = this
@@ -435,7 +436,7 @@ export default {
       return [point, controlPoint, center]
     },
     getControlPoint ([sx, sy], [ex, ey]) {
-      const { getPointDistance, getKLinePointByx, mergedConfig } = this
+      const { getKLinePointByx, mergedConfig } = this
 
       const { curvature, k } = mergedConfig
 

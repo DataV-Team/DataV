@@ -1,3 +1,5 @@
+import { debounce, observerDomResize } from '../util/index'
+
 export default {
   data () {
     return {
@@ -40,12 +42,12 @@ export default {
       })
     },
     getDebounceInitWHFun () {
-      const { debounce, initWH } = this
+      const { initWH } = this
 
       this.debounceInitWHFun = debounce(100, initWH)
     },
     bindDomResizeCallback () {
-      const { dom, debounceInitWHFun, observerDomResize } = this
+      const { dom, debounceInitWHFun } = this
 
       this.domObserver = observerDomResize(dom, debounceInitWHFun)
 

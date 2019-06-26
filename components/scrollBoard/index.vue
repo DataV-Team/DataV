@@ -1,276 +1,345 @@
 <template>
-  <div class="scroll-board" :ref="ref">
+  <div class="dv-scroll-board" :ref="ref">
+    <div class="header" v-if="header.length && mergedConfig">
+      <div
+        class="header-item"
+        v-for="(headerItem, i) in header"
+        :key="headerItem + i"
+        :style="`
+          background-color: ${mergedConfig.headerBGC};
+          height: ${mergedConfig.headerHeight}px;
+          line-height: ${mergedConfig.headerHeight}px;
+          width: ${widths[i]}px;
+        `"
+        :align="aligns[i]"
+        v-html="headerItem"
+      />
+    </div>
 
-    <loading v-if="!status" />
+    <div
+      v-if="mergedConfig"
+      class="rows"
+      :style="`height: calc(100% - ${header.length ? mergedConfig.headerHeight : 0}px);`"
+    >
+      <div
+        class="row-item"
+        v-for="(row, ri) in rows"
+        :key="row.toString() + row.rowIndex"
+        :style="`
+          height: ${heights[ri]}px;
+          line-height: ${heights[ri]}px;
+          background-color: ${mergedConfig[row.rowIndex % 2 === 0 ? 'evenRowBGC' : 'oddRowBGC']};
+        `"
+      >
+        <div
+          class="ceil"
+          v-for="(ceil, ci) in row.ceils"
+          :key="ceil + ri + ci"
+          :style="`width: ${widths[ci]}px;`"
+          :align="aligns[ci]"
+          v-html="ceil"
+          @click="emitEvent(ri, ci, row, ceil)"
+        />
 
-    <template v-else>
-      <div class="title-container"
-        v-if="titleData"
-        :style="`background-color:${titleTrueBG};`">
-        <div :class="`title-item ${textTrueAlign[ti]}`"
-          v-for="(title, ti) in titleData" :key="title + ti"
-          :style="`width: ${columnTrueWidth[ti]};`">
-          {{ title }}
-        </div>
       </div>
-
-      <div class="row-container">
-        <div :class="`row-item ${row.fade && 'fade'}`"
-          :style="`height: ${rowHeight}%;background-color:${row.index % 2 === 0 ? evenTrueBG : oddTrueBG};`"
-          v-for="(row, ri) in scrollData"
-          :key="row.data + ri">
-
-          <div :class="`row-item-info ${textTrueAlign[ii]}`"
-            v-for="(info, ii) in row.data"
-            :key="info + Math.random()">
-
-            <div @click="emitClickEvent(row, ii)" :class="`rii-width ${ii === 0 && index && 'index-container'}`" :style="`width: ${columnTrueWidth[ii]};`">
-              <template v-if="ii === 0 && index">
-                <div class="index" :style="`background-color:${titleTrueBG};`">{{ info }}</div>
-              </template>
-
-              <span v-else v-html="info" />
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </template>
+    </div>
   </div>
 </template>
 
 <script>
+import autoResize from '../../mixins/autoResize.js'
+
+import { deepMerge } from '@jiaminghi/charts/lib/util/index'
+
+import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
+
 export default {
-  name: 'scroll-board',
-  props: ['data', 'index', 'rowNum', 'titleBG', 'waitTime', 'oddBG', 'evenBG', 'columnWidth', 'textAlign', 'carousel'],
+  name: 'ScrollBoard',
+  mixins: [autoResize],
+  props: {
+    config: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   data () {
     return {
-      ref: `scroll-board-${(new Date()).getTime()}`,
-      container: '',
-      containerWH: [],
+      ref: 'scroll-board',
 
-      status: false,
+      defaultConfig: {
+        /**
+         * @description Board header
+         * @type {Array<String>}
+         * @default header = []
+         * @example header = ['column1', 'column2', 'column3']
+         */
+        header: [],
+        /**
+         * @description Board data
+         * @type {Array<Array>}
+         * @default data = []
+         * @example header = [['column1Row1', 'column2Row1', 'column3Row1']]
+         */
+        data: [],
+        /**
+         * @description Row num
+         * @type {Number}
+         * @default rowNum = 5
+         */
+        rowNum: 5,
+        /**
+         * @description Header background color
+         * @type {String}
+         * @default headerBGC = '#00BAFF'
+         */
+        headerBGC: '#00BAFF',
+        /**
+         * @description Odd row background color
+         * @type {String}
+         * @default oddRowBGC = '#003B51'
+         */
+        oddRowBGC: '#003B51',
+        /**
+         * @description Even row background color
+         * @type {String}
+         * @default evenRowBGC = '#003B51'
+         */
+        evenRowBGC: '#0A2732',
+        /**
+         * @description Scroll wait time
+         * @type {Number}
+         * @default waitTime = 2000
+         */
+        waitTime: 2000,
+        /**
+         * @description Header height
+         * @type {Number}
+         * @default headerHeight = 35
+         */
+        headerHeight: 35,
+        /**
+         * @description Column width
+         * @type {Array<Number>}
+         * @default columnWidth = []
+         */
+        columnWidth: [],
+        /**
+         * @description Column align
+         * @type {Array<String>}
+         * @default align = []
+         * @example align = ['left', 'center', 'right']
+         */
+        align: [],
+        /**
+         * @description Show index
+         * @type {Boolean}
+         * @default index = false
+         */
+        index: false,
+        /**
+         * @description Carousel type
+         * @type {String}
+         * @default carousel = 'single'
+         * @example carousel = 'single' | 'page'
+         */
+        carousel: 'single'
+      },
 
-      reAnimationTimer: '',
-      doFadeTimer: '',
+      mergedConfig: null,
 
-      defaultRowNum: 5,
-      defaultTitleBG: '#00BAFF',
-      defaultOddBG: '#003B51',
-      defaultEvenBG: '#0A2732',
+      header: [],
 
-      defaultWaitTime: 2000,
+      rowsData: [],
 
-      rowTrueNum: '',
-      rowHeight: '',
-      titleTrueBG: '',
-      oddTrueBG: '',
-      evenTrueBG: '',
-      columnTrueWidth: [],
-      textTrueAlign: [],
+      rows: [],
 
-      currentIndex: 0,
+      widths: [],
 
-      allRowNum: 0,
-      allColumnNum: 0,
-      titleData: '',
-      allRowData: [],
-      scrollData: []
+      heights: [],
+
+      avgHeight: 0,
+
+      aligns: [],
+
+      animationIndex: 0,
+
+      animationHandler: ''
     }
   },
   watch: {
-    data () {
-      const { checkData, init } = this
-
-      checkData() && init()
-    }
-  },
-  methods: {
-    init () {
-      const { checkData, initDom, stopAnimation, dealData, calcConfig, getCurrentScrollData } = this
-
-      initDom()
-
-      if (!checkData()) return
+    config () {
+      const { stopAnimation, calcData } = this
 
       stopAnimation()
 
-      dealData()
+      calcData()
+    }
+  },
+  methods: {
+    afterAutoResizeMixinInit () {
+      const { calcData } = this
 
-      calcConfig()
-
-      getCurrentScrollData(true)
+      calcData()
     },
-    initDom () {
-      const { $refs, ref } = this
+    onResize () {
+      const { mergedConfig, calcWidths, calcHeights } = this
 
-      const container = this.container = $refs[ref]
+      if (!mergedConfig) return
 
-      this.containerWH[0] = container.clientWidth
-      this.containerWH[1] = container.clientHeight
+      calcWidths()
+
+      calcHeights()
     },
-    checkData () {
-      const { data } = this
+    calcData () {
+      const { mergeConfig, calcHeaderData, calcRowsData } = this
 
-      this.status = false
+      mergeConfig()
 
-      if (!data || !data.series) return false
+      calcHeaderData()
 
-      this.status = true
+      calcRowsData()
 
-      return true
+      const { calcWidths, calcHeights, calcAligns } = this
+
+      calcWidths()
+
+      calcHeights()
+
+      calcAligns()
+
+      const { animation } = this
+
+      animation(true)
     },
-    dealData () {
-      const { data: { series, title }, index, deepClone } = this
+    mergeConfig () {
+      let { config, defaultConfig } = this
 
-      if (title) (this.titleData = index ? ['', ...title] : [...title])
-
-      this.allRowData = deepClone(series).map((row, i) =>
-        ({ index: i + 1, data: index ? [i + 1, ...row] : row }))
+      this.mergedConfig = deepMerge(deepClone(defaultConfig, true), config || {})
     },
-    calcConfig () {
-      const { calcAllRowColumnNum, calcRowNum, calcRowHeight } = this
+    calcHeaderData () {
+      let { header, index } = this.mergedConfig
 
-      calcAllRowColumnNum()
-
-      calcRowNum()
-
-      calcRowHeight()
-
-      const { calcTitleBG, oddAndEvenRowBG, calcColumnWidth } = this
-
-      calcTitleBG()
-
-      oddAndEvenRowBG()
-
-      calcColumnWidth()
-
-      const { calcTextAlign } = this
-
-      calcTextAlign()
-    },
-    calcAllRowColumnNum () {
-      const { data: { series }, index } = this
-
-      this.allRowNum = series.length
-
-      this.allColumnNum = series[0].length + (index ? 1 : 0)
-    },
-    calcRowNum () {
-      const { rowNum, defaultRowNum } = this
-
-      this.rowTrueNum = parseInt(rowNum || defaultRowNum)
-    },
-    calcRowHeight () {
-      const { rowTrueNum } = this
-
-      this.rowHeight = 100 / rowTrueNum
-    },
-    calcTitleBG () {
-      const { titleBG, defaultTitleBG } = this
-
-      this.titleTrueBG = titleBG || defaultTitleBG
-    },
-    oddAndEvenRowBG () {
-      const { oddBG, evenBG, defaultOddBG, defaultEvenBG } = this
-
-      this.oddTrueBG = oddBG || defaultOddBG
-      this.evenTrueBG = evenBG || defaultEvenBG
-    },
-    calcColumnWidth () {
-      const { columnWidth, allColumnNum, filterNull, multipleSum, containerWH: [allWidth] } = this
-
-      const userSetColumnWidth = columnWidth || []
-
-      const setColumnData = filterNull(userSetColumnWidth)
-
-      const useWidth = multipleSum(...setColumnData.map(w => parseInt(w)))
-
-      const avgNum = allColumnNum - setColumnData.length
-
-      const avgWidth = (allWidth - useWidth) / avgNum + 'px'
-
-      this.columnTrueWidth = new Array(allColumnNum).fill(0).map((t, i) =>
-        userSetColumnWidth[i] ? `${userSetColumnWidth[i]}px` : avgWidth)
-    },
-    calcTextAlign () {
-      const { textAlign, allColumnNum, index } = this
-
-      const userSetTextAlign = textAlign || []
-
-      const textTrueAlign = new Array(allColumnNum).fill('left').map((d, i) =>
-        userSetTextAlign[i] || d)
-
-      index && textTrueAlign.unshift('')
-
-      this.textTrueAlign = textTrueAlign
-    },
-    getCurrentScrollData (init = false) {
-      init && (this.currentIndex = 0)
-
-      const { currentIndex, rowTrueNum, allRowData, deepClone, carousel } = this
-
-      let dealAfterRowData = deepClone(allRowData).map(row => ({ ...row, fade: false }))
-
-      if (init && allRowData.length < rowTrueNum) {
-        this.scrollData = dealAfterRowData
+      if (!header.length) {
+        this.header = []
 
         return
       }
 
-      const needNum = carousel === 'page' ? rowTrueNum * 2 : rowTrueNum + 1
+      header = [...header]
 
-      const tempScrollData = dealAfterRowData.slice(currentIndex, currentIndex + needNum)
+      if (index) header.unshift('#')
 
-      let stillNum = needNum - tempScrollData.length
+      this.header = header
+    },
+    calcRowsData () {
+      let { data, index, headerBGC } = this.mergedConfig
 
-      while (stillNum) {
-        tempScrollData.push(...deepClone(dealAfterRowData).slice(0, stillNum))
+      if (index) {
+        data = data.map((row, i) => {
+          row = [...row]
 
-        stillNum = needNum - tempScrollData.length
+          const indexTag = `<span class="index" style="background-color: ${headerBGC};">${i + 1}</spand>`
+
+          row.unshift(indexTag)
+
+          return row
+        })
       }
 
-      this.scrollData = tempScrollData
+      data = data.map((ceils, i) => ({ ceils, rowIndex: i }))
 
-      const { doFade, waitTime, defaultWaitTime } = this
-
-      this.doFadeTimer = setTimeout(doFade, waitTime || defaultWaitTime)
+      this.rowsData = data
+      this.rows = data
     },
-    doFade () {
-      const { rowTrueNum, carousel, scrollData, allRowNum, currentIndex } = this
+    calcWidths () {
+      const { width, mergedConfig, rowsData } = this
 
-      if (carousel === 'page') {
-        scrollData.forEach((item, i) => i < rowTrueNum && (item.fade = true))
+      const { columnWidth } = mergedConfig
 
-        const tempIndex = currentIndex + rowTrueNum
+      const usedWidth = columnWidth.reduce((all, w) => all + w, 0)
 
-        const minus = tempIndex - allRowNum
+      const columnNum = rowsData[0] ? rowsData[0].ceils.length : 0
 
-        this.currentIndex = minus >= 0 ? minus : tempIndex
-      } else {
-        scrollData[0].fade = true
+      const avgWidth = (width - usedWidth) / (columnNum - columnWidth.length)
 
-        this.currentIndex = currentIndex + 1 === allRowNum ? 0 : currentIndex + 1
-      }
+      const widths = new Array(columnNum).fill(avgWidth)
 
-      const { getCurrentScrollData } = this
-
-      this.reAnimationTimer = setTimeout(getCurrentScrollData, 1000)
+      this.widths = deepMerge(widths, columnWidth)
     },
-    emitClickEvent ({ data, index }, columnIndex) {
-      this.$emit('click', { data, rowIndex: index, columnIndex: columnIndex + 1 })
+    calcHeights (onresize = false) {
+      const { height, mergedConfig, header } = this
+
+      const { headerHeight, rowNum, data } = mergedConfig
+
+      let allHeight = height
+
+      if (header.length) allHeight -= headerHeight
+
+      const avgHeight = allHeight / rowNum
+
+      this.avgHeight = avgHeight
+
+      if (!onresize) this.heights = new Array(data.length).fill(avgHeight)
+    },
+    calcAligns () {
+      const { header, mergedConfig } = this
+
+      const columnNum = header.length
+
+      let aligns = new Array(columnNum).fill('left')
+
+      const { align } = mergedConfig
+
+      this.aligns = deepMerge(aligns, align)
+    },
+    async animation (start = false) {
+      let { avgHeight, animationIndex, mergedConfig, rowsData, animation } = this
+
+      const { waitTime, carousel, rowNum } = mergedConfig
+
+      const rowLength = rowsData.length
+
+      if (rowNum >= rowLength) return
+
+      if (start) await new Promise(resolve => setTimeout(resolve, waitTime))
+
+      const animationNum = carousel === 'single' ? 1 : rowNum
+
+      let rows = rowsData.slice(animationIndex)
+      rows.push(...rowsData.slice(0, animationIndex))
+
+      this.rows = rows
+      this.heights = new Array(rowLength).fill(avgHeight)
+
+      await new Promise(resolve => setTimeout(resolve, 300))
+
+      this.heights.splice(0, animationNum, ...new Array(animationNum).fill(0))
+
+      animationIndex += animationNum
+
+      const back = animationIndex - rowLength
+      if (back >= 0) animationIndex = back
+
+      this.animationIndex = animationIndex
+      this.animationHandler = setTimeout(animation, waitTime - 300)
     },
     stopAnimation () {
-      const { reAnimationTimer, doFadeTimer } = this
+      const { animationHandler } = this
 
-      reAnimationTimer && clearTimeout(reAnimationTimer)
-      doFadeTimer && clearTimeout(doFadeTimer)
+      if (!animationHandler) return
+
+      clearTimeout(animationHandler)
+    },
+    emitEvent (ri, ci, row, ceil) {
+      const { ceils, rowIndex } = row
+
+      this.$emit('click', {
+        row: ceils,
+        ceil,
+        rowIndex,
+        columnIndex: ci
+      })
     }
-  },
-  mounted () {
-    const { init } = this
-
-    init()
   },
   destroyed () {
     const { stopAnimation } = this
@@ -281,101 +350,48 @@ export default {
 </script>
 
 <style lang="less">
-.scroll-board {
+.text {
+  padding: 0 10px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dv-scroll-board {
   position: relative;
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
   color: #fff;
 
-  .title-container {
-    height: 35px;
-    font-size: 14px;
-    flex-shrink: 0;
+  .header {
     display: flex;
     flex-direction: row;
-  }
+    font-size: 15px;
 
-  .title-item {
-    display: flex;
-    align-items: center;
-
-    &.left {
-      justify-content: flex-start;
-    }
-
-    &.right {
-      justify-content: flex-end;
-    }
-
-    &.center {
-      justify-content: center;
+    .header-item {
+      .text;
+      transition: all 0.3s;
     }
   }
 
-  .row-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-
-  .row-item {
-    display: flex;
-    flex-direction: row;
-    flex-shrink: 0;
-    transition: all 0.5s;
+  .rows {
     overflow: hidden;
 
-    &.fade {
-      height: 0% !important;
-      color: transparent;
-      visibility: hidden;
-    }
-  }
-
-  .row-item-info {
-    position: relative;
-    display: flex;
-    vertical-align: middle;
-    align-items: center;
-    vertical-align:middle;
-    font-size: 13px;
-
-    &.left {
-      text-align: left;
+    .row-item {
+      display: flex;
+      font-size: 14px;
+      transition: all 0.3s;
     }
 
-    &.right {
-      text-align: right;
+    .ceil {
+      .text;
     }
 
-    &.center {
-      text-align: center;
+    .index {
+      border-radius: 3px;
+      padding: 0px 3px;
     }
-  }
-
-  .rii-width {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .index-container {
-    display: flex;
-    justify-content: center;
-  }
-
-  .index {
-    font-size: 12px;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 }
 </style>
