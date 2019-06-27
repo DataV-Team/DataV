@@ -28,8 +28,10 @@ import activeRingChart from './activeRingChart'
 import waterLevelPond from './waterLevelPond/index.vue'
 import percentPond from './percentPond/index.vue'
 import flylineChart from './flylineChart'
+import conicalColumnChart from './conicalColumnChart'
 import digitalFlop from './digitalFlop'
 import scrollBoard from './scrollBoard/index.vue'
+import scrollRankingBoard from './scrollRankingBoard/index.vue'
 
 export default function (Vue) {
   Vue.component('dvFullScreenContainer', fullScreenContainer)
@@ -63,7 +65,8 @@ export default function (Vue) {
   Vue.component('dvWaterLevelPond', waterLevelPond)
   Vue.component('dvPercentPond', percentPond)
   Vue.component('dvFlylineChart', flylineChart)
+  Vue.component('dvConicalColumnChart', conicalColumnChart)
   Vue.component('dvDigitalFlop', digitalFlop)
-
   Vue.component('dvScrollBoard', scrollBoard)
+  Vue.component('dvScrollRankingBoard', scrollRankingBoard)
 }
