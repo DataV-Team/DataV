@@ -202,8 +202,6 @@ export default {
           textY
         }
       })
-
-      console.warn(this.column)
     }
   }
 }
