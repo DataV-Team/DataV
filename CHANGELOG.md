@@ -1,3 +1,10 @@
+# 2.1.0-alpha (2019-06-27)
+
+### New
+
+- **conicalColumnChart**
+- **scrollRankingBoard**
+
 # 2.0.0-alpha (2019-06-26)
 
 ### Perfect
