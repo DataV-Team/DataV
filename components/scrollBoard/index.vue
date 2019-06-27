@@ -24,7 +24,7 @@
       <div
         class="row-item"
         v-for="(row, ri) in rows"
-        :key="row.toString() + row.rowIndex"
+        :key="row.toString() + row.scroll"
         :style="`
           height: ${heights[ri]}px;
           line-height: ${heights[ri]}px;
@@ -78,7 +78,6 @@ export default {
          * @description Board data
          * @type {Array<Array>}
          * @default data = []
-         * @example header = [['column1Row1', 'column2Row1', 'column3Row1']]
          */
         data: [],
         /**
@@ -232,7 +231,7 @@ export default {
       this.header = header
     },
     calcRowsData () {
-      let { data, index, headerBGC } = this.mergedConfig
+      let { data, index, headerBGC, rowNum } = this.mergedConfig
 
       if (index) {
         data = data.map((row, i) => {
@@ -247,6 +246,14 @@ export default {
       }
 
       data = data.map((ceils, i) => ({ ceils, rowIndex: i }))
+
+      const rowLength = data.length
+
+      if (rowLength > rowNum && rowLength < 2 * rowNum) {
+        data = [...data, ...data]
+      }
+
+      data = data.map((d, i) => ({ ...d, scroll: i }))
 
       this.rowsData = data
       this.rows = data

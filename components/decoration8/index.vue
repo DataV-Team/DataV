@@ -39,7 +39,7 @@ export default {
   },
   data () {
     return {
-      ref: 'decoration-8',
+      ref: 'decoration-8'
     }
   },
   methods: {

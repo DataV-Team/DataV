@@ -266,7 +266,7 @@ export default {
       const firstPoint = points[0]
       const lastPoint = points.slice(-1)[0]
 
-      const [w, h] = area
+      const h = area[1]
 
       ctx.lineTo(lastPoint[0], h)
       ctx.lineTo(firstPoint[0], h)
@@ -285,8 +285,6 @@ export default {
       const w = render.area[0]
 
       waves.forEach(graph => {
-        const reset = repeat % 2 === 0
-
         graph.attr('style', { translate: [0, 0] })
 
         graph.animation('style', {
@@ -309,7 +307,7 @@ export default {
     init()
   },
   beforeDestroy () {
-    const { calcData, render } = this
+    const { render } = this
 
     render.delAllGraph()
 

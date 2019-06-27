@@ -54,7 +54,7 @@ export default {
       window.addEventListener('resize', debounceInitWHFun)
     },
     unbindDomResizeCallback () {
-      const { domObserver, debounceInitWHFun } = this
+      let { domObserver, debounceInitWHFun } = this
 
       domObserver.disconnect()
       domObserver.takeRecords()

@@ -128,7 +128,7 @@ export default {
       return mergedConfig.data[activeIndex].name
     },
     fontSize () {
-      const { mergedConfig, activeIndex } = this
+      const { mergedConfig } = this
 
       if (!mergedConfig) return ''
 
@@ -178,7 +178,7 @@ export default {
       ringAnimation()
     },
     getRingOption () {
-      const { mergedConfig, getRealRadius, chart } = this
+      const { mergedConfig, getRealRadius } = this
 
       const radius = getRealRadius()
 
@@ -217,7 +217,7 @@ export default {
       return [insideRadius, outSideRadius]
     },
     ringAnimation () {
-      let { animation, activeIndex, getRingOption, chart, getRealRadius } = this
+      let { activeIndex, getRingOption, chart, getRealRadius } = this
 
       const radius = getRealRadius()
       const active = getRealRadius(true)

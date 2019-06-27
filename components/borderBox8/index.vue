@@ -34,7 +34,7 @@
       </defs>
 
       <use
-        stroke="#235fa7" 
+        stroke="#235fa7"
         stroke-width="1"
         :xlink:href="`#${path}`"
       />

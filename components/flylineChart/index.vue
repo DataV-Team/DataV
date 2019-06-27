@@ -163,7 +163,7 @@ export default {
   props: {
     config: {
       type: Object,
-      default: {}
+      default: () => ({})
     },
     dev: {
       type: Boolean,
@@ -239,7 +239,7 @@ export default {
         /**
          * @description Relative points position
          * @type {Boolean}
-         * @default relative = true 
+         * @default relative = true
          */
         relative: true,
         /**
@@ -375,7 +375,6 @@ export default {
       const { calcData } = this
 
       calcData()
-
     },
     onResize () {
       const { calcData } = this

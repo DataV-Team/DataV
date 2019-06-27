@@ -19,7 +19,7 @@ export default {
   props: {
     option: {
       type: Object,
-      default: {}
+      default: () => ({})
     }
   },
   data () {
@@ -42,7 +42,7 @@ export default {
   methods: {
     afterAutoResizeMixinInit () {
       const { initChart } = this
-      
+
       initChart()
     },
     initChart () {

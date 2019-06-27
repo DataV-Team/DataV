@@ -59,13 +59,13 @@ export default {
       line2Points: '',
 
       line1Length: 0,
-      line2Length: 0,
+      line2Length: 0
     }
   },
   methods: {
     afterAutoResizeMixinInit () {
       const { calcSVGData } = this
-      
+
       calcSVGData()
     },
     calcSVGData () {
@@ -95,7 +95,7 @@ export default {
     },
     onResize () {
       const { calcSVGData } = this
-      
+
       calcSVGData()
     }
   }

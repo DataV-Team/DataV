@@ -71,7 +71,7 @@ export default {
   methods: {
     afterAutoResizeMixinInit () {
       const { calcSVGData } = this
-      
+
       calcSVGData()
     },
     calcSVGData () {
@@ -114,7 +114,7 @@ export default {
     },
     onResize () {
       const { calcSVGData } = this
-      
+
       calcSVGData()
     }
   }
