@@ -1,10 +1,6 @@
 <template>
   <div class="dv-charts-container" :ref="ref">
     <div class="charts" :ref="chartRef" />
-
-    <div class="charts-slot-content">
-      <slot></slot>
-    </div>
   </div>
 </template>
 
@@ -72,14 +68,6 @@ export default {
   height: 100%;
 
   .charts {
-    width: 100%;
-    height: 100%;
-  }
-
-  .charts-slot-content {
-    position: absolute;
-    left: 0px;
-    top: 0px;
     width: 100%;
     height: 100%;
   }
