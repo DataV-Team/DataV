@@ -1,3 +1,10 @@
+# 2.1.1-alpha (2019-06-28)
+
+### Bug Fixes
+
+- **autoResize:** Exception caused by `autoResize` mixin.
+- **charts:** `Legend` is blocked by slot and can't click.
+
 # 2.1.0-alpha (2019-06-27)
 
 ### New
