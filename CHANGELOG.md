@@ -1,3 +1,10 @@
+# 2.2.0-alpha (2019-06-29)
+
+### New
+
+- **borderBox**
+- **decoration**
+
 # 2.1.1-alpha (2019-06-28)
 
 ### Bug Fixes
