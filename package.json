@@ -3,12 +3,14 @@
   "version": "2.2.0",
   "author": "JiaMing <743192023@qq.com>",
   "description": "Vue Large screen data display component library",
-  "main": "index.js",
+  "main": "/lib/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/jiaming743/DataV.git"
   },
   "scripts": {
+    "compile": "node publish.js",
+    "prepublish": "npm run compile",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "MIT",
@@ -20,10 +22,6 @@
     "chart",
     "dataview"
   ],
-  "devDependencies": {
-    "less": "^3.9.0",
-    "less-loader": "^4.1.0"
-  },
   "dependencies": {
     "@jiaminghi/charts": "*"
   },
