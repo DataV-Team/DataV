@@ -1,5 +1,7 @@
 src/
+publish/
 
 package-lock.json
 
 prepublish.js
+publish.js
