@@ -33,7 +33,7 @@ function mkdir (src) {
   return new Promise(resolve => {
     fs.mkdir(src, err => {
       if (err) {
-        console.warn(err)
+        console.error(err)
 
         resolve(false)
       }
@@ -186,7 +186,7 @@ async function unlinkDirFileByExtname (src, extnames = []) {
 
 async function copyDir (src, target) {
   if (!src || !target) {
-    console.warn('copyDir missing parameters!')
+    console.error('copyDir missing parameters!')
 
     return false
   }
@@ -243,7 +243,7 @@ async function copyDir (src, target) {
 
 async function fileForEach (src, callback) {
   if (!src || !callback) {
-    console.warn('fileForEach missing parameters!')
+    console.error('fileForEach missing parameters!')
 
     return false
   }
@@ -285,11 +285,25 @@ async function readFile (src, encoding = 'utf8') {
   return new Promise(resolve => {
     fs.readFile(src, encoding, (err, data) => {
       if (err) {
-        console.warn(err)
+        console.error(err)
 
         resolve(false)
       } else {
         resolve(data)
+      }
+    })
+  })
+}
+
+async function writeFile (src, string, encoding = 'utf8') {
+  return new Promise(resolve => {
+    fs.writeFile(src, string, encoding, err => {
+      if (err) {
+        console.error(err)
+
+        resolve(false)
+      } else {
+        resolve(true)
       }
     })
   })
@@ -304,5 +318,6 @@ module.exports = {
   unlinkDirFileByExtname,
   copyDir,
   fileForEach,
-  readFile
+  readFile,
+  writeFile
 }

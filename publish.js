@@ -1,3 +1,3 @@
-const { start: step1 } = require('./publish/copyAndAbstractLess')
+const start = require('./publish/index')
 
-step1()
+start()
