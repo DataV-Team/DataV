@@ -281,6 +281,20 @@ async function fileForEach (src, callback) {
   return true
 }
 
+async function readFile (src, encoding = 'utf8') {
+  return new Promise(resolve => {
+    fs.readFile(src, encoding, (err, data) => {
+      if (err) {
+        console.warn(err)
+
+        resolve(false)
+      } else {
+        resolve(data)
+      }
+    })
+  })
+}
+
 module.exports = {
   readDir,
   stat,
@@ -289,5 +303,6 @@ module.exports = {
   emptyDir,
   unlinkDirFileByExtname,
   copyDir,
-  fileForEach
+  fileForEach,
+  readFile
 }

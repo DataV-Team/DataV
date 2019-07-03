@@ -16,6 +16,4 @@ const print = {
   }
 }
 
-module.exports = {
-  print
-}
+module.exports = print

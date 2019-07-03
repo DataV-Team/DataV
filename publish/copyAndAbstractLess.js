@@ -1,5 +1,6 @@
-const { copyDir, fileForEach } = require('./plugin/fs')
-const { print } = require('./plugin/print')
+const { copyDir, fileForEach, readFile } = require('./plugin/fs')
+const print = require('./plugin/print')
+const path = require('path')
 
 const PACKAGE_SRC = './src'
 const COMPILE_SRC = './lib'
@@ -13,8 +14,18 @@ async function start () {
     return false
   }
 
-  fileForEach(COMPILE_SRC, src => {
-    print.tip(src)
+  const abstract = await abstractLessFromVue()
+}
+
+async function abstractLessFromVue () {
+  fileForEach(COMPILE_SRC, async src => {
+    if (path.extname(src) !== '.vue') return
+
+    const data = await readFile(src).split('<style>')
+
+    const style = data
+
+    console.warn(data)
   })
 }
 
