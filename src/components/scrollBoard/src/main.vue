@@ -1,12 +1,11 @@
 <template>
   <div class="dv-scroll-board" :ref="ref">
-    <div class="header" v-if="header.length && mergedConfig">
+    <div class="header" v-if="header.length && mergedConfig" :style="`background-color: ${mergedConfig.headerBGC};`">
       <div
         class="header-item"
         v-for="(headerItem, i) in header"
         :key="headerItem + i"
         :style="`
-          background-color: ${mergedConfig.headerBGC};
           height: ${mergedConfig.headerHeight}px;
           line-height: ${mergedConfig.headerHeight}px;
           width: ${widths[i]}px;
@@ -19,7 +18,7 @@
     <div
       v-if="mergedConfig"
       class="rows"
-      :style="`height: calc(100% - ${header.length ? mergedConfig.headerHeight : 0}px);`"
+      :style="`height: ${height - (header.length ? mergedConfig.headerHeight : 0)}px;`"
     >
       <div
         class="row-item"
@@ -357,19 +356,19 @@ export default {
 </script>
 
 <style lang="less">
-.text {
-  padding: 0 10px;
-  box-sizing: border-box;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .dv-scroll-board {
   position: relative;
   width: 100%;
   height: 100%;
   color: #fff;
+
+  .text {
+    padding: 0 10px;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }  
 
   .header {
     display: flex;

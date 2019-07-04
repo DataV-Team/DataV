@@ -1,6 +1,6 @@
 <template>
   <div class="dv-charts-container" :ref="ref">
-    <div class="charts" :ref="chartRef" />
+    <div class="charts-canvas-container" :ref="chartRef" />
   </div>
 </template>
 
@@ -29,6 +29,8 @@ export default {
   watch: {
     option () {
       let { chart, option } = this
+
+      if (!chart) return
 
       if (!option) option = {}
 
@@ -67,7 +69,7 @@ export default {
   width: 100%;
   height: 100%;
 
-  .charts {
+  .charts-canvas-container {
     width: 100%;
     height: 100%;
   }
