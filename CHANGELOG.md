@@ -1,3 +1,77 @@
+# 2.3.0-alpha (2019-07-04)
+
+### Directory Structure Change
+
+* **before**
+
+  ```
+  .
+  ├── components
+  │   ├── borderBox1
+  │   │   └── index.vue
+  │   ├── borderBox2
+  │   │   └── index.vue
+  │   ├── etc.
+  │   └── index.js
+  ├── mixins
+  │   └── autoResize.js
+  ├── util
+  │   └── index.js
+  │
+  ├── index.js
+  │
+  ├── package.json // main: 'index.js'
+  └── etc.
+  ```
+
+* **after**
+
+  ```
+  .
+  ├── lib // After compilation
+  │   ├── components
+  │   │   ├── borderBox1
+  │   │   |   ├── src
+  │   │   |   |   ├── main.vue
+  │   │   |   |   └── main.css
+  │   │   |   └── index.js
+  │   │   ├── etc.
+  │   │   └── index.js
+  │   ├── mixin
+  │   │   └── autoResize.js
+  │   ├── util
+  │   │   └── index.js
+  │   └── index.js
+  │
+  ├── publish // For pre-publish process
+  │
+  ├── src // For development environments
+  │   ├── components
+  │   │   ├── borderBox1
+  │   │   |   ├── src
+  │   │   |   |   └── main.vue
+  │   │   |   └── index.js
+  │   │   ├── etc.
+  │   │   └── index.js
+  │   ├── mixin
+  │   │   └── autoResize.js
+  │   ├── util
+  │   │   └── index.js
+  │   └── index.js
+  │
+  ├── package.json // main: '/lib/index.js'
+  ├── publish.js
+  └── etc.
+  ```
+
+* **Introduced on demand**
+
+  ```js
+  import borderBox1 from '@jiaminghi/data-view/lib/components/borderBox1'
+  
+  Vue.use(borderBox1)
+  ```
+
 # 2.2.0-alpha (2019-06-29)
 
 ### New
