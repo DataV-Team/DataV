@@ -1,3 +1,12 @@
+# 2.3.1-alpha (2019-07-04)
+
+### Perfect
+
+- **charts:** Enhanced style compatibility.
+- **scrollBoard:** Enhanced style compatibility.
+- **fullScreenContainer:** Fix potential rendering exceptions.
+- **mixin:** Strengthen `autoResize` stability.
+
 # 2.3.0-alpha (2019-07-04)
 
 ### Directory Structure Change
