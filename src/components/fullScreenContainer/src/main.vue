@@ -1,57 +1,57 @@
 <template>
-  <div id="dv-full-screen-container" ref="full-screen-container">
-    <slot></slot>
+  <div id="dv-full-screen-container" :ref="ref">
+    <template v-if="ready">
+      <slot></slot>
+    </template>
   </div>
 </template>
 
 <script>
+import autoResize from '../../../mixin/autoResize.js'
+
 export default {
   name: 'DvFullScreenContainer',
+  mixins: [autoResize],
   data () {
     return {
+      ref: 'full-screen-container',
+      allWidth: 0,
       scale: 0,
-      datavRoot: ''
+      datavRoot: '',
+      ready: false
     }
   },
   methods: {
-    init () {
-      const { initConfig, setAppScale, bindReSizeEventHandler } = this
+    afterAutoResizeMixinInit () {
+      const { initConfig, setAppScale } = this
 
       initConfig()
 
       setAppScale()
 
-      bindReSizeEventHandler()
+      this.ready = true
     },
     initConfig () {
+      const { dom } = this
       const { width, height } = screen
 
       this.allWidth = width
 
-      const datavRoot = this.datavRoot = this.$refs['full-screen-container']
-
-      datavRoot.style.width = `${width}px`
-      datavRoot.style.height = `${height}px`
+      dom.style.width = `${width}px`
+      dom.style.height = `${height}px`
     },
     setAppScale () {
-      const { allWidth, datavRoot } = this
+      const { allWidth, dom } = this
 
       const currentWidth = document.body.clientWidth
 
-      datavRoot.style.transform = `scale(${currentWidth / allWidth})`
+      dom.style.transform = `scale(${currentWidth / allWidth})`
     },
-    bindReSizeEventHandler () {
-      const { debounce, setAppScale } = this
+    onResize () {
+      const { setAppScale } = this
 
-      if (!debounce) return
-
-      window.addEventListener('resize', debounce(100, setAppScale))
+      setAppScale()
     }
-  },
-  mounted () {
-    const { init } = this
-
-    init()
   }
 }
 </script>
