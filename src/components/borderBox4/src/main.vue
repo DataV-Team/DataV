@@ -41,7 +41,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .dv-border-box-4 {
   position: relative;
   width: 100%;

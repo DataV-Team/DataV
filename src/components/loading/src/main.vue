@@ -74,7 +74,6 @@ export default {
 
   .loading-tip {
     font-size: 15px;
-    color: #fff;
   }
 }
 </style>
