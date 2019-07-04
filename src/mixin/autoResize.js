@@ -17,7 +17,7 @@ export default {
     async autoResizeMixinInit () {
       const { initWH, getDebounceInitWHFun, bindDomResizeCallback, afterAutoResizeMixinInit } = this
 
-      await initWH()
+      await initWH(false)
 
       getDebounceInitWHFun()
 
@@ -25,7 +25,7 @@ export default {
 
       if (typeof afterAutoResizeMixinInit === 'function') afterAutoResizeMixinInit()
     },
-    initWH () {
+    initWH (resize = true) {
       const { $nextTick, $refs, ref, onResize } = this
 
       return new Promise(resolve => {
@@ -35,7 +35,7 @@ export default {
           this.width = dom.clientWidth
           this.height = dom.clientHeight
 
-          if (typeof onResize === 'function') onResize()
+          if (typeof onResize === 'function' && resize) onResize()
 
           resolve()
         })
