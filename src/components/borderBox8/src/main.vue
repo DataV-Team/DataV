@@ -1,6 +1,6 @@
 <template>
   <div class="dv-border-box-8" :ref="ref">
-    <svg class="dv-svg-container">
+    <svg class="dv-svg-container" :width="width" :height="height">
       <defs>
         <path
           :id="path"

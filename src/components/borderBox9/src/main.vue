@@ -1,6 +1,6 @@
 <template>
   <div class="dv-border-box-9" :ref="ref">
-    <svg class="dv-svg-container">
+    <svg class="dv-svg-container" :width="width" :height="height">
       <defs>
         <linearGradient :id="gradientId" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stop-color="#11eefd" />

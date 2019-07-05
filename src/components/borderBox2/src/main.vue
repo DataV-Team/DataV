@@ -1,6 +1,6 @@
 <template>
   <div class="dv-border-box-2" :ref="ref">
-    <svg class="dv-border-svg-container">
+    <svg class="dv-border-svg-container" :width="width" :height="height">
       <polyline class="dv-bb2-line1"
         :points="`2, 2 ${width - 2} ,2 ${width - 2}, ${height - 2} 2, ${height - 2} 2, 2`" />
       <polyline class="dv-bb2-line2"

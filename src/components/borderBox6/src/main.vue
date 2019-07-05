@@ -1,6 +1,6 @@
 <template>
   <div class="dv-border-box-6" :ref="ref">
-    <svg class="dv-svg-container">
+    <svg class="dv-svg-container" :width="width" :height="height">
       <circle cx="5" cy="5" r="2"/>
       <circle :cx="width - 5" cy="5" r="2" />
       <circle :cx="width - 5" :cy="height - 5" r="2" />

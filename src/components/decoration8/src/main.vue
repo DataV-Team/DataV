@@ -1,6 +1,6 @@
 <template>
   <div class="dv-decoration-8" :ref="ref">
-    <svg>
+    <svg :width="width" :height="height">
       <polyline
         stroke="#3f96a5"
         stroke-width="2"

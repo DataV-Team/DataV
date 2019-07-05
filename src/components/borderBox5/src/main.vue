@@ -1,6 +1,6 @@
 <template>
   <div class="dv-border-box-5" :ref="ref">
-    <svg :class="`dv-svg-container  ${reverse && 'dv-reverse'}`">
+    <svg :class="`dv-svg-container  ${reverse && 'dv-reverse'}`" :width="width" :height="height">
       <polyline class="dv-bb5-line-1" :points="`8, 5 ${width - 5}, 5 ${width - 5}, ${height - 100}
         ${width - 100}, ${height - 5} 8, ${height - 5} 8, 5`" />
       <polyline class="dv-bb5-line-2" :points="`3, 5 ${width - 20}, 5 ${width - 20}, ${height - 60}

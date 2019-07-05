@@ -1,6 +1,6 @@
 <template>
   <div class="dv-border-box-7" :ref="ref">
-    <svg class="dv-svg-container">
+    <svg class="dv-svg-container" :width="width" :height="height">
       <polyline class="dv-bb7-line-width-2" :points="`0, 25 0, 0 25, 0`" />
       <polyline class="dv-bb7-line-width-2" :points="`${width - 25}, 0 ${width}, 0 ${width}, 25`" />
       <polyline class="dv-bb7-line-width-2" :points="`${width - 25}, ${height} ${width}, ${height} ${width}, ${height - 25}`" />
@@ -33,9 +33,9 @@ export default {
 </script>
 
 <style lang="less">
-@color: fade(gray, 30);
-
 .dv-border-box-7 {
+  @color: fade(gray, 30);
+
   position: relative;
   width: 100%;
   height: 100%;
