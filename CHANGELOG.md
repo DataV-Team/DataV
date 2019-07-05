@@ -6,7 +6,7 @@
 - **Introduced on demand**
 
   ```js
-  import borderBox1 from '@jiaminghi/data-view'
+  import { borderBox1 } from '@jiaminghi/data-view'
 
   Vue.use(borderBox1)
   ```
