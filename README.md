@@ -6,7 +6,7 @@
     <a href="https://github.com/jiaming743/datav/blob/master/LICENSE">
       <img src="https://img.shields.io/github/license/jiaming743/datav.svg" alt="LICENSE" />
     </a>
-    <a href="https://www.npmjs.com/package/@jiaminghi/datav">
+    <a href="https://www.npmjs.com/package/@jiaminghi/data-view">
       <img src="https://img.shields.io/npm/v/@jiaminghi/data-view.svg" alt="LICENSE" />
     </a>
 </p>
