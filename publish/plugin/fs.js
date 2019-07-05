@@ -309,6 +309,36 @@ async function writeFile (src, string, encoding = 'utf8') {
   })
 }
 
+async function dirForEach (src, callback) {
+  if (!src || !callback) {
+    console.error('dirForEach missing parameters!')
+
+    return false
+  }
+
+  const paths = await readDir(src)
+  if (!paths) {
+    console.error('Exception in dirForEach: paths!')
+
+    return false
+  }
+
+  for (let i = 0; i < paths.length; i++) {
+    const fullSrc = src + '/' + paths[i]
+    const stats = await stat(fullSrc)
+
+    if (!stats) {
+      console.error('Exception in dirForEach: stats!')
+
+      return false
+    }
+
+    if (stats.isDirectory()) await callback(fullSrc)
+  }
+
+  return true
+}
+
 module.exports = {
   readDir,
   stat,
@@ -319,5 +349,6 @@ module.exports = {
   copyDir,
   fileForEach,
   readFile,
-  writeFile
+  writeFile,
+  dirForEach
 }
