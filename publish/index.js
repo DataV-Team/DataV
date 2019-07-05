@@ -1,10 +1,12 @@
-const { copyDir, fileForEach, readFile, writeFile, unlinkDirFileByExtname } = require('./plugin/fs')
+const { copyDir, fileForEach, readFile, writeFile, unlinkDirFileByExtname, dirForEach } = require('./plugin/fs')
 const print = require('./plugin/print')
 const path = require('path')
 const doExec = require('./plugin/exec')
 
 const PACKAGE_SRC = './src'
 const COMPILE_SRC = './lib'
+const COMPONENTS_DIR = '/components'
+const ENTRANCE = '/index.js'
 
 async function start () {
   const copyPackage = await copyDir(PACKAGE_SRC, COMPILE_SRC)
@@ -51,8 +53,18 @@ async function start () {
 
   print.success('Finish adding css import statement!')
 
+  const componentsExport = await addComponentsExport()
+
+  if (!componentsExport) {
+    print.error('Exception in adding components export statement!')
+
+    return false
+  }
+
+  print.success('Finish adding components export statement!')
+
   print.yellow('-------------------------------------')
-  print.success('     DataV lib Compile Success!      ')
+  print.success('     DataV Lib Compile Success!      ')
   print.yellow('-------------------------------------')
 
   return true
@@ -125,7 +137,7 @@ async function compileLessToCss () {
 async function addCssImport () {
   let importSuccess = true
 
-  await fileForEach(COMPILE_SRC + '/components', async src => {
+  await fileForEach(COMPILE_SRC + COMPONENTS_DIR, async src => {
     if (path.extname(src) !== '.js') return
 
     let content = await readFile(src)
@@ -144,6 +156,28 @@ async function addCssImport () {
   })
 
   return importSuccess
+}
+
+async function addComponentsExport () {
+  const components = []
+
+  await dirForEach(COMPILE_SRC + COMPONENTS_DIR, src => {
+    components.push(src.split('/').slice(-1)[0])
+  })
+
+  const importString = components.reduce((all, current) => {
+    return all + '\n' + `export { default as ${current} } from '.${COMPONENTS_DIR}/${current}/index'`
+  }, '/**\n * EXPORT COMPONENTS\n */') + '\n'
+
+  const targetSrc = COMPILE_SRC + ENTRANCE
+
+  let content = await readFile(targetSrc)
+
+  content = importString + content
+
+  let write = await writeFile(targetSrc, content)
+
+  return write
 }
 
 module.exports = start
