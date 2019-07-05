@@ -3,6 +3,13 @@
 ### Perfect
 
 - **decoration:** Explicitly set the SVG width and height to enhance stability.
+- **Introduced on demand**
+
+  ```js
+  import borderBox1 from '@jiaminghi/data-view'
+
+  Vue.use(borderBox1)
+  ```
 
 # 2.3.1-alpha (2019-07-04)
 
@@ -79,7 +86,7 @@
   └── etc.
   ```
 
-* **Introduced on demand**
+- **Introduced on demand**
 
   ```js
   import borderBox1 from '@jiaminghi/data-view/lib/components/borderBox1'
