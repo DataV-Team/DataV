@@ -1,3 +1,9 @@
+# 2.3.2-alpha (2019-07-05)
+
+### Perfect
+
+- **decoration:** Explicitly set the SVG width and height to enhance stability.
+
 # 2.3.1-alpha (2019-07-04)
 
 ### Perfect
