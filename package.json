@@ -25,5 +25,8 @@
   "dependencies": {
     "@jiaminghi/charts": "*"
   },
-  "homepage": "https://github.com/jiaming743/DataV#readme"
+  "homepage": "https://github.com/jiaming743/DataV#readme",
+  "devDependencies": {
+    "@jiaminghi/fs": "0.0.1"
+  }
 }

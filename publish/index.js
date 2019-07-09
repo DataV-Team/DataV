@@ -1,4 +1,4 @@
-const { copyDir, fileForEach, readFile, writeFile, unlinkDirFileByExtname, dirForEach } = require('./plugin/fs')
+const { copyDir, fileForEach, readFile, writeFile, unlinkDirFileByExtname, dirForEach } = require('@jiaminghi/fs')
 const print = require('./plugin/print')
 const path = require('path')
 const doExec = require('./plugin/exec')
