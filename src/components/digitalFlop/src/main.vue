@@ -23,7 +23,7 @@ export default {
   },
   data () {
     return {
-      render: null,
+      renderer: null,
 
       defaultConfig: {
         /**
@@ -100,7 +100,7 @@ export default {
     initRender () {
       const { $refs } = this
 
-      this.render = new CRender($refs['digital-flop'])
+      this.renderer = new CRender($refs['digital-flop'])
     },
     mergeConfig () {
       const { defaultConfig, config } = this
@@ -108,14 +108,14 @@ export default {
       this.mergedConfig = deepMerge(deepClone(defaultConfig, true), config || {})
     },
     initGraph () {
-      const { getShape, getStyle, render, mergedConfig } = this
+      const { getShape, getStyle, renderer, mergedConfig } = this
 
       const { animationCurve, animationFrame } = mergedConfig
 
       const shape = getShape()
       const style = getStyle()
 
-      this.graph = render.add({
+      this.graph = renderer.add({
         name: 'numberText',
         animationCurve,
         animationFrame,
@@ -126,7 +126,7 @@ export default {
     getShape () {
       const { number, content, toFixed, textAlign } = this.mergedConfig
 
-      const [w, h] = this.render.area
+      const [w, h] = this.renderer.area
 
       const position = [w / 2, h / 2]
 
