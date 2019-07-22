@@ -1,6 +1,6 @@
 <template>
   <div class="dv-water-pond-level">
-    <svg v-if="render">
+    <svg v-if="renderer">
       <defs>
         <linearGradient :id="gradientId" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop v-for="lc in svgBorderGradient" :key="lc[0]"
@@ -10,28 +10,28 @@
       </defs>
 
       <text
-        v-if="render"
+        v-if="renderer"
         :stroke="`url(#${gradientId})`"
         :fill="`url(#${gradientId})`"
-        :x="render.area[0] / 2 + 8"
-        :y="render.area[1] / 2 + 8"
+        :x="renderer.area[0] / 2 + 8"
+        :y="renderer.area[1] / 2 + 8"
       >
         {{ details }}
       </text>
 
       <ellipse v-if="!shape || shape === 'round'"
-        :cx="render.area[0] / 2 + 8"
-        :cy="render.area[1] / 2 + 8"
-        :rx="render.area[0] / 2 + 5"
-        :ry="render.area[1] / 2 + 5"
+        :cx="renderer.area[0] / 2 + 8"
+        :cy="renderer.area[1] / 2 + 8"
+        :rx="renderer.area[0] / 2 + 5"
+        :ry="renderer.area[1] / 2 + 5"
         :stroke="`url(#${gradientId})`" />
 
       <rect v-else
         x="2" y="2"
         :rx="shape === 'roundRect' ? 10 : 0"
         :ry="shape === 'roundRect' ? 10 : 0"
-        :width="render.area[0] + 12"
-        :height="render.area[1] + 12"
+        :width="renderer.area[0] + 12"
+        :height="renderer.area[1] + 12"
         :stroke="`url(#${gradientId})`" />
     </svg>
 
@@ -105,7 +105,7 @@ export default {
 
       mergedConfig: {},
 
-      render: null,
+      renderer: null,
 
       svgBorderGradient: [],
 
@@ -138,9 +138,9 @@ export default {
   },
   watch: {
     config () {
-      const { calcData, render } = this
+      const { calcData, renderer } = this
 
-      render.delAllGraph()
+      renderer.delAllGraph()
 
       this.waves = []
 
@@ -160,7 +160,7 @@ export default {
     initRender () {
       const { $refs } = this
 
-      this.render = new CRender($refs['water-pond-level'])
+      this.renderer = new CRender($refs['water-pond-level'])
     },
     calcData () {
       const { mergeConfig, calcSvgBorderGradient, calcDetails } = this
@@ -205,12 +205,12 @@ export default {
       this.details = formatter.replace('{value}', maxValue)
     },
     addWave () {
-      const { render, getWaveShapes, getWaveStyle, drawed } = this
+      const { renderer, getWaveShapes, getWaveStyle, drawed } = this
 
       const shapes = getWaveShapes()
       const style = getWaveStyle()
 
-      this.waves = shapes.map(shape => render.add({
+      this.waves = shapes.map(shape => renderer.add({
         name: 'smoothline',
         animationFrame: 300,
         shape,
@@ -219,11 +219,11 @@ export default {
       }))
     },
     getWaveShapes () {
-      const { mergedConfig, render, mergeOffset } = this
+      const { mergedConfig, renderer, mergeOffset } = this
 
       const { waveNum, waveHeight, data } = mergedConfig
 
-      const [w, h] = render.area
+      const [w, h] = renderer.area
 
       const pointsNum = waveNum * 4 + 4
 
@@ -249,9 +249,9 @@ export default {
       return [x + ox, y + oy]
     },
     getWaveStyle () {
-      const { render, mergedConfig } = this
+      const { renderer, mergedConfig } = this
 
-      const h = render.area[1]
+      const h = renderer.area[1]
 
       return {
         gradientColor: mergedConfig.colors,
@@ -276,13 +276,13 @@ export default {
       ctx.fill()
     },
     async animationWave (repeat = 1) {
-      const { waves, render, animation } = this
+      const { waves, renderer, animation } = this
 
       if (animation) return
 
       this.animation = true
 
-      const w = render.area[0]
+      const w = renderer.area[0]
 
       waves.forEach(graph => {
         graph.attr('style', { translate: [0, 0] })
@@ -292,11 +292,11 @@ export default {
         }, true)
       })
 
-      await render.launchAnimation()
+      await renderer.launchAnimation()
 
       this.animation = false
 
-      if (!render.graphs.length) return
+      if (!renderer.graphs.length) return
 
       this.animationWave(repeat + 1)
     }
@@ -307,9 +307,9 @@ export default {
     init()
   },
   beforeDestroy () {
-    const { render } = this
+    const { renderer } = this
 
-    render.delAllGraph()
+    renderer.delAllGraph()
 
     this.waves = []
   }
