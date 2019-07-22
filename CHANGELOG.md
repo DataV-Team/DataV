@@ -2,7 +2,8 @@
 
 ### Bug Fixes
 
-- **waterPondLevel:** Error caused by namespace conflict.
+- **waterPondLevel:** Potential namespace conflict.
+- **digitalFlop:** Potential namespace conflict.
 
 # 2.3.2-alpha (2019-07-05)
 
