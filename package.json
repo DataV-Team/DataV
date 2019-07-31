@@ -20,7 +20,8 @@
   "keywords": [
     "vue",
     "chart",
-    "dataview"
+    "dataview",
+    "datavisual"
   ],
   "dependencies": {
     "@jiaminghi/charts": "*"
