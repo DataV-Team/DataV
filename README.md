@@ -1,4 +1,4 @@
-[中文](./README_CN.md)
+[ENGLISH](./README_EN.md)
 
 <h1 align="center">DataV</h1>
 
@@ -11,20 +11,20 @@
     </a>
 </p>
 
-## What is DataV?
+## DataV是干什么的?
 
-* DataV is a data **visualization** components library based on **Vue**.
-* Provide cool **SVG** borders and decorations.
-* Provide common **charts** such as line chart, etc..
-* flying line chart, carousel table and etc.
+* DataV是一个基于**Vue**的数据可视化组件库.
+* 提供用于提升页面视觉效果的**SVG**边框和装饰.
+* 提供常用的**图表**如折线图等.
+* 飞线图/轮播表等其他组件.
 
-### Install with npm
+### npm安装
 
 ```shell
 $ npm install @jiaminghi/data-view
 ```
 
-### use
+### 使用
 
 ```js
 import Vue from 'vue'
@@ -32,9 +32,9 @@ import DataV from '@jiaminghi/data-view'
 
 Vue.use(DataV)
 
-// Introduced on demand
+// 按需引入
 import { borderBox1 } from '@jiaminghi/data-view'
 Vue.use(borderBox1)
 ```
 
-Detailed documents and examples can be viewed on the [HomePage](http://datav.jiaminghi.com).
+详细文档及示例请移步[HomePage](http://datav.jiaminghi.com).
