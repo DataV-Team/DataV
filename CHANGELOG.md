@@ -1,3 +1,9 @@
+# 2.3.4-alpha (2019-00-15)
+
+### Bug Fixes
+
+- **package.json:** Import exception caused by incorrect entry path configuration.
+
 # 2.3.3-alpha (2019-07-22)
 
 ### Bug Fixes
