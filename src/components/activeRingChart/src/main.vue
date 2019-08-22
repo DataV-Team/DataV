@@ -47,7 +47,7 @@ export default {
         activeRadius: '55%',
         /**
          * @description Ring data
-         * @type {Array}
+         * @type {Array<Object>}
          * @default data = [{ name: '', value: 0 }]
          */
         data: [{ name: '', value: 0 }],
