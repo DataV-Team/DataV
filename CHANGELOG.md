@@ -1,4 +1,10 @@
-# 2.3.4-alpha (2019-00-15)
+# 2.3.5-alpha (2019-08-22)
+
+### Bug Fixes
+
+- **activeRingChart:** Color configuration does not take effect.
+
+# 2.3.4-alpha (2019-08-15)
 
 ### Bug Fixes
 
