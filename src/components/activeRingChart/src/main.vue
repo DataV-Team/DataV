@@ -196,7 +196,8 @@ export default {
               show: false
             }
           }
-        ]
+        ],
+        color: mergedConfig.color
       }
     },
     getRealRadius (active = false) {
