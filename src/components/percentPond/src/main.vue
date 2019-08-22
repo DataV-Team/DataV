@@ -72,9 +72,10 @@ export default {
          */
         value: 0,
         /**
-         * @description Colors (Hex|rgb|rgba)
+         * @description Colors (hex|rgb|rgba|color keywords)
          * @type {Array<String>}
          * @default colors = ['#00BAFF', '#3DE7C9']
+         * @example colors = ['#000', 'rgb(0, 0, 0)', 'rgba(0, 0, 0, 1)', 'red']
          */
         colors: ['#3DE7C9', '#00BAFF'],
         /**

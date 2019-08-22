@@ -64,9 +64,10 @@ export default {
          */
         activeTimeGap: 3000,
         /**
-         * @description Ring color (hex|rgb|rgba)
+         * @description Ring color (hex|rgb|rgba|color keywords)
          * @type {Array<String>}
          * @default color = [Charts Default Color]
+         * @example color = ['#000', 'rgb(0, 0, 0)', 'rgba(0, 0, 0, 1)', 'red']
          */
         color: [],
         /**
