@@ -1,0 +1,13 @@
+.dv-percent-pond {
+  display: flex;
+  flex-direction: column;
+}
+.dv-percent-pond polyline {
+  transition: all 0.3s;
+}
+.dv-percent-pond text {
+  font-size: 25px;
+  font-weight: bold;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}

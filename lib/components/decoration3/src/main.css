@@ -1,0 +1,7 @@
+.dv-decoration-3 {
+  width: 100%;
+  height: 100%;
+}
+.dv-decoration-3 svg {
+  transform-origin: left top;
+}

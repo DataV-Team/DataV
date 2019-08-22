@@ -1,0 +1,27 @@
+.dv-border-box-3 {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.dv-border-box-3 .dv-border-svg-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+}
+.dv-border-box-3 .dv-border-svg-container polyline {
+  fill: none;
+  stroke: #2862b7;
+}
+.dv-border-box-3 .dv-bb3-line1 {
+  stroke-width: 3;
+}
+.dv-border-box-3 .dv-bb3-line2 {
+  stroke-width: 1;
+}
+.dv-border-box-3 .border-box-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}

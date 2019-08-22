@@ -1,0 +1,32 @@
+.dv-active-ring-chart {
+  position: relative;
+}
+.dv-active-ring-chart .active-ring-chart-container {
+  width: 100%;
+  height: 100%;
+}
+.dv-active-ring-chart .active-ring-info {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.dv-active-ring-chart .active-ring-info .dv-digital-flop {
+  width: 100px;
+  height: 30px;
+}
+.dv-active-ring-chart .active-ring-info .active-ring-name {
+  width: 100px;
+  height: 30px;
+  color: #fff;
+  text-align: center;
+  vertical-align: middle;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}

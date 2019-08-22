@@ -1,0 +1,17 @@
+.dv-border-box-9 {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.dv-border-box-9 svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+}
+.dv-border-box-9 .border-box-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}

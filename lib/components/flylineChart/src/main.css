@@ -1,0 +1,12 @@
+.dv-flyline-chart {
+  display: flex;
+  flex-direction: column;
+  background-size: 100% 100%;
+}
+.dv-flyline-chart polyline {
+  transition: all 0.3s;
+}
+.dv-flyline-chart text {
+  text-anchor: middle;
+  dominant-baseline: middle;
+}

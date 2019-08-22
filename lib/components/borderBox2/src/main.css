@@ -1,0 +1,30 @@
+.dv-border-box-2 {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.dv-border-box-2 .dv-border-svg-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+}
+.dv-border-box-2 .dv-border-svg-container polyline {
+  fill: none;
+  stroke-width: 1;
+}
+.dv-border-box-2 .dv-border-svg-container circle {
+  fill: #fff;
+}
+.dv-border-box-2 .dv-bb2-line1 {
+  stroke: #fff;
+}
+.dv-border-box-2 .dv-bb2-line2 {
+  stroke: rgba(255, 255, 255, 0.6);
+}
+.dv-border-box-2 .border-box-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}

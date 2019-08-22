@@ -1,0 +1,9 @@
+.dv-charts-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.dv-charts-container .charts-canvas-container {
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,82 @@
+.dv-border-box-4 {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.dv-border-box-4 .dv-reverse {
+  transform: rotate(180deg);
+}
+.dv-border-box-4 .dv-border-svg-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+}
+.dv-border-box-4 .dv-border-svg-container polyline {
+  fill: none;
+}
+.dv-border-box-4 .sred {
+  stroke: red;
+}
+.dv-border-box-4 .sblue {
+  stroke: rgba(0, 0, 255, 0.8);
+}
+.dv-border-box-4 .sw1 {
+  stroke-width: 1;
+}
+.dv-border-box-4 .sw3 {
+  stroke-width: 3px;
+  stroke-linecap: round;
+}
+.dv-border-box-4 .dv-bb4-line-1 {
+  stroke: red;
+  stroke-width: 1;
+}
+.dv-border-box-4 .dv-bb4-line-2 {
+  stroke: rgba(0, 0, 255, 0.8);
+  stroke-width: 1;
+}
+.dv-border-box-4 .dv-bb4-line-3 {
+  stroke: red;
+  stroke-width: 3px;
+  stroke-linecap: round;
+}
+.dv-border-box-4 .dv-bb4-line-4 {
+  stroke: red;
+  stroke-width: 3px;
+  stroke-linecap: round;
+}
+.dv-border-box-4 .dv-bb4-line-5 {
+  stroke: red;
+  stroke-width: 1;
+}
+.dv-border-box-4 .dv-bb4-line-6 {
+  stroke: rgba(0, 0, 255, 0.8);
+  stroke-width: 1;
+}
+.dv-border-box-4 .dv-bb4-line-7 {
+  stroke: rgba(0, 0, 255, 0.8);
+  stroke-width: 1;
+}
+.dv-border-box-4 .dv-bb4-line-8 {
+  stroke: rgba(0, 0, 255, 0.8);
+  stroke-width: 3px;
+  stroke-linecap: round;
+}
+.dv-border-box-4 .dv-bb4-line-9 {
+  stroke: red;
+  stroke-width: 3px;
+  stroke-linecap: round;
+  stroke-dasharray: 100 250;
+}
+.dv-border-box-4 .dv-bb4-line-10 {
+  stroke: rgba(0, 0, 255, 0.8);
+  stroke-width: 1;
+  stroke-dasharray: 80 270;
+}
+.dv-border-box-4 .border-box-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}

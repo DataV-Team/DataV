@@ -1,0 +1,40 @@
+.dv-border-box-5 {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.dv-border-box-5 .dv-reverse {
+  transform: rotate(180deg);
+}
+.dv-border-box-5 .dv-svg-container {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
+.dv-border-box-5 .dv-svg-container polyline {
+  fill: none;
+}
+.dv-border-box-5 .dv-bb5-line-1 {
+  stroke-width: 1;
+  stroke: rgba(255, 255, 255, 0.35);
+}
+.dv-border-box-5 .dv-bb5-line-2 {
+  stroke: rgba(255, 255, 255, 0.2);
+}
+.dv-border-box-5 .dv-bb5-line-3,
+.dv-border-box-5 .dv-bb5-line-6 {
+  stroke-width: 5;
+  stroke: rgba(255, 255, 255, 0.15);
+}
+.dv-border-box-5 .dv-bb5-line-4,
+.dv-border-box-5 .dv-bb5-line-5 {
+  stroke-width: 2;
+  stroke: rgba(255, 255, 255, 0.15);
+}
+.dv-border-box-5 .border-box-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
