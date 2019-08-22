@@ -47,7 +47,7 @@ export default {
         activeRadius: '55%',
         /**
          * @description Ring data
-         * @type {Array}
+         * @type {Array<Object>}
          * @default data = [{ name: '', value: 0 }]
          */
         data: [{ name: '', value: 0 }],
@@ -64,9 +64,10 @@ export default {
          */
         activeTimeGap: 3000,
         /**
-         * @description Ring color (hex|rgb|rgba)
+         * @description Ring color (hex|rgb|rgba|color keywords)
          * @type {Array<String>}
          * @default color = [Charts Default Color]
+         * @example color = ['#000', 'rgb(0, 0, 0)', 'rgba(0, 0, 0, 1)', 'red']
          */
         color: [],
         /**
@@ -195,7 +196,8 @@ export default {
               show: false
             }
           }
-        ]
+        ],
+        color: mergedConfig.color
       }
     },
     getRealRadius (active = false) {
