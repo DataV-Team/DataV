@@ -2,7 +2,7 @@
 
 ### Bug Fixes
 
-- **activeRingChart:** Color configuration does not take effect.
+- **activeRingChart:** Color configuration does not take effect [(#3)](https://github.com/jiaming743/DataV/pull/3). 
 
 # 2.3.4-alpha (2019-08-15)
 
