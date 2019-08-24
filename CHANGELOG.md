@@ -2,7 +2,11 @@
 
 ### Bug Fixes
 
-- **borderBox1:** Enhance the animation compatibility of borderbox1 and fix spelling errors [(#4)](https://github.com/jiaming743/DataV/issues/4)[(#5)](https://github.com/jiaming743/DataV/pull/5). 
+- **borderBox1:** Animation exception caused by incompatible syntax and spelling mistake [(#4)](https://github.com/jiaming743/DataV/issues/4)[(#5)](https://github.com/jiaming743/DataV/pull/5). 
+
+### Perfect
+
+- **svg:** Svg animation compatibility enhancement.
 
 # 2.3.5-alpha (2019-08-22)
 
