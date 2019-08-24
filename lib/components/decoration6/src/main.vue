@@ -16,9 +16,9 @@
             attributeName="y"
             :values="`${point[1] - minHeights[i] / 2};${point[1] - heights[i] / 2};${point[1] - minHeights[i] / 2}`"
             :dur="`${randoms[i]}s`"
-            keyTimes="0;.5;1"
+            keyTimes="0;0.5;1"
             calcMode="spline"
-            keySplines=".42,0,.58,1;.42,0,.58,1"
+            keySplines="0.42,0,0.58,1;0.42,0,0.58,1"
             begin="0s"
             repeatCount="indefinite"
           />
@@ -26,9 +26,9 @@
             attributeName="height"
             :values="`${minHeights[i]};${heights[i]};${minHeights[i]}`"
             :dur="`${randoms[i]}s`"
-            keyTimes="0;.5;1"
+            keyTimes="0;0.5;1"
             calcMode="spline"
-            keySplines=".42,0,.58,1;.42,0,.58,1"
+            keySplines="0.42,0,0.58,1;0.42,0,0.58,1"
             begin="0s"
             repeatCount="indefinite"
           />

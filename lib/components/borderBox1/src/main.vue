@@ -1,6 +1,12 @@
 <template>
   <div class="dv-border-box-1">
-    <svg width="150px" height="150px" :key="item" v-for="item in border" :class="`${item} border`">
+    <svg
+      width="150px"
+      height="150px"
+      :key="item"
+      v-for="item in border"
+      :class="`${item} border`"
+    >
       <polygon
         fill="#4fd2dd"
         points="6,66 6,18 12,12 18,12 24,6 27,6 30,9 36,9 39,6 84,6 81,9 75,9 73.2,7 40.8,7 37.8,10.2 24,10.2 12,21 12,24 9,27 9,51 7.8,54 7.8,63"

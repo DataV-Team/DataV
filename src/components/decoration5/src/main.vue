@@ -16,7 +16,7 @@
           begin="0s"
           calcMode="spline"
           keyTimes="0;1"
-          keySplines=".4,1,.49,.98"
+          keySplines="0.4,1,0.49,0.98"
           repeatCount="indefinite"
         />
       </polyline>

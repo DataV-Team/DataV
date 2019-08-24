@@ -22,7 +22,7 @@
           dur="6s"
           calcMode="spline"
           keyTimes="0;1"
-          keySplines=".42,0,.58,1"
+          keySplines="0.42,0,0.58,1"
           repeatCount="indefinite"
         />
       </rect>
