@@ -1,3 +1,9 @@
+# 2.3.7-alpha (2019-08-26)
+
+### Bug Fixes
+
+- **borderBox1:** Parent container setting `text-align: center` to cause display exception [(#6)](https://github.com/jiaming743/DataV/issues/6). 
+
 # 2.3.6-alpha (2019-08-24)
 
 ### Bug Fixes
