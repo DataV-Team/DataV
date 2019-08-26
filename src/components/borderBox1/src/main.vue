@@ -70,6 +70,7 @@ export default {
 
   .border {
     position: absolute;
+    display: block;
   }
 
   .right-top {

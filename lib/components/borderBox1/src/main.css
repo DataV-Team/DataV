@@ -5,6 +5,7 @@
 }
 .dv-border-box-1 .border {
   position: absolute;
+  display: block;
 }
 .dv-border-box-1 .right-top {
   right: 0px;
