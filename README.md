@@ -40,7 +40,9 @@ Vue.use(borderBox1)
 
 ### Demo
 
- * [施工养护综合数据](http://datav.jiaminghi.com/demo/construction-data/index.html)
+Demo页面使用了全屏组件，请F11全屏后查看。
+
+* [施工养护综合数据](http://datav.jiaminghi.com/demo/construction-data/index.html)
 
 ![construction-data](./demoImg/construction-data.jpg)
 

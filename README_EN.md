@@ -41,7 +41,9 @@ Detailed documents and examples can be viewed on the [HomePage](http://datav.jia
 
 ### Demo
 
- * [施工养护综合数据](http://datav.jiaminghi.com/demo/construction-data/index.html)
+The Demo page uses the full-screen component, please view it after F11 full screen.
+
+* [施工养护综合数据](http://datav.jiaminghi.com/demo/construction-data/index.html)
 
 ![construction-data](./demoImg/construction-data.jpg)
 
