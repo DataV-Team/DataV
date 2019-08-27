@@ -1,3 +1,9 @@
+# 2.3.9-alpha (2019-08-27)
+
+### Perfect
+
+- **percentPond:** Compatibility enhancement. 
+
 # 2.3.8-alpha (2019-08-27)
 
 ### Bug Fixes
