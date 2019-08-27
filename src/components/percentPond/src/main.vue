@@ -22,8 +22,8 @@
         fill="transparent"
         :stroke-width="mergedConfig ? mergedConfig.borderWidth : '0'"
         :stroke="`url(#${gradientId1})`"
-        :width="rectWidth"
-        :height="rectHeight"
+        :width="rectWidth > 0 ? rectWidth : 0"
+        :height="rectHeight > 0 ? rectHeight : 0"
       />
       <polyline
         :stroke-width="polylineWidth"
