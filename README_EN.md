@@ -38,3 +38,13 @@ Vue.use(borderBox1)
 ```
 
 Detailed documents and examples can be viewed on the [HomePage](http://datav.jiaminghi.com).
+
+### Demo
+
+ * [施工养护综合数据](http://datav.jiaminghi.com/demo/construction-data/index.html)
+
+![construction-data](./demoImg/construction-data.jpg)
+
+* [机电运维管理台](http://datav.jiaminghi.com/demo/manage-desk/index.html)
+
+![manage-desk](./demoImg/manage-desk.jpg)

@@ -1,7 +1,6 @@
 [ENGLISH](./README_EN.md)
 
 <h1 align="center">DataV</h1>
-
 <p align="center">
     <a href="https://github.com/jiaming743/datav/blob/master/LICENSE">
       <img src="https://img.shields.io/github/license/jiaming743/datav.svg" alt="LICENSE" />
@@ -38,3 +37,14 @@ Vue.use(borderBox1)
 ```
 
 详细文档及示例请移步[HomePage](http://datav.jiaminghi.com).
+
+### Demo
+
+ * [施工养护综合数据](http://datav.jiaminghi.com/demo/construction-data/index.html)
+
+![construction-data](./demoImg/construction-data.jpg)
+
+* [机电运维管理台](http://datav.jiaminghi.com/demo/manage-desk/index.html)
+
+![manage-desk](./demoImg/manage-desk.jpg)
+
