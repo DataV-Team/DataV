@@ -1,3 +1,9 @@
+# 2.3.8-alpha (2019-08-27)
+
+### Bug Fixes
+
+- **percentPond:** Style compatibility and gradient exceptions. 
+
 # 2.3.7-alpha (2019-08-26)
 
 ### Bug Fixes
