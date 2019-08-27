@@ -43,10 +43,10 @@ Detailed documents and examples can be viewed on the [HomePage](http://datav.jia
 
 The Demo page uses the full-screen component, please view it after F11 full screen.
 
-* [施工养护综合数据](http://datav.jiaminghi.com/demo/construction-data/index.html)
+* [Construction Data](http://datav.jiaminghi.com/demo/construction-data/index.html)
 
 ![construction-data](./demoImg/construction-data.jpg)
 
-* [机电运维管理台](http://datav.jiaminghi.com/demo/manage-desk/index.html)
+* [Manage-Desk](http://datav.jiaminghi.com/demo/manage-desk/index.html)
 
 ![manage-desk](./demoImg/manage-desk.jpg)
