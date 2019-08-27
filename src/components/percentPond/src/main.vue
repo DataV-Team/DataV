@@ -4,13 +4,13 @@
       <defs>
         <linearGradient :id="gradientId1" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop v-for="lc in linearGradient" :key="lc[0]"
-            :offset="lc[0]"
+            :offset="`${lc[0]}%`"
             :stop-color="lc[1]" />
         </linearGradient>
 
         <linearGradient :id="gradientId2" x1="0%" y1="0%" :x2="gradient2XPos" y2="0%">
           <stop v-for="lc in linearGradient" :key="lc[0]"
-            :offset="lc[0]"
+            :offset="`${lc[0]}%`"
             :stop-color="lc[1]" />
         </linearGradient>
       </defs>
@@ -254,8 +254,17 @@ export default {
 
 <style lang="less">
 .dv-percent-pond {
+  position: relative;
   display: flex;
   flex-direction: column;
+
+  svg {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+  }
 
   polyline {
     transition: all 0.3s;

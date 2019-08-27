@@ -1,6 +1,14 @@
 .dv-percent-pond {
+  position: relative;
   display: flex;
   flex-direction: column;
+}
+.dv-percent-pond svg {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
 }
 .dv-percent-pond polyline {
   transition: all 0.3s;
