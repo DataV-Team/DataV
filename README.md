@@ -42,11 +42,11 @@ Vue.use(borderBox1)
 
 Demo页面使用了全屏组件，请F11全屏后查看。
 
-* [施工养护综合数据](http://datav.jiaminghi.com/demo/construction-data/index.html)
+* [Construction Data](http://datav.jiaminghi.com/demo/construction-data/index.html)
 
 ![construction-data](./demoImg/construction-data.jpg)
 
-* [机电运维管理台](http://datav.jiaminghi.com/demo/manage-desk/index.html)
+* [Manage-Desk](http://datav.jiaminghi.com/demo/manage-desk/index.html)
 
 ![manage-desk](./demoImg/manage-desk.jpg)
 
