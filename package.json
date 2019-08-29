@@ -1,6 +1,6 @@
 {
   "name": "@jiaminghi/data-view",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "author": "JiaMing <743192023@qq.com>",
   "description": "Vue Large screen data display component library",
   "main": "lib/index.js",
