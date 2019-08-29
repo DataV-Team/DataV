@@ -14,6 +14,7 @@ import borderBox6 from './components/borderBox6/index'
 import borderBox7 from './components/borderBox7/index'
 import borderBox8 from './components/borderBox8/index'
 import borderBox9 from './components/borderBox9/index'
+import borderBox10 from './components/borderBox10/index'
 
 // decoration
 import decoration1 from './components/decoration1/index'
@@ -31,6 +32,7 @@ import decoration10 from './components/decoration10/index'
 import charts from './components/charts/index'
 
 import activeRingChart from './components/activeRingChart'
+import capsuleChart from './components/capsuleChart'
 import waterLevelPond from './components/waterLevelPond/index'
 import percentPond from './components/percentPond/index'
 import flylineChart from './components/flylineChart'
@@ -56,6 +58,7 @@ export default function (Vue) {
   Vue.use(borderBox7)
   Vue.use(borderBox8)
   Vue.use(borderBox9)
+  Vue.use(borderBox10)
 
   // decoration
   Vue.use(decoration1)
@@ -73,6 +76,7 @@ export default function (Vue) {
   Vue.use(charts)
 
   Vue.use(activeRingChart)
+  Vue.use(capsuleChart)
   Vue.use(waterLevelPond)
   Vue.use(percentPond)
   Vue.use(flylineChart)
