@@ -1,3 +1,10 @@
+# 2.4.0-alpha (2019-08-29)
+
+### New
+
+- **borderBox10**
+- **capsuleChart**
+
 # 2.3.9-alpha (2019-08-27)
 
 ### Perfect
