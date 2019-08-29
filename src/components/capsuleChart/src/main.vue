@@ -11,18 +11,16 @@
           class="capsule-item"
           v-for="(capsule, index) in capsuleLength"
           :key="index"
-          :style="`width: calc(100% - ${mergedConfig.unit ? 30 : 0}px)`"
         >
           <div :style="`width: ${capsule * 100}%; background-color: ${mergedConfig.colors[index % mergedConfig.colors.length]};`"></div>
         </div>
 
         <div class="unit-label">
-          <div class="unit-container">
-            <div v-for="(label, index) in labelData" :key="label + index">{{ label }}</div>
-          </div>
-          <div class="unit-text" v-if="mergedConfig.unit">{{ mergedConfig.unit }}</div>
+          <div v-for="(label, index) in labelData" :key="label + index">{{ label }}</div>
         </div>
       </div>
+
+      <div class="unit-text" v-if="mergedConfig.unit">{{ mergedConfig.unit }}</div>
     </template>
   </div>
 </template>
@@ -161,22 +159,21 @@ export default {
   }
 
   .unit-label {
+    height: 20px;
+    font-size: 12px;
     display: flex;
     flex-direction: row;
-    line-height: 20px;
-    font-size: 12px;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .unit-text {
-    width: 30px;
     text-align: right;
-  }
-
-  .unit-container {
-    flex: 1;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    align-items: flex-end;
+    font-size: 12px;
+    line-height: 20px;
+    margin-left: 10px;
   }
 }
 </style>
