@@ -1,3 +1,9 @@
+# 2.4.1-alpha (2019-08-29)
+
+### Perfect
+
+- **capsuleChart:** Adaptive display unit.
+
 # 2.4.0-alpha (2019-08-29)
 
 ### New
