@@ -1,5 +1,5 @@
 <template>
-  <div class="capsule-chart">
+  <div class="dv-capsule-chart">
     <template v-if="mergedConfig">
       <div class="label-column">
         <div v-for="item in mergedConfig.data" :key="item.name">{{ item.name }}</div>
@@ -114,7 +114,7 @@ export default {
 </script>
 
 <style lang="less">
-.capsule-chart {
+.dv-capsule-chart {
   position: relative;
   display: flex;
   flex-direction: row;
