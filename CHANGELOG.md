@@ -1,3 +1,9 @@
+# 2.4.2-alpha (2019-08-30)
+
+### Perfect
+
+- **capsuleChart:** Class name compatibility optimization.
+
 # 2.4.1-alpha (2019-08-29)
 
 ### Perfect
