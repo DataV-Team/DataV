@@ -50,3 +50,7 @@ The Demo page uses the full-screen component, please view it after F11 full scre
 * [Manage-Desk](http://datav.jiaminghi.com/demo/manage-desk/index.html)
 
 ![manage-desk](./demoImg/manage-desk.jpg)
+
+* [Electronic-File](http://datav.jiaminghi.com/demo/electronic-file/index.html)
+
+![electronic-file](./demoImg/electronic-file.jpg)

@@ -49,3 +49,7 @@ Demo页面使用了全屏组件，请F11全屏后查看。
 * [机电运维管理台](http://datav.jiaminghi.com/demo/manage-desk/index.html)
 
 ![manage-desk](./demoImg/manage-desk.jpg)
+
+* [机电设备电子档案](http://datav.jiaminghi.com/demo/electronic-file/index.html)
+
+![electronic-file](./demoImg/electronic-file.jpg)
