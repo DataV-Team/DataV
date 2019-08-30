@@ -38,18 +38,18 @@
   transition: all 0.3s;
 }
 .capsule-chart .unit-label {
+  height: 20px;
+  font-size: 12px;
   display: flex;
   flex-direction: row;
-  line-height: 20px;
-  font-size: 12px;
+  align-items: center;
+  justify-content: space-between;
 }
 .capsule-chart .unit-text {
-  width: 30px;
   text-align: right;
-}
-.capsule-chart .unit-container {
-  flex: 1;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  align-items: flex-end;
+  font-size: 12px;
+  line-height: 20px;
+  margin-left: 10px;
 }
