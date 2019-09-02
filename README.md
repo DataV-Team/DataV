@@ -42,6 +42,10 @@ Vue.use(borderBox1)
 
 * **边框**及**装饰**添加颜色及其他必要配置项，增强可配置性及灵活性.
 
+### 反馈
+
+![Feedback](./QQGroup.png)
+
 ### Demo
 
 Demo页面使用了全屏组件，请F11全屏后查看。

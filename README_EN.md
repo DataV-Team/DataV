@@ -43,6 +43,10 @@ Detailed documents and examples can be viewed on the [HomePage](http://datav.jia
 
 * Add color and other necessary configuration to the **borderBox** and **decoration** to enhance configurability and flexibility.
 
+### Feedback
+
+![Feedback](./QQGroup.png)
+
 ### Demo
 
 The Demo page uses the full-screen component, please view it after F11 full screen.
