@@ -39,6 +39,10 @@ Vue.use(borderBox1)
 
 Detailed documents and examples can be viewed on the [HomePage](http://datav.jiaminghi.com).
 
+### TODO
+
+* Add color and other necessary configuration to the **borderBox** and **decoration** to enhance configurability and flexibility.
+
 ### Demo
 
 The Demo page uses the full-screen component, please view it after F11 full screen.
