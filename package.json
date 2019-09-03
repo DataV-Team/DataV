@@ -9,8 +9,8 @@
     "url": "https://github.com/jiaming743/DataV.git"
   },
   "scripts": {
-    "compile": "node publish.js",
-    "prepublish": "npm run compile",
+    "build": "node build/index.js",
+    "prepublish": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "MIT",
@@ -24,10 +24,21 @@
     "datavisual"
   ],
   "dependencies": {
-    "@jiaminghi/charts": "*"
+    "@jiaminghi/charts": "*",
+    "@babel/runtime": "^7.5.5"
   },
   "homepage": "https://github.com/jiaming743/DataV#readme",
   "devDependencies": {
-    "@jiaminghi/fs": "0.0.1"
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@jiaminghi/fs": "0.0.1",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-uglify": "^6.0.3",
+    "rollup-plugin-vue": "^5.0.1",
+    "vue-template-compiler": "^2.6.10"
   }
 }
