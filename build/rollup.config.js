@@ -5,6 +5,7 @@ import babel from 'rollup-plugin-babel'
 
 export default {
   input: 'build/entry.js',
+  // input: 'src/index.js',
   output: {
     format: 'umd',
     file: 'dist/datav.map.js',
