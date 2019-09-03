@@ -11,7 +11,7 @@
 <script>
 import Charts from '@jiaminghi/charts'
 
-import dvDigitalFlop from '../../digitalFlop/src/main'
+import dvDigitalFlop from '../../digitalFlop/src/main.vue'
 
 import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
