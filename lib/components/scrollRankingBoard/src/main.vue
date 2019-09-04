@@ -9,7 +9,7 @@
       <div class="ranking-info">
         <div class="rank">No.{{ item.ranking }}</div>
         <div class="info-name">{{ item.name }}</div>
-        <div class="ranking-value">{{ item.value }}</div>
+        <div class="ranking-value">{{ item.value + mergedConfig.unit }}</div>
       </div>
 
       <div class="ranking-column">
@@ -69,7 +69,14 @@ export default {
          * @default carousel = 'single'
          * @example carousel = 'single' | 'page'
          */
-        carousel: 'single'
+        carousel: 'single',
+        /**
+         * @description Value unit
+         * @type {String}
+         * @default unit = ''
+         * @example unit = 'ton'
+         */
+        unit: ''
       },
 
       mergedConfig: null,
