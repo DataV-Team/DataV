@@ -49,6 +49,10 @@ Detailed documents and examples can be viewed on the [HomePage](http://datav.jia
 
 ### Demo
 
+###
+
+The development of the component library is based on personal learning and interest. Due to technical level and experience limitations, there are still many imperfections in the components. If there are errors, you can submit [issue](https://github.com/jiaming743/DataV/issues/new?template=bug_report.md) in time or add feedback groups for feedback. Welcome to provide corrections and suggestions. Thank you for your support.
+
 The Demo page uses the full-screen component, please view it after F11 full screen.
 
 * [Construction Data](http://datav.jiaminghi.com/demo/construction-data/index.html)
