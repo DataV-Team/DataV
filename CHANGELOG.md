@@ -1,3 +1,9 @@
+# 2.4.3-alpha (2019-09-04)
+
+### Perfect
+
+- **scrollRankingBoard:** Add a unit configuration item.
+
 # 2.4.2-alpha (2019-08-30)
 
 ### Perfect
