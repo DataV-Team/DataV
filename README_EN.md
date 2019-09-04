@@ -43,13 +43,13 @@ Detailed documents and examples can be viewed on the [HomePage](http://datav.jia
 
 * Add color and other necessary configuration to the **borderBox** and **decoration** to enhance configurability and flexibility.
 
-### Feedback
-
-![Feedback](./QQGroup.png)
-
 ### Acknowledgement
 
 The development of the component library is based on personal learning and interest. Due to technical level and experience limitations, there are still many imperfections in the components. If there are errors, you can submit [issue](https://github.com/jiaming743/DataV/issues/new?template=bug_report.md) in time or add feedback groups for feedback. Welcome to provide corrections and suggestions. Thank you for your support.
+
+### Feedback
+
+![Feedback](./QQGroup.png)
 
 ### Demo
 
