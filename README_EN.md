@@ -41,6 +41,7 @@ Detailed documents and examples can be viewed on the [HomePage](http://datav.jia
 
 ### TODO
 
+* **flylineChart**Add multi-center point and reverse fly line function.
 * Add color and other necessary configuration to the **borderBox** and **decoration** to enhance configurability and flexibility.
 
 ### Acknowledgement
