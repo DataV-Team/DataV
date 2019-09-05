@@ -1,3 +1,9 @@
+# 2.4.4-alpha (2019-09-05)
+
+### Bug Fixes
+
+- **scrollBoard:** Header column width is abnormal when row data is empty.
+
 # 2.4.3-alpha (2019-09-04)
 
 ### Perfect
