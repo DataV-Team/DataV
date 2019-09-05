@@ -260,11 +260,16 @@ export default {
     calcWidths () {
       const { width, mergedConfig, rowsData } = this
 
-      const { columnWidth } = mergedConfig
+      const { columnWidth, header } = mergedConfig
 
       const usedWidth = columnWidth.reduce((all, w) => all + w, 0)
 
-      const columnNum = rowsData[0] ? rowsData[0].ceils.length : 0
+      let columnNum = 0
+      if (rowsData[0]) {
+        columnNum = rowsData[0].ceils.length
+      } else if (header.length) {
+        columnNum = header.length
+      }
 
       const avgWidth = (width - usedWidth) / (columnNum - columnWidth.length)
 
