@@ -38,6 +38,12 @@ Vue.use(borderBox1)
 
 详细文档及示例请移步[HomePage](http://datav.jiaminghi.com).
 
+### 调研
+
+关于React版本组件库及反馈请移步[问卷调查](https://www.wjx.cn/jq/45326197.aspx)
+
+![问卷调查](./qrcode.jpg)
+
 ### TODO
 
 * **飞线图**添加多中心点及反向飞线功能

@@ -39,6 +39,12 @@ Vue.use(borderBox1)
 
 Detailed documents and examples can be viewed on the [HomePage](http://datav.jiaminghi.com).
 
+### Questionnaire
+
+React version of the component library and feedback[Questionnaire](https://www.wjx.cn/jq/45326197.aspx)
+
+![问卷调查](./qrcode.jpg)
+
 ### TODO
 
 * **flylineChart**Add multi-center point and reverse fly line function.
