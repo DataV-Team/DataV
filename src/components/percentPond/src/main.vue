@@ -57,9 +57,10 @@ export default {
     }
   },
   data () {
+    const timestamp = Date.now()
     return {
-      gradientId1: `percent-pond-gradientId1-${(new Date()).getTime()}`,
-      gradientId2: `percent-pond-gradientId2-${(new Date()).getTime()}`,
+      gradientId1: `percent-pond-gradientId1-${timestamp}`,
+      gradientId2: `percent-pond-gradientId2-${timestamp}`,
 
       width: 0,
       height: 0,
@@ -239,7 +240,7 @@ export default {
       this.height = dom.clientHeight
     },
     mergeConfig () {
-      let { config, defaultConfig } = this
+      const { config, defaultConfig } = this
 
       this.mergedConfig = deepMerge(deepClone(defaultConfig, true), config || {})
     }

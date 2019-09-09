@@ -90,10 +90,11 @@ export default {
   name: 'DvDecoration9',
   mixins: [autoResize],
   data () {
+    const timestamp = Date.now()
     return {
       ref: 'decoration-9',
 
-      polygonId: `decoration-9-polygon-${(new Date()).getTime()}`,
+      polygonId: `decoration-9-polygon-${timestamp}`,
 
       svgWH: [100, 100],
 

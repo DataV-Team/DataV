@@ -68,11 +68,12 @@ export default {
   name: 'DvBorderBox8',
   mixins: [autoResize],
   data () {
+    const timestamp = Date.now()
     return {
       ref: 'border-box-8',
-      path: `border-box-8-path-${(new Date()).getTime()}`,
-      gradient: `border-box-8-gradient-${(new Date()).getTime()}`,
-      mask: `border-box-8-mask-${(new Date()).getTime()}`
+      path: `border-box-8-path-${timestamp}`,
+      gradient: `border-box-8-gradient-${timestamp}`,
+      mask: `border-box-8-mask-${timestamp}`
     }
   },
   computed: {
