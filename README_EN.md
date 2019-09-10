@@ -39,6 +39,10 @@ Vue.use(borderBox1)
 
 Detailed documents and examples can be viewed on the [HomePage](http://datav.jiaminghi.com).
 
+### React version
+
+The reaction version is already under development, so stay tuned
+
 ### Questionnaire
 
 React version of the component library and feedback[Questionnaire](https://www.wjx.cn/jq/45326197.aspx)

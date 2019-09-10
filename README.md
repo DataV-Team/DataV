@@ -38,6 +38,10 @@ Vue.use(borderBox1)
 
 详细文档及示例请移步[HomePage](http://datav.jiaminghi.com).
 
+### React版本
+
+React版本已在开发中，敬请期待
+
 ### 调研
 
 关于React版本组件库及反馈请移步[问卷调查](https://www.wjx.cn/jq/45326197.aspx)
