@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DataV</title>
+  <script src="https://unpkg.com/vue"></script>
+  <!--Resources are located on personal servers for experience and testing only, do not use in production environments-->
+  <!--资源位于个人服务器仅供体验和测试，请勿在生产环境使用-->
+  <!--Debug version-->
+  <!--调试版-->
+  <script src="http://lib.jiaminghi.com/datav/datav.map.vue.js"></script>
+  <!--Compression version-->
+  <!--压缩版-->
+  <!-- <script src="http://lib.jiaminghi.com/datav/datav.min.vue.js"></script> -->
+  <style>
+    html, body, #app {
+      width: 100%;
+      height: 100%;
+      margin: 0px;
+      padding: 0px;
+    }
+
+    .border-box-content {
+      color: rgb(66,185,131);
+      font-size: 40px;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <dv-border-box-1>Welcome to DataV</dv-border-box-1>
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: '#app'
+    })
+  </script>
+</body>
+</html>
