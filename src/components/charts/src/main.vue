@@ -19,9 +19,10 @@ export default {
     }
   },
   data () {
+    const timestamp = Date.now()
     return {
-      ref: `charts-container-${(new Date()).getTime()}`,
-      chartRef: `chart-${(new Date()).getTime()}`,
+      ref: `charts-container-${timestamp}`,
+      chartRef: `chart-${timestamp}`,
 
       chart: null
     }

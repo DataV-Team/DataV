@@ -152,16 +152,17 @@ export default {
   name: 'DvDecoration10',
   mixins: [autoResize],
   data () {
+    const timestamp = Date.now()
     return {
       ref: 'decoration-10',
 
-      animationId1: `d10ani1${(new Date()).getTime()}`,
-      animationId2: `d10ani2${(new Date()).getTime()}`,
-      animationId3: `d10ani3${(new Date()).getTime()}`,
-      animationId4: `d10ani4${(new Date()).getTime()}`,
-      animationId5: `d10ani5${(new Date()).getTime()}`,
-      animationId6: `d10ani6${(new Date()).getTime()}`,
-      animationId7: `d10ani7${(new Date()).getTime()}`
+      animationId1: `d10ani1${timestamp}`,
+      animationId2: `d10ani2${timestamp}`,
+      animationId3: `d10ani3${timestamp}`,
+      animationId4: `d10ani4${timestamp}`,
+      animationId5: `d10ani5${timestamp}`,
+      animationId6: `d10ani6${timestamp}`,
+      animationId7: `d10ani7${timestamp}`
     }
   }
 }
