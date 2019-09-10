@@ -2,15 +2,17 @@ import resolve from 'rollup-plugin-node-resolve'
 import vue from 'rollup-plugin-vue'
 import commonjs from 'rollup-plugin-commonjs'
 import babel from 'rollup-plugin-babel'
+import { terser } from "rollup-plugin-terser"
 
 export default {
   input: 'build/entry.js',
   output: {
     format: 'umd',
-    file: 'dist/datav.map.vue.js',
+    file: 'dist/datav.min.vue.js',
     name: 'datav'
   },
   plugins: [
+    terser(),
     resolve(),
     babel({
       exclude: 'node_modules/**'
