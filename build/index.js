@@ -77,15 +77,15 @@ async function start () {
 
   print.tip('After rollupCompile')
 
-  // const uglifyjs = await exec(`uglifyjs dist/${libName}.map.js -o dist/${libName}.min.js`)
+  const terser = await exec(`rollup -c build/rollup.terser.config.js`)
 
-  // if (!uglifyjs) {
-  //   print.error('Exception in uglifyjs')
+  if (!terser) {
+    print.error('Exception in terser')
 
-  //   return
-  // }
+    return
+  }
 
-  // print.tip('After uglifyjs')
+  print.tip('After terser')
 
   print.yellow('-------------------------------------')
   print.success('     DataV Lib Compile Success!      ')
