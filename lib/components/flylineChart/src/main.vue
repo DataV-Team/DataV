@@ -171,13 +171,14 @@ export default {
     }
   },
   data () {
+    const timestamp = Date.now()
     return {
       ref: 'dv-flyline-chart',
       unique: Math.random(),
-      maskId: `flyline-mask-id-${(new Date()).getTime()}`,
-      maskCircleId: `mask-circle-id-${(new Date()).getTime()}`,
-      gradientId: `gradient-id-${(new Date()).getTime()}`,
-      gradient2Id: `gradient2-id-${(new Date()).getTime()}`,
+      maskId: `flyline-mask-id-${timestamp}`,
+      maskCircleId: `mask-circle-id-${timestamp}`,
+      gradientId: `gradient-id-${timestamp}`,
+      gradient2Id: `gradient2-id-${timestamp}`,
 
       defaultConfig: {
         /**

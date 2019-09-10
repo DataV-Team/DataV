@@ -53,8 +53,9 @@ export default {
     default: () => ({})
   },
   data () {
+    const timestamp = Date.now()
     return {
-      gradientId: `water-level-pond-${(new Date()).getTime()}`,
+      gradientId: `water-level-pond-${timestamp}`,
 
       defaultConfig: {
         /**

@@ -89,11 +89,12 @@ export default {
   name: 'DvBorderBox9',
   mixins: [autoResize],
   data () {
+    const timestamp = Date.now()
     return {
       ref: 'border-box-9',
 
-      gradientId: `border-box-9-gradient-${(new Date()).getTime()}`,
-      maskId: `border-box-9-mask-${(new Date()).getTime()}`
+      gradientId: `border-box-9-gradient-${timestamp}`,
+      maskId: `border-box-9-mask-${timestamp}`
     }
   }
 }
