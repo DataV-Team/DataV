@@ -11,6 +11,7 @@
   "scripts": {
     "build": "node build/index.js",
     "prepublish": "npm run build",
+    "deploy": "node deploy/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "MIT",
@@ -34,10 +35,11 @@
     "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@jiaminghi/fs": "0.0.1",
+    "ftp": "^0.3.10",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-uglify": "^6.0.3",
+    "rollup-plugin-terser": "^5.1.1",
     "rollup-plugin-vue": "^5.0.1",
     "vue-template-compiler": "^2.6.10"
   }
