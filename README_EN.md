@@ -39,6 +39,12 @@ Vue.use(borderBox1)
 
 Detailed documents and examples can be viewed on the [HomePage](http://datav.jiaminghi.com).
 
+### UMD version
+
+The `UMD` version can be directly imported using the `script` tag. The `UMD` version file is located in the project `dist` directory. After import, all components will be automatically registered as **Vue global components**. Be sure to introduce `Vue` before introducing `Datav`.
+
+[UMD version usage example](./umdExample.html)
+
 ### React version
 
 The reaction version is already under development, so stay tuned
@@ -47,7 +53,7 @@ The reaction version is already under development, so stay tuned
 
 React version of the component library and feedback[Questionnaire](https://www.wjx.cn/jq/45326197.aspx)
 
-![问卷调查](./qrcode.jpg)
+![问卷调查](./questionnaire.jpg)
 
 ### TODO
 

@@ -12,10 +12,10 @@
 
 ## DataV是干什么的?
 
-* DataV是一个基于**Vue**的数据可视化组件库.
-* 提供用于提升页面视觉效果的**SVG**边框和装饰.
-* 提供常用的**图表**如折线图等.
-* 飞线图/轮播表等其他组件.
+* DataV是一个基于**Vue**的数据可视化组件库
+* 提供用于提升页面视觉效果的**SVG**边框和装饰
+* 提供常用的**图表**如折线图等
+* 飞线图/轮播表等其他组件
 
 ### npm安装
 
@@ -38,6 +38,12 @@ Vue.use(borderBox1)
 
 详细文档及示例请移步[HomePage](http://datav.jiaminghi.com).
 
+### UMD版
+
+`UMD`版可直接使用`script`标签引入，`UMD`版文件位于项目`dist`目录下，引入后将自动把所有组件注册为**Vue全局组件**，引入`Datav`前请确保已引入`Vue`。
+
+[UMD版使用示例](./umdExample.html)
+
 ### React版本
 
 React版本已在开发中，敬请期待
@@ -46,7 +52,7 @@ React版本已在开发中，敬请期待
 
 关于React版本组件库及反馈请移步[问卷调查](https://www.wjx.cn/jq/45326197.aspx)
 
-![问卷调查](./qrcode.jpg)
+![问卷调查](./questionnaire.jpg)
 
 ### TODO
 
