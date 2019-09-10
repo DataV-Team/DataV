@@ -41,7 +41,7 @@ Detailed documents and examples can be viewed on the [HomePage](http://datav.jia
 
 ### UMD version
 
-The `UMD` version can be directly imported using the `script` tag. The `UMD` version file is located in the project `dist` directory. After import, all components will be automatically registered as **Vue global components**. Be sure to introduce `Vue` before introducing `Datav`.
+The `UMD` version can be directly imported using the `script` tag. The `UMD` version file is located in the project `dist` directory. After import, all components will be automatically registered as **Vue global components**. Be sure to introduce `Vue` before introducing `DataV`.
 
 [UMD version usage example](./umdExample.html)
 

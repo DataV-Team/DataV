@@ -40,7 +40,7 @@ Vue.use(borderBox1)
 
 ### UMD版
 
-`UMD`版可直接使用`script`标签引入，`UMD`版文件位于项目`dist`目录下，引入后将自动把所有组件注册为**Vue全局组件**，引入`Datav`前请确保已引入`Vue`。
+`UMD`版可直接使用`script`标签引入，`UMD`版文件位于项目`dist`目录下，引入后将自动把所有组件注册为**Vue全局组件**，引入`DataV`前请确保已引入`Vue`。
 
 [UMD版使用示例](./umdExample.html)
 
