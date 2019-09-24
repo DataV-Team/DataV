@@ -12,13 +12,13 @@ export default {
     name: 'datav'
   },
   plugins: [
-    terser(),
     resolve(),
     babel({
       exclude: 'node_modules/**'
     }),
     commonjs(),
     vue(),
+    terser(),
   ],
   external: ['Vue']
 }
