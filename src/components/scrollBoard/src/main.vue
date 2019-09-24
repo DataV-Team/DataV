@@ -236,7 +236,7 @@ export default {
         data = data.map((row, i) => {
           row = [...row]
 
-          const indexTag = `<span class="index" style="background-color: ${headerBGC};">${i + 1}</spand>`
+          const indexTag = `<span class="index" style="background-color: ${headerBGC};">${i + 1}</span>`
 
           row.unshift(indexTag)
 
