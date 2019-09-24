@@ -1,6 +1,8 @@
 # 2.4.5-alpha (2019-++-++)
 
+### Bug Fixes
 
+- **activeRingChart:** Calculation exception due to data value being 0 [(#17)](https://github.com/jiaming743/DataV/issues/17).
 
 # 2.4.4-alpha (2019-09-05)
 
