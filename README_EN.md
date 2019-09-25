@@ -13,7 +13,7 @@
 
 ## What is DataV?
 
-* DataV is a data **visualization** components library based on **Vue**.
+* DataV is a data **visualization** components library based on **Vue**（Of course there are also [React versions](https://github.com/DataV-Team/DataV-React)）.
 * Provide cool **SVG** borders and decorations.
 * Provide common **charts** such as line chart, etc..
 * flying line chart, carousel table and etc.
