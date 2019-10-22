@@ -4,7 +4,7 @@
 
 <p align="center">
     <a href="https://github.com/jiaming743/datav/blob/master/LICENSE">
-      <img src="https://img.shields.io/github/license/jiaming743/datav.svg" alt="LICENSE" />
+      <img src="https://img.shields.io/github/license/DataV-Team/datav.svg" alt="LICENSE" />
     </a>
     <a href="https://www.npmjs.com/package/@jiaminghi/data-view">
       <img src="https://img.shields.io/npm/v/@jiaminghi/data-view.svg" alt="LICENSE" />
@@ -62,7 +62,7 @@ React version of the component library and feedback[Questionnaire](https://www.w
 
 ### Acknowledgement
 
-The development of the component library is based on personal learning and interest. Due to technical level and experience limitations, there are still many imperfections in the components. If there are errors, you can submit [issue](https://github.com/jiaming743/DataV/issues/new?template=bug_report.md) in time or add feedback groups for feedback. Welcome to provide corrections and suggestions. Thank you for your support.
+The development of the component library is based on personal learning and interest. Due to technical level and experience limitations, there are still many imperfections in the components. If there are errors, you can submit [issue](https://github.com/DataV-team/DataV/issues/new?template=bug_report.md) in time or add feedback groups for feedback. Welcome to provide corrections and suggestions. Thank you for your support.
 
 ### Feedback
 

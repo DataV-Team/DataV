@@ -57,7 +57,7 @@ Vue.use(borderBox1)
 
 ### 致谢
 
-组件库的开发基于个人学习和兴趣，由于技术水平及经验的限制，组件尚有许多不完善之处，如有BUG可及时提交[issue](https://github.com/jiaming743/DataV/issues/new?template=bug_report.md)或添加反馈群进行反馈，也欢迎提供指正和建议，感谢各位的支持。
+组件库的开发基于个人学习和兴趣，由于技术水平及经验的限制，组件尚有许多不完善之处，如有BUG可及时提交[issue](https://github.com/DataV-Team/DataV/issues/new?template=bug_report.md)或添加反馈群进行反馈，也欢迎提供指正和建议，感谢各位的支持。
 
 ### 反馈
 
