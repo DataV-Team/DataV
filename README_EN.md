@@ -3,7 +3,7 @@
 <h1 align="center">DataV</h1>
 
 <p align="center">
-    <a href="https://github.com/jiaming743/datav/blob/master/LICENSE">
+    <a href="https://github.com/DataV-Team/datav/blob/master/LICENSE">
       <img src="https://img.shields.io/github/license/DataV-Team/datav.svg" alt="LICENSE" />
     </a>
     <a href="https://www.npmjs.com/package/@jiaminghi/data-view">
