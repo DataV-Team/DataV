@@ -6,7 +6,7 @@
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jiaming743/DataV.git"
+    "url": "https://github.com/DataV-Team/DataV.git"
   },
   "scripts": {
     "build": "node build/index.js",
@@ -16,7 +16,7 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jiaming743/DataV/issues"
+    "url": "https://github.com/DataV-Team/DataV/issues"
   },
   "keywords": [
     "vue",
@@ -28,7 +28,7 @@
     "@jiaminghi/charts": "*",
     "@babel/runtime": "^7.5.5"
   },
-  "homepage": "https://github.com/jiaming743/DataV#readme",
+  "homepage": "https://github.com/DataV-Team/DataV#readme",
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
