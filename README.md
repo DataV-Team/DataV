@@ -4,7 +4,7 @@
 <p align="center">
     <a href="https://github.com/DataV-Team/datav/blob/master/LICENSE">
       <img src="https://img.shields.io/github/license/DataV-Team/datav.svg" alt="LICENSE" />
-    </a>
+    </a> 
     <a href="https://www.npmjs.com/package/@jiaminghi/data-view">
       <img src="https://img.shields.io/npm/v/@jiaminghi/data-view.svg" alt="LICENSE" />
     </a>
