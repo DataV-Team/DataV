@@ -1,3 +1,10 @@
+# 2.4.7-alpha (2019-10-24)
+
+### perfect
+
+- **charts:** Optimize memory leaks.
+- **digitalFlop:** Optimize memory leaks.
+
 # 2.4.6-alpha (2019-10-24)
 
 ### Bug Fixes
