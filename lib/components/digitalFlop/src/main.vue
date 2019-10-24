@@ -165,6 +165,8 @@ export default {
       graph.animationCurve = animationCurve
       graph.animationFrame = animationFrame
 
+      graph.animationEnd()
+
       graph.animation('style', style, true)
       graph.animation('shape', shape)
     },
