@@ -174,7 +174,7 @@ export default {
 
       const option = getRingOption()
 
-      chart.setOption(option)
+      chart.setOption(option, true)
 
       ringAnimation()
     },
@@ -236,7 +236,7 @@ export default {
         }
       })
 
-      chart.setOption(option)
+      chart.setOption(option, true)
 
       const { activeTimeGap } = option.series[0]
 
