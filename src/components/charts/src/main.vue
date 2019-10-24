@@ -35,7 +35,7 @@ export default {
 
       if (!option) option = {}
 
-      chart.setOption(option)
+      chart.setOption(option, true)
     }
   },
   methods: {
