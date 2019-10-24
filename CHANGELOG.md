@@ -1,4 +1,10 @@
-# 2.4.5-alpha (2019-++-++)
+# 2.4.6-alpha (2019-10-24)
+
+### Bug Fixes
+
+- **activeRingChart:** Optimize memory leaks [(#16)](https://github.com/jiaming743/DataV/issues/16),[(#20)](https://github.com/jiaming743/DataV/issues/20).
+
+# 2.4.5-alpha (2019-09-24)
 
 ### Bug Fixes
 
