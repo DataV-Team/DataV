@@ -151,6 +151,8 @@ export default {
     update () {
       const { mergeConfig, mergeShape, getShape, getStyle, graph, mergedConfig } = this
 
+      graph.animationEnd()
+
       mergeConfig()
 
       if (!graph) return
@@ -164,8 +166,6 @@ export default {
 
       graph.animationCurve = animationCurve
       graph.animationFrame = animationFrame
-
-      graph.animationEnd()
 
       graph.animation('style', style, true)
       graph.animation('shape', shape)
