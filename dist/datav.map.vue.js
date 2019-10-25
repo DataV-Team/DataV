@@ -17007,6 +17007,7 @@
           graph,
           mergedConfig
         } = this;
+        graph.animationEnd();
         mergeConfig();
         if (!graph) return;
         const {
@@ -17018,7 +17019,6 @@
         mergeShape(graph, shape);
         graph.animationCurve = animationCurve;
         graph.animationFrame = animationFrame;
-        graph.animationEnd();
         graph.animation('style', style, true);
         graph.animation('shape', shape);
       },
@@ -17058,7 +17058,7 @@
     /* style */
     const __vue_inject_styles__$n = function (inject) {
       if (!inject) return
-      inject("data-v-801cb4a4_0", { source: ".dv-digital-flop canvas {\n  width: 100%;\n  height: 100%;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,WAAW;EACX,YAAY;AACd","file":"main.vue","sourcesContent":[".dv-digital-flop canvas {\n  width: 100%;\n  height: 100%;\n}\n"]}, media: undefined });
+      inject("data-v-2cf25a2e_0", { source: ".dv-digital-flop canvas {\n  width: 100%;\n  height: 100%;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,WAAW;EACX,YAAY;AACd","file":"main.vue","sourcesContent":[".dv-digital-flop canvas {\n  width: 100%;\n  height: 100%;\n}\n"]}, media: undefined });
 
     };
     /* scoped */
