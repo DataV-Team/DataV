@@ -44,12 +44,6 @@ Vue.use(borderBox1)
 
 [UMD版使用示例](./umdExample.html)
 
-### 调研
-
-关于React版本组件库及反馈请移步[问卷调查](https://www.wjx.cn/jq/45326197.aspx)
-
-![问卷调查](./questionnaire.jpg)
-
 ### TODO
 
 * **飞线图**添加多中心点及反向飞线功能
@@ -60,8 +54,10 @@ Vue.use(borderBox1)
 组件库的开发基于个人学习和兴趣，由于技术水平及经验的限制，组件尚有许多不完善之处，如有BUG可及时提交[issue](https://github.com/DataV-Team/DataV/issues/new?template=bug_report.md)或添加反馈群进行反馈，也欢迎提供指正和建议，感谢各位的支持。
 
 ### 反馈
-
 ![Feedback](./QQGroup.png)
+
+### 赞助
+![sponsor](./sponsor.png)
 
 ### Demo
 
