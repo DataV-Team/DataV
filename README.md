@@ -56,9 +56,6 @@ Vue.use(borderBox1)
 ### 反馈
 ![Feedback](./QQGroup.png)
 
-### 赞助
-![sponsor](./sponsor.png)
-
 ### Demo
 
 Demo页面使用了全屏组件，请F11全屏后查看。
