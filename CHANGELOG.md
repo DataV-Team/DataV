@@ -1,3 +1,10 @@
+# 2.4.8-alpha (2019-11-12)
+
+### Bug Fixes
+
+- **scrollBoard:** After updating props, the carousel speed is abnormal [(#25)](https://github.com/jiaming743/DataV/issues/16),[(#20)](https://github.com/jiaming743/DataV/issues/25).
+- **scrollRankingBorad:** After updating props, the carousel speed is abnormal[(#25)](https://github.com/jiaming743/DataV/issues/16),[(#20)](https://github.com/jiaming743/DataV/issues/25).
+
 # 2.4.7-alpha (2019-10-24)
 
 ### perfect
