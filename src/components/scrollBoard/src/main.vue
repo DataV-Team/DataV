@@ -161,7 +161,9 @@ export default {
 
       animationIndex: 0,
 
-      animationHandler: ''
+      animationHandler: '',
+
+      updater: 0
     }
   },
   watch: {
@@ -304,7 +306,7 @@ export default {
       this.aligns = deepMerge(aligns, align)
     },
     async animation (start = false) {
-      let { avgHeight, animationIndex, mergedConfig, rowsData, animation } = this
+      let { avgHeight, animationIndex, mergedConfig, rowsData, animation, updater } = this
 
       const { waitTime, carousel, rowNum } = mergedConfig
 
@@ -312,7 +314,10 @@ export default {
 
       if (rowNum >= rowLength) return
 
-      if (start) await new Promise(resolve => setTimeout(resolve, waitTime))
+      if (start) {
+        await new Promise(resolve => setTimeout(resolve, waitTime))
+        if (updater !== this.updater) return
+      }
 
       const animationNum = carousel === 'single' ? 1 : rowNum
 
@@ -323,6 +328,7 @@ export default {
       this.heights = new Array(rowLength).fill(avgHeight)
 
       await new Promise(resolve => setTimeout(resolve, 300))
+      if (updater !== this.updater) return
 
       this.heights.splice(0, animationNum, ...new Array(animationNum).fill(0))
 
@@ -335,7 +341,9 @@ export default {
       this.animationHandler = setTimeout(animation, waitTime - 300)
     },
     stopAnimation () {
-      const { animationHandler } = this
+      const { animationHandler, updater } = this
+
+      this.updater = (updater + 1) % 999999
 
       if (!animationHandler) return
 
