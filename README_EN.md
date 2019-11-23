@@ -1,7 +1,9 @@
 [中文](./README.md)
 
+<p align="center">
+  <img src="./icon.png">
+</p>
 <h1 align="center">DataV</h1>
-
 <p align="center">
     <a href="https://github.com/DataV-Team/datav/blob/master/LICENSE">
       <img src="https://img.shields.io/github/license/DataV-Team/datav.svg" alt="LICENSE" />
