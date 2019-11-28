@@ -135,6 +135,12 @@ export default {
          */
         index: false,
         /**
+         * @description index Header
+         * @type {String}
+         * @default indexHeader = '#'
+         */
+        indexHeader: '#',
+        /**
          * @description Carousel type
          * @type {String}
          * @default carousel = 'single'
@@ -215,7 +221,7 @@ export default {
       this.mergedConfig = deepMerge(deepClone(defaultConfig, true), config || {})
     },
     calcHeaderData () {
-      let { header, index } = this.mergedConfig
+      let { header, index, indexHeader} = this.mergedConfig
 
       if (!header.length) {
         this.header = []
@@ -225,7 +231,7 @@ export default {
 
       header = [...header]
 
-      if (index) header.unshift('#')
+      if (index) header.unshift(indexHeader)
 
       this.header = header
     },
@@ -236,7 +242,7 @@ export default {
         data = data.map((row, i) => {
           row = [...row]
 
-          const indexTag = `<span class="index" style="background-color: ${headerBGC};">${i + 1}</spand>`
+          const indexTag = `<span class="index" style="background-color: ${headerBGC};">${i + 1}</span>`
 
           row.unshift(indexTag)
 
