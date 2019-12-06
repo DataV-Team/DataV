@@ -7,7 +7,7 @@
       >
         <rect
           :key="i"
-          fill="#7acaec"
+          :fill="mergedColor[0]"
           :x="point[0] - halfPointSideLength"
           :y="point[1] - halfPointSideLength"
           :width="pointSideLength"
@@ -16,7 +16,7 @@
           <animate
             v-if="Math.random() > 0.6"
             attributeName="fill"
-            values="#7acaec;transparent"
+            :values="`${mergedColor.join(';')}`"
             :dur="Math.random() + 1 + 's'"
             :begin="Math.random() * 2"
             repeatCount="indefinite"
@@ -30,9 +30,19 @@
 <script>
 import autoResize from '../../../mixin/autoResize'
 
+import { deepMerge } from '@jiaminghi/charts/lib/util/index'
+
+import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
+
 export default {
   name: 'DvDecoration3',
   mixins: [autoResize],
+  props: {
+    color: {
+      type: Array,
+      default: () => ([])
+    }
+  },
   data () {
     const pointSideLength = 7
 
@@ -49,7 +59,18 @@ export default {
       pointSideLength,
       halfPointSideLength: pointSideLength / 2,
 
-      points: []
+      points: [],
+
+      defaultColor: ['#7acaec', 'transparent'],
+
+      mergedColor: []
+    }
+  },
+  watch: {
+    color () {
+      const { mergeColor } = this
+
+      mergeColor()
     }
   },
   methods: {
@@ -91,7 +112,17 @@ export default {
       const { calcSVGData } = this
 
       calcSVGData()
+    },
+    mergeColor () {
+      const { color, defaultColor } = this
+
+      this.mergedColor = deepMerge(deepClone(defaultColor, true), color || [])
     }
+  },
+  mounted () {
+    const { mergeColor } = this
+
+    mergeColor()
   }
 }
 </script>

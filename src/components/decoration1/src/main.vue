@@ -8,7 +8,7 @@
         <rect
           v-if="Math.random() > 0.6"
           :key="i"
-          fill="#fff"
+          :fill="mergedColor[0]"
           :x="point[0] - halfPointSideLength"
           :y="point[1] - halfPointSideLength"
           :width="pointSideLength"
@@ -17,7 +17,7 @@
           <animate
             v-if="Math.random() > 0.6"
             attributeName="fill"
-            values="#fff;transparent"
+            :values="`${mergedColor[0]};transparent`"
             dur="1s"
             :begin="Math.random() * 2"
             repeatCount="indefinite"
@@ -27,7 +27,7 @@
 
       <rect
         v-if="rects[0]"
-        fill="#0de7c2"
+        :fill="mergedColor[1]"
         :x="rects[0][0] - pointSideLength"
         :y="rects[0][1] - pointSideLength"
         :width="pointSideLength * 2"
@@ -61,7 +61,7 @@
 
       <rect
         v-if="rects[1]"
-        fill="#0de7c2"
+        :fill="mergedColor[1]"
         :x="rects[1][0] - 40"
         :y="rects[1][1] - pointSideLength"
         :width="40"
@@ -87,9 +87,19 @@
 <script>
 import autoResize from '../../../mixin/autoResize'
 
+import { deepMerge } from '@jiaminghi/charts/lib/util/index'
+
+import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
+
 export default {
   name: 'DvDecoration1',
   mixins: [autoResize],
+  props: {
+    color: {
+      type: Array,
+      default: () => ([])
+    }
+  },
   data () {
     const pointSideLength = 2.5
 
@@ -108,7 +118,18 @@ export default {
 
       points: [],
 
-      rects: []
+      rects: [],
+
+      defaultColor: ['#fff', '#0de7c2'],
+
+      mergedColor: []
+    }
+  },
+  watch: {
+    color () {
+      const { mergeColor } = this
+
+      mergeColor()
     }
   },
   methods: {
@@ -160,7 +181,17 @@ export default {
       const { calcSVGData } = this
 
       calcSVGData()
+    },
+    mergeColor () {
+      const { color, defaultColor } = this
+
+      this.mergedColor = deepMerge(deepClone(defaultColor, true), color || [])
     }
+  },
+  mounted () {
+    const { mergeColor } = this
+
+    mergeColor()
   }
 }
 </script>

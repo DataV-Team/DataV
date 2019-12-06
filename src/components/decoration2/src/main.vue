@@ -1,7 +1,7 @@
 <template>
   <div class="dv-decoration-2" :ref="ref">
     <svg :width="`${width}px`" :height="`${height}px`">
-      <rect :x="x" :y="y" :width="w" :height="h" fill="#3faacb">
+      <rect :x="x" :y="y" :width="w" :height="h" :fill="mergedColor[0]">
         <animate
           :attributeName="reverse ? 'height' : 'width'"
           from="0"
@@ -14,7 +14,7 @@
         />
       </rect>
 
-      <rect :x="x" :y="y" width="1" height="1" fill="#fff">
+      <rect :x="x" :y="y" width="1" height="1" :fill="mergedColor[1]">
         <animate
           :attributeName="reverse ? 'y' : 'x'"
           from="0"
@@ -33,10 +33,18 @@
 <script>
 import autoResize from '../../../mixin/autoResize'
 
+import { deepMerge } from '@jiaminghi/charts/lib/util/index'
+
+import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
+
 export default {
   name: 'DvDecoration2',
   mixins: [autoResize],
   props: {
+    color: {
+      type: Array,
+      default: () => ([])
+    },
     reverse: {
       type: Boolean,
       default: false
@@ -50,10 +58,19 @@ export default {
       y: 0,
 
       w: 0,
-      h: 0
+      h: 0,
+
+      defaultColor: ['#3faacb', '#fff'],
+
+      mergedColor: []
     }
   },
   watch: {
+    color () {
+      const { mergeColor } = this
+
+      mergeColor()
+    },
     reverse () {
       const { calcSVGData } = this
 
@@ -85,7 +102,17 @@ export default {
       const { calcSVGData } = this
 
       calcSVGData()
+    },
+    mergeColor () {
+      const { color, defaultColor } = this
+
+      this.mergedColor = deepMerge(deepClone(defaultColor, true), color || [])
     }
+  },
+  mounted () {
+    const { mergeColor } = this
+
+    mergeColor()
   }
 }
 </script>
