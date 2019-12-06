@@ -6,12 +6,12 @@
     >
       <svg :width="reverse ? width : 5" :height="reverse ? 5 : height">
         <polyline
-          stroke="rgba(255, 255, 255, 0.3)"
+          :stroke="mergedColor[0]"
           :points="reverse ? `0, 2.5 ${width}, 2.5` : `2.5, 0 2.5, ${height}`"
         />
         <polyline
           class="bold-line"
-          stroke="rgba(255, 255, 255, 0.3)"
+          :stroke="mergedColor[1]"
           stroke-width="3"
           stroke-dasharray="20, 80"
           stroke-dashoffset="-30"
@@ -25,14 +25,50 @@
 <script>
 import autoResize from '../../../mixin/autoResize'
 
+import { deepMerge } from '@jiaminghi/charts/lib/util/index'
+
+import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
+
 export default {
   name: 'DvDecoration4',
   mixins: [autoResize],
-  props: ['reverse'],
+  props: {
+    color: {
+      type: Array,
+      default: () => ([])
+    },
+    reverse: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
-      ref: 'decoration-4'
+      ref: 'decoration-4',
+
+      defaultColor: ['rgba(255, 255, 255, 0.3)', 'rgba(255, 255, 255, 0.3)'],
+
+      mergedColor: []
     }
+  },
+  watch: {
+    color () {
+      const { mergeColor } = this
+
+      mergeColor()
+    }
+  },
+  methods: {
+    mergeColor () {
+      const { color, defaultColor } = this
+
+      this.mergedColor = deepMerge(deepClone(defaultColor, true), color || [])
+    }
+  },
+  mounted () {
+    const { mergeColor } = this
+
+    mergeColor()
   }
 }
 </script>

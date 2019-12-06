@@ -1,18 +1,37 @@
 <template>
-  <div class="dv-border-box-2" :ref="ref">
+  <div class="dv-border-box-13" :ref="ref">
     <svg class="dv-border-svg-container" :width="width" :height="height">
-      <polyline
+      <path
+        fill="transparent"
         :stroke="mergedColor[0]"
-        :points="`2, 2 ${width - 2} ,2 ${width - 2}, ${height - 2} 2, ${height - 2} 2, 2`"
+        :d="`
+          M 5 20 L 5 10 L 12 3  L 60 3 L 68 10
+          L ${width - 20} 10 L ${width - 5} 25
+          L ${width - 5} ${height - 5} L 20 ${height - 5}
+          L 5 ${height - 20} L 5 20
+        `"
       />
-      <polyline
+
+      <path
+        fill="transparent"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-dasharray="10, 5"
+        :stroke="mergedColor[0]"
+        :d="`M 16 9 L 61 9`"
+      />
+
+      <path
+        fill="transparent"
         :stroke="mergedColor[1]"
-        :points="`6, 6 ${width - 6}, 6 ${width - 6}, ${height - 6} 6, ${height - 6} 6, 6`"
+        :d="`M 5 20 L 5 10 L 12 3  L 60 3 L 68 10`"
       />
-      <circle :fill="mergedColor[0]" cx="11" cy="11" r="1" />
-      <circle :fill="mergedColor[0]" :cx="width - 11" cy="11" r="1" />
-      <circle :fill="mergedColor[0]" :cx="width - 11" :cy="height - 11" r="1" />
-      <circle :fill="mergedColor[0]" cx="11" :cy="height - 11" r="1" />
+
+      <path
+        fill="transparent"
+        :stroke="mergedColor[1]"
+        :d="`M ${width - 5} ${height - 30} L ${width - 5} ${height - 5} L ${width - 30} ${height - 5}`"
+      />
     </svg>
 
     <div class="border-box-content">
@@ -29,7 +48,7 @@ import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
 
 export default {
-  name: 'DvBorderBox2',
+  name: 'DvBorderBox13',
   mixins: [autoResize],
   props: {
     color: {
@@ -38,10 +57,11 @@ export default {
     }
   },
   data () {
+    const timestamp = +new Date()
     return {
-      ref: 'border-box-2',
+      ref: 'border-box-13',
 
-      defaultColor: ['#fff', 'rgba(255, 255, 255, 0.6)'],
+      defaultColor: ['#6586ec', '#2cf7fe'],
 
       mergedColor: []
     }

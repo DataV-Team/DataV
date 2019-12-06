@@ -1,20 +1,20 @@
-.dv-border-box-2 {
+.dv-border-box-11 {
   position: relative;
   width: 100%;
   height: 100%;
 }
-.dv-border-box-2 .dv-border-svg-container {
+.dv-border-box-11 .dv-border-svg-container {
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0px;
   left: 0px;
 }
-.dv-border-box-2 .dv-border-svg-container polyline {
+.dv-border-box-11 .dv-border-svg-container polyline {
   fill: none;
   stroke-width: 1;
 }
-.dv-border-box-2 .border-box-content {
+.dv-border-box-11 .border-box-content {
   position: relative;
   width: 100%;
   height: 100%;

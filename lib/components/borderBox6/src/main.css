@@ -10,13 +10,9 @@
   width: 100%;
   height: 100%;
 }
-.dv-border-box-6 .dv-svg-container circle {
-  fill: gray;
-}
 .dv-border-box-6 .dv-svg-container polyline {
   fill: none;
   stroke-width: 1;
-  stroke: rgba(255, 255, 255, 0.35);
 }
 .dv-border-box-6 .border-box-content {
   position: relative;

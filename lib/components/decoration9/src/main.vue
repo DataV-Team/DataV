@@ -10,7 +10,7 @@
         cy="50"
         r="45"
         fill="transparent"
-        stroke="rgba(3, 166, 224, 0.5)"
+        :stroke="mergedColor[1]"
         stroke-width="10"
         stroke-dasharray="80, 100, 30, 100"
       >
@@ -18,7 +18,7 @@
           attributeName="transform"
           type="rotate"
           values="0 50 50;360 50 50"
-          dur="3s"
+          :dur="`${dur}s`"
           repeatCount="indefinite"
         />
       </circle>
@@ -28,7 +28,7 @@
         cy="50"
         r="45"
         fill="transparent"
-        stroke="rgba(3, 166, 224, 0.8)"
+        :stroke="mergedColor[0]"
         stroke-width="6"
         stroke-dasharray="50, 66, 100, 66"
       >
@@ -36,7 +36,7 @@
           attributeName="transform"
           type="rotate"
           values="0 50 50;-360 50 50"
-          dur="3s"
+          :dur="`${dur}s`"
           repeatCount="indefinite"
         />
       </circle>
@@ -46,7 +46,7 @@
         cy="50"
         r="38"
         fill="transparent"
-        stroke="rgba(3, 166, 224, 0.2)"
+        :stroke="fade(mergedColor[1] || defaultColor[1], 30)"
         stroke-width="1"
         stroke-dasharray="5, 1"
       />
@@ -55,15 +55,15 @@
         v-for="(foo, i) in new Array(20).fill(0)"
         :key="i"
         :xlink:href="`#${polygonId}`"
-        stroke="rgba(3, 166, 224, 0.6)"
-        :fill="Math.random() > 0.4 ? 'transparent' : 'rgba(3, 166, 224, 0.8)'"
+        :stroke="mergedColor[1]"
+        :fill="Math.random() > 0.4 ? 'transparent' : mergedColor[0]"
       >
         <animateTransform
           attributeName="transform"
           type="rotate"
           values="0 50 50;360 50 50"
-          dur="3s"
-          :begin="`${i * 0.15}s`"
+          :dur="`${dur}s`"
+          :begin="`${i * dur / 20}s`"
           repeatCount="indefinite"
         />
       </use>
@@ -73,7 +73,7 @@
         cy="50"
         r="26"
         fill="transparent"
-        stroke="rgba(3, 166, 224, 0.2)"
+        :stroke="fade(mergedColor[1] || defaultColor[1], 30)"
         stroke-width="1"
         stroke-dasharray="5, 1"
       />
@@ -86,9 +86,25 @@
 <script>
 import autoResize from '../../../mixin/autoResize'
 
+import { deepMerge } from '@jiaminghi/charts/lib/util/index'
+
+import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
+
+import { fade } from '@jiaminghi/color'
+
 export default {
   name: 'DvDecoration9',
   mixins: [autoResize],
+  props: {
+    color: {
+      type: Array,
+      default: () => ([])
+    },
+    dur: {
+      type: Number,
+      default: 3
+    }
+  },
   data () {
     const timestamp = Date.now()
     return {
@@ -98,7 +114,18 @@ export default {
 
       svgWH: [100, 100],
 
-      svgScale: [1, 1]
+      svgScale: [1, 1],
+
+      defaultColor: ['rgba(3, 166, 224, 0.8)', 'rgba(3, 166, 224, 0.5)'],
+
+      mergedColor: []
+    }
+  },
+  watch: {
+    color () {
+      const { mergeColor } = this
+
+      mergeColor()
     }
   },
   methods: {
@@ -118,7 +145,18 @@ export default {
       const { calcScale } = this
 
       calcScale()
-    }
+    },
+    mergeColor () {
+      const { color, defaultColor } = this
+
+      this.mergedColor = deepMerge(deepClone(defaultColor, true), color || [])
+    },
+    fade
+  },
+  mounted () {
+    const { mergeColor } = this
+
+    mergeColor()
   }
 }
 </script>

@@ -3,8 +3,40 @@
     <svg class="dv-svg-container" :width="width" :height="height">
       <defs>
         <linearGradient :id="gradientId" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#11eefd" />
-          <stop offset="100%" stop-color="#0078d2" />
+          <animate
+            attributeName="x1"
+            values="0%;100%;0%"
+            dur="10s"
+            begin="0s"
+            repeatCount="indefinite"
+          />
+
+          <animate
+            attributeName="x2"
+            values="100%;0%;100%"
+            dur="10s"
+            begin="0s"
+            repeatCount="indefinite"
+          />
+
+          <stop offset="0%" :stop-color="mergedColor[0]">
+            <animate
+              attributeName="stop-color"
+              :values="`${mergedColor[0]};${mergedColor[1]};${mergedColor[0]}`"
+              dur="10s"
+              begin="0s"
+              repeatCount="indefinite"
+            />
+          </stop>
+          <stop offset="100%" :stop-color="mergedColor[1]">
+            <animate
+              attributeName="stop-color"
+              :values="`${mergedColor[1]};${mergedColor[0]};${mergedColor[1]}`"
+              dur="10s"
+              begin="0s"
+              repeatCount="indefinite"
+            />
+          </stop>
         </linearGradient>
 
         <mask :id="maskId">
@@ -85,17 +117,50 @@
 <script>
 import autoResize from '../../../mixin/autoResize'
 
+import { deepMerge } from '@jiaminghi/charts/lib/util/index'
+
+import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
+
 export default {
   name: 'DvBorderBox9',
   mixins: [autoResize],
+  props: {
+    color: {
+      type: Array,
+      default: () => ([])
+    }
+  },
   data () {
     const timestamp = Date.now()
     return {
       ref: 'border-box-9',
 
       gradientId: `border-box-9-gradient-${timestamp}`,
-      maskId: `border-box-9-mask-${timestamp}`
+      maskId: `border-box-9-mask-${timestamp}`,
+
+      defaultColor: ['#11eefd', '#0078d2'],
+
+      mergedColor: []
     }
+  },
+  watch: {
+    color () {
+      const { mergeColor } = this
+
+      mergeColor()
+    }
+  },
+  methods: {
+    mergeColor () {
+      const { color, defaultColor } = this
+
+      this.mergedColor = deepMerge(deepClone(defaultColor, true), color || [])
+    }
+  },
+  mounted () {
+    const { mergeColor } = this
+
+    mergeColor()
   }
 }
 </script>

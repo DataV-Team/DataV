@@ -2,8 +2,6 @@
   position: relative;
   width: 100%;
   height: 100%;
-  box-shadow: inset 0 0 40px rgba(128, 128, 128, 0.3);
-  border: 1px solid rgba(128, 128, 128, 0.3);
 }
 .dv-border-box-7 .dv-svg-container {
   position: absolute;
@@ -17,11 +15,9 @@
   stroke-linecap: round;
 }
 .dv-border-box-7 .dv-bb7-line-width-2 {
-  stroke: rgba(128, 128, 128, 0.3);
   stroke-width: 2;
 }
 .dv-border-box-7 .dv-bb7-line-width-5 {
-  stroke: rgba(128, 128, 128, 0.5);
   stroke-width: 5;
 }
 .dv-border-box-7 .border-box-content {
