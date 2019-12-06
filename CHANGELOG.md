@@ -1,3 +1,22 @@
+# 2.5.0-alpha (2019-12-06)
+
+### Feature
+
+- **borderBox & decoration:** **Configurable** colors.
+  ```html
+  <!-- Example -->
+  <dv-border-box-1 :color="['red', 'green']" />
+  <dv-decoration-1 :color="['red', 'green']" />
+  ```
+- **scrollBoard:** Configurable index header [(#33)](https://github.com/DataV-Team/DataV/pull/33). 
+
+### New
+
+- **borderBox11**
+- **borderBox12**
+- **borderBox13**
+- **decoration11**
+
 # 2.4.8-alpha (2019-11-12)
 
 ### Bug Fixes
