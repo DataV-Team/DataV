@@ -8,7 +8,7 @@
     >
       <div class="ranking-info">
         <div class="rank">No.{{ item.ranking }}</div>
-        <div class="info-name">{{ item.name }}</div>
+        <div class="info-name" v-html="item.name" />
         <div class="ranking-value">{{ item.value + mergedConfig.unit }}</div>
       </div>
 
@@ -76,7 +76,13 @@ export default {
          * @default unit = ''
          * @example unit = 'ton'
          */
-        unit: ''
+        unit: '',
+        /**
+         * @description Auto sort by value
+         * @type {Boolean}
+         * @default sort = true
+         */
+        sort: true
       },
 
       mergedConfig: null,
@@ -137,9 +143,9 @@ export default {
       this.mergedConfig = deepMerge(deepClone(defaultConfig, true), config || {})
     },
     calcRowsData () {
-      let { data, rowNum } = this.mergedConfig
+      let { data, rowNum, sort } = this.mergedConfig
 
-      data.sort(({ value: a }, { value: b }) => {
+      sort && data.sort(({ value: a }, { value: b }) => {
         if (a > b) return -1
         if (a < b) return 1
         if (a === b) return 0
