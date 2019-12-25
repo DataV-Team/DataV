@@ -1,3 +1,10 @@
+# 2.6.0-alpha (2019-12-25)
+
+### Perfect
+
+- **scrollRankingBoard:** Configurable auto-sequencing [(#35)](https://github.com/DataV-Team/DataV/pull/35).
+- **scrollRankingBoard:** Render name using `v-html` [(#36)](https://github.com/DataV-Team/DataV/pull/36).
+
 # 2.5.0-alpha (2019-12-06)
 
 ### Feature
