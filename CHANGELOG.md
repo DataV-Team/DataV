@@ -1,3 +1,9 @@
+# 2.7.0-alpha (2020-01-05)
+
+### New
+
+- **flylineChartEnhanced:** Enhanced flylineChart [(#12)](https://github.com/DataV-Team/DataV/issues/12).
+
 # 2.6.0-alpha (2019-12-25)
 
 ### Perfect
