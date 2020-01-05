@@ -59,7 +59,6 @@ React version of the component library and feedback[Questionnaire](https://www.w
 
 ### TODO
 
-* **flylineChart**Add multi-center point and reverse fly line function.
 * **Map Component**
 * Refactor underlying dependencies using **TS**.
 
