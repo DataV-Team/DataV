@@ -40,6 +40,7 @@ import capsuleChart from './components/capsuleChart'
 import waterLevelPond from './components/waterLevelPond/index'
 import percentPond from './components/percentPond/index'
 import flylineChart from './components/flylineChart'
+import flylineChartEnhanced from './components/flylineChartEnhanced'
 import conicalColumnChart from './components/conicalColumnChart'
 import digitalFlop from './components/digitalFlop'
 import scrollBoard from './components/scrollBoard/index'
@@ -88,6 +89,7 @@ export default function (Vue) {
   Vue.use(waterLevelPond)
   Vue.use(percentPond)
   Vue.use(flylineChart)
+  Vue.use(flylineChartEnhanced)
   Vue.use(conicalColumnChart)
   Vue.use(digitalFlop)
   Vue.use(scrollBoard)
