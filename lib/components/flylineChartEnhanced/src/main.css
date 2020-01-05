@@ -1,0 +1,9 @@
+.dv-flyline-chart-enhanced {
+  display: flex;
+  flex-direction: column;
+  background-size: 100% 100%;
+}
+.dv-flyline-chart-enhanced text {
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
