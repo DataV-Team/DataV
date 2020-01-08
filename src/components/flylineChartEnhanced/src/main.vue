@@ -472,8 +472,6 @@ export default {
 
       const { relative, points } = mergedConfig
 
-      if (!relative) return
-
       this.flylinePoints = points.map((item, i) => {
         const { coordinate: [x, y], halo, icon, text } = item
 
