@@ -1,3 +1,9 @@
+# 2.7.1-alpha (2020-01-08)
+
+###Bug Fixes
+
+- **flylineChartEnhanced:** Exception when relative is false.
+
 # 2.7.0-alpha (2020-01-05)
 
 ### New
