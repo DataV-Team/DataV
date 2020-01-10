@@ -1,3 +1,9 @@
+# 2.7.2-alpha (2020-01-10)
+
+### Perfect
+
+- **ativeRingChart:** Add digitalFlopToFixed configuration.
+
 # 2.7.1-alpha (2020-01-08)
 
 ### Bug Fixes
