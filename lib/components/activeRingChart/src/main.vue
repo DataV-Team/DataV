@@ -79,6 +79,11 @@ export default {
           fill: '#fff'
         },
         /**
+         * @description Digital flop toFixed
+         * @type {Number}
+         */
+        digitalFlopToFixed: 0,
+        /**
          * @description CRender animationCurve
          * @type {String}
          * @default animationCurve = 'easeOutCubic'
@@ -107,7 +112,7 @@ export default {
 
       if (!mergedConfig) return {}
 
-      const { digitalFlopStyle, data } = mergedConfig
+      const { digitalFlopStyle, digitalFlopToFixed, data } = mergedConfig
 
       const value = data.map(({ value }) => value)
 
@@ -118,7 +123,8 @@ export default {
       return {
         content: '{nt}%',
         number: [percent],
-        style: digitalFlopStyle
+        style: digitalFlopStyle,
+        toFixed: digitalFlopToFixed
       }
     },
     ringName () {
