@@ -237,7 +237,7 @@ export default {
     const timestamp = Date.now()
     return {
       ref: 'border-box-11',
-      filterId: `borderr-box-11-filterId-${timestamp}`,
+      filterId: `border-box-11-filterId-${timestamp}`,
 
       defaultColor: ['#8aaafb', '#1f33a2'],
 
