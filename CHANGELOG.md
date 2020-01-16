@@ -1,3 +1,9 @@
+# 2.7.3-alpha (2020-01-16)
+
+### Bug Fixes
+
+- **activeRingChart:** `parseInt` precision lost.
+
 # 2.7.2-alpha (2020-01-10)
 
 ### Perfect
