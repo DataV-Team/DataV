@@ -1,3 +1,9 @@
+# 2.7.4-alpha (2020-04-15)
+
+### Bug Fixes
+
+- **capsuleChart:** Calculate exception when min value is less 5 [(#59)](https://github.com/DataV-Team/DataV/pull/59).
+
 # 2.7.3-alpha (2020-01-16)
 
 ### Bug Fixes
