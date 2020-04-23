@@ -32,18 +32,28 @@
   border-radius: 5px;
 }
 .dv-capsule-chart .capsule-item div {
+  position: relative;
   height: 8px;
   margin-top: 1px;
   border-radius: 5px;
   transition: all 0.3s;
 }
+.dv-capsule-chart .capsule-item div .capsule-item-val {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  font-size: 12px;
+}
 .dv-capsule-chart .unit-label {
   height: 20px;
   font-size: 12px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  position: relative;
+}
+.dv-capsule-chart .unit-label:not(:first-child) {
+  text-align: right;
+}
+.dv-capsule-chart .unit-label div {
+  position: absolute;
 }
 .dv-capsule-chart .unit-text {
   text-align: right;

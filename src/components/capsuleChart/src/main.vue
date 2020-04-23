@@ -12,11 +12,14 @@
           v-for="(capsule, index) in capsuleLength"
           :key="index"
         >
-          <div :style="`width: ${capsule * 100}%; background-color: ${mergedConfig.colors[index % mergedConfig.colors.length]};`"></div>
+          <div :style="`width: ${capsule * 100}%; background-color: ${mergedConfig.colors[index % mergedConfig.colors.length]};`">
+            <span v-if="mergedConfig.showVal" class="capsule-item-val">{{ capsuleValue[index] }}</span>
+          </div>
         </div>
 
         <div class="unit-label">
-          <div v-for="(label, index) in labelData" :key="label + index">{{ label }}</div>
+          <div v-for="(label, index) in labelData" :key="label + index"
+           :style="`width: ${labelDataLength[index] * 100}%;`">{{ label }}</div>
         </div>
       </div>
 
@@ -60,13 +63,16 @@ export default {
          * @type {String}
          * @default unit = ''
          */
-        unit: ''
+        unit: '',
+        showVal: false
       },
 
       mergedConfig: null,
 
       capsuleLength: [],
-      labelData: []
+      capsuleValue: [],
+      labelData: [],
+      labelDataLength: []
     }
   },
   watch: {
@@ -98,11 +104,17 @@ export default {
 
       const maxValue = Math.max(...capsuleValue)
 
+      this.capsuleValue = capsuleValue;
+
       this.capsuleLength = capsuleValue.map(v => maxValue ? v / maxValue : 0)
 
       const oneFifth = maxValue / 5
 
-      this.labelData = new Set(new Array(6).fill(0).map((v, i) => Math.ceil(i * oneFifth)))
+      const labelData = new Set(new Array(6).fill(0).map((v, i) => Math.ceil(i * oneFifth)));
+
+      this.labelData = labelData
+
+      this.labelDataLength = Array.from(labelData).map(v => maxValue ? v / maxValue : 0)
     }
   },
   mounted () {
@@ -151,20 +163,37 @@ export default {
     border-radius: 5px;
 
     div {
+      position: relative;
       height: 8px;
       margin-top: 1px;
       border-radius: 5px;
       transition: all 0.3s;
+
+      .capsule-item-val{
+        position: absolute;
+        top: -5px;
+        right: -10px;
+        font-size: 12px;
+      }
     }
   }
 
   .unit-label {
     height: 20px;
     font-size: 12px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    // display: flex;
+    // flex-direction: row;
+    // align-items: center;
+    // justify-content: space-between;
+    position: relative;
+
+    &:not(:first-child){
+        text-align: right;
+      }
+
+    div {
+      position: absolute;
+    }
   }
 
   .unit-text {
