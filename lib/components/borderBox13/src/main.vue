@@ -2,7 +2,7 @@
   <div class="dv-border-box-13" :ref="ref">
     <svg class="dv-border-svg-container" :width="width" :height="height">
       <path
-        fill="transparent"
+        :fill="backgroundColor"
         :stroke="mergedColor[0]"
         :d="`
           M 5 20 L 5 10 L 12 3  L 60 3 L 68 10
@@ -54,6 +54,10 @@ export default {
     color: {
       type: Array,
       default: () => ([])
+    },
+    backgroundColor: {
+      type: String,
+      default: 'transparent'
     }
   },
   data () {

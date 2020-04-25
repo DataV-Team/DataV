@@ -1,6 +1,10 @@
 <template>
   <div class="dv-border-box-6" :ref="ref">
     <svg class="dv-svg-container" :width="width" :height="height">
+      <polygon :fill="backgroundColor" :points="`
+        9, 7 ${width - 9}, 7 ${width - 9}, ${height - 7} 9, ${height - 7}
+      `" />
+
       <circle :fill="mergedColor[1]" cx="5" cy="5" r="2"/>
       <circle :fill="mergedColor[1]" :cx="width - 5" cy="5" r="2" />
       <circle :fill="mergedColor[1]" :cx="width - 5" :cy="height - 5" r="2" />
@@ -39,6 +43,10 @@ export default {
     color: {
       type: Array,
       default: () => ([])
+    },
+    backgroundColor: {
+      type: String,
+      default: 'transparent'
     }
   },
   data () {

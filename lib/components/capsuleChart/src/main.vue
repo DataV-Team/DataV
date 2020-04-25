@@ -102,7 +102,7 @@ export default {
 
       const oneFifth = maxValue / 5
 
-      this.labelData = new Set(new Array(6).fill(0).map((v, i) => Math.ceil(i * oneFifth)))
+      this.labelData = Array.from(new Set(new Array(6).fill(0).map((v, i) => Math.ceil(i * oneFifth))))
     }
   },
   mounted () {

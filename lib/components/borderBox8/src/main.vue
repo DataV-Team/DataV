@@ -33,6 +33,8 @@
         </mask>
       </defs>
 
+      <polygon :fill="backgroundColor" :points="`5, 5 ${width - 5}, 5 ${width - 5} ${height - 5} 5, ${height - 5}`" />
+
       <use
         :stroke="mergedColor[0]"
         stroke-width="1"
@@ -79,6 +81,10 @@ export default {
     dur: {
       type: Number,
       default: 3
+    },
+    backgroundColor: {
+      type: String,
+      default: 'transparent'
     }
   },
   data () {

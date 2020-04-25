@@ -2,7 +2,7 @@
 <template>
   <div
     class="dv-border-box-7"
-    :style="`box-shadow: inset 0 0 40px ${mergedColor[0]}; border: 1px solid ${mergedColor[0]}`"
+    :style="`box-shadow: inset 0 0 40px ${mergedColor[0]}; border: 1px solid ${mergedColor[0]}; background-color: ${backgroundColor}`"
     :ref="ref"
   >
     <svg class="dv-svg-container" :width="width" :height="height">
@@ -37,6 +37,10 @@ export default {
     color: {
       type: Array,
       default: () => ([])
+    },
+    backgroundColor: {
+      type: String,
+      default: 'transparent'
     }
   },
   data () {

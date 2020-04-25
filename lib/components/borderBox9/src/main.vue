@@ -105,6 +105,15 @@
         </mask>
       </defs>
 
+      <polygon :fill="backgroundColor" :points="`
+        15, 9 ${width * 0.1 + 1}, 9 ${width * 0.1 + 4}, 6 ${width * 0.52 + 2}, 6
+        ${width * 0.52 + 6}, 10 ${width * 0.58 - 7}, 10 ${width * 0.58 - 2}, 6
+        ${width * 0.9 + 2}, 6 ${width * 0.9 + 6}, 10 ${width - 10}, 10 ${width - 10}, ${height * 0.1 - 6}
+        ${width - 6}, ${height * 0.1 - 1} ${width - 6}, ${height * 0.8 + 1} ${width - 10}, ${height * 0.8 + 6}
+        ${width - 10}, ${height - 10} ${width * 0.92 + 7}, ${height - 10}  ${width * 0.92 + 2}, ${height - 6}
+        11, ${height - 6} 11, ${height * 0.15 - 2} 15, ${height * 0.15 - 7}
+      `" />
+
       <rect x="0" y="0" :width="width" :height="height" :fill="`url(#${gradientId})`" :mask="`url(#${maskId})`" />
     </svg>
 
@@ -128,6 +137,10 @@ export default {
     color: {
       type: Array,
       default: () => ([])
+    },
+    backgroundColor: {
+      type: String,
+      default: 'transparent'
     }
   },
   data () {
