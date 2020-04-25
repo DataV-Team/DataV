@@ -1,3 +1,10 @@
+# 2.8.0-alpha (2020-04-25)
+
+### Perfect
+
+- **borderBox:** Add backgroundColor configuration.
+- **capsuleChart:** Improve compatibility.
+
 # 2.7.4-alpha (2020-04-15)
 
 ### Bug Fixes
