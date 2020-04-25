@@ -28,7 +28,7 @@
 
       <path
         v-if="width && height"
-        fill="transparent"
+        :fill="backgroundColor"
         stroke-width="2"
         :stroke="mergedColor[0]"
         :d="`
@@ -106,6 +106,10 @@ export default {
     color: {
       type: Array,
       default: () => ([])
+    },
+    backgroundColor: {
+      type: String,
+      default: 'transparent'
     }
   },
   data () {

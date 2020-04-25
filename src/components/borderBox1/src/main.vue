@@ -1,5 +1,16 @@
 <template>
-  <div class="dv-border-box-1">
+  <div class="dv-border-box-1" :ref="ref">
+    <svg class="border" :width="width" :height="height">
+      <polygon :fill="backgroundColor" :points="`10, 27 10, ${height - 27} 13, ${height - 24} 13, ${height - 21} 24, ${height - 11}
+      38, ${height - 11} 41, ${height - 8} 73, ${height - 8} 75, ${height - 10} 81, ${height - 10}
+      85, ${height - 6} ${width - 85}, ${height - 6} ${width - 81}, ${height - 10} ${width - 75}, ${height - 10}
+      ${width - 73}, ${height - 8} ${width - 41}, ${height - 8} ${width - 38}, ${height - 11}
+      ${width - 24}, ${height - 11} ${width - 13}, ${height - 21} ${width - 13}, ${height - 24}
+      ${width - 10}, ${height - 27} ${width - 10}, 27 ${width - 13}, 25 ${width - 13}, 21
+      ${width - 24}, 11 ${width - 38}, 11 ${width - 41}, 8 ${width - 73}, 8 ${width - 75}, 10
+      ${width - 81}, 10 ${width - 85}, 6 85, 6 81, 10 75, 10 73, 8 41, 8 38, 11 24, 11 13, 21 13, 24`" />
+    </svg>
+
     <svg
       width="150px"
       height="150px"
@@ -52,20 +63,29 @@
 </template>
 
 <script>
+import autoResize from '../../../mixin/autoResize'
+
 import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
 import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
 
 export default {
   name: 'DvBorderBox1',
+  mixins: [autoResize],
   props: {
     color: {
       type: Array,
       default: () => ([])
+    },
+    backgroundColor: {
+      type: String,
+      default: 'transparent'
     }
   },
   data () {
     return {
+      ref: 'border-box-1',
+
       border: ['left-top', 'right-top', 'left-bottom', 'right-bottom'],
 
       defaultColor: ['#4fd2dd', '#235fa7'],
