@@ -19664,7 +19664,7 @@
 
   //
   var script$s = {
-    name: "DvActiveRingChart",
+    name: 'DvActiveRingChart',
     components: {
       dvDigitalFlop: __vue_component__$r
     },
@@ -19684,7 +19684,7 @@
            * @default radius = '50%'
            * @example radius = '50%' | 100
            */
-          radius: "50%",
+          radius: '50%',
 
           /**
            * @description Active ring radius
@@ -19692,7 +19692,7 @@
            * @default activeRadius = '55%'
            * @example activeRadius = '55%' | 110
            */
-          activeRadius: "55%",
+          activeRadius: '55%',
 
           /**
            * @description Ring data
@@ -19700,7 +19700,7 @@
            * @default data = [{ name: '', value: 0 }]
            */
           data: [{
-            name: "",
+            name: '',
             value: 0
           }],
 
@@ -19732,7 +19732,7 @@
            */
           digitalFlopStyle: {
             fontSize: 25,
-            fill: "#fff"
+            fill: '#fff'
           },
 
           /**
@@ -19746,7 +19746,7 @@
            * @type {String}
            * @default animationCurve = 'easeOutCubic'
            */
-          animationCurve: "easeOutCubic",
+          animationCurve: 'easeOutCubic',
 
           /**
            * @description CRender animationFrame
@@ -19765,7 +19765,7 @@
         mergedConfig: null,
         chart: null,
         activeIndex: 0,
-        animationHandler: ""
+        animationHandler: ''
       };
     },
 
@@ -19796,7 +19796,7 @@
         }
 
         return {
-          content: showOriginalValue ? "{nt}" : "{nt}%",
+          content: showOriginalValue ? '{nt}' : '{nt}%',
           number: [displayValue],
           style: digitalFlopStyle,
           toFixed: digitalFlopToFixed
@@ -19808,7 +19808,7 @@
           mergedConfig,
           activeIndex
         } = this;
-        if (!mergedConfig) return "";
+        if (!mergedConfig) return '';
         return mergedConfig.data[activeIndex].name;
       },
 
@@ -19816,7 +19816,7 @@
         const {
           mergedConfig
         } = this;
-        if (!mergedConfig) return "";
+        if (!mergedConfig) return '';
         return `font-size: ${mergedConfig.digitalFlopStyle.fontSize}px;`;
       }
 
@@ -19851,7 +19851,7 @@
         const {
           $refs
         } = this;
-        this.chart = new Charts($refs["active-ring-chart"]);
+        this.chart = new Charts($refs['active-ring-chart']);
       },
 
       mergeConfig() {
@@ -19884,7 +19884,7 @@
         });
         return {
           series: [{
-            type: "pie",
+            type: 'pie',
             ...mergedConfig,
             outsideLabel: {
               show: false
@@ -19907,7 +19907,7 @@
         const maxRadius = Math.min(...chart.render.area) / 2;
         const halfLineWidth = lineWidth / 2;
         let realRadius = active ? activeRadius : radius;
-        if (typeof realRadius !== "number") realRadius = parseInt(realRadius) / 100 * maxRadius;
+        if (typeof realRadius !== 'number') realRadius = parseInt(realRadius) / 100 * maxRadius;
         const insideRadius = realRadius - halfLineWidth;
         const outSideRadius = realRadius + halfLineWidth;
         return [insideRadius, outSideRadius];
@@ -19997,7 +19997,7 @@
     /* style */
     const __vue_inject_styles__$s = function (inject) {
       if (!inject) return
-      inject("data-v-51d776c6_0", { source: ".dv-active-ring-chart {\n  position: relative;\n}\n.dv-active-ring-chart .active-ring-chart-container {\n  width: 100%;\n  height: 100%;\n}\n.dv-active-ring-chart .active-ring-info {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0px;\n  top: 0px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.dv-active-ring-chart .active-ring-info .dv-digital-flop {\n  width: 100px;\n  height: 30px;\n}\n.dv-active-ring-chart .active-ring-info .active-ring-name {\n  width: 100px;\n  height: 30px;\n  color: #fff;\n  text-align: center;\n  vertical-align: middle;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,kBAAkB;AACpB;AACA;EACE,WAAW;EACX,YAAY;AACd;AACA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;EACZ,SAAS;EACT,QAAQ;EACR,aAAa;EACb,sBAAsB;EACtB,uBAAuB;EACvB,mBAAmB;AACrB;AACA;EACE,YAAY;EACZ,YAAY;AACd;AACA;EACE,YAAY;EACZ,YAAY;EACZ,WAAW;EACX,kBAAkB;EAClB,sBAAsB;EACtB,uBAAuB;EACvB,gBAAgB;EAChB,mBAAmB;AACrB","file":"main.vue","sourcesContent":[".dv-active-ring-chart {\n  position: relative;\n}\n.dv-active-ring-chart .active-ring-chart-container {\n  width: 100%;\n  height: 100%;\n}\n.dv-active-ring-chart .active-ring-info {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0px;\n  top: 0px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.dv-active-ring-chart .active-ring-info .dv-digital-flop {\n  width: 100px;\n  height: 30px;\n}\n.dv-active-ring-chart .active-ring-info .active-ring-name {\n  width: 100px;\n  height: 30px;\n  color: #fff;\n  text-align: center;\n  vertical-align: middle;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n"]}, media: undefined });
+      inject("data-v-276b4e5b_0", { source: ".dv-active-ring-chart {\n  position: relative;\n}\n.dv-active-ring-chart .active-ring-chart-container {\n  width: 100%;\n  height: 100%;\n}\n.dv-active-ring-chart .active-ring-info {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0px;\n  top: 0px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.dv-active-ring-chart .active-ring-info .dv-digital-flop {\n  width: 100px;\n  height: 30px;\n}\n.dv-active-ring-chart .active-ring-info .active-ring-name {\n  width: 100px;\n  height: 30px;\n  color: #fff;\n  text-align: center;\n  vertical-align: middle;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,kBAAkB;AACpB;AACA;EACE,WAAW;EACX,YAAY;AACd;AACA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;EACZ,SAAS;EACT,QAAQ;EACR,aAAa;EACb,sBAAsB;EACtB,uBAAuB;EACvB,mBAAmB;AACrB;AACA;EACE,YAAY;EACZ,YAAY;AACd;AACA;EACE,YAAY;EACZ,YAAY;EACZ,WAAW;EACX,kBAAkB;EAClB,sBAAsB;EACtB,uBAAuB;EACvB,gBAAgB;EAChB,mBAAmB;AACrB","file":"main.vue","sourcesContent":[".dv-active-ring-chart {\n  position: relative;\n}\n.dv-active-ring-chart .active-ring-chart-container {\n  width: 100%;\n  height: 100%;\n}\n.dv-active-ring-chart .active-ring-info {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0px;\n  top: 0px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.dv-active-ring-chart .active-ring-info .dv-digital-flop {\n  width: 100px;\n  height: 30px;\n}\n.dv-active-ring-chart .active-ring-info .active-ring-name {\n  width: 100px;\n  height: 30px;\n  color: #fff;\n  text-align: center;\n  vertical-align: middle;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n"]}, media: undefined });
 
     };
     /* scoped */
@@ -20031,7 +20031,7 @@
 
   //
   var script$t = {
-    name: "DvCapsuleChart",
+    name: 'DvCapsuleChart',
     props: {
       config: {
         type: Object,
@@ -20056,14 +20056,14 @@
            * @default color = ['#37a2da', '#32c5e9', '#67e0e3', '#9fe6b8', '#ffdb5c', '#ff9f7f', '#fb7293']
            * @example color = ['#000', 'rgb(0, 0, 0)', 'rgba(0, 0, 0, 1)', 'red']
            */
-          colors: ["#37a2da", "#32c5e9", "#67e0e3", "#9fe6b8", "#ffdb5c", "#ff9f7f", "#fb7293"],
+          colors: ['#37a2da', '#32c5e9', '#67e0e3', '#9fe6b8', '#ffdb5c', '#ff9f7f', '#fb7293'],
 
           /**
            * @description Chart unit
            * @type {String}
            * @default unit = ''
            */
-          unit: "",
+          unit: '',
           showVal: false
         },
         mergedConfig: null,
@@ -20246,7 +20246,7 @@
     /* style */
     const __vue_inject_styles__$t = function (inject) {
       if (!inject) return
-      inject("data-v-5cadd374_0", { source: ".dv-capsule-chart {\n  position: relative;\n  display: flex;\n  flex-direction: row;\n  box-sizing: border-box;\n  padding: 10px;\n  color: #fff;\n}\n.dv-capsule-chart .label-column {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  box-sizing: border-box;\n  padding-right: 10px;\n  text-align: right;\n  font-size: 12px;\n}\n.dv-capsule-chart .label-column div {\n  height: 20px;\n  line-height: 20px;\n}\n.dv-capsule-chart .capsule-container {\n  flex: 1;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n.dv-capsule-chart .capsule-item {\n  box-shadow: 0 0 3px #999;\n  height: 10px;\n  margin: 5px 0px;\n  border-radius: 5px;\n}\n.dv-capsule-chart .capsule-item div {\n  height: 8px;\n  margin-top: 1px;\n  border-radius: 5px;\n  transition: all 0.3s;\n}\n.dv-capsule-chart .capsule-item div .capsule-item-val {\n  position: absolute;\n  top: -5px;\n  font-size: 12px;\n}\n.dv-capsule-chart .unit-label {\n  height: 20px;\n  font-size: 12px;\n  position: relative;\n}\n.dv-capsule-chart .unit-label:not(:first-child) {\n  text-align: right;\n}\n.dv-capsule-chart .unit-label div {\n  position: absolute;\n}\n.dv-capsule-chart .unit-text {\n  text-align: right;\n  display: flex;\n  align-items: flex-end;\n  font-size: 12px;\n  line-height: 20px;\n  margin-left: 10px;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,kBAAkB;EAClB,aAAa;EACb,mBAAmB;EACnB,sBAAsB;EACtB,aAAa;EACb,WAAW;AACb;AACA;EACE,aAAa;EACb,sBAAsB;EACtB,8BAA8B;EAC9B,sBAAsB;EACtB,mBAAmB;EACnB,iBAAiB;EACjB,eAAe;AACjB;AACA;EACE,YAAY;EACZ,iBAAiB;AACnB;AACA;EACE,OAAO;EACP,aAAa;EACb,sBAAsB;EACtB,8BAA8B;AAChC;AACA;EACE,wBAAwB;EACxB,YAAY;EACZ,eAAe;EACf,kBAAkB;AACpB;AACA;EACE,WAAW;EACX,eAAe;EACf,kBAAkB;EAClB,oBAAoB;AACtB;AACA;EACE,kBAAkB;EAClB,SAAS;EACT,eAAe;AACjB;AACA;EACE,YAAY;EACZ,eAAe;EACf,kBAAkB;AACpB;AACA;EACE,iBAAiB;AACnB;AACA;EACE,kBAAkB;AACpB;AACA;EACE,iBAAiB;EACjB,aAAa;EACb,qBAAqB;EACrB,eAAe;EACf,iBAAiB;EACjB,iBAAiB;AACnB","file":"main.vue","sourcesContent":[".dv-capsule-chart {\n  position: relative;\n  display: flex;\n  flex-direction: row;\n  box-sizing: border-box;\n  padding: 10px;\n  color: #fff;\n}\n.dv-capsule-chart .label-column {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  box-sizing: border-box;\n  padding-right: 10px;\n  text-align: right;\n  font-size: 12px;\n}\n.dv-capsule-chart .label-column div {\n  height: 20px;\n  line-height: 20px;\n}\n.dv-capsule-chart .capsule-container {\n  flex: 1;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n.dv-capsule-chart .capsule-item {\n  box-shadow: 0 0 3px #999;\n  height: 10px;\n  margin: 5px 0px;\n  border-radius: 5px;\n}\n.dv-capsule-chart .capsule-item div {\n  height: 8px;\n  margin-top: 1px;\n  border-radius: 5px;\n  transition: all 0.3s;\n}\n.dv-capsule-chart .capsule-item div .capsule-item-val {\n  position: absolute;\n  top: -5px;\n  font-size: 12px;\n}\n.dv-capsule-chart .unit-label {\n  height: 20px;\n  font-size: 12px;\n  position: relative;\n}\n.dv-capsule-chart .unit-label:not(:first-child) {\n  text-align: right;\n}\n.dv-capsule-chart .unit-label div {\n  position: absolute;\n}\n.dv-capsule-chart .unit-text {\n  text-align: right;\n  display: flex;\n  align-items: flex-end;\n  font-size: 12px;\n  line-height: 20px;\n  margin-left: 10px;\n}\n"]}, media: undefined });
+      inject("data-v-422fa5ce_0", { source: ".dv-capsule-chart {\n  position: relative;\n  display: flex;\n  flex-direction: row;\n  box-sizing: border-box;\n  padding: 10px;\n  color: #fff;\n}\n.dv-capsule-chart .label-column {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  box-sizing: border-box;\n  padding-right: 10px;\n  text-align: right;\n  font-size: 12px;\n}\n.dv-capsule-chart .label-column div {\n  height: 20px;\n  line-height: 20px;\n}\n.dv-capsule-chart .capsule-container {\n  flex: 1;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n.dv-capsule-chart .capsule-item {\n  box-shadow: 0 0 3px #999;\n  height: 10px;\n  margin: 5px 0px;\n  border-radius: 5px;\n}\n.dv-capsule-chart .capsule-item div {\n  height: 8px;\n  margin-top: 1px;\n  border-radius: 5px;\n  transition: all 0.3s;\n}\n.dv-capsule-chart .capsule-item div .capsule-item-val {\n  position: absolute;\n  top: -5px;\n  font-size: 12px;\n}\n.dv-capsule-chart .unit-label {\n  height: 20px;\n  font-size: 12px;\n  position: relative;\n}\n.dv-capsule-chart .unit-label:not(:first-child) {\n  text-align: right;\n}\n.dv-capsule-chart .unit-label div {\n  position: absolute;\n}\n.dv-capsule-chart .unit-text {\n  text-align: right;\n  display: flex;\n  align-items: flex-end;\n  font-size: 12px;\n  line-height: 20px;\n  margin-left: 10px;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,kBAAkB;EAClB,aAAa;EACb,mBAAmB;EACnB,sBAAsB;EACtB,aAAa;EACb,WAAW;AACb;AACA;EACE,aAAa;EACb,sBAAsB;EACtB,8BAA8B;EAC9B,sBAAsB;EACtB,mBAAmB;EACnB,iBAAiB;EACjB,eAAe;AACjB;AACA;EACE,YAAY;EACZ,iBAAiB;AACnB;AACA;EACE,OAAO;EACP,aAAa;EACb,sBAAsB;EACtB,8BAA8B;AAChC;AACA;EACE,wBAAwB;EACxB,YAAY;EACZ,eAAe;EACf,kBAAkB;AACpB;AACA;EACE,WAAW;EACX,eAAe;EACf,kBAAkB;EAClB,oBAAoB;AACtB;AACA;EACE,kBAAkB;EAClB,SAAS;EACT,eAAe;AACjB;AACA;EACE,YAAY;EACZ,eAAe;EACf,kBAAkB;AACpB;AACA;EACE,iBAAiB;AACnB;AACA;EACE,kBAAkB;AACpB;AACA;EACE,iBAAiB;EACjB,aAAa;EACb,qBAAqB;EACrB,eAAe;EACf,iBAAiB;EACjB,iBAAiB;AACnB","file":"main.vue","sourcesContent":[".dv-capsule-chart {\n  position: relative;\n  display: flex;\n  flex-direction: row;\n  box-sizing: border-box;\n  padding: 10px;\n  color: #fff;\n}\n.dv-capsule-chart .label-column {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  box-sizing: border-box;\n  padding-right: 10px;\n  text-align: right;\n  font-size: 12px;\n}\n.dv-capsule-chart .label-column div {\n  height: 20px;\n  line-height: 20px;\n}\n.dv-capsule-chart .capsule-container {\n  flex: 1;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n.dv-capsule-chart .capsule-item {\n  box-shadow: 0 0 3px #999;\n  height: 10px;\n  margin: 5px 0px;\n  border-radius: 5px;\n}\n.dv-capsule-chart .capsule-item div {\n  height: 8px;\n  margin-top: 1px;\n  border-radius: 5px;\n  transition: all 0.3s;\n}\n.dv-capsule-chart .capsule-item div .capsule-item-val {\n  position: absolute;\n  top: -5px;\n  font-size: 12px;\n}\n.dv-capsule-chart .unit-label {\n  height: 20px;\n  font-size: 12px;\n  position: relative;\n}\n.dv-capsule-chart .unit-label:not(:first-child) {\n  text-align: right;\n}\n.dv-capsule-chart .unit-label div {\n  position: absolute;\n}\n.dv-capsule-chart .unit-text {\n  text-align: right;\n  display: flex;\n  align-items: flex-end;\n  font-size: 12px;\n  line-height: 20px;\n  margin-left: 10px;\n}\n"]}, media: undefined });
 
     };
     /* scoped */

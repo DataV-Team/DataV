@@ -34,12 +34,12 @@
 </template>
 
 <script>
-import { deepMerge } from "@jiaminghi/charts/lib/util/index";
+import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
-import { deepClone } from "@jiaminghi/c-render/lib/plugin/util";
+import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
 
 export default {
-  name: "DvCapsuleChart",
+  name: 'DvCapsuleChart',
   props: {
     config: {
       type: Object,
@@ -63,20 +63,20 @@ export default {
          * @example color = ['#000', 'rgb(0, 0, 0)', 'rgba(0, 0, 0, 1)', 'red']
          */
         colors: [
-          "#37a2da",
-          "#32c5e9",
-          "#67e0e3",
-          "#9fe6b8",
-          "#ffdb5c",
-          "#ff9f7f",
-          "#fb7293"
+          '#37a2da',
+          '#32c5e9',
+          '#67e0e3',
+          '#9fe6b8',
+          '#ffdb5c',
+          '#ff9f7f',
+          '#fb7293'
         ],
         /**
          * @description Chart unit
          * @type {String}
          * @default unit = ''
          */
-        unit: "",
+        unit: '',
         showVal: false
       },
 
@@ -86,70 +86,70 @@ export default {
       capsuleValue: [],
       labelData: [],
       labelDataLength: []
-    };
+    }
   },
   watch: {
     config() {
-      const { calcData } = this;
+      const { calcData } = this
 
-      calcData();
+      calcData()
     }
   },
   methods: {
     calcData() {
-      const { mergeConfig, calcCapsuleLengthAndLabelData } = this;
+      const { mergeConfig, calcCapsuleLengthAndLabelData } = this
 
-      mergeConfig();
+      mergeConfig()
 
-      calcCapsuleLengthAndLabelData();
+      calcCapsuleLengthAndLabelData()
     },
     mergeConfig() {
-      let { config, defaultConfig } = this;
+      let { config, defaultConfig } = this
 
       this.mergedConfig = deepMerge(
         deepClone(defaultConfig, true),
         config || {}
-      );
+      )
     },
     calcCapsuleLengthAndLabelData() {
-      const { data } = this.mergedConfig;
+      const { data } = this.mergedConfig
 
-      if (!data.length) return;
+      if (!data.length) return
 
-      const capsuleValue = data.map(({ value }) => value);
+      const capsuleValue = data.map(({ value }) => value)
 
-      const maxValue = Math.max(...capsuleValue);
+      const maxValue = Math.max(...capsuleValue)
 
-      this.capsuleValue = capsuleValue;
+      this.capsuleValue = capsuleValue
 
-      this.capsuleLength = capsuleValue.map(v => (maxValue ? v / maxValue : 0));
+      this.capsuleLength = capsuleValue.map(v => (maxValue ? v / maxValue : 0))
 
-      const oneFifth = maxValue / 5;
+      const oneFifth = maxValue / 5
 
       const labelData = Array.from(
         new Set(new Array(6).fill(0).map((v, i) => Math.ceil(i * oneFifth)))
-      );
+      )
 
-      this.labelData = labelData;
+      this.labelData = labelData
 
       this.labelDataLength = Array.from(labelData).map(v =>
         maxValue ? v / maxValue : 0
-      );
+      )
     },
     /**
      * 计算x轴label位置
      */
     calcUnitLabelStyle(index) {
-      if((this.labelData.length - 1) === index){
-        return `right: 0;`;
+      if (this.labelData.length - 1 === index) {
+        return `right: 0;`
       }
-      return  `left: ${this.labelDataLength[index] * 100}%;`;
+      return `left: ${this.labelDataLength[index] * 100}%;`
     }
   },
   mounted() {
-    const { calcData } = this;
+    const { calcData } = this
 
-    calcData();
+    calcData()
   }
-};
+}
 </script>
