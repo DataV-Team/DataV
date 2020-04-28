@@ -19664,7 +19664,7 @@
 
   //
   var script$s = {
-    name: 'DvActiveRingChart',
+    name: "DvActiveRingChart",
     components: {
       dvDigitalFlop: __vue_component__$r
     },
@@ -19684,7 +19684,7 @@
            * @default radius = '50%'
            * @example radius = '50%' | 100
            */
-          radius: '50%',
+          radius: "50%",
 
           /**
            * @description Active ring radius
@@ -19692,7 +19692,7 @@
            * @default activeRadius = '55%'
            * @example activeRadius = '55%' | 110
            */
-          activeRadius: '55%',
+          activeRadius: "55%",
 
           /**
            * @description Ring data
@@ -19700,7 +19700,7 @@
            * @default data = [{ name: '', value: 0 }]
            */
           data: [{
-            name: '',
+            name: "",
             value: 0
           }],
 
@@ -19732,7 +19732,7 @@
            */
           digitalFlopStyle: {
             fontSize: 25,
-            fill: '#fff'
+            fill: "#fff"
           },
 
           /**
@@ -19746,19 +19746,26 @@
            * @type {String}
            * @default animationCurve = 'easeOutCubic'
            */
-          animationCurve: 'easeOutCubic',
+          animationCurve: "easeOutCubic",
 
           /**
            * @description CRender animationFrame
            * @type {String}
            * @default animationFrame = 50
            */
-          animationFrame: 50
+          animationFrame: 50,
+
+          /**
+           * @description CRender showOriginalValue
+           * @type {Boolean}
+           * @default showOriginalValue = false
+           */
+          showOriginalValue: false
         },
         mergedConfig: null,
         chart: null,
         activeIndex: 0,
-        animationHandler: ''
+        animationHandler: ""
       };
     },
 
@@ -19772,16 +19779,25 @@
         const {
           digitalFlopStyle,
           digitalFlopToFixed,
-          data
+          data,
+          showOriginalValue
         } = mergedConfig;
         const value = data.map(({
           value
         }) => value);
-        const sum = value.reduce((all, v) => all + v, 0);
-        const percent = parseFloat(value[activeIndex] / sum * 100) || 0;
+        let displayValue;
+
+        if (showOriginalValue) {
+          displayValue = value[activeIndex];
+        } else {
+          const sum = value.reduce((all, v) => all + v, 0);
+          const percent = parseFloat(value[activeIndex] / sum * 100) || 0;
+          displayValue = percent;
+        }
+
         return {
-          content: '{nt}%',
-          number: [percent],
+          content: showOriginalValue ? "{nt}" : "{nt}%",
+          number: [displayValue],
           style: digitalFlopStyle,
           toFixed: digitalFlopToFixed
         };
@@ -19792,7 +19808,7 @@
           mergedConfig,
           activeIndex
         } = this;
-        if (!mergedConfig) return '';
+        if (!mergedConfig) return "";
         return mergedConfig.data[activeIndex].name;
       },
 
@@ -19800,7 +19816,7 @@
         const {
           mergedConfig
         } = this;
-        if (!mergedConfig) return '';
+        if (!mergedConfig) return "";
         return `font-size: ${mergedConfig.digitalFlopStyle.fontSize}px;`;
       }
 
@@ -19835,7 +19851,7 @@
         const {
           $refs
         } = this;
-        this.chart = new Charts($refs['active-ring-chart']);
+        this.chart = new Charts($refs["active-ring-chart"]);
       },
 
       mergeConfig() {
@@ -19868,7 +19884,7 @@
         });
         return {
           series: [{
-            type: 'pie',
+            type: "pie",
             ...mergedConfig,
             outsideLabel: {
               show: false
@@ -19891,7 +19907,7 @@
         const maxRadius = Math.min(...chart.render.area) / 2;
         const halfLineWidth = lineWidth / 2;
         let realRadius = active ? activeRadius : radius;
-        if (typeof realRadius !== 'number') realRadius = parseInt(realRadius) / 100 * maxRadius;
+        if (typeof realRadius !== "number") realRadius = parseInt(realRadius) / 100 * maxRadius;
         const insideRadius = realRadius - halfLineWidth;
         const outSideRadius = realRadius + halfLineWidth;
         return [insideRadius, outSideRadius];
@@ -19981,7 +19997,7 @@
     /* style */
     const __vue_inject_styles__$s = function (inject) {
       if (!inject) return
-      inject("data-v-5ae6468a_0", { source: ".dv-active-ring-chart {\n  position: relative;\n}\n.dv-active-ring-chart .active-ring-chart-container {\n  width: 100%;\n  height: 100%;\n}\n.dv-active-ring-chart .active-ring-info {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0px;\n  top: 0px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.dv-active-ring-chart .active-ring-info .dv-digital-flop {\n  width: 100px;\n  height: 30px;\n}\n.dv-active-ring-chart .active-ring-info .active-ring-name {\n  width: 100px;\n  height: 30px;\n  color: #fff;\n  text-align: center;\n  vertical-align: middle;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,kBAAkB;AACpB;AACA;EACE,WAAW;EACX,YAAY;AACd;AACA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;EACZ,SAAS;EACT,QAAQ;EACR,aAAa;EACb,sBAAsB;EACtB,uBAAuB;EACvB,mBAAmB;AACrB;AACA;EACE,YAAY;EACZ,YAAY;AACd;AACA;EACE,YAAY;EACZ,YAAY;EACZ,WAAW;EACX,kBAAkB;EAClB,sBAAsB;EACtB,uBAAuB;EACvB,gBAAgB;EAChB,mBAAmB;AACrB","file":"main.vue","sourcesContent":[".dv-active-ring-chart {\n  position: relative;\n}\n.dv-active-ring-chart .active-ring-chart-container {\n  width: 100%;\n  height: 100%;\n}\n.dv-active-ring-chart .active-ring-info {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0px;\n  top: 0px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.dv-active-ring-chart .active-ring-info .dv-digital-flop {\n  width: 100px;\n  height: 30px;\n}\n.dv-active-ring-chart .active-ring-info .active-ring-name {\n  width: 100px;\n  height: 30px;\n  color: #fff;\n  text-align: center;\n  vertical-align: middle;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n"]}, media: undefined });
+      inject("data-v-51d776c6_0", { source: ".dv-active-ring-chart {\n  position: relative;\n}\n.dv-active-ring-chart .active-ring-chart-container {\n  width: 100%;\n  height: 100%;\n}\n.dv-active-ring-chart .active-ring-info {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0px;\n  top: 0px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.dv-active-ring-chart .active-ring-info .dv-digital-flop {\n  width: 100px;\n  height: 30px;\n}\n.dv-active-ring-chart .active-ring-info .active-ring-name {\n  width: 100px;\n  height: 30px;\n  color: #fff;\n  text-align: center;\n  vertical-align: middle;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,kBAAkB;AACpB;AACA;EACE,WAAW;EACX,YAAY;AACd;AACA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;EACZ,SAAS;EACT,QAAQ;EACR,aAAa;EACb,sBAAsB;EACtB,uBAAuB;EACvB,mBAAmB;AACrB;AACA;EACE,YAAY;EACZ,YAAY;AACd;AACA;EACE,YAAY;EACZ,YAAY;EACZ,WAAW;EACX,kBAAkB;EAClB,sBAAsB;EACtB,uBAAuB;EACvB,gBAAgB;EAChB,mBAAmB;AACrB","file":"main.vue","sourcesContent":[".dv-active-ring-chart {\n  position: relative;\n}\n.dv-active-ring-chart .active-ring-chart-container {\n  width: 100%;\n  height: 100%;\n}\n.dv-active-ring-chart .active-ring-info {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0px;\n  top: 0px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.dv-active-ring-chart .active-ring-info .dv-digital-flop {\n  width: 100px;\n  height: 30px;\n}\n.dv-active-ring-chart .active-ring-info .active-ring-name {\n  width: 100px;\n  height: 30px;\n  color: #fff;\n  text-align: center;\n  vertical-align: middle;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n"]}, media: undefined });
 
     };
     /* scoped */

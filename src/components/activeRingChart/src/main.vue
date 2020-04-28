@@ -9,16 +9,16 @@
 </template>
 
 <script>
-import Charts from '@jiaminghi/charts'
+import Charts from "@jiaminghi/charts";
 
-import dvDigitalFlop from '../../digitalFlop/src/main.vue'
+import dvDigitalFlop from "../../digitalFlop/src/main.vue";
 
-import { deepMerge } from '@jiaminghi/charts/lib/util/index'
+import { deepMerge } from "@jiaminghi/charts/lib/util/index";
 
-import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
+import { deepClone } from "@jiaminghi/c-render/lib/plugin/util";
 
 export default {
-  name: 'DvActiveRingChart',
+  name: "DvActiveRingChart",
   components: {
     dvDigitalFlop
   },
@@ -28,7 +28,7 @@ export default {
       default: () => ({})
     }
   },
-  data () {
+  data() {
     return {
       defaultConfig: {
         /**
@@ -37,20 +37,20 @@ export default {
          * @default radius = '50%'
          * @example radius = '50%' | 100
          */
-        radius: '50%',
+        radius: "50%",
         /**
          * @description Active ring radius
          * @type {String|Number}
          * @default activeRadius = '55%'
          * @example activeRadius = '55%' | 110
          */
-        activeRadius: '55%',
+        activeRadius: "55%",
         /**
          * @description Ring data
          * @type {Array<Object>}
          * @default data = [{ name: '', value: 0 }]
          */
-        data: [{ name: '', value: 0 }],
+        data: [{ name: "", value: 0 }],
         /**
          * @description Ring line width
          * @type {Number}
@@ -76,7 +76,7 @@ export default {
          */
         digitalFlopStyle: {
           fontSize: 25,
-          fill: '#fff'
+          fill: "#fff"
         },
         /**
          * @description Digital flop toFixed
@@ -88,13 +88,19 @@ export default {
          * @type {String}
          * @default animationCurve = 'easeOutCubic'
          */
-        animationCurve: 'easeOutCubic',
+        animationCurve: "easeOutCubic",
         /**
          * @description CRender animationFrame
          * @type {String}
          * @default animationFrame = 50
          */
-        animationFrame: 50
+        animationFrame: 50,
+        /**
+         * @description CRender showOriginalValue
+         * @type {Boolean}
+         * @default showOriginalValue = false
+         */
+        showOriginalValue: false
       },
 
       mergedConfig: null,
@@ -103,100 +109,116 @@ export default {
 
       activeIndex: 0,
 
-      animationHandler: ''
-    }
+      animationHandler: ""
+    };
   },
   computed: {
-    digitalFlop () {
-      const { mergedConfig, activeIndex } = this
+    digitalFlop() {
+      const { mergedConfig, activeIndex } = this;
 
-      if (!mergedConfig) return {}
+      if (!mergedConfig) return {};
 
-      const { digitalFlopStyle, digitalFlopToFixed, data } = mergedConfig
+      const {
+        digitalFlopStyle,
+        digitalFlopToFixed,
+        data,
+        showOriginalValue
+      } = mergedConfig;
 
-      const value = data.map(({ value }) => value)
+      const value = data.map(({ value }) => value);
 
-      const sum = value.reduce((all, v) => all + v, 0)
+      let displayValue;
 
-      const percent = parseFloat(value[activeIndex] / sum * 100) || 0
+      if (showOriginalValue) {
+        displayValue = value[activeIndex];
+      } else {
+        const sum = value.reduce((all, v) => all + v, 0);
+
+        const percent = parseFloat((value[activeIndex] / sum) * 100) || 0;
+
+        displayValue = percent;
+      }
 
       return {
-        content: '{nt}%',
-        number: [percent],
+        content: showOriginalValue ? "{nt}" : "{nt}%",
+        number: [displayValue],
         style: digitalFlopStyle,
         toFixed: digitalFlopToFixed
-      }
+      };
     },
-    ringName () {
-      const { mergedConfig, activeIndex } = this
+    ringName() {
+      const { mergedConfig, activeIndex } = this;
 
-      if (!mergedConfig) return ''
+      if (!mergedConfig) return "";
 
-      return mergedConfig.data[activeIndex].name
+      return mergedConfig.data[activeIndex].name;
     },
-    fontSize () {
-      const { mergedConfig } = this
+    fontSize() {
+      const { mergedConfig } = this;
 
-      if (!mergedConfig) return ''
+      if (!mergedConfig) return "";
 
-      return `font-size: ${mergedConfig.digitalFlopStyle.fontSize}px;`
+      return `font-size: ${mergedConfig.digitalFlopStyle.fontSize}px;`;
     }
   },
   watch: {
-    config () {
-      const { animationHandler, mergeConfig, setRingOption } = this
+    config() {
+      const { animationHandler, mergeConfig, setRingOption } = this;
 
-      clearTimeout(animationHandler)
+      clearTimeout(animationHandler);
 
-      this.activeIndex = 0
+      this.activeIndex = 0;
 
-      mergeConfig()
+      mergeConfig();
 
-      setRingOption()
+      setRingOption();
     }
   },
   methods: {
-    init () {
-      const { initChart, mergeConfig, setRingOption } = this
+    init() {
+      const { initChart, mergeConfig, setRingOption } = this;
 
-      initChart()
+      initChart();
 
-      mergeConfig()
+      mergeConfig();
 
-      setRingOption()
+      setRingOption();
     },
-    initChart () {
-      const { $refs } = this
+    initChart() {
+      const { $refs } = this;
 
-      this.chart = new Charts($refs['active-ring-chart'])
+      this.chart = new Charts($refs["active-ring-chart"]);
     },
-    mergeConfig () {
-      const { defaultConfig, config } = this
+    mergeConfig() {
+      const { defaultConfig, config } = this;
 
-      this.mergedConfig = deepMerge(deepClone(defaultConfig, true), config || {})
+      this.mergedConfig = deepMerge(
+        deepClone(defaultConfig, true),
+        config || {}
+      );
     },
-    setRingOption () {
-      const { getRingOption, chart, ringAnimation } = this
+    setRingOption() {
+      const { getRingOption, chart, ringAnimation } = this;
 
-      const option = getRingOption()
+      const option = getRingOption();
 
-      chart.setOption(option, true)
+      chart.setOption(option, true);
 
-      ringAnimation()
+      ringAnimation();
     },
-    getRingOption () {
-      const { mergedConfig, getRealRadius } = this
+    getRingOption() {
+      const { mergedConfig, getRealRadius } = this;
 
-      const radius = getRealRadius()
+      const radius = getRealRadius();
 
       mergedConfig.data.forEach(dataItem => {
-        dataItem.radius = radius
-      })
+        dataItem.radius = radius;
+      });
 
       return {
         series: [
           {
-            type: 'pie',
+            type: "pie",
             ...mergedConfig,
             outsideLabel: {
               show: false
@@ -204,70 +226,71 @@ export default {
           }
         ],
         color: mergedConfig.color
-      }
+      };
     },
-    getRealRadius (active = false) {
-      const { mergedConfig, chart } = this
+    getRealRadius(active = false) {
+      const { mergedConfig, chart } = this;
 
-      const { radius, activeRadius, lineWidth } = mergedConfig
+      const { radius, activeRadius, lineWidth } = mergedConfig;
 
-      const maxRadius = Math.min(...chart.render.area) / 2
+      const maxRadius = Math.min(...chart.render.area) / 2;
 
-      const halfLineWidth = lineWidth / 2
+      const halfLineWidth = lineWidth / 2;
 
-      let realRadius = active ? activeRadius : radius
+      let realRadius = active ? activeRadius : radius;
 
-      if (typeof realRadius !== 'number') realRadius = parseInt(realRadius) / 100 * maxRadius
+      if (typeof realRadius !== "number")
+        realRadius = (parseInt(realRadius) / 100) * maxRadius;
 
-      const insideRadius = realRadius - halfLineWidth
-      const outSideRadius = realRadius + halfLineWidth
+      const insideRadius = realRadius - halfLineWidth;
+      const outSideRadius = realRadius + halfLineWidth;
 
-      return [insideRadius, outSideRadius]
+      return [insideRadius, outSideRadius];
     },
-    ringAnimation () {
-      let { activeIndex, getRingOption, chart, getRealRadius } = this
+    ringAnimation() {
+      let { activeIndex, getRingOption, chart, getRealRadius } = this;
 
-      const radius = getRealRadius()
-      const active = getRealRadius(true)
+      const radius = getRealRadius();
+      const active = getRealRadius(true);
 
-      const option = getRingOption()
+      const option = getRingOption();
 
-      const { data } = option.series[0]
+      const { data } = option.series[0];
 
       data.forEach((dataItem, i) => {
         if (i === activeIndex) {
-          dataItem.radius = active
+          dataItem.radius = active;
         } else {
-          dataItem.radius = radius
+          dataItem.radius = radius;
         }
-      })
+      });
 
-      chart.setOption(option, true)
+      chart.setOption(option, true);
 
-      const { activeTimeGap } = option.series[0]
+      const { activeTimeGap } = option.series[0];
 
       this.animationHandler = setTimeout(foo => {
-        activeIndex += 1
+        activeIndex += 1;
 
-        if (activeIndex >= data.length) activeIndex = 0
+        if (activeIndex >= data.length) activeIndex = 0;
 
-        this.activeIndex = activeIndex
+        this.activeIndex = activeIndex;
 
-        this.ringAnimation()
-      }, activeTimeGap)
+        this.ringAnimation();
+      }, activeTimeGap);
     }
   },
-  mounted () {
-    const { init } = this
+  mounted() {
+    const { init } = this;
 
-    init()
+    init();
   },
-  beforeDestroy () {
-    const { animationHandler } = this
+  beforeDestroy() {
+    const { animationHandler } = this;
 
-    clearTimeout(animationHandler)
+    clearTimeout(animationHandler);
   }
-}
+};
 </script>
 
 <style lang="less">
