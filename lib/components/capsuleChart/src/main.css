@@ -32,6 +32,7 @@
   border-radius: 5px;
 }
 .dv-capsule-chart .capsule-item div {
+  position: relative;
   height: 8px;
   margin-top: 1px;
   border-radius: 5px;

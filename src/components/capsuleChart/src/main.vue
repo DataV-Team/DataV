@@ -192,6 +192,7 @@ export default {
     border-radius: 5px;
 
     div {
+      position: relative;
       height: 8px;
       margin-top: 1px;
       border-radius: 5px;
