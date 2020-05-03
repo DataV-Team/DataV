@@ -19459,6 +19459,13 @@
           textAlign: 'center',
 
           /**
+           * @description rowGap
+           * @type {Number}
+           @default rowGap = 0
+           */
+          rowGap: 0,
+
+          /**
            * @description Text style configuration
            * @type {Object} {CRender Class Style}
            */
@@ -19549,7 +19556,8 @@
           number,
           content,
           toFixed,
-          textAlign
+          textAlign,
+          rowGap
         } = this.mergedConfig;
         const [w, h] = this.renderer.area;
         const position = [w / 2, h / 2];
@@ -19559,7 +19567,8 @@
           number,
           content,
           toFixed,
-          position
+          position,
+          rowGap
         };
       },
 
@@ -19634,7 +19643,7 @@
     /* style */
     const __vue_inject_styles__$r = function (inject) {
       if (!inject) return
-      inject("data-v-2cf25a2e_0", { source: ".dv-digital-flop canvas {\n  width: 100%;\n  height: 100%;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,WAAW;EACX,YAAY;AACd","file":"main.vue","sourcesContent":[".dv-digital-flop canvas {\n  width: 100%;\n  height: 100%;\n}\n"]}, media: undefined });
+      inject("data-v-4570caa9_0", { source: ".dv-digital-flop canvas {\n  width: 100%;\n  height: 100%;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,WAAW;EACX,YAAY;AACd","file":"main.vue","sourcesContent":[".dv-digital-flop canvas {\n  width: 100%;\n  height: 100%;\n}\n"]}, media: undefined });
 
     };
     /* scoped */
