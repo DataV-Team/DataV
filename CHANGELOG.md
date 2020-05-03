@@ -1,9 +1,9 @@
-# 2.8.0-alpha (2020-04-25)
+# 2.8.1-alpha (2020-05-03)
 
 ### Perfect
 
-- **borderBox:** Add backgroundColor configuration.
-- **capsuleChart:** Improve compatibility.
+- **digitalFlop:** Use `\n` to start a newline.
+- **digitalFlop:** `rowGap` configuration.
 
 # 2.7.4-alpha (2020-04-15)
 
