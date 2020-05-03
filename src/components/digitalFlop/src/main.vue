@@ -54,6 +54,12 @@ export default {
          */
         textAlign: 'center',
         /**
+         * @description rowGap
+         * @type {Number}
+         @default rowGap = 0
+         */
+        rowGap: 0,
+        /**
          * @description Text style configuration
          * @type {Object} {CRender Class Style}
          */
@@ -124,7 +130,7 @@ export default {
       })
     },
     getShape () {
-      const { number, content, toFixed, textAlign } = this.mergedConfig
+      const { number, content, toFixed, textAlign, rowGap } = this.mergedConfig
 
       const [w, h] = this.renderer.area
 
@@ -137,7 +143,8 @@ export default {
         number,
         content,
         toFixed,
-        position
+        position,
+        rowGap
       }
     },
     getStyle () {
