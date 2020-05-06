@@ -1,3 +1,9 @@
+# 2.8.2-alpha (2020-05-06)
+
+### Perfect
+
+- **borderBox8:** add `reverse` configuration.
+
 # 2.8.1-alpha (2020-05-03)
 
 ### Perfect
