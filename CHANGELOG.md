@@ -1,3 +1,10 @@
+# 2.8.3-alpha (2020-05-06)
+
+### Perfect
+
+- **activeRingChart:** add `showOriginValue` configuration.
+- **capsuleChart:** add `showValue` configuration.
+
 # 2.8.2-alpha (2020-05-06)
 
 ### Perfect
