@@ -16907,13 +16907,15 @@
       var sum = getDataSum(data);
       data.forEach(function (item) {
         var value = item.value;
-        item.percent = toFixedNoCeil(value / sum * 100, percentToFixed);
+        item.percent = value / sum * 100;
+        item.percentForLabel = toFixedNoCeil(value / sum * 100, percentToFixed);
       });
       var percentSumNoLast = (0, util$1.mulAdd)(data.slice(0, -1).map(function (_ref5) {
         var percent = _ref5.percent;
         return percent;
       }));
-      data.slice(-1)[0].percent = toFixedNoCeil(100 - percentSumNoLast, percentToFixed);
+      data.slice(-1)[0].percent = 100 - percentSumNoLast;
+      data.slice(-1)[0].percentForLabel = toFixedNoCeil(100 - percentSumNoLast, percentToFixed);
     });
     return pies;
   }
@@ -17185,7 +17187,7 @@
 
     if (formatterType === 'string') {
       label = formatter.replace('{name}', dataItem.name);
-      label = label.replace('{percent}', dataItem.percent);
+      label = label.replace('{percent}', dataItem.percentForLabel);
       label = label.replace('{value}', dataItem.value);
     }
 
@@ -17284,14 +17286,14 @@
     var _data$i = data[i],
         labelLine = _data$i.labelLine,
         name = _data$i.name,
-        percent = _data$i.percent,
+        percentForLabel = _data$i.percentForLabel,
         value = _data$i.value;
     var formatterType = (0, _typeof2["default"])(formatter);
     var label = '';
 
     if (formatterType === 'string') {
       label = formatter.replace('{name}', name);
-      label = label.replace('{percent}', percent);
+      label = label.replace('{percent}', percentForLabel);
       label = label.replace('{value}', value);
     }
 
