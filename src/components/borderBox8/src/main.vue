@@ -4,7 +4,7 @@
       <defs>
         <path
           :id="path"
-          :d="`M2.5, 2.5 L${width - 2.5}, 2.5 L${width - 2.5}, ${height - 2.5} L2.5, ${height - 2.5} L2.5, 2.5`"
+          :d="pathD"
           fill="transparent"
         />
         <radialGradient
@@ -25,7 +25,7 @@
           <circle cx="0" cy="0" r="150" :fill="`url(#${gradient})`">
             <animateMotion
               :dur="`${dur}s`"
-              :path="`M2.5, 2.5 L${width - 2.5}, 2.5 L${width - 2.5}, ${height - 2.5} L2.5, ${height - 2.5} L2.5, 2.5`"
+              :path="pathD"
               rotate="auto"
               repeatCount="indefinite"
             />
@@ -85,6 +85,10 @@ export default {
     backgroundColor: {
       type: String,
       default: 'transparent'
+    },
+    reverse: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -105,6 +109,13 @@ export default {
       const { width, height } = this
 
       return (width + height - 5) * 2
+    },
+    pathD () {
+      const { reverse, width, height } = this
+
+      if (reverse) return `M 2.5, 2.5 L 2.5, ${height - 2.5} L ${width - 2.5}, ${height - 2.5} L ${width - 2.5}, 2.5 L 2.5, 2.5`
+
+      return `M2.5, 2.5 L${width - 2.5}, 2.5 L${width - 2.5}, ${height - 2.5} L2.5, ${height - 2.5} L2.5, 2.5`
     }
   },
   watch: {
