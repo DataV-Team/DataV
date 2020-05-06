@@ -31,28 +31,27 @@
   margin: 5px 0px;
   border-radius: 5px;
 }
-.dv-capsule-chart .capsule-item div {
+.dv-capsule-chart .capsule-item .capsule-item-column {
   position: relative;
   height: 8px;
   margin-top: 1px;
   border-radius: 5px;
   transition: all 0.3s;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
-.dv-capsule-chart .capsule-item div .capsule-item-val {
-  position: absolute;
-  top: -5px;
+.dv-capsule-chart .capsule-item .capsule-item-column .capsule-item-value {
   font-size: 12px;
+  transform: translateX(100%);
 }
 .dv-capsule-chart .unit-label {
   height: 20px;
   font-size: 12px;
   position: relative;
-}
-.dv-capsule-chart .unit-label:not(:first-child) {
-  text-align: right;
-}
-.dv-capsule-chart .unit-label div {
-  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .dv-capsule-chart .unit-text {
   text-align: right;
