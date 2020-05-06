@@ -96,11 +96,11 @@ export default {
          */
         animationFrame: 50,
         /**
-         * @description CRender showOriginalValue
+         * @description showOriginValue
          * @type {Boolean}
-         * @default showOriginalValue = false
+         * @default showOriginValue = false
          */
-        showOriginalValue: false
+        showOriginValue: false
       },
 
       mergedConfig: null,
@@ -122,14 +122,14 @@ export default {
         digitalFlopStyle,
         digitalFlopToFixed,
         data,
-        showOriginalValue
+        showOriginValue
       } = mergedConfig
 
       const value = data.map(({ value }) => value)
 
       let displayValue
 
-      if (showOriginalValue) {
+      if (showOriginValue) {
         displayValue = value[activeIndex]
       } else {
         const sum = value.reduce((all, v) => all + v, 0)
@@ -140,7 +140,7 @@ export default {
       }
 
       return {
-        content: showOriginalValue ? '{nt}' : '{nt}%',
+        content: showOriginValue ? '{nt}' : '{nt}%',
         number: [displayValue],
         style: digitalFlopStyle,
         toFixed: digitalFlopToFixed
