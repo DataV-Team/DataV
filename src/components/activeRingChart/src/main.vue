@@ -28,7 +28,7 @@ export default {
       default: () => ({})
     }
   },
-  data () {
+  data() {
     return {
       defaultConfig: {
         /**
@@ -94,7 +94,13 @@ export default {
          * @type {String}
          * @default animationFrame = 50
          */
-        animationFrame: 50
+        animationFrame: 50,
+        /**
+         * @description CRender showOriginalValue
+         * @type {Boolean}
+         * @default showOriginalValue = false
+         */
+        showOriginalValue: false
       },
 
       mergedConfig: null,
@@ -107,34 +113,47 @@ export default {
     }
   },
   computed: {
-    digitalFlop () {
+    digitalFlop() {
       const { mergedConfig, activeIndex } = this
 
       if (!mergedConfig) return {}
 
-      const { digitalFlopStyle, digitalFlopToFixed, data } = mergedConfig
+      const {
+        digitalFlopStyle,
+        digitalFlopToFixed,
+        data,
+        showOriginalValue
+      } = mergedConfig
 
       const value = data.map(({ value }) => value)
 
-      const sum = value.reduce((all, v) => all + v, 0)
+      let displayValue
 
-      const percent = parseFloat(value[activeIndex] / sum * 100) || 0
+      if (showOriginalValue) {
+        displayValue = value[activeIndex]
+      } else {
+        const sum = value.reduce((all, v) => all + v, 0)
+
+        const percent = parseFloat((value[activeIndex] / sum) * 100) || 0
+
+        displayValue = percent
+      }
 
       return {
-        content: '{nt}%',
-        number: [percent],
+        content: showOriginalValue ? '{nt}' : '{nt}%',
+        number: [displayValue],
         style: digitalFlopStyle,
         toFixed: digitalFlopToFixed
       }
     },
-    ringName () {
+    ringName() {
       const { mergedConfig, activeIndex } = this
 
       if (!mergedConfig) return ''
 
       return mergedConfig.data[activeIndex].name
     },
-    fontSize () {
+    fontSize() {
       const { mergedConfig } = this
 
       if (!mergedConfig) return ''
@@ -143,7 +162,7 @@ export default {
     }
   },
   watch: {
-    config () {
+    config() {
       const { animationHandler, mergeConfig, setRingOption } = this
 
       clearTimeout(animationHandler)
@@ -156,7 +175,7 @@ export default {
     }
   },
   methods: {
-    init () {
+    init() {
       const { initChart, mergeConfig, setRingOption } = this
 
       initChart()
@@ -165,17 +184,20 @@ export default {
 
       setRingOption()
     },
-    initChart () {
+    initChart() {
       const { $refs } = this
 
       this.chart = new Charts($refs['active-ring-chart'])
     },
-    mergeConfig () {
+    mergeConfig() {
       const { defaultConfig, config } = this
 
-      this.mergedConfig = deepMerge(deepClone(defaultConfig, true), config || {})
+      this.mergedConfig = deepMerge(
+        deepClone(defaultConfig, true),
+        config || {}
+      )
     },
-    setRingOption () {
+    setRingOption() {
       const { getRingOption, chart, ringAnimation } = this
 
       const option = getRingOption()
@@ -184,7 +206,7 @@ export default {
 
       ringAnimation()
     },
-    getRingOption () {
+    getRingOption() {
       const { mergedConfig, getRealRadius } = this
 
       const radius = getRealRadius()
@@ -206,7 +228,7 @@ export default {
         color: mergedConfig.color
       }
     },
-    getRealRadius (active = false) {
+    getRealRadius(active = false) {
       const { mergedConfig, chart } = this
 
       const { radius, activeRadius, lineWidth } = mergedConfig
@@ -217,14 +239,15 @@ export default {
 
       let realRadius = active ? activeRadius : radius
 
-      if (typeof realRadius !== 'number') realRadius = parseInt(realRadius) / 100 * maxRadius
+      if (typeof realRadius !== 'number')
+        realRadius = (parseInt(realRadius) / 100) * maxRadius
 
       const insideRadius = realRadius - halfLineWidth
       const outSideRadius = realRadius + halfLineWidth
 
       return [insideRadius, outSideRadius]
     },
-    ringAnimation () {
+    ringAnimation() {
       let { activeIndex, getRingOption, chart, getRealRadius } = this
 
       const radius = getRealRadius()
@@ -257,12 +280,12 @@ export default {
       }, activeTimeGap)
     }
   },
-  mounted () {
+  mounted() {
     const { init } = this
 
     init()
   },
-  beforeDestroy () {
+  beforeDestroy() {
     const { animationHandler } = this
 
     clearTimeout(animationHandler)
