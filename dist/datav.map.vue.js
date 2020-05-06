@@ -604,7 +604,7 @@
     if (typeof o === "string") return arrayLikeToArray(o, minLen);
     var n = Object.prototype.toString.call(o).slice(8, -1);
     if (n === "Object" && o.constructor) n = o.constructor.name;
-    if (n === "Map" || n === "Set") return Array.from(n);
+    if (n === "Map" || n === "Set") return Array.from(o);
     if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
   }
 
@@ -2939,6 +2939,10 @@
       backgroundColor: {
         type: String,
         default: 'transparent'
+      },
+      reverse: {
+        type: Boolean,
+        default: false
       }
     },
 
@@ -2961,6 +2965,16 @@
           height
         } = this;
         return (width + height - 5) * 2;
+      },
+
+      pathD() {
+        const {
+          reverse,
+          width,
+          height
+        } = this;
+        if (reverse) return `M 2.5, 2.5 L 2.5, ${height - 2.5} L ${width - 2.5}, ${height - 2.5} L ${width - 2.5}, 2.5 L 2.5, 2.5`;
+        return `M2.5, 2.5 L${width - 2.5}, 2.5 L${width - 2.5}, ${height - 2.5} L2.5, ${height - 2.5} L2.5, 2.5`;
       }
 
     },
@@ -3013,20 +3027,7 @@
             "defs",
             [
               _c("path", {
-                attrs: {
-                  id: _vm.path,
-                  d:
-                    "M2.5, 2.5 L" +
-                    (_vm.width - 2.5) +
-                    ", 2.5 L" +
-                    (_vm.width - 2.5) +
-                    ", " +
-                    (_vm.height - 2.5) +
-                    " L2.5, " +
-                    (_vm.height - 2.5) +
-                    " L2.5, 2.5",
-                  fill: "transparent"
-                }
+                attrs: { id: _vm.path, d: _vm.pathD, fill: "transparent" }
               }),
               _vm._v(" "),
               _c(
@@ -3067,16 +3068,7 @@
                     _c("animateMotion", {
                       attrs: {
                         dur: _vm.dur + "s",
-                        path:
-                          "M2.5, 2.5 L" +
-                          (_vm.width - 2.5) +
-                          ", 2.5 L" +
-                          (_vm.width - 2.5) +
-                          ", " +
-                          (_vm.height - 2.5) +
-                          " L2.5, " +
-                          (_vm.height - 2.5) +
-                          " L2.5, 2.5",
+                        path: _vm.pathD,
                         rotate: "auto",
                         repeatCount: "indefinite"
                       }
@@ -3146,7 +3138,7 @@
     /* style */
     const __vue_inject_styles__$9 = function (inject) {
       if (!inject) return
-      inject("data-v-53fbd238_0", { source: ".dv-border-box-8 {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.dv-border-box-8 svg {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0px;\n  top: 0px;\n}\n.dv-border-box-8 .border-box-content {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;AACd;AACA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;EACZ,SAAS;EACT,QAAQ;AACV;AACA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;AACd","file":"main.vue","sourcesContent":[".dv-border-box-8 {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.dv-border-box-8 svg {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0px;\n  top: 0px;\n}\n.dv-border-box-8 .border-box-content {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n"]}, media: undefined });
+      inject("data-v-5da1054e_0", { source: ".dv-border-box-8 {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.dv-border-box-8 svg {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0px;\n  top: 0px;\n}\n.dv-border-box-8 .border-box-content {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;AACd;AACA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;EACZ,SAAS;EACT,QAAQ;AACV;AACA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;AACd","file":"main.vue","sourcesContent":[".dv-border-box-8 {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.dv-border-box-8 svg {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0px;\n  top: 0px;\n}\n.dv-border-box-8 .border-box-content {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n"]}, media: undefined });
 
     };
     /* scoped */
@@ -11730,6 +11722,8 @@
 
   var CRender = unwrapExports(lib$3);
 
+  var _defineProperty2 = interopRequireDefault(defineProperty);
+
   var _toConsumableArray2 = interopRequireDefault(toConsumableArray);
 
 
@@ -11739,6 +11733,12 @@
 
 
 
+
+
+
+  function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+  function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
   var pie = {
     shape: {
@@ -11884,11 +11884,10 @@
     draw: function draw(_ref8, _ref9) {
       var ctx = _ref8.ctx;
       var shape = _ref9.shape;
-      ctx.beginPath();
       var number = shape.number,
           content = shape.content,
-          position = shape.position,
-          toFixed = shape.toFixed;
+          toFixed = shape.toFixed,
+          rowGap = shape.rowGap;
       var textSegments = content.split('{nt}');
       var lastSegmentIndex = textSegments.length - 1;
       var textString = '';
@@ -11898,9 +11897,15 @@
         if (typeof currentNumber === 'number') currentNumber = currentNumber.toFixed(toFixed);
         textString += t + (currentNumber || '');
       });
-      ctx.closePath();
-      ctx.strokeText.apply(ctx, [textString].concat((0, _toConsumableArray2["default"])(position)));
-      ctx.fillText.apply(ctx, [textString].concat((0, _toConsumableArray2["default"])(position)));
+
+      graphs_1.text.draw({
+        ctx: ctx
+      }, {
+        shape: _objectSpread({}, shape, {
+          content: textString,
+          rowGap: rowGap || 0
+        })
+      });
     }
   };
   var lineIcon = {
