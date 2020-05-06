@@ -9,13 +9,13 @@
       <div class="capsule-container">
         <div class="capsule-item" v-for="(capsule, index) in capsuleLength" :key="index">
           <div
+            class="capsule-item-column"
             :style="`width: ${capsule * 100}%; background-color: ${mergedConfig.colors[index % mergedConfig.colors.length]};`"
           >
-            <span
-              v-if="mergedConfig.showVal"
-              class="capsule-item-val"
-              :style="`right:-${`${capsuleValue[index]}`.length * 7}px`"
-            >{{ capsuleValue[index] }}</span>
+            <div
+              v-if="mergedConfig.showValue"
+              class="capsule-item-value"
+            >{{ capsuleValue[index] }}</div>
           </div>
         </div>
 
@@ -23,7 +23,6 @@
           <div
             v-for="(label, index) in labelData"
             :key="label + index"
-            :style="calcUnitLabelStyle(index)"
           >{{ label }}</div>
         </div>
       </div>
@@ -77,7 +76,12 @@ export default {
          * @default unit = ''
          */
         unit: '',
-        showVal: false
+        /**
+         * @description Show item value
+         * @type {Boolean}
+         * @default showValue = false
+         */
+        showValue: false
       },
 
       mergedConfig: null,
@@ -135,15 +139,6 @@ export default {
       this.labelDataLength = Array.from(labelData).map(v =>
         maxValue ? v / maxValue : 0
       )
-    },
-    /**
-     * 计算x轴label位置
-     */
-    calcUnitLabelStyle(index) {
-      if (this.labelData.length - 1 === index) {
-        return `right: 0;`
-      }
-      return `left: ${this.labelDataLength[index] * 100}%;`
     }
   },
   mounted() {
@@ -191,17 +186,19 @@ export default {
     margin: 5px 0px;
     border-radius: 5px;
 
-    div {
+    .capsule-item-column {
       position: relative;
       height: 8px;
       margin-top: 1px;
       border-radius: 5px;
       transition: all 0.3s;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
 
-      .capsule-item-val {
-        position: absolute;
-        top: -5px;
+      .capsule-item-value {
         font-size: 12px;
+        transform: translateX(100%);
       }
     }
   }
@@ -210,14 +207,9 @@ export default {
     height: 20px;
     font-size: 12px;
     position: relative;
-
-    &:not(:first-child) {
-      text-align: right;
-    }
-
-    div {
-      position: absolute;
-    }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .unit-text {
