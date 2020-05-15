@@ -171,14 +171,19 @@ export default {
     }
   },
   data () {
-    const timestamp = Date.now()
+    let d = new Date().getTime();
+    const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = (d + Math.random()*16)%16 | 0;
+      d = Math.floor(d/16);
+      return (c=='x' ? r : (r&0x7|0x8)).toString(16);
+   });
     return {
       ref: 'dv-flyline-chart',
       unique: Math.random(),
-      maskId: `flyline-mask-id-${timestamp}`,
-      maskCircleId: `mask-circle-id-${timestamp}`,
-      gradientId: `gradient-id-${timestamp}`,
-      gradient2Id: `gradient2-id-${timestamp}`,
+      maskId: `flyline-mask-id-${uuid}`,
+      maskCircleId: `mask-circle-id-${uuid}`,
+      gradientId: `gradient-id-${uuid}`,
+      gradient2Id: `gradient2-id-${uuid}`,
 
       defaultConfig: {
         /**

@@ -173,12 +173,17 @@ export default {
     }
   },
   data () {
-    const timestamp = Date.now()
+    let d = new Date().getTime();
+    const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = (d + Math.random()*16)%16 | 0;
+      d = Math.floor(d/16);
+      return (c=='x' ? r : (r&0x7|0x8)).toString(16);
+   });
     return {
       ref: 'dv-flyline-chart-enhanced',
       unique: Math.random(),
-      flylineGradientId: `flyline-gradient-id-${timestamp}`,
-      haloGradientId: `halo-gradient-id-${timestamp}`,
+      flylineGradientId: `flyline-gradient-id-${uuid}`,
+      haloGradientId: `halo-gradient-id-${uuid}`,
       /**
        * @description Type Declaration
        * 

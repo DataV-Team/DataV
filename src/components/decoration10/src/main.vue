@@ -162,17 +162,22 @@ export default {
     }
   },
   data () {
-    const timestamp = Date.now()
+    let d = new Date().getTime();
+    const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = (d + Math.random()*16)%16 | 0;
+      d = Math.floor(d/16);
+      return (c=='x' ? r : (r&0x7|0x8)).toString(16);
+   });
     return {
       ref: 'decoration-10',
 
-      animationId1: `d10ani1${timestamp}`,
-      animationId2: `d10ani2${timestamp}`,
-      animationId3: `d10ani3${timestamp}`,
-      animationId4: `d10ani4${timestamp}`,
-      animationId5: `d10ani5${timestamp}`,
-      animationId6: `d10ani6${timestamp}`,
-      animationId7: `d10ani7${timestamp}`,
+      animationId1: `d10ani1${uuid}`,
+      animationId2: `d10ani2${uuid}`,
+      animationId3: `d10ani3${uuid}`,
+      animationId4: `d10ani4${uuid}`,
+      animationId5: `d10ani5${uuid}`,
+      animationId6: `d10ani6${uuid}`,
+      animationId7: `d10ani7${uuid}`,
 
       defaultColor: ['#00c2ff', 'rgba(0, 194, 255, 0.3)'],
 
