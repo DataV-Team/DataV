@@ -1,3 +1,9 @@
+# 2.8.4-alpha (2020-05-25)
+
+### Perfect
+
+- **uuid:** Use uuid to produce unique id.
+
 # 2.8.3-alpha (2020-05-06)
 
 ### Perfect
