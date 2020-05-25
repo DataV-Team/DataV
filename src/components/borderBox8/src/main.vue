@@ -65,6 +65,7 @@
 
 <script>
 import autoResize from '../../../mixin/autoResize'
+import { uuid } from '../../../util/index'
 
 import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
@@ -92,12 +93,12 @@ export default {
     }
   },
   data () {
-    const timestamp = Date.now()
+    const id = uuid()
     return {
       ref: 'border-box-8',
-      path: `border-box-8-path-${timestamp}`,
-      gradient: `border-box-8-gradient-${timestamp}`,
-      mask: `border-box-8-mask-${timestamp}`,
+      path: `border-box-8-path-${id}`,
+      gradient: `border-box-8-gradient-${id}`,
+      mask: `border-box-8-mask-${id}`,
 
       defaultColor: ['#235fa7', '#4fd2dd'],
 

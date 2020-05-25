@@ -83,23 +83,26 @@ export default {
     display: flex;
     overflow: hidden;
     position: absolute;
+    flex: 1;
   }
 
   .normal {
-    height: 0% !important;
     animation: ani-height 3s ease-in-out infinite;
     left: 50%;
     margin-left: -2px;
   }
 
   .reverse {
-    width: 0% !important;
     animation: ani-width 3s ease-in-out infinite;
     top: 50%;
     margin-top: -2px;
   }
 
   @keyframes ani-height {
+    0% {
+      height: 0%;
+    }
+
     70% {
       height: 100%;
     }
@@ -110,6 +113,10 @@ export default {
   }
 
   @keyframes ani-width {
+    0% {
+      width: 0%;
+    }
+    
     70% {
       width: 100%;
     }

@@ -44,6 +44,8 @@
 </template>
 
 <script>
+import { uuid } from '../../../util/index'
+
 import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
 import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
@@ -57,10 +59,10 @@ export default {
     }
   },
   data () {
-    const timestamp = Date.now()
+    const id = uuid()
     return {
-      gradientId1: `percent-pond-gradientId1-${timestamp}`,
-      gradientId2: `percent-pond-gradientId2-${timestamp}`,
+      gradientId1: `percent-pond-gradientId1-${id}`,
+      gradientId2: `percent-pond-gradientId2-${id}`,
 
       width: 0,
       height: 0,
@@ -234,10 +236,10 @@ export default {
 
       await $nextTick()
 
-      const dom = $refs['percent-pond']
+      const { clientWidth, clientHeight } = $refs['percent-pond']
 
-      this.width = dom.clientWidth
-      this.height = dom.clientHeight
+      this.width = clientWidth
+      this.height = clientHeight
     },
     mergeConfig () {
       const { config, defaultConfig } = this

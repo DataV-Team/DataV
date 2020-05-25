@@ -155,7 +155,7 @@ import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
 import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
 
-import { randomExtend, getPointDistance } from '../../../util/index'
+import { randomExtend, getPointDistance, uuid } from '../../../util/index'
 
 import autoResize from '../../../mixin/autoResize'
 
@@ -173,12 +173,12 @@ export default {
     }
   },
   data () {
-    const timestamp = Date.now()
+    const id = uuid()
     return {
       ref: 'dv-flyline-chart-enhanced',
       unique: Math.random(),
-      flylineGradientId: `flyline-gradient-id-${timestamp}`,
-      haloGradientId: `halo-gradient-id-${timestamp}`,
+      flylineGradientId: `flyline-gradient-id-${id}`,
+      haloGradientId: `halo-gradient-id-${id}`,
       /**
        * @description Type Declaration
        * 

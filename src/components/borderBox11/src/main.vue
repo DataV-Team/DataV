@@ -216,6 +216,7 @@
 
 <script>
 import autoResize from '../../../mixin/autoResize'
+import { uuid } from '../../../util/index'
 
 import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
@@ -245,10 +246,10 @@ export default {
     }
   },
   data () {
-    const timestamp = Date.now()
+    const id = uuid()
     return {
       ref: 'border-box-11',
-      filterId: `border-box-11-filterId-${timestamp}`,
+      filterId: `border-box-11-filterId-${id}`,
 
       defaultColor: ['#8aaafb', '#1f33a2'],
 
