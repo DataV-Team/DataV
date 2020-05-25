@@ -66,7 +66,6 @@ export default {
 
       width: 0,
       height: 0,
-      id: 0,
 
       defaultConfig: {
         /**
