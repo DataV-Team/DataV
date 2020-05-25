@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { uuid } from '../../../util/index'
+
 import autoResize from '../../../mixin/autoResize'
 
 import Charts from '@jiaminghi/charts'
@@ -19,10 +21,10 @@ export default {
     }
   },
   data () {
-    const timestamp = Date.now()
+    const id = uuid()
     return {
-      ref: `charts-container-${timestamp}`,
-      chartRef: `chart-${timestamp}`,
+      ref: `charts-container-${id}`,
+      chartRef: `chart-${id}`,
 
       chart: null
     }

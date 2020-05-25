@@ -147,6 +147,7 @@
 
 <script>
 import autoResize from '../../../mixin/autoResize'
+import { uuid } from '../../../util/index'
 
 import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
@@ -162,17 +163,17 @@ export default {
     }
   },
   data () {
-    const timestamp = Date.now()
+    const id = uuid()
     return {
       ref: 'decoration-10',
 
-      animationId1: `d10ani1${timestamp}`,
-      animationId2: `d10ani2${timestamp}`,
-      animationId3: `d10ani3${timestamp}`,
-      animationId4: `d10ani4${timestamp}`,
-      animationId5: `d10ani5${timestamp}`,
-      animationId6: `d10ani6${timestamp}`,
-      animationId7: `d10ani7${timestamp}`,
+      animationId1: `d10ani1${id}`,
+      animationId2: `d10ani2${id}`,
+      animationId3: `d10ani3${id}`,
+      animationId4: `d10ani4${id}`,
+      animationId5: `d10ani5${id}`,
+      animationId6: `d10ani6${id}`,
+      animationId7: `d10ani7${id}`,
 
       defaultColor: ['#00c2ff', 'rgba(0, 194, 255, 0.3)'],
 

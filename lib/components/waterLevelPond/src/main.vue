@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import { uuid } from '../../../util/index'
+
 import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
 import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
@@ -53,9 +55,9 @@ export default {
     default: () => ({})
   },
   data () {
-    const timestamp = Date.now()
+    const id = uuid()
     return {
-      gradientId: `water-level-pond-${timestamp}`,
+      gradientId: `water-level-pond-${id}`,
 
       defaultConfig: {
         /**

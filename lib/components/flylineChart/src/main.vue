@@ -153,7 +153,7 @@ import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
 import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
 
-import { randomExtend, getPointDistance } from '../../../util/index'
+import { randomExtend, getPointDistance, uuid } from '../../../util/index'
 
 import autoResize from '../../../mixin/autoResize'
 
@@ -171,14 +171,14 @@ export default {
     }
   },
   data () {
-    const timestamp = Date.now()
+    const id = uuid()
     return {
       ref: 'dv-flyline-chart',
       unique: Math.random(),
-      maskId: `flyline-mask-id-${timestamp}`,
-      maskCircleId: `mask-circle-id-${timestamp}`,
-      gradientId: `gradient-id-${timestamp}`,
-      gradient2Id: `gradient2-id-${timestamp}`,
+      maskId: `flyline-mask-id-${id}`,
+      maskCircleId: `mask-circle-id-${id}`,
+      gradientId: `gradient-id-${id}`,
+      gradient2Id: `gradient2-id-${id}`,
 
       defaultConfig: {
         /**

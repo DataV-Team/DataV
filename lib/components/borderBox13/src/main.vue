@@ -61,7 +61,6 @@ export default {
     }
   },
   data () {
-    const timestamp = +new Date()
     return {
       ref: 'border-box-13',
 
