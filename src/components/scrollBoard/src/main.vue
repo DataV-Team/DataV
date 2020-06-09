@@ -38,6 +38,8 @@
           :align="aligns[ci]"
           v-html="ceil"
           @click="emitEvent(ri, ci, row, ceil)"
+          @mouseenter="changeHover(true,ri, ci, row, ceil)"
+          @mouseleave="changeHover(false)"
         />
 
       </div>
@@ -182,6 +184,24 @@ export default {
     }
   },
   methods: {
+    changeHover(flag,ri, ci, row, ceil){
+      if(flag){
+        if(this.config.hoverPause){
+          this.stopAnimation();
+        }
+        const { ceils, rowIndex } = row
+        this.$emit('mouseover',{
+        row: ceils,
+        ceil,
+        rowIndex,
+        columnIndex: ci
+      })
+      } else {
+        if(this.config.hoverPause){
+         this.animation(true)
+        } 
+      }
+    },
     afterAutoResizeMixinInit () {
       const { calcData } = this
 
