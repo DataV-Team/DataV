@@ -37,9 +37,9 @@
           :style="`width: ${widths[ci]}px;`"
           :align="aligns[ci]"
           v-html="ceil"
-          @click="emitEvent(ri, ci, row, ceil)"
-          @mouseenter="changeHover(true,ri, ci, row, ceil)"
-          @mouseleave="changeHover(false)"
+          @click="emitEvent('click', ri, ci, row, ceil)"
+          @mouseenter="handleHover(true, ri, ci, row, ceil)"
+          @mouseleave="handleHover(false)"
         />
 
       </div>
@@ -148,7 +148,14 @@ export default {
          * @default carousel = 'single'
          * @example carousel = 'single' | 'page'
          */
-        carousel: 'single'
+        carousel: 'single',
+        /**
+         * @description Pause scroll when mouse hovered
+         * @type {Boolean}
+         * @default hoverPause = true
+         * @example hoverPause = true | false
+         */
+        hoverPause: true
       },
 
       mergedConfig: null,
@@ -184,22 +191,16 @@ export default {
     }
   },
   methods: {
-    changeHover(flag,ri, ci, row, ceil){
-      if(flag){
-        if(this.config.hoverPause){
-          this.stopAnimation();
-        }
-        const { ceils, rowIndex } = row
-        this.$emit('mouseover',{
-        row: ceils,
-        ceil,
-        rowIndex,
-        columnIndex: ci
-      })
+    handleHover(enter, ri, ci, row, ceil){
+      const { mergedConfig, emitEvent, stopAnimation, animation } = this
+
+      if (enter) emitEvent('mouseover', ri, ci, row, ceil)
+      if (!mergedConfig.hoverPause) return
+
+      if (enter) {
+        stopAnimation()
       } else {
-        if(this.config.hoverPause){
-         this.animation(true)
-        } 
+        animation(true)
       }
     },
     afterAutoResizeMixinInit () {
@@ -375,10 +376,10 @@ export default {
 
       clearTimeout(animationHandler)
     },
-    emitEvent (ri, ci, row, ceil) {
+    emitEvent (type, ri, ci, row, ceil) {
       const { ceils, rowIndex } = row
 
-      this.$emit('click', {
+      this.$emit(type, {
         row: ceils,
         ceil,
         rowIndex,
