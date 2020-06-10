@@ -1,3 +1,10 @@
+# 2.9.0-alpha (2020-06-10)
+
+### ScrollBoard
+
+- **hoverPause:** add `hoverPause` configuration [(#96)](https://github.com/DataV-Team/DataV/pull/96)..
+- **mouseover:** add `mouseover` event [(#96)](https://github.com/DataV-Team/DataV/pull/96).
+
 # 2.8.4-alpha (2020-05-25)
 
 ### Perfect
