@@ -152,10 +152,21 @@ export default {
       })
 
       const value = data.map(({ value }) => value)
+      
+      const min = Math.min(...value) || 0
+
+      //最小值的绝对值
+      const minAbs = Math.abs(min)
 
       const max = Math.max(...value) || 0
 
-      data = data.map((row, i) => ({ ...row, ranking: i + 1, percent: row.value / max * 100 }))
+      //最小值的绝对值
+      const maxAbs = Math.abs(max)
+
+      //总数为最大值与最小值的绝对值相加
+      const total = max + minAbs
+
+      data = data.map((row, i) => ({ ...row, ranking: i + 1, percent: (row.value + minAbs) / total * 100 }))
 
       const rowLength = data.length
 

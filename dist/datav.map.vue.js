@@ -349,7 +349,7 @@
     
 
     
-    const __vue_component__ = normalizeComponent(
+    const __vue_component__ = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__, staticRenderFns: __vue_staticRenderFns__ },
       __vue_inject_styles__,
       __vue_script__,
@@ -538,7 +538,7 @@
     
 
     
-    const __vue_component__$1 = normalizeComponent(
+    const __vue_component__$1 = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$1, staticRenderFns: __vue_staticRenderFns__$1 },
       __vue_inject_styles__$1,
       __vue_script__$1,
@@ -604,7 +604,7 @@
     if (typeof o === "string") return arrayLikeToArray(o, minLen);
     var n = Object.prototype.toString.call(o).slice(8, -1);
     if (n === "Object" && o.constructor) n = o.constructor.name;
-    if (n === "Map" || n === "Set") return Array.from(n);
+    if (n === "Map" || n === "Set") return Array.from(o);
     if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
   }
 
@@ -1585,7 +1585,7 @@
     
 
     
-    const __vue_component__$2 = normalizeComponent(
+    const __vue_component__$2 = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$2, staticRenderFns: __vue_staticRenderFns__$2 },
       __vue_inject_styles__$2,
       __vue_script__$2,
@@ -1775,7 +1775,7 @@
     
 
     
-    const __vue_component__$3 = normalizeComponent(
+    const __vue_component__$3 = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$3, staticRenderFns: __vue_staticRenderFns__$3 },
       __vue_inject_styles__$3,
       __vue_script__$3,
@@ -1970,7 +1970,7 @@
     
 
     
-    const __vue_component__$4 = normalizeComponent(
+    const __vue_component__$4 = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$4, staticRenderFns: __vue_staticRenderFns__$4 },
       __vue_inject_styles__$4,
       __vue_script__$4,
@@ -2188,7 +2188,7 @@
     
 
     
-    const __vue_component__$5 = normalizeComponent(
+    const __vue_component__$5 = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$5, staticRenderFns: __vue_staticRenderFns__$5 },
       __vue_inject_styles__$5,
       __vue_script__$5,
@@ -2409,7 +2409,7 @@
     
 
     
-    const __vue_component__$6 = normalizeComponent(
+    const __vue_component__$6 = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$6, staticRenderFns: __vue_staticRenderFns__$6 },
       __vue_inject_styles__$6,
       __vue_script__$6,
@@ -2673,7 +2673,7 @@
     
 
     
-    const __vue_component__$7 = normalizeComponent(
+    const __vue_component__$7 = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$7, staticRenderFns: __vue_staticRenderFns__$7 },
       __vue_inject_styles__$7,
       __vue_script__$7,
@@ -2906,7 +2906,7 @@
     
 
     
-    const __vue_component__$8 = normalizeComponent(
+    const __vue_component__$8 = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$8, staticRenderFns: __vue_staticRenderFns__$8 },
       __vue_inject_styles__$8,
       __vue_script__$8,
@@ -3161,7 +3161,7 @@
     
 
     
-    const __vue_component__$9 = normalizeComponent(
+    const __vue_component__$9 = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$9, staticRenderFns: __vue_staticRenderFns__$9 },
       __vue_inject_styles__$9,
       __vue_script__$9,
@@ -3604,7 +3604,7 @@
     
 
     
-    const __vue_component__$a = normalizeComponent(
+    const __vue_component__$a = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$a, staticRenderFns: __vue_staticRenderFns__$a },
       __vue_inject_styles__$a,
       __vue_script__$a,
@@ -3768,7 +3768,7 @@
     
 
     
-    const __vue_component__$b = normalizeComponent(
+    const __vue_component__$b = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$b, staticRenderFns: __vue_staticRenderFns__$b },
       __vue_inject_styles__$b,
       __vue_script__$b,
@@ -4674,7 +4674,7 @@
     
 
     
-    const __vue_component__$c = normalizeComponent(
+    const __vue_component__$c = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$c, staticRenderFns: __vue_staticRenderFns__$c },
       __vue_inject_styles__$c,
       __vue_script__$c,
@@ -5000,7 +5000,7 @@
     
 
     
-    const __vue_component__$d = normalizeComponent(
+    const __vue_component__$d = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$d, staticRenderFns: __vue_staticRenderFns__$d },
       __vue_inject_styles__$d,
       __vue_script__$d,
@@ -5171,7 +5171,7 @@
     
 
     
-    const __vue_component__$e = normalizeComponent(
+    const __vue_component__$e = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$e, staticRenderFns: __vue_staticRenderFns__$e },
       __vue_inject_styles__$e,
       __vue_script__$e,
@@ -5475,7 +5475,7 @@
     
 
     
-    const __vue_component__$f = normalizeComponent(
+    const __vue_component__$f = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$f, staticRenderFns: __vue_staticRenderFns__$f },
       __vue_inject_styles__$f,
       __vue_script__$f,
@@ -5680,7 +5680,7 @@
     
 
     
-    const __vue_component__$g = normalizeComponent(
+    const __vue_component__$g = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$g, staticRenderFns: __vue_staticRenderFns__$g },
       __vue_inject_styles__$g,
       __vue_script__$g,
@@ -5872,7 +5872,7 @@
     
 
     
-    const __vue_component__$h = normalizeComponent(
+    const __vue_component__$h = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$h, staticRenderFns: __vue_staticRenderFns__$h },
       __vue_inject_styles__$h,
       __vue_script__$h,
@@ -6016,7 +6016,7 @@
     
 
     
-    const __vue_component__$i = normalizeComponent(
+    const __vue_component__$i = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$i, staticRenderFns: __vue_staticRenderFns__$i },
       __vue_inject_styles__$i,
       __vue_script__$i,
@@ -6205,7 +6205,7 @@
     
 
     
-    const __vue_component__$j = normalizeComponent(
+    const __vue_component__$j = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$j, staticRenderFns: __vue_staticRenderFns__$j },
       __vue_inject_styles__$j,
       __vue_script__$j,
@@ -6428,7 +6428,7 @@
     
 
     
-    const __vue_component__$k = normalizeComponent(
+    const __vue_component__$k = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$k, staticRenderFns: __vue_staticRenderFns__$k },
       __vue_inject_styles__$k,
       __vue_script__$k,
@@ -6569,7 +6569,7 @@
     
 
     
-    const __vue_component__$l = normalizeComponent(
+    const __vue_component__$l = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$l, staticRenderFns: __vue_staticRenderFns__$l },
       __vue_inject_styles__$l,
       __vue_script__$l,
@@ -6723,7 +6723,7 @@
     
 
     
-    const __vue_component__$m = normalizeComponent(
+    const __vue_component__$m = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$m, staticRenderFns: __vue_staticRenderFns__$m },
       __vue_inject_styles__$m,
       __vue_script__$m,
@@ -6984,7 +6984,7 @@
     
 
     
-    const __vue_component__$n = normalizeComponent(
+    const __vue_component__$n = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$n, staticRenderFns: __vue_staticRenderFns__$n },
       __vue_inject_styles__$n,
       __vue_script__$n,
@@ -7350,7 +7350,7 @@
     
 
     
-    const __vue_component__$o = normalizeComponent(
+    const __vue_component__$o = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$o, staticRenderFns: __vue_staticRenderFns__$o },
       __vue_inject_styles__$o,
       __vue_script__$o,
@@ -7565,7 +7565,7 @@
     
 
     
-    const __vue_component__$p = normalizeComponent(
+    const __vue_component__$p = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$p, staticRenderFns: __vue_staticRenderFns__$p },
       __vue_inject_styles__$p,
       __vue_script__$p,
@@ -11730,6 +11730,8 @@
 
   var CRender = unwrapExports(lib$3);
 
+  var _defineProperty2 = interopRequireDefault(defineProperty);
+
   var _toConsumableArray2 = interopRequireDefault(toConsumableArray);
 
 
@@ -11739,6 +11741,12 @@
 
 
 
+
+
+
+  function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+  function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
   var pie = {
     shape: {
@@ -11884,11 +11892,10 @@
     draw: function draw(_ref8, _ref9) {
       var ctx = _ref8.ctx;
       var shape = _ref9.shape;
-      ctx.beginPath();
       var number = shape.number,
           content = shape.content,
-          position = shape.position,
-          toFixed = shape.toFixed;
+          toFixed = shape.toFixed,
+          rowGap = shape.rowGap;
       var textSegments = content.split('{nt}');
       var lastSegmentIndex = textSegments.length - 1;
       var textString = '';
@@ -11898,9 +11905,15 @@
         if (typeof currentNumber === 'number') currentNumber = currentNumber.toFixed(toFixed);
         textString += t + (currentNumber || '');
       });
-      ctx.closePath();
-      ctx.strokeText.apply(ctx, [textString].concat((0, _toConsumableArray2["default"])(position)));
-      ctx.fillText.apply(ctx, [textString].concat((0, _toConsumableArray2["default"])(position)));
+
+      graphs_1.text.draw({
+        ctx: ctx
+      }, {
+        shape: _objectSpread({}, shape, {
+          content: textString,
+          rowGap: rowGap || 0
+        })
+      });
     }
   };
   var lineIcon = {
@@ -16902,13 +16915,15 @@
       var sum = getDataSum(data);
       data.forEach(function (item) {
         var value = item.value;
-        item.percent = toFixedNoCeil(value / sum * 100, percentToFixed);
+        item.percent = value / sum * 100;
+        item.percentForLabel = toFixedNoCeil(value / sum * 100, percentToFixed);
       });
       var percentSumNoLast = (0, util$1.mulAdd)(data.slice(0, -1).map(function (_ref5) {
         var percent = _ref5.percent;
         return percent;
       }));
-      data.slice(-1)[0].percent = toFixedNoCeil(100 - percentSumNoLast, percentToFixed);
+      data.slice(-1)[0].percent = 100 - percentSumNoLast;
+      data.slice(-1)[0].percentForLabel = toFixedNoCeil(100 - percentSumNoLast, percentToFixed);
     });
     return pies;
   }
@@ -17180,7 +17195,7 @@
 
     if (formatterType === 'string') {
       label = formatter.replace('{name}', dataItem.name);
-      label = label.replace('{percent}', dataItem.percent);
+      label = label.replace('{percent}', dataItem.percentForLabel);
       label = label.replace('{value}', dataItem.value);
     }
 
@@ -17279,14 +17294,14 @@
     var _data$i = data[i],
         labelLine = _data$i.labelLine,
         name = _data$i.name,
-        percent = _data$i.percent,
+        percentForLabel = _data$i.percentForLabel,
         value = _data$i.value;
     var formatterType = (0, _typeof2["default"])(formatter);
     var label = '';
 
     if (formatterType === 'string') {
       label = formatter.replace('{name}', name);
-      label = label.replace('{percent}', percent);
+      label = label.replace('{percent}', percentForLabel);
       label = label.replace('{value}', value);
     }
 
@@ -19396,7 +19411,7 @@
     
 
     
-    const __vue_component__$q = normalizeComponent(
+    const __vue_component__$q = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$q, staticRenderFns: __vue_staticRenderFns__$q },
       __vue_inject_styles__$q,
       __vue_script__$q,
@@ -19649,7 +19664,7 @@
     
 
     
-    const __vue_component__$r = normalizeComponent(
+    const __vue_component__$r = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$r, staticRenderFns: __vue_staticRenderFns__$r },
       __vue_inject_styles__$r,
       __vue_script__$r,
@@ -20012,7 +20027,7 @@
     
 
     
-    const __vue_component__$s = normalizeComponent(
+    const __vue_component__$s = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$s, staticRenderFns: __vue_staticRenderFns__$s },
       __vue_inject_styles__$s,
       __vue_script__$s,
@@ -20261,7 +20276,7 @@
     
 
     
-    const __vue_component__$t = normalizeComponent(
+    const __vue_component__$t = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$t, staticRenderFns: __vue_staticRenderFns__$t },
       __vue_inject_styles__$t,
       __vue_script__$t,
@@ -20680,7 +20695,7 @@
     
 
     
-    const __vue_component__$u = normalizeComponent(
+    const __vue_component__$u = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$u, staticRenderFns: __vue_staticRenderFns__$u },
       __vue_inject_styles__$u,
       __vue_script__$u,
@@ -21058,7 +21073,7 @@
     
 
     
-    const __vue_component__$v = normalizeComponent(
+    const __vue_component__$v = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$v, staticRenderFns: __vue_staticRenderFns__$v },
       __vue_inject_styles__$v,
       __vue_script__$v,
@@ -21779,7 +21794,7 @@
     
 
     
-    const __vue_component__$w = normalizeComponent(
+    const __vue_component__$w = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$w, staticRenderFns: __vue_staticRenderFns__$w },
       __vue_inject_styles__$w,
       __vue_script__$w,
@@ -22564,7 +22579,7 @@
     
 
     
-    const __vue_component__$x = normalizeComponent(
+    const __vue_component__$x = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$x, staticRenderFns: __vue_staticRenderFns__$x },
       __vue_inject_styles__$x,
       __vue_script__$x,
@@ -22847,7 +22862,7 @@
     
 
     
-    const __vue_component__$y = normalizeComponent(
+    const __vue_component__$y = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$y, staticRenderFns: __vue_staticRenderFns__$y },
       __vue_inject_styles__$y,
       __vue_script__$y,
@@ -23336,7 +23351,7 @@
     
 
     
-    const __vue_component__$z = normalizeComponent(
+    const __vue_component__$z = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$z, staticRenderFns: __vue_staticRenderFns__$z },
       __vue_inject_styles__$z,
       __vue_script__$z,
@@ -23493,10 +23508,15 @@
         const value = data.map(({
           value
         }) => value);
-        const max = Math.max(...value) || 0;
+        const min = Math.min(...value) || 0; //最小值的绝对值
+
+        const minAbs = Math.abs(min);
+        const max = Math.max(...value) || 0; //最小值的绝对值
+
+        const total = max + minAbs;
         data = data.map((row, i) => ({ ...row,
           ranking: i + 1,
-          percent: row.value / max * 100
+          percent: (row.value + minAbs) / total * 100
         }));
         const rowLength = data.length;
 
@@ -23640,7 +23660,7 @@
     /* style */
     const __vue_inject_styles__$A = function (inject) {
       if (!inject) return
-      inject("data-v-be34f676_0", { source: ".dv-scroll-ranking-board {\n  width: 100%;\n  height: 100%;\n  color: #fff;\n  overflow: hidden;\n}\n.dv-scroll-ranking-board .row-item {\n  transition: all 0.3s;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  overflow: hidden;\n}\n.dv-scroll-ranking-board .ranking-info {\n  display: flex;\n  width: 100%;\n  font-size: 13px;\n}\n.dv-scroll-ranking-board .ranking-info .rank {\n  width: 40px;\n  color: #1370fb;\n}\n.dv-scroll-ranking-board .ranking-info .info-name {\n  flex: 1;\n}\n.dv-scroll-ranking-board .ranking-column {\n  border-bottom: 2px solid rgba(19, 112, 251, 0.5);\n  margin-top: 5px;\n}\n.dv-scroll-ranking-board .ranking-column .inside-column {\n  position: relative;\n  height: 6px;\n  background-color: #1370fb;\n  margin-bottom: 2px;\n  border-radius: 1px;\n  overflow: hidden;\n}\n.dv-scroll-ranking-board .ranking-column .shine {\n  position: absolute;\n  left: 0%;\n  top: 2px;\n  height: 2px;\n  width: 50px;\n  transform: translateX(-100%);\n  background: radial-gradient(#28f8ff 5%, transparent 80%);\n  animation: shine 3s ease-in-out infinite alternate;\n}\n@keyframes shine {\n80% {\n    left: 0%;\n    transform: translateX(-100%);\n}\n100% {\n    left: 100%;\n    transform: translateX(0%);\n}\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,WAAW;EACX,YAAY;EACZ,WAAW;EACX,gBAAgB;AAClB;AACA;EACE,oBAAoB;EACpB,aAAa;EACb,sBAAsB;EACtB,uBAAuB;EACvB,gBAAgB;AAClB;AACA;EACE,aAAa;EACb,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,cAAc;AAChB;AACA;EACE,OAAO;AACT;AACA;EACE,gDAAgD;EAChD,eAAe;AACjB;AACA;EACE,kBAAkB;EAClB,WAAW;EACX,yBAAyB;EACzB,kBAAkB;EAClB,kBAAkB;EAClB,gBAAgB;AAClB;AACA;EACE,kBAAkB;EAClB,QAAQ;EACR,QAAQ;EACR,WAAW;EACX,WAAW;EACX,4BAA4B;EAC5B,wDAAwD;EACxD,kDAAkD;AACpD;AACA;AACE;IACE,QAAQ;IACR,4BAA4B;AAC9B;AACA;IACE,UAAU;IACV,yBAAyB;AAC3B;AACF","file":"main.vue","sourcesContent":[".dv-scroll-ranking-board {\n  width: 100%;\n  height: 100%;\n  color: #fff;\n  overflow: hidden;\n}\n.dv-scroll-ranking-board .row-item {\n  transition: all 0.3s;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  overflow: hidden;\n}\n.dv-scroll-ranking-board .ranking-info {\n  display: flex;\n  width: 100%;\n  font-size: 13px;\n}\n.dv-scroll-ranking-board .ranking-info .rank {\n  width: 40px;\n  color: #1370fb;\n}\n.dv-scroll-ranking-board .ranking-info .info-name {\n  flex: 1;\n}\n.dv-scroll-ranking-board .ranking-column {\n  border-bottom: 2px solid rgba(19, 112, 251, 0.5);\n  margin-top: 5px;\n}\n.dv-scroll-ranking-board .ranking-column .inside-column {\n  position: relative;\n  height: 6px;\n  background-color: #1370fb;\n  margin-bottom: 2px;\n  border-radius: 1px;\n  overflow: hidden;\n}\n.dv-scroll-ranking-board .ranking-column .shine {\n  position: absolute;\n  left: 0%;\n  top: 2px;\n  height: 2px;\n  width: 50px;\n  transform: translateX(-100%);\n  background: radial-gradient(#28f8ff 5%, transparent 80%);\n  animation: shine 3s ease-in-out infinite alternate;\n}\n@keyframes shine {\n  80% {\n    left: 0%;\n    transform: translateX(-100%);\n  }\n  100% {\n    left: 100%;\n    transform: translateX(0%);\n  }\n}\n"]}, media: undefined });
+      inject("data-v-07257bf4_0", { source: ".dv-scroll-ranking-board {\n  width: 100%;\n  height: 100%;\n  color: #fff;\n  overflow: hidden;\n}\n.dv-scroll-ranking-board .row-item {\n  transition: all 0.3s;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  overflow: hidden;\n}\n.dv-scroll-ranking-board .ranking-info {\n  display: flex;\n  width: 100%;\n  font-size: 13px;\n}\n.dv-scroll-ranking-board .ranking-info .rank {\n  width: 40px;\n  color: #1370fb;\n}\n.dv-scroll-ranking-board .ranking-info .info-name {\n  flex: 1;\n}\n.dv-scroll-ranking-board .ranking-column {\n  border-bottom: 2px solid rgba(19, 112, 251, 0.5);\n  margin-top: 5px;\n}\n.dv-scroll-ranking-board .ranking-column .inside-column {\n  position: relative;\n  height: 6px;\n  background-color: #1370fb;\n  margin-bottom: 2px;\n  border-radius: 1px;\n  overflow: hidden;\n}\n.dv-scroll-ranking-board .ranking-column .shine {\n  position: absolute;\n  left: 0%;\n  top: 2px;\n  height: 2px;\n  width: 50px;\n  transform: translateX(-100%);\n  background: radial-gradient(#28f8ff 5%, transparent 80%);\n  animation: shine 3s ease-in-out infinite alternate;\n}\n@keyframes shine {\n80% {\n    left: 0%;\n    transform: translateX(-100%);\n}\n100% {\n    left: 100%;\n    transform: translateX(0%);\n}\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,WAAW;EACX,YAAY;EACZ,WAAW;EACX,gBAAgB;AAClB;AACA;EACE,oBAAoB;EACpB,aAAa;EACb,sBAAsB;EACtB,uBAAuB;EACvB,gBAAgB;AAClB;AACA;EACE,aAAa;EACb,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,cAAc;AAChB;AACA;EACE,OAAO;AACT;AACA;EACE,gDAAgD;EAChD,eAAe;AACjB;AACA;EACE,kBAAkB;EAClB,WAAW;EACX,yBAAyB;EACzB,kBAAkB;EAClB,kBAAkB;EAClB,gBAAgB;AAClB;AACA;EACE,kBAAkB;EAClB,QAAQ;EACR,QAAQ;EACR,WAAW;EACX,WAAW;EACX,4BAA4B;EAC5B,wDAAwD;EACxD,kDAAkD;AACpD;AACA;AACE;IACE,QAAQ;IACR,4BAA4B;AAC9B;AACA;IACE,UAAU;IACV,yBAAyB;AAC3B;AACF","file":"main.vue","sourcesContent":[".dv-scroll-ranking-board {\n  width: 100%;\n  height: 100%;\n  color: #fff;\n  overflow: hidden;\n}\n.dv-scroll-ranking-board .row-item {\n  transition: all 0.3s;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  overflow: hidden;\n}\n.dv-scroll-ranking-board .ranking-info {\n  display: flex;\n  width: 100%;\n  font-size: 13px;\n}\n.dv-scroll-ranking-board .ranking-info .rank {\n  width: 40px;\n  color: #1370fb;\n}\n.dv-scroll-ranking-board .ranking-info .info-name {\n  flex: 1;\n}\n.dv-scroll-ranking-board .ranking-column {\n  border-bottom: 2px solid rgba(19, 112, 251, 0.5);\n  margin-top: 5px;\n}\n.dv-scroll-ranking-board .ranking-column .inside-column {\n  position: relative;\n  height: 6px;\n  background-color: #1370fb;\n  margin-bottom: 2px;\n  border-radius: 1px;\n  overflow: hidden;\n}\n.dv-scroll-ranking-board .ranking-column .shine {\n  position: absolute;\n  left: 0%;\n  top: 2px;\n  height: 2px;\n  width: 50px;\n  transform: translateX(-100%);\n  background: radial-gradient(#28f8ff 5%, transparent 80%);\n  animation: shine 3s ease-in-out infinite alternate;\n}\n@keyframes shine {\n  80% {\n    left: 0%;\n    transform: translateX(-100%);\n  }\n  100% {\n    left: 100%;\n    transform: translateX(0%);\n  }\n}\n"]}, media: undefined });
 
     };
     /* scoped */
@@ -23655,7 +23675,7 @@
     
 
     
-    const __vue_component__$A = normalizeComponent(
+    const __vue_component__$A = /*#__PURE__*/normalizeComponent(
       { render: __vue_render__$A, staticRenderFns: __vue_staticRenderFns__$A },
       __vue_inject_styles__$A,
       __vue_script__$A,
