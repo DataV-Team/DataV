@@ -1,6 +1,12 @@
+# 2.9.2-alpha (2020-06-16)
+
+### Bug Fixes
+
+- **scrollBoard:** reset animationIndex when config upate.
+
 # 2.9.1-alpha (2020-06-16)
 
-### BugFixes
+### Bug Fixes
 
 - **scrollRankingBoard:** Calculation optimization of negative values. [(#101)](https://github.com/DataV-Team/DataV/pull/101).
 
