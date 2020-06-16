@@ -1,3 +1,14 @@
+# 2.9.1-alpha (2020-06-16)
+
+### BugFixes
+
+- **scrollRankingBoard:** Calculation optimization of negative values. [(#101)](https://github.com/DataV-Team/DataV/pull/101)..
+
+### Perfect
+
+- **digitalFlop:** add number formatter.
+
+
 # 2.9.0-alpha (2020-06-10)
 
 ### ScrollBoard
