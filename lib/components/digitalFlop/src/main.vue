@@ -68,6 +68,11 @@ export default {
           fill: '#3de7c9'
         },
         /**
+         * @description Number formatter
+         * @type {Null|Function}
+         */
+        formatter: undefined,
+        /**
          * @description CRender animationCurve
          * @type {String}
          * @default animationCurve = 'easeOutCubic'
@@ -130,7 +135,7 @@ export default {
       })
     },
     getShape () {
-      const { number, content, toFixed, textAlign, rowGap } = this.mergedConfig
+      const { number, content, toFixed, textAlign, rowGap, formatter } = this.mergedConfig
 
       const [w, h] = this.renderer.area
 
@@ -144,7 +149,8 @@ export default {
         content,
         toFixed,
         position,
-        rowGap
+        rowGap,
+        formatter
       }
     },
     getStyle () {
