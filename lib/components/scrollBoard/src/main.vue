@@ -187,6 +187,8 @@ export default {
 
       stopAnimation()
 
+      this.animationIndex = 0
+
       calcData()
     }
   },
