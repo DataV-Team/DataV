@@ -1,3 +1,9 @@
+# 2.9.3-alpha (2020-07-02)
+
+### Perfect
+
+- **uuid:** Optimization of `-` in uuid will cause abnormal svg animation [(#108)](https://github.com/DataV-Team/DataV/issues/108).
+
 # 2.9.2-alpha (2020-06-16)
 
 ### Bug Fixes
@@ -8,7 +14,7 @@
 
 ### Bug Fixes
 
-- **scrollRankingBoard:** Calculation optimization of negative values. [(#101)](https://github.com/DataV-Team/DataV/pull/101).
+- **scrollRankingBoard:** Calculation optimization of negative values [(#101)](https://github.com/DataV-Team/DataV/pull/101).
 
 ### Perfect
 
@@ -112,7 +118,7 @@
 
 # 2.4.7-alpha (2019-10-24)
 
-### perfect
+### Perfect
 
 - **charts:** Optimize memory leaks.
 - **digitalFlop:** Optimize memory leaks.
