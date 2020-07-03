@@ -4,7 +4,7 @@
       <div
         class="header-item"
         v-for="(headerItem, i) in header"
-        :key="headerItem + i"
+        :key="`${headerItem}${i}`"
         :style="`
           height: ${mergedConfig.headerHeight}px;
           line-height: ${mergedConfig.headerHeight}px;
@@ -23,7 +23,7 @@
       <div
         class="row-item"
         v-for="(row, ri) in rows"
-        :key="row.toString() + row.scroll"
+        :key="`${row.toString()}${row.scroll}`"
         :style="`
           height: ${heights[ri]}px;
           line-height: ${heights[ri]}px;
@@ -33,7 +33,7 @@
         <div
           class="ceil"
           v-for="(ceil, ci) in row.ceils"
-          :key="ceil + ri + ci"
+          :key="`${ceil}${ri}${ci}`"
           :style="`width: ${widths[ci]}px;`"
           :align="aligns[ci]"
           v-html="ceil"
