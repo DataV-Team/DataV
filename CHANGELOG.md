@@ -1,3 +1,9 @@
+# 2.9.4-alpha (2020-07-03)
+
+### Optmization
+
+- **scrollBoard:** Optimize key value [(#8)](https://github.com/DataV-Team/DataV-React/issues/8).
+
 # 2.9.3-alpha (2020-07-02)
 
 ### Perfect
