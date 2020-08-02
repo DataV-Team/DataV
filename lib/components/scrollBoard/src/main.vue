@@ -164,6 +164,18 @@ export default {
 
       rowsData: [],
 
+      /* 数据段区间索引 */
+      rowsDataIndexs: [],
+
+      /* 数据段字典 */
+      rowsDataDir: {},
+
+      /* 字典个数 */
+      dirCount: 0,
+
+      /* 字典限制的最大长度 */
+      dirTotalCount: 200,
+
       rows: [],
 
       widths: [],
@@ -286,6 +298,7 @@ export default {
       data = data.map((d, i) => ({ ...d, scroll: i }))
 
       this.rowsData = data
+      this.rowsDataIndexs = this.splitBlockIndexs(data, rowNum * 5)
       this.rows = data
     },
     calcWidths () {
@@ -335,7 +348,7 @@ export default {
       this.aligns = deepMerge(aligns, align)
     },
     async animation (start = false) {
-      let { avgHeight, animationIndex, mergedConfig, rowsData, animation, updater } = this
+      let { avgHeight, animationIndex, mergedConfig, rowsData, rowsDataIndexs, animation, updater } = this
 
       const { waitTime, carousel, rowNum } = mergedConfig
 
@@ -350,11 +363,18 @@ export default {
 
       const animationNum = carousel === 'single' ? 1 : rowNum
 
-      let rows = rowsData.slice(animationIndex)
-      rows.push(...rowsData.slice(0, animationIndex))
+      let key = this.isWhoBlock(rowsDataIndexs, animationIndex)
+      let rowsData2 = this.getCurrentAndNextBlock(
+        rowsData,
+        rowsDataIndexs,
+        key
+      )
+      let blockIndex = this.calcBlockIndexByIndex(key, animationIndex)
+      let rows = rowsData2.slice(blockIndex)
+      rows.push(...rowsData2.slice(0, blockIndex))
 
       this.rows = rows
-      this.heights = new Array(rowLength).fill(avgHeight)
+      this.heights = new Array(this.rows.length).fill(avgHeight)
 
       await new Promise(resolve => setTimeout(resolve, 300))
       if (updater !== this.updater) return
@@ -387,6 +407,113 @@ export default {
         rowIndex,
         columnIndex: ci
       })
+    },
+
+    /* 数据分帧 */
+    splitBlock(data = [], rank) {
+      let index = 0
+      let startIndex = 0
+      let endIndex = 0
+      rank = rank || 100
+      let rowsDataObj = {}
+      while (index < data.length) {
+        startIndex = index
+        endIndex = startIndex + rank
+        if (endIndex > data.length) {
+          rowsDataObj[`${startIndex}-${data.length - 1}`] = data.splice(
+            startIndex
+          )
+          break
+        }
+
+        rowsDataObj[`${startIndex}-${endIndex - 1}`] = data.slice(
+          index,
+          (index += rank)
+        )
+      }
+
+      return rowsDataObj
+    },
+
+    /* 数据索引分帧 */
+    splitBlockIndexs(data = [], rank) {
+      let index = 0
+      let startIndex = 0
+      let endIndex = 0
+      rank = rank || 100
+      let rowsDataIndexs = []
+      while (index < data.length) {
+        startIndex = index
+        endIndex = startIndex + rank
+        if (endIndex > data.length) {
+          rowsDataIndexs.push(`${startIndex}-${data.length - 1}`)
+          break
+        }
+
+        rowsDataIndexs.push(`${startIndex}-${endIndex - 1}`)
+        index += rank
+      }
+
+      return rowsDataIndexs
+    },
+
+    /* 判断索引在某个段数据帧之间 */
+    isWhoBlock(dataIndexs, index) {
+      for (const key of dataIndexs) {
+        const [start, end] = key.split("-")
+        if (index >= Number(start) && index <= Number(end)) {
+          return key
+        }
+      }
+
+      /* 返回第一个数据帧段 */
+      return dataIndexs[0]
+    },
+
+    /* 计算索引在这段数据帧中的索引 */
+    calcBlockIndexByIndex(key, index) {
+      const [start, end] = key.split("-")
+      const blockIndex = index - start
+      return blockIndex
+    },
+
+    /* 返回当前段的数据帧和下一帧的数据帧 */
+    getCurrentAndNextBlock(data, keys, key) {
+      let index = keys.findIndex(str => str === key) + 1
+
+      if (index > keys.length - 1) {
+        index = 0
+      }
+
+      let nextKey = keys[index]
+      const currentData = this.getBlockByKey(data, key)
+      const nextData = this.getBlockByKey(data, nextKey)
+      return [...currentData, ...nextData]
+    },
+
+    /* 获取该段数据帧中的数据 */
+    getBlockByKey(data, key) {
+      if (this.rowsDataDir[key]) {
+        return this.rowsDataDir[key]
+      } else if (this.dirCount > this.dirTotalCount * 1.5) {  /* 当数据分段的字典中的key的个数大于 限制的总个数的1.5倍时 */
+        this.clearPartRowsDataDir()
+      }
+
+      const [start, end] = key.split("-")
+      this.rowsDataDir[key] = data.slice(Number(start), Number(end) + 1)
+      this.dirCount ++
+      return this.rowsDataDir[key]
+    },
+
+    /* 清除部分缓存 */
+    clearPartRowsDataDir () {
+        const cur = parseInt(this.dirCount / 2)
+        this.dirCount -= cur
+        while(cur) {
+          /* 开始清空 */
+          const key = this.rowsDataIndexs[cur--]
+          this.rowsDataDir[key] = null
+        }
     }
   },
   destroyed () {
