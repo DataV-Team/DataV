@@ -350,6 +350,7 @@ export default {
       this.dirCount ++
       return this.rowsDataDir[key]
     },
+
     /* 清除部分缓存 */
     clearPartRowsDataDir () {
         const cur = parseInt(this.dirCount / 2)
