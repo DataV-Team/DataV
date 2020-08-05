@@ -1,3 +1,10 @@
+# 2.9.6-alpha (2020-08-05)
+
+### Bug Fixes
+
+- **scrollBoard:** Carousel is abnormal when carousel is page.
+- **scrollRankingBoard:** Carousel is abnormal when carousel is page.
+
 # 2.9.5-alpha (2020-08-05)
 
 ### Optmization
