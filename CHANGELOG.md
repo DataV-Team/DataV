@@ -1,3 +1,11 @@
+# 2.9.5-alpha (2020-08-05)
+
+### Optmization
+
+- **scrollBoard:** Reduce redundant node rendering.
+- **scrollRankingBoard:** Reduce redundant node rendering.
+- **scrollBoard:** Add api to update row data.
+
 # 2.9.4-alpha (2020-07-03)
 
 ### Optmization
