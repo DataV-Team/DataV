@@ -178,7 +178,9 @@ export default {
 
       animationHandler: '',
 
-      updater: 0
+      updater: 0,
+
+      needCalc: false
     }
   },
   watch: {
@@ -335,6 +337,14 @@ export default {
       this.aligns = deepMerge(aligns, align)
     },
     async animation (start = false) {
+      const { needCalc, calcHeights, calcRowsData } = this
+
+      if (needCalc) {
+        calcRowsData()
+        calcHeights()
+        this.needCalc = false
+      }
+
       let { avgHeight, animationIndex, mergedConfig, rowsData, animation, updater } = this
 
       const { waitTime, carousel, rowNum } = mergedConfig
@@ -389,15 +399,15 @@ export default {
       })
     },
     updateRows(rows, animationIndex) {
-      const { mergedConfig, calcRowsData, calcHeights, animationHandler, animation } = this
+      const { mergedConfig, animationHandler, animation } = this
 
       this.mergedConfig = {
         ...mergedConfig,
         data: [...rows]
       }
 
-      calcRowsData()
-      calcHeights()
+      this.needCalc = true
+
       if (typeof animationIndex === 'number') this.animationIndex = animationIndex
       if (!animationHandler) animation(true)
     }
