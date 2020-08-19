@@ -1,3 +1,9 @@
+# 2.9.7-alpha (2020-08-05)
+
+### Optmization
+
+- **scrollBoard:** Optimize the update effect of updateRows.
+
 # 2.9.6-alpha (2020-08-05)
 
 ### Bug Fixes
