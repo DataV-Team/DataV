@@ -1,3 +1,9 @@
+# 2.9.8-alpha (2020-08-20)
+
+### Optmization
+
+- **scrollRankingBoard:** Add value formatter.
+
 # 2.9.7-alpha (2020-08-19)
 
 ### Optmization
