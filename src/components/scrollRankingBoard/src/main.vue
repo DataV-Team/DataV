@@ -9,7 +9,7 @@
       <div class="ranking-info">
         <div class="rank">No.{{ item.ranking }}</div>
         <div class="info-name" v-html="item.name" />
-        <div class="ranking-value">{{ item.value + mergedConfig.unit }}</div>
+        <div class="ranking-value">{{ mergedConfig.valueFormatter ? mergedConfig.valueFormatter(item) : item.value + mergedConfig.unit }}</div>
       </div>
 
       <div class="ranking-column">
@@ -82,7 +82,13 @@ export default {
          * @type {Boolean}
          * @default sort = true
          */
-        sort: true
+        sort: true,
+        /**
+         * @description Value formatter
+         * @type {Function}
+         * @default valueFormatter = null
+         */
+        valueFormatter: null
       },
 
       mergedConfig: null,
@@ -208,7 +214,7 @@ export default {
       let rows = rowsData.slice(animationIndex)
       rows.push(...rowsData.slice(0, animationIndex))
 
-      this.rows = rows.slice(0, carousel === 'page' ? rowNum * 2 : rowNum + 1)
+      this.rows = rows.slice(0, rowNum + 1)
       this.heights = new Array(rowLength).fill(avgHeight)
 
       await new Promise(resolve => setTimeout(resolve, 300))
@@ -232,7 +238,7 @@ export default {
       if (!animationHandler) return
 
       clearTimeout(animationHandler)
-    }
+    },
   },
   destroyed () {
     const { stopAnimation } = this
