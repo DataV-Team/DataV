@@ -1,3 +1,10 @@
+# 2.9.9-alpha (2020-08-25)
+
+### Optmization
+
+- **borderBox:** Canonical class name.
+- **autoResize(mixin):** Add exception prompt.
+
 # 2.9.8-alpha (2020-08-20)
 
 ### Optmization
