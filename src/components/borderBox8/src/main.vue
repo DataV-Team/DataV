@@ -1,6 +1,6 @@
 <template>
   <div class="dv-border-box-8" :ref="ref">
-    <svg class="dv-svg-container" :width="width" :height="height">
+    <svg class="dv-border-svg-container" :width="width" :height="height">
       <defs>
         <path
           :id="path"
@@ -147,7 +147,7 @@ export default {
   width: 100%;
   height: 100%;
 
-  .dv-svg-container {
+  .dv-border-svg-container {
     position: absolute;
     width: 100%;
     height: 100%;
