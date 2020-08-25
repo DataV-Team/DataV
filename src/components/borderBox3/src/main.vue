@@ -93,7 +93,7 @@ export default {
     top: 0px;
     left: 0px;
 
-    polyline {
+    & > polyline {
       fill: none;
     }
   }

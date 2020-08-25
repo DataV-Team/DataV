@@ -1,6 +1,6 @@
 <template>
   <div class="dv-border-box-6" :ref="ref">
-    <svg class="dv-svg-container" :width="width" :height="height">
+    <svg class="dv-border-svg-container" :width="width" :height="height">
       <polygon :fill="backgroundColor" :points="`
         9, 7 ${width - 9}, 7 ${width - 9}, ${height - 7} 9, ${height - 7}
       `" />
@@ -86,14 +86,14 @@ export default {
   width: 100%;
   height: 100%;
 
-  .dv-svg-container {
+  .dv-border-svg-container {
     position: absolute;
     top: 0px;
     left: 0px;
     width: 100%;
     height: 100%;
 
-    polyline {
+    & > polyline {
       fill: none;
       stroke-width: 1;
     }

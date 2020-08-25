@@ -1,6 +1,6 @@
 <template>
   <div class="dv-border-box-9" :ref="ref">
-    <svg class="dv-svg-container" :width="width" :height="height">
+    <svg class="dv-border-svg-container" :width="width" :height="height">
       <defs>
         <linearGradient :id="gradientId" x1="0%" y1="0%" x2="100%" y2="100%">
           <animate
@@ -185,7 +185,7 @@ export default {
   width: 100%;
   height: 100%;
 
-  svg {
+  .dv-border-svg-container {
     position: absolute;
     width: 100%;
     height: 100%;

@@ -1,6 +1,6 @@
 <template>
   <div class="dv-border-box-10" :ref="ref" :style="`box-shadow: inset 0 0 25px 3px ${mergedColor[0]}`">
-    <svg class="border" :width="width" :height="height">
+    <svg class="dv-border-svg-container" :width="width" :height="height">
       <polygon :fill="backgroundColor" :points="`
         4, 0 ${width - 4}, 0 ${width}, 4 ${width}, ${height - 4} ${width - 4}, ${height}
         4, ${height} 0, ${height - 4} 0, 4
@@ -12,7 +12,7 @@
       height="150px"
       :key="item"
       v-for="item in border"
-      :class="`${item} border`"
+      :class="`${item} dv-border-svg-container`"
     >
       <polygon
         :fill="mergedColor[1]"
@@ -86,7 +86,7 @@ export default {
   height: 100%;
   border-radius: 6px;
 
-  .border {
+  .dv-border-svg-container {
     position: absolute;
     display: block;
   }
