@@ -13,7 +13,7 @@
   top: 0px;
   left: 0px;
 }
-.dv-border-box-4 .dv-border-svg-container polyline {
+.dv-border-box-4 .dv-border-svg-container > polyline {
   fill: none;
 }
 .dv-border-box-4 .sw1 {

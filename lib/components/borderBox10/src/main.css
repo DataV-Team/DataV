@@ -4,7 +4,7 @@
   height: 100%;
   border-radius: 6px;
 }
-.dv-border-box-10 .border {
+.dv-border-box-10 .dv-border-svg-container {
   position: absolute;
   display: block;
 }

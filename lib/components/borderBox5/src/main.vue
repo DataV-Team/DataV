@@ -1,6 +1,6 @@
 <template>
   <div class="dv-border-box-5" :ref="ref">
-    <svg :class="`dv-svg-container  ${reverse && 'dv-reverse'}`" :width="width" :height="height">
+    <svg :class="`dv-border-svg-container  ${reverse && 'dv-reverse'}`" :width="width" :height="height">
       <polygon :fill="backgroundColor" :points="`
         10, 22 ${width - 22}, 22 ${width - 22}, ${height - 86} ${width - 84}, ${height - 24} 10, ${height - 24}
       `" />
