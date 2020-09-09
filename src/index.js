@@ -31,6 +31,7 @@ import decoration8 from './components/decoration8/index'
 import decoration9 from './components/decoration9/index'
 import decoration10 from './components/decoration10/index'
 import decoration11 from './components/decoration11/index'
+import decoration12 from './components/decoration12/index'
 
 // charts
 import charts from './components/charts/index'
@@ -80,6 +81,7 @@ export default function (Vue) {
   Vue.use(decoration9)
   Vue.use(decoration10)
   Vue.use(decoration11)
+  Vue.use(decoration12)
 
   // charts
   Vue.use(charts)
