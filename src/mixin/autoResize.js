@@ -29,7 +29,7 @@ export default {
       const { $nextTick, $refs, ref, onResize } = this
 
       return new Promise(resolve => {
-        $nextTick(e => {
+        $nextTick(_ => {
           const dom = this.dom = $refs[ref]
 
           this.width = dom ? dom.clientWidth : 0
