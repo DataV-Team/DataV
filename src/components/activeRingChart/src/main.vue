@@ -84,6 +84,11 @@ export default {
          */
         digitalFlopToFixed: 0,
         /**
+         * @description Digital flop unit
+         * @type {String}
+         */
+        digitalFlopUnit: '',
+        /**
          * @description CRender animationCurve
          * @type {String}
          * @default animationCurve = 'easeOutCubic'
@@ -122,7 +127,8 @@ export default {
         digitalFlopStyle,
         digitalFlopToFixed,
         data,
-        showOriginValue
+        showOriginValue,
+        digitalFlopUnit
       } = mergedConfig
 
       const value = data.map(({ value }) => value)
@@ -140,7 +146,7 @@ export default {
       }
 
       return {
-        content: showOriginValue ? '{nt}' : '{nt}%',
+        content: showOriginValue ? `{nt}${digitalFlopUnit}` : `{nt}${digitalFlopUnit || '%'}`,
         number: [displayValue],
         style: digitalFlopStyle,
         toFixed: digitalFlopToFixed
