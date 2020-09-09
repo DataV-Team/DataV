@@ -12,7 +12,7 @@
           attributeType="XML"
           :from="`0, ${line1Length / 2}, 0, ${line1Length / 2}`"
           :to="`0, 0, ${line1Length}, 0`"
-          dur="1.2s"
+          :dur="`${dur}s`"
           begin="0s"
           calcMode="spline"
           keyTimes="0;1"
@@ -31,7 +31,7 @@
           attributeType="XML"
           :from="`0, ${line2Length / 2}, 0, ${line2Length / 2}`"
           :to="`0, 0, ${line2Length}, 0`"
-          dur="1.2s"
+          :dur="`${dur}s`"
           begin="0s"
           calcMode="spline"
           keyTimes="0;1"
@@ -59,6 +59,10 @@ export default {
     color: {
       type: Array,
       default: () => ([])
+    },
+    dur: {
+      type: Number,
+      default: 1.2
     }
   },
   data () {

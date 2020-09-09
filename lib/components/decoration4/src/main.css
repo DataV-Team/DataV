@@ -10,12 +10,12 @@
   flex: 1;
 }
 .dv-decoration-4 .normal {
-  animation: ani-height 3s ease-in-out infinite;
+  animation: ani-height ease-in-out infinite;
   left: 50%;
   margin-left: -2px;
 }
 .dv-decoration-4 .reverse {
-  animation: ani-width 3s ease-in-out infinite;
+  animation: ani-width ease-in-out infinite;
   top: 50%;
   margin-top: -2px;
 }

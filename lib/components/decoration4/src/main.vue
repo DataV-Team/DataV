@@ -2,7 +2,7 @@
   <div class="dv-decoration-4" :ref="ref">
     <div
       :class="`container ${reverse ? 'reverse' : 'normal'}`"
-      :style="reverse ? `width:${width}px;height:5px` : `width:5px;height:${height}px;`"
+      :style="reverse ? `width:${width}px;height:5px;animation-duration:${dur}s` : `width:5px;height:${height}px;animation-duration:${dur}s`"
     >
       <svg :width="reverse ? width : 5" :height="reverse ? 5 : height">
         <polyline
@@ -40,6 +40,10 @@ export default {
     reverse: {
       type: Boolean,
       default: false
+    },
+    dur: {
+      type: Number,
+      default: 3
     }
   },
   data () {

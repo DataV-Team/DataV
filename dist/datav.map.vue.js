@@ -79,7 +79,7 @@
           onResize
         } = this;
         return new Promise(resolve => {
-          $nextTick(e => {
+          $nextTick(_ => {
             const dom = this.dom = $refs[ref];
             this.width = dom ? dom.clientWidth : 0;
             this.height = dom ? dom.clientHeight : 0;
@@ -5511,6 +5511,10 @@
       reverse: {
         type: Boolean,
         default: false
+      },
+      dur: {
+        type: Number,
+        default: 6
       }
     },
 
@@ -5626,7 +5630,7 @@
                   attributeName: _vm.reverse ? "height" : "width",
                   from: "0",
                   to: _vm.reverse ? _vm.height : _vm.width,
-                  dur: "6s",
+                  dur: _vm.dur + "s",
                   calcMode: "spline",
                   keyTimes: "0;1",
                   keySplines: ".42,0,.58,1",
@@ -5653,7 +5657,7 @@
                   attributeName: _vm.reverse ? "y" : "x",
                   from: "0",
                   to: _vm.reverse ? _vm.height : _vm.width,
-                  dur: "6s",
+                  dur: _vm.dur + "s",
                   calcMode: "spline",
                   keyTimes: "0;1",
                   keySplines: "0.42,0,0.58,1",
@@ -5672,7 +5676,7 @@
     /* style */
     const __vue_inject_styles__$g = function (inject) {
       if (!inject) return
-      inject("data-v-a2b21eaa_0", { source: ".dv-decoration-2 {\n  display: flex;\n  width: 100%;\n  height: 100%;\n  justify-content: center;\n  align-items: center;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,WAAW;EACX,YAAY;EACZ,uBAAuB;EACvB,mBAAmB;AACrB","file":"main.vue","sourcesContent":[".dv-decoration-2 {\n  display: flex;\n  width: 100%;\n  height: 100%;\n  justify-content: center;\n  align-items: center;\n}\n"]}, media: undefined });
+      inject("data-v-355e4674_0", { source: ".dv-decoration-2 {\n  display: flex;\n  width: 100%;\n  height: 100%;\n  justify-content: center;\n  align-items: center;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,WAAW;EACX,YAAY;EACZ,uBAAuB;EACvB,mBAAmB;AACrB","file":"main.vue","sourcesContent":[".dv-decoration-2 {\n  display: flex;\n  width: 100%;\n  height: 100%;\n  justify-content: center;\n  align-items: center;\n}\n"]}, media: undefined });
 
     };
     /* scoped */
@@ -5908,6 +5912,10 @@
       reverse: {
         type: Boolean,
         default: false
+      },
+      dur: {
+        type: Number,
+        default: 3
       }
     },
 
@@ -5962,8 +5970,16 @@
         {
           class: "container " + (_vm.reverse ? "reverse" : "normal"),
           style: _vm.reverse
-            ? "width:" + _vm.width + "px;height:5px"
-            : "width:5px;height:" + _vm.height + "px;"
+            ? "width:" +
+              _vm.width +
+              "px;height:5px;animation-duration:" +
+              _vm.dur +
+              "s"
+            : "width:5px;height:" +
+              _vm.height +
+              "px;animation-duration:" +
+              _vm.dur +
+              "s"
         },
         [
           _c(
@@ -6008,7 +6024,7 @@
     /* style */
     const __vue_inject_styles__$i = function (inject) {
       if (!inject) return
-      inject("data-v-6a8df262_0", { source: ".dv-decoration-4 {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.dv-decoration-4 .container {\n  display: flex;\n  overflow: hidden;\n  position: absolute;\n  flex: 1;\n}\n.dv-decoration-4 .normal {\n  animation: ani-height 3s ease-in-out infinite;\n  left: 50%;\n  margin-left: -2px;\n}\n.dv-decoration-4 .reverse {\n  animation: ani-width 3s ease-in-out infinite;\n  top: 50%;\n  margin-top: -2px;\n}\n@keyframes ani-height {\n0% {\n    height: 0%;\n}\n70% {\n    height: 100%;\n}\n100% {\n    height: 100%;\n}\n}\n@keyframes ani-width {\n0% {\n    width: 0%;\n}\n70% {\n    width: 100%;\n}\n100% {\n    width: 100%;\n}\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;AACd;AACA;EACE,aAAa;EACb,gBAAgB;EAChB,kBAAkB;EAClB,OAAO;AACT;AACA;EACE,6CAA6C;EAC7C,SAAS;EACT,iBAAiB;AACnB;AACA;EACE,4CAA4C;EAC5C,QAAQ;EACR,gBAAgB;AAClB;AACA;AACE;IACE,UAAU;AACZ;AACA;IACE,YAAY;AACd;AACA;IACE,YAAY;AACd;AACF;AACA;AACE;IACE,SAAS;AACX;AACA;IACE,WAAW;AACb;AACA;IACE,WAAW;AACb;AACF","file":"main.vue","sourcesContent":[".dv-decoration-4 {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.dv-decoration-4 .container {\n  display: flex;\n  overflow: hidden;\n  position: absolute;\n  flex: 1;\n}\n.dv-decoration-4 .normal {\n  animation: ani-height 3s ease-in-out infinite;\n  left: 50%;\n  margin-left: -2px;\n}\n.dv-decoration-4 .reverse {\n  animation: ani-width 3s ease-in-out infinite;\n  top: 50%;\n  margin-top: -2px;\n}\n@keyframes ani-height {\n  0% {\n    height: 0%;\n  }\n  70% {\n    height: 100%;\n  }\n  100% {\n    height: 100%;\n  }\n}\n@keyframes ani-width {\n  0% {\n    width: 0%;\n  }\n  70% {\n    width: 100%;\n  }\n  100% {\n    width: 100%;\n  }\n}\n"]}, media: undefined });
+      inject("data-v-506ac984_0", { source: ".dv-decoration-4 {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.dv-decoration-4 .container {\n  display: flex;\n  overflow: hidden;\n  position: absolute;\n  flex: 1;\n}\n.dv-decoration-4 .normal {\n  animation: ani-height ease-in-out infinite;\n  left: 50%;\n  margin-left: -2px;\n}\n.dv-decoration-4 .reverse {\n  animation: ani-width ease-in-out infinite;\n  top: 50%;\n  margin-top: -2px;\n}\n@keyframes ani-height {\n0% {\n    height: 0%;\n}\n70% {\n    height: 100%;\n}\n100% {\n    height: 100%;\n}\n}\n@keyframes ani-width {\n0% {\n    width: 0%;\n}\n70% {\n    width: 100%;\n}\n100% {\n    width: 100%;\n}\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;AACd;AACA;EACE,aAAa;EACb,gBAAgB;EAChB,kBAAkB;EAClB,OAAO;AACT;AACA;EACE,0CAA0C;EAC1C,SAAS;EACT,iBAAiB;AACnB;AACA;EACE,yCAAyC;EACzC,QAAQ;EACR,gBAAgB;AAClB;AACA;AACE;IACE,UAAU;AACZ;AACA;IACE,YAAY;AACd;AACA;IACE,YAAY;AACd;AACF;AACA;AACE;IACE,SAAS;AACX;AACA;IACE,WAAW;AACb;AACA;IACE,WAAW;AACb;AACF","file":"main.vue","sourcesContent":[".dv-decoration-4 {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.dv-decoration-4 .container {\n  display: flex;\n  overflow: hidden;\n  position: absolute;\n  flex: 1;\n}\n.dv-decoration-4 .normal {\n  animation: ani-height ease-in-out infinite;\n  left: 50%;\n  margin-left: -2px;\n}\n.dv-decoration-4 .reverse {\n  animation: ani-width ease-in-out infinite;\n  top: 50%;\n  margin-top: -2px;\n}\n@keyframes ani-height {\n  0% {\n    height: 0%;\n  }\n  70% {\n    height: 100%;\n  }\n  100% {\n    height: 100%;\n  }\n}\n@keyframes ani-width {\n  0% {\n    width: 0%;\n  }\n  70% {\n    width: 100%;\n  }\n  100% {\n    width: 100%;\n  }\n}\n"]}, media: undefined });
 
     };
     /* scoped */
@@ -6048,6 +6064,10 @@
       color: {
         type: Array,
         default: () => []
+      },
+      dur: {
+        type: Number,
+        default: 1.2
       }
     },
 
@@ -6150,7 +6170,7 @@
                 attributeType: "XML",
                 from: "0, " + _vm.line1Length / 2 + ", 0, " + _vm.line1Length / 2,
                 to: "0, 0, " + _vm.line1Length + ", 0",
-                dur: "1.2s",
+                dur: _vm.dur + "s",
                 begin: "0s",
                 calcMode: "spline",
                 keyTimes: "0;1",
@@ -6178,7 +6198,7 @@
                 attributeType: "XML",
                 from: "0, " + _vm.line2Length / 2 + ", 0, " + _vm.line2Length / 2,
                 to: "0, 0, " + _vm.line2Length + ", 0",
-                dur: "1.2s",
+                dur: _vm.dur + "s",
                 begin: "0s",
                 calcMode: "spline",
                 keyTimes: "0;1",
@@ -6197,7 +6217,7 @@
     /* style */
     const __vue_inject_styles__$j = function (inject) {
       if (!inject) return
-      inject("data-v-301d5bb4_0", { source: ".dv-decoration-5 {\n  width: 100%;\n  height: 100%;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,WAAW;EACX,YAAY;AACd","file":"main.vue","sourcesContent":[".dv-decoration-5 {\n  width: 100%;\n  height: 100%;\n}\n"]}, media: undefined });
+      inject("data-v-183f85bc_0", { source: ".dv-decoration-5 {\n  width: 100%;\n  height: 100%;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,WAAW;EACX,YAAY;AACd","file":"main.vue","sourcesContent":[".dv-decoration-5 {\n  width: 100%;\n  height: 100%;\n}\n"]}, media: undefined });
 
     };
     /* scoped */
@@ -7587,6 +7607,394 @@
 
   function decoration11 (Vue) {
     Vue.component(__vue_component__$p.name, __vue_component__$p);
+  }
+
+  //
+  var script$q = {
+    name: 'DvDecoration12',
+    mixins: [autoResize],
+    props: {
+      color: {
+        type: Array,
+        default: () => []
+      },
+
+      /**
+       * @description Scan animation dur
+       */
+      scanDur: {
+        type: Number,
+        default: 3
+      },
+
+      /**
+       * @description Halo animation dur
+       */
+      haloDur: {
+        type: Number,
+        default: 2
+      }
+    },
+
+    data() {
+      const id = uuid();
+      return {
+        ref: 'decoration-12',
+        gId: `decoration-12-g-${id}`,
+        gradientId: `decoration-12-gradient-${id}`,
+        defaultColor: ['#2783ce', '#2cf7fe'],
+        mergedColor: [],
+        pathD: [],
+        pathColor: [],
+        circleR: [],
+        splitLinePoints: [],
+        arcD: [],
+        segment: 30,
+        sectorAngle: Math.PI / 3,
+        ringNum: 3,
+        ringWidth: 1,
+        showSplitLine: true
+      };
+    },
+
+    watch: {
+      color() {
+        const {
+          mergeColor
+        } = this;
+        mergeColor();
+      }
+
+    },
+    computed: {
+      x() {
+        const {
+          width
+        } = this;
+        return width / 2;
+      },
+
+      y() {
+        const {
+          height
+        } = this;
+        return height / 2;
+      }
+
+    },
+    methods: {
+      init() {
+        const {
+          mergeColor,
+          calcPathD,
+          calcPathColor,
+          calcCircleR,
+          calcSplitLinePoints,
+          calcArcD
+        } = this;
+        mergeColor();
+        calcPathD();
+        calcPathColor();
+        calcCircleR();
+        calcSplitLinePoints();
+        calcArcD();
+      },
+
+      mergeColor() {
+        const {
+          color,
+          defaultColor
+        } = this;
+        this.mergedColor = util_2$1(util_1(defaultColor, true), color || []);
+      },
+
+      calcPathD() {
+        const {
+          x,
+          y,
+          width,
+          segment,
+          sectorAngle
+        } = this;
+        const startAngle = -Math.PI / 2;
+        const angleGap = sectorAngle / segment;
+        const r = width / 4;
+        let lastEndPoints = util_13(x, y, r, startAngle);
+        this.pathD = new Array(segment).fill('').map((_, i) => {
+          const endPoints = util_13(x, y, r, startAngle - (i + 1) * angleGap).map(_ => _.toFixed(5));
+          const d = `M${lastEndPoints.join(',')} A${r}, ${r} 0 0 0 ${endPoints.join(',')}`;
+          lastEndPoints = endPoints;
+          return d;
+        });
+      },
+
+      calcPathColor() {
+        const {
+          mergedColor: [color],
+          segment
+        } = this;
+        const colorGap = 100 / (segment - 1);
+        this.pathColor = new Array(segment).fill(color).map((_, i) => lib_9(color, 100 - i * colorGap));
+      },
+
+      calcCircleR() {
+        const {
+          segment,
+          ringNum,
+          width,
+          ringWidth
+        } = this;
+        const radiusGap = (width / 2 - ringWidth / 2) / ringNum;
+        this.circleR = new Array(ringNum).fill(0).map((_, i) => radiusGap * (i + 1));
+      },
+
+      calcSplitLinePoints() {
+        const {
+          x,
+          y,
+          width
+        } = this;
+        const angleGap = Math.PI / 6;
+        const r = width / 2;
+        this.splitLinePoints = new Array(6).fill('').map((_, i) => {
+          const startAngle = angleGap * (i + 1);
+          const endAngle = startAngle + Math.PI;
+          const startPoint = util_13(x, y, r, startAngle);
+          const endPoint = util_13(x, y, r, endAngle);
+          return `${startPoint.join(',')} ${endPoint.join(',')}`;
+        });
+      },
+
+      calcArcD() {
+        const {
+          x,
+          y,
+          width
+        } = this;
+        const angleGap = Math.PI / 6;
+        const r = width / 2 - 1;
+        this.arcD = new Array(4).fill('').map((_, i) => {
+          const startAngle = angleGap * (3 * i + 1);
+          const endAngle = startAngle + angleGap;
+          const startPoint = util_13(x, y, r, startAngle);
+          const endPoint = util_13(x, y, r, endAngle);
+          return `M${startPoint.join(',')} A${x}, ${y} 0 0 1 ${endPoint.join(',')}`;
+        });
+      },
+
+      afterAutoResizeMixinInit() {
+        const {
+          init
+        } = this;
+        init();
+      },
+
+      fade: lib_9
+    }
+  };
+
+  /* script */
+  const __vue_script__$q = script$q;
+
+  /* template */
+  var __vue_render__$q = function() {
+    var _vm = this;
+    var _h = _vm.$createElement;
+    var _c = _vm._self._c || _h;
+    return _c("div", { ref: _vm.ref, staticClass: "dv-decoration-12" }, [
+      _c(
+        "svg",
+        { attrs: { width: _vm.width, height: _vm.height } },
+        [
+          _c(
+            "defs",
+            [
+              _c(
+                "g",
+                { attrs: { id: _vm.gId } },
+                _vm._l(_vm.pathD, function(d, i) {
+                  return _c("path", {
+                    key: d,
+                    attrs: {
+                      stroke: _vm.pathColor[i],
+                      "stroke-width": _vm.width / 2,
+                      fill: "transparent",
+                      d: d
+                    }
+                  })
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _c(
+                "radialGradient",
+                { attrs: { id: _vm.gradientId, cx: "50%", cy: "50%", r: "50%" } },
+                [
+                  _c("stop", {
+                    attrs: {
+                      offset: "0%",
+                      "stop-color": "transparent",
+                      "stop-opacity": "1"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("stop", {
+                    attrs: {
+                      offset: "100%",
+                      "stop-color": _vm.fade(
+                        _vm.mergedColor[1] || _vm.defaultColor[1],
+                        30
+                      ),
+                      "stop-opacity": "1"
+                    }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _vm._l(_vm.circleR, function(r) {
+            return _c("circle", {
+              key: r,
+              attrs: {
+                r: r,
+                cx: _vm.x,
+                cy: _vm.y,
+                stroke: _vm.mergedColor[1],
+                "stroke-width": 0.5,
+                fill: "transparent"
+              }
+            })
+          }),
+          _vm._v(" "),
+          _c(
+            "circle",
+            {
+              attrs: {
+                r: "1",
+                cx: _vm.x,
+                cy: _vm.y,
+                stroke: "transparent",
+                fill: "url(#" + _vm.gradientId + ")"
+              }
+            },
+            [
+              _c("animate", {
+                attrs: {
+                  attributeName: "r",
+                  values: "1;" + _vm.width / 2,
+                  dur: _vm.haloDur + "s",
+                  repeatCount: "indefinite"
+                }
+              }),
+              _vm._v(" "),
+              _c("animate", {
+                attrs: {
+                  attributeName: "opacity",
+                  values: "1;0",
+                  dur: _vm.haloDur + "s",
+                  repeatCount: "indefinite"
+                }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c("circle", {
+            attrs: { r: "2", cx: _vm.x, cy: _vm.y, fill: _vm.mergedColor[1] }
+          }),
+          _vm._v(" "),
+          _vm.showSplitLine
+            ? _c(
+                "g",
+                _vm._l(_vm.splitLinePoints, function(p) {
+                  return _c("polyline", {
+                    key: p,
+                    attrs: {
+                      points: p,
+                      stroke: _vm.mergedColor[1],
+                      "stroke-width": 0.5,
+                      opacity: "0.5"
+                    }
+                  })
+                }),
+                0
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm._l(_vm.arcD, function(d) {
+            return _c("path", {
+              key: d,
+              attrs: {
+                d: d,
+                stroke: _vm.mergedColor[1],
+                "stroke-width": "2",
+                fill: "transparent"
+              }
+            })
+          }),
+          _vm._v(" "),
+          _c(
+            "use",
+            { attrs: { "xlink:href": "#" + _vm.gId } },
+            [
+              _c("animateTransform", {
+                attrs: {
+                  attributeName: "transform",
+                  type: "rotate",
+                  values:
+                    "0, " + _vm.x + " " + _vm.y + ";360, " + _vm.x + " " + _vm.y,
+                  dur: _vm.scanDur + "s",
+                  repeatCount: "indefinite"
+                }
+              })
+            ],
+            1
+          )
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "decoration-content" }, [_vm._t("default")], 2)
+    ])
+  };
+  var __vue_staticRenderFns__$q = [];
+  __vue_render__$q._withStripped = true;
+
+    /* style */
+    const __vue_inject_styles__$q = function (inject) {
+      if (!inject) return
+      inject("data-v-70099a0c_0", { source: ".dv-decoration-12 {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  display: flex;\n}\n.dv-decoration-12 .decoration-content {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;EACZ,aAAa;AACf;AACA;EACE,kBAAkB;EAClB,QAAQ;EACR,SAAS;EACT,WAAW;EACX,YAAY;EACZ,aAAa;EACb,mBAAmB;EACnB,uBAAuB;AACzB","file":"main.vue","sourcesContent":[".dv-decoration-12 {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  display: flex;\n}\n.dv-decoration-12 .decoration-content {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n"]}, media: undefined });
+
+    };
+    /* scoped */
+    const __vue_scope_id__$q = undefined;
+    /* module identifier */
+    const __vue_module_identifier__$q = undefined;
+    /* functional template */
+    const __vue_is_functional_template__$q = false;
+    /* style inject SSR */
+    
+    /* style inject shadow dom */
+    
+
+    
+    const __vue_component__$q = /*#__PURE__*/normalizeComponent(
+      { render: __vue_render__$q, staticRenderFns: __vue_staticRenderFns__$q },
+      __vue_inject_styles__$q,
+      __vue_script__$q,
+      __vue_scope_id__$q,
+      __vue_is_functional_template__$q,
+      __vue_module_identifier__$q,
+      false,
+      createInjector,
+      undefined,
+      undefined
+    );
+
+  function decoration12 (Vue) {
+    Vue.component(__vue_component__$q.name, __vue_component__$q);
   }
 
   function _classCallCheck(instance, Constructor) {
@@ -19330,7 +19738,7 @@
   var Charts = unwrapExports(lib$4);
 
   //
-  var script$q = {
+  var script$r = {
     name: 'DvCharts',
     mixins: [autoResize],
     props: {
@@ -19392,10 +19800,10 @@
   };
 
   /* script */
-  const __vue_script__$q = script$q;
+  const __vue_script__$r = script$r;
 
   /* template */
-  var __vue_render__$q = function() {
+  var __vue_render__$r = function() {
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
@@ -19403,34 +19811,34 @@
       _c("div", { ref: _vm.chartRef, staticClass: "charts-canvas-container" })
     ])
   };
-  var __vue_staticRenderFns__$q = [];
-  __vue_render__$q._withStripped = true;
+  var __vue_staticRenderFns__$r = [];
+  __vue_render__$r._withStripped = true;
 
     /* style */
-    const __vue_inject_styles__$q = function (inject) {
+    const __vue_inject_styles__$r = function (inject) {
       if (!inject) return
       inject("data-v-1f446fe6_0", { source: ".dv-charts-container {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.dv-charts-container .charts-canvas-container {\n  width: 100%;\n  height: 100%;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;AACd;AACA;EACE,WAAW;EACX,YAAY;AACd","file":"main.vue","sourcesContent":[".dv-charts-container {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.dv-charts-container .charts-canvas-container {\n  width: 100%;\n  height: 100%;\n}\n"]}, media: undefined });
 
     };
     /* scoped */
-    const __vue_scope_id__$q = undefined;
+    const __vue_scope_id__$r = undefined;
     /* module identifier */
-    const __vue_module_identifier__$q = undefined;
+    const __vue_module_identifier__$r = undefined;
     /* functional template */
-    const __vue_is_functional_template__$q = false;
+    const __vue_is_functional_template__$r = false;
     /* style inject SSR */
     
     /* style inject shadow dom */
     
 
     
-    const __vue_component__$q = /*#__PURE__*/normalizeComponent(
-      { render: __vue_render__$q, staticRenderFns: __vue_staticRenderFns__$q },
-      __vue_inject_styles__$q,
-      __vue_script__$q,
-      __vue_scope_id__$q,
-      __vue_is_functional_template__$q,
-      __vue_module_identifier__$q,
+    const __vue_component__$r = /*#__PURE__*/normalizeComponent(
+      { render: __vue_render__$r, staticRenderFns: __vue_staticRenderFns__$r },
+      __vue_inject_styles__$r,
+      __vue_script__$r,
+      __vue_scope_id__$r,
+      __vue_is_functional_template__$r,
+      __vue_module_identifier__$r,
       false,
       createInjector,
       undefined,
@@ -19438,11 +19846,11 @@
     );
 
   function charts (Vue) {
-    Vue.component(__vue_component__$q.name, __vue_component__$q);
+    Vue.component(__vue_component__$r.name, __vue_component__$r);
   }
 
   //
-  var script$r = {
+  var script$s = {
     name: 'DvDigitalFlop',
     props: {
       config: {
@@ -19662,10 +20070,10 @@
   };
 
   /* script */
-  const __vue_script__$r = script$r;
+  const __vue_script__$s = script$s;
 
   /* template */
-  var __vue_render__$r = function() {
+  var __vue_render__$s = function() {
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
@@ -19673,34 +20081,34 @@
       _c("canvas", { ref: "digital-flop" })
     ])
   };
-  var __vue_staticRenderFns__$r = [];
-  __vue_render__$r._withStripped = true;
+  var __vue_staticRenderFns__$s = [];
+  __vue_render__$s._withStripped = true;
 
     /* style */
-    const __vue_inject_styles__$r = function (inject) {
+    const __vue_inject_styles__$s = function (inject) {
       if (!inject) return
       inject("data-v-113591fb_0", { source: ".dv-digital-flop canvas {\n  width: 100%;\n  height: 100%;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,WAAW;EACX,YAAY;AACd","file":"main.vue","sourcesContent":[".dv-digital-flop canvas {\n  width: 100%;\n  height: 100%;\n}\n"]}, media: undefined });
 
     };
     /* scoped */
-    const __vue_scope_id__$r = undefined;
+    const __vue_scope_id__$s = undefined;
     /* module identifier */
-    const __vue_module_identifier__$r = undefined;
+    const __vue_module_identifier__$s = undefined;
     /* functional template */
-    const __vue_is_functional_template__$r = false;
+    const __vue_is_functional_template__$s = false;
     /* style inject SSR */
     
     /* style inject shadow dom */
     
 
     
-    const __vue_component__$r = /*#__PURE__*/normalizeComponent(
-      { render: __vue_render__$r, staticRenderFns: __vue_staticRenderFns__$r },
-      __vue_inject_styles__$r,
-      __vue_script__$r,
-      __vue_scope_id__$r,
-      __vue_is_functional_template__$r,
-      __vue_module_identifier__$r,
+    const __vue_component__$s = /*#__PURE__*/normalizeComponent(
+      { render: __vue_render__$s, staticRenderFns: __vue_staticRenderFns__$s },
+      __vue_inject_styles__$s,
+      __vue_script__$s,
+      __vue_scope_id__$s,
+      __vue_is_functional_template__$s,
+      __vue_module_identifier__$s,
       false,
       createInjector,
       undefined,
@@ -19708,10 +20116,10 @@
     );
 
   //
-  var script$s = {
+  var script$t = {
     name: 'DvActiveRingChart',
     components: {
-      dvDigitalFlop: __vue_component__$r
+      dvDigitalFlop: __vue_component__$s
     },
     props: {
       config: {
@@ -19787,6 +20195,12 @@
           digitalFlopToFixed: 0,
 
           /**
+           * @description Digital flop unit
+           * @type {String}
+           */
+          digitalFlopUnit: '',
+
+          /**
            * @description CRender animationCurve
            * @type {String}
            * @default animationCurve = 'easeOutCubic'
@@ -19825,7 +20239,8 @@
           digitalFlopStyle,
           digitalFlopToFixed,
           data,
-          showOriginValue
+          showOriginValue,
+          digitalFlopUnit
         } = mergedConfig;
         const value = data.map(({
           value
@@ -19841,7 +20256,7 @@
         }
 
         return {
-          content: showOriginValue ? '{nt}' : '{nt}%',
+          content: showOriginValue ? `{nt}${digitalFlopUnit}` : `{nt}${digitalFlopUnit || '%'}`,
           number: [displayValue],
           style: digitalFlopStyle,
           toFixed: digitalFlopToFixed
@@ -20009,10 +20424,10 @@
   };
 
   /* script */
-  const __vue_script__$s = script$s;
+  const __vue_script__$t = script$t;
 
   /* template */
-  var __vue_render__$s = function() {
+  var __vue_render__$t = function() {
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
@@ -20036,34 +20451,34 @@
       )
     ])
   };
-  var __vue_staticRenderFns__$s = [];
-  __vue_render__$s._withStripped = true;
+  var __vue_staticRenderFns__$t = [];
+  __vue_render__$t._withStripped = true;
 
     /* style */
-    const __vue_inject_styles__$s = function (inject) {
+    const __vue_inject_styles__$t = function (inject) {
       if (!inject) return
-      inject("data-v-7319e037_0", { source: ".dv-active-ring-chart {\n  position: relative;\n}\n.dv-active-ring-chart .active-ring-chart-container {\n  width: 100%;\n  height: 100%;\n}\n.dv-active-ring-chart .active-ring-info {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0px;\n  top: 0px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.dv-active-ring-chart .active-ring-info .dv-digital-flop {\n  width: 100px;\n  height: 30px;\n}\n.dv-active-ring-chart .active-ring-info .active-ring-name {\n  width: 100px;\n  height: 30px;\n  color: #fff;\n  text-align: center;\n  vertical-align: middle;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,kBAAkB;AACpB;AACA;EACE,WAAW;EACX,YAAY;AACd;AACA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;EACZ,SAAS;EACT,QAAQ;EACR,aAAa;EACb,sBAAsB;EACtB,uBAAuB;EACvB,mBAAmB;AACrB;AACA;EACE,YAAY;EACZ,YAAY;AACd;AACA;EACE,YAAY;EACZ,YAAY;EACZ,WAAW;EACX,kBAAkB;EAClB,sBAAsB;EACtB,uBAAuB;EACvB,gBAAgB;EAChB,mBAAmB;AACrB","file":"main.vue","sourcesContent":[".dv-active-ring-chart {\n  position: relative;\n}\n.dv-active-ring-chart .active-ring-chart-container {\n  width: 100%;\n  height: 100%;\n}\n.dv-active-ring-chart .active-ring-info {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0px;\n  top: 0px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.dv-active-ring-chart .active-ring-info .dv-digital-flop {\n  width: 100px;\n  height: 30px;\n}\n.dv-active-ring-chart .active-ring-info .active-ring-name {\n  width: 100px;\n  height: 30px;\n  color: #fff;\n  text-align: center;\n  vertical-align: middle;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n"]}, media: undefined });
+      inject("data-v-ca8abc0a_0", { source: ".dv-active-ring-chart {\n  position: relative;\n}\n.dv-active-ring-chart .active-ring-chart-container {\n  width: 100%;\n  height: 100%;\n}\n.dv-active-ring-chart .active-ring-info {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0px;\n  top: 0px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.dv-active-ring-chart .active-ring-info .dv-digital-flop {\n  width: 100px;\n  height: 30px;\n}\n.dv-active-ring-chart .active-ring-info .active-ring-name {\n  width: 100px;\n  height: 30px;\n  color: #fff;\n  text-align: center;\n  vertical-align: middle;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,kBAAkB;AACpB;AACA;EACE,WAAW;EACX,YAAY;AACd;AACA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;EACZ,SAAS;EACT,QAAQ;EACR,aAAa;EACb,sBAAsB;EACtB,uBAAuB;EACvB,mBAAmB;AACrB;AACA;EACE,YAAY;EACZ,YAAY;AACd;AACA;EACE,YAAY;EACZ,YAAY;EACZ,WAAW;EACX,kBAAkB;EAClB,sBAAsB;EACtB,uBAAuB;EACvB,gBAAgB;EAChB,mBAAmB;AACrB","file":"main.vue","sourcesContent":[".dv-active-ring-chart {\n  position: relative;\n}\n.dv-active-ring-chart .active-ring-chart-container {\n  width: 100%;\n  height: 100%;\n}\n.dv-active-ring-chart .active-ring-info {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0px;\n  top: 0px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.dv-active-ring-chart .active-ring-info .dv-digital-flop {\n  width: 100px;\n  height: 30px;\n}\n.dv-active-ring-chart .active-ring-info .active-ring-name {\n  width: 100px;\n  height: 30px;\n  color: #fff;\n  text-align: center;\n  vertical-align: middle;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n"]}, media: undefined });
 
     };
     /* scoped */
-    const __vue_scope_id__$s = undefined;
+    const __vue_scope_id__$t = undefined;
     /* module identifier */
-    const __vue_module_identifier__$s = undefined;
+    const __vue_module_identifier__$t = undefined;
     /* functional template */
-    const __vue_is_functional_template__$s = false;
+    const __vue_is_functional_template__$t = false;
     /* style inject SSR */
     
     /* style inject shadow dom */
     
 
     
-    const __vue_component__$s = /*#__PURE__*/normalizeComponent(
-      { render: __vue_render__$s, staticRenderFns: __vue_staticRenderFns__$s },
-      __vue_inject_styles__$s,
-      __vue_script__$s,
-      __vue_scope_id__$s,
-      __vue_is_functional_template__$s,
-      __vue_module_identifier__$s,
+    const __vue_component__$t = /*#__PURE__*/normalizeComponent(
+      { render: __vue_render__$t, staticRenderFns: __vue_staticRenderFns__$t },
+      __vue_inject_styles__$t,
+      __vue_script__$t,
+      __vue_scope_id__$t,
+      __vue_is_functional_template__$t,
+      __vue_module_identifier__$t,
       false,
       createInjector,
       undefined,
@@ -20071,11 +20486,11 @@
     );
 
   function activeRingChart (Vue) {
-    Vue.component(__vue_component__$s.name, __vue_component__$s);
+    Vue.component(__vue_component__$t.name, __vue_component__$t);
   }
 
   //
-  var script$t = {
+  var script$u = {
     name: 'DvCapsuleChart',
     props: {
       config: {
@@ -20181,10 +20596,10 @@
   };
 
   /* script */
-  const __vue_script__$t = script$t;
+  const __vue_script__$u = script$u;
 
   /* template */
-  var __vue_render__$t = function() {
+  var __vue_render__$u = function() {
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
@@ -20268,34 +20683,34 @@
       2
     )
   };
-  var __vue_staticRenderFns__$t = [];
-  __vue_render__$t._withStripped = true;
+  var __vue_staticRenderFns__$u = [];
+  __vue_render__$u._withStripped = true;
 
     /* style */
-    const __vue_inject_styles__$t = function (inject) {
+    const __vue_inject_styles__$u = function (inject) {
       if (!inject) return
       inject("data-v-6f678c1a_0", { source: ".dv-capsule-chart {\n  position: relative;\n  display: flex;\n  flex-direction: row;\n  box-sizing: border-box;\n  padding: 10px;\n  color: #fff;\n}\n.dv-capsule-chart .label-column {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  box-sizing: border-box;\n  padding-right: 10px;\n  text-align: right;\n  font-size: 12px;\n}\n.dv-capsule-chart .label-column div {\n  height: 20px;\n  line-height: 20px;\n}\n.dv-capsule-chart .capsule-container {\n  flex: 1;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n.dv-capsule-chart .capsule-item {\n  box-shadow: 0 0 3px #999;\n  height: 10px;\n  margin: 5px 0px;\n  border-radius: 5px;\n}\n.dv-capsule-chart .capsule-item .capsule-item-column {\n  position: relative;\n  height: 8px;\n  margin-top: 1px;\n  border-radius: 5px;\n  transition: all 0.3s;\n  display: flex;\n  justify-content: flex-end;\n  align-items: center;\n}\n.dv-capsule-chart .capsule-item .capsule-item-column .capsule-item-value {\n  font-size: 12px;\n  transform: translateX(100%);\n}\n.dv-capsule-chart .unit-label {\n  height: 20px;\n  font-size: 12px;\n  position: relative;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.dv-capsule-chart .unit-text {\n  text-align: right;\n  display: flex;\n  align-items: flex-end;\n  font-size: 12px;\n  line-height: 20px;\n  margin-left: 10px;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,kBAAkB;EAClB,aAAa;EACb,mBAAmB;EACnB,sBAAsB;EACtB,aAAa;EACb,WAAW;AACb;AACA;EACE,aAAa;EACb,sBAAsB;EACtB,8BAA8B;EAC9B,sBAAsB;EACtB,mBAAmB;EACnB,iBAAiB;EACjB,eAAe;AACjB;AACA;EACE,YAAY;EACZ,iBAAiB;AACnB;AACA;EACE,OAAO;EACP,aAAa;EACb,sBAAsB;EACtB,8BAA8B;AAChC;AACA;EACE,wBAAwB;EACxB,YAAY;EACZ,eAAe;EACf,kBAAkB;AACpB;AACA;EACE,kBAAkB;EAClB,WAAW;EACX,eAAe;EACf,kBAAkB;EAClB,oBAAoB;EACpB,aAAa;EACb,yBAAyB;EACzB,mBAAmB;AACrB;AACA;EACE,eAAe;EACf,2BAA2B;AAC7B;AACA;EACE,YAAY;EACZ,eAAe;EACf,kBAAkB;EAClB,aAAa;EACb,8BAA8B;EAC9B,mBAAmB;AACrB;AACA;EACE,iBAAiB;EACjB,aAAa;EACb,qBAAqB;EACrB,eAAe;EACf,iBAAiB;EACjB,iBAAiB;AACnB","file":"main.vue","sourcesContent":[".dv-capsule-chart {\n  position: relative;\n  display: flex;\n  flex-direction: row;\n  box-sizing: border-box;\n  padding: 10px;\n  color: #fff;\n}\n.dv-capsule-chart .label-column {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  box-sizing: border-box;\n  padding-right: 10px;\n  text-align: right;\n  font-size: 12px;\n}\n.dv-capsule-chart .label-column div {\n  height: 20px;\n  line-height: 20px;\n}\n.dv-capsule-chart .capsule-container {\n  flex: 1;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n.dv-capsule-chart .capsule-item {\n  box-shadow: 0 0 3px #999;\n  height: 10px;\n  margin: 5px 0px;\n  border-radius: 5px;\n}\n.dv-capsule-chart .capsule-item .capsule-item-column {\n  position: relative;\n  height: 8px;\n  margin-top: 1px;\n  border-radius: 5px;\n  transition: all 0.3s;\n  display: flex;\n  justify-content: flex-end;\n  align-items: center;\n}\n.dv-capsule-chart .capsule-item .capsule-item-column .capsule-item-value {\n  font-size: 12px;\n  transform: translateX(100%);\n}\n.dv-capsule-chart .unit-label {\n  height: 20px;\n  font-size: 12px;\n  position: relative;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.dv-capsule-chart .unit-text {\n  text-align: right;\n  display: flex;\n  align-items: flex-end;\n  font-size: 12px;\n  line-height: 20px;\n  margin-left: 10px;\n}\n"]}, media: undefined });
 
     };
     /* scoped */
-    const __vue_scope_id__$t = undefined;
+    const __vue_scope_id__$u = undefined;
     /* module identifier */
-    const __vue_module_identifier__$t = undefined;
+    const __vue_module_identifier__$u = undefined;
     /* functional template */
-    const __vue_is_functional_template__$t = false;
+    const __vue_is_functional_template__$u = false;
     /* style inject SSR */
     
     /* style inject shadow dom */
     
 
     
-    const __vue_component__$t = /*#__PURE__*/normalizeComponent(
-      { render: __vue_render__$t, staticRenderFns: __vue_staticRenderFns__$t },
-      __vue_inject_styles__$t,
-      __vue_script__$t,
-      __vue_scope_id__$t,
-      __vue_is_functional_template__$t,
-      __vue_module_identifier__$t,
+    const __vue_component__$u = /*#__PURE__*/normalizeComponent(
+      { render: __vue_render__$u, staticRenderFns: __vue_staticRenderFns__$u },
+      __vue_inject_styles__$u,
+      __vue_script__$u,
+      __vue_scope_id__$u,
+      __vue_is_functional_template__$u,
+      __vue_module_identifier__$u,
       false,
       createInjector,
       undefined,
@@ -20303,11 +20718,11 @@
     );
 
   function capsuleChart (Vue) {
-    Vue.component(__vue_component__$t.name, __vue_component__$t);
+    Vue.component(__vue_component__$u.name, __vue_component__$u);
   }
 
   //
-  var script$u = {
+  var script$v = {
     name: 'DvWaterLevelPond',
     props: {
       config: Object,
@@ -20606,10 +21021,10 @@
   };
 
   /* script */
-  const __vue_script__$u = script$u;
+  const __vue_script__$v = script$v;
 
   /* template */
-  var __vue_render__$u = function() {
+  var __vue_render__$v = function() {
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
@@ -20687,34 +21102,34 @@
       })
     ])
   };
-  var __vue_staticRenderFns__$u = [];
-  __vue_render__$u._withStripped = true;
+  var __vue_staticRenderFns__$v = [];
+  __vue_render__$v._withStripped = true;
 
     /* style */
-    const __vue_inject_styles__$u = function (inject) {
+    const __vue_inject_styles__$v = function (inject) {
       if (!inject) return
       inject("data-v-be672a2c_0", { source: ".dv-water-pond-level {\n  position: relative;\n}\n.dv-water-pond-level svg {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  top: 0px;\n  left: 0px;\n}\n.dv-water-pond-level text {\n  font-size: 25px;\n  font-weight: bold;\n  text-anchor: middle;\n  dominant-baseline: middle;\n}\n.dv-water-pond-level ellipse,\n.dv-water-pond-level rect {\n  fill: none;\n  stroke-width: 3;\n}\n.dv-water-pond-level canvas {\n  margin-top: 8px;\n  margin-left: 8px;\n  width: calc(100% - 16px);\n  height: calc(100% - 16px);\n  box-sizing: border-box;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,kBAAkB;AACpB;AACA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;EACZ,QAAQ;EACR,SAAS;AACX;AACA;EACE,eAAe;EACf,iBAAiB;EACjB,mBAAmB;EACnB,yBAAyB;AAC3B;AACA;;EAEE,UAAU;EACV,eAAe;AACjB;AACA;EACE,eAAe;EACf,gBAAgB;EAChB,wBAAwB;EACxB,yBAAyB;EACzB,sBAAsB;AACxB","file":"main.vue","sourcesContent":[".dv-water-pond-level {\n  position: relative;\n}\n.dv-water-pond-level svg {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  top: 0px;\n  left: 0px;\n}\n.dv-water-pond-level text {\n  font-size: 25px;\n  font-weight: bold;\n  text-anchor: middle;\n  dominant-baseline: middle;\n}\n.dv-water-pond-level ellipse,\n.dv-water-pond-level rect {\n  fill: none;\n  stroke-width: 3;\n}\n.dv-water-pond-level canvas {\n  margin-top: 8px;\n  margin-left: 8px;\n  width: calc(100% - 16px);\n  height: calc(100% - 16px);\n  box-sizing: border-box;\n}\n"]}, media: undefined });
 
     };
     /* scoped */
-    const __vue_scope_id__$u = undefined;
+    const __vue_scope_id__$v = undefined;
     /* module identifier */
-    const __vue_module_identifier__$u = undefined;
+    const __vue_module_identifier__$v = undefined;
     /* functional template */
-    const __vue_is_functional_template__$u = false;
+    const __vue_is_functional_template__$v = false;
     /* style inject SSR */
     
     /* style inject shadow dom */
     
 
     
-    const __vue_component__$u = /*#__PURE__*/normalizeComponent(
-      { render: __vue_render__$u, staticRenderFns: __vue_staticRenderFns__$u },
-      __vue_inject_styles__$u,
-      __vue_script__$u,
-      __vue_scope_id__$u,
-      __vue_is_functional_template__$u,
-      __vue_module_identifier__$u,
+    const __vue_component__$v = /*#__PURE__*/normalizeComponent(
+      { render: __vue_render__$v, staticRenderFns: __vue_staticRenderFns__$v },
+      __vue_inject_styles__$v,
+      __vue_script__$v,
+      __vue_scope_id__$v,
+      __vue_is_functional_template__$v,
+      __vue_module_identifier__$v,
       false,
       createInjector,
       undefined,
@@ -20722,11 +21137,11 @@
     );
 
   function waterLevelPond (Vue) {
-    Vue.component(__vue_component__$u.name, __vue_component__$u);
+    Vue.component(__vue_component__$v.name, __vue_component__$v);
   }
 
   //
-  var script$v = {
+  var script$w = {
     name: 'DvPercentPond',
     props: {
       config: {
@@ -20973,10 +21388,10 @@
   };
 
   /* script */
-  const __vue_script__$v = script$v;
+  const __vue_script__$w = script$w;
 
   /* template */
-  var __vue_render__$v = function() {
+  var __vue_render__$w = function() {
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
@@ -21068,34 +21483,34 @@
       ])
     ])
   };
-  var __vue_staticRenderFns__$v = [];
-  __vue_render__$v._withStripped = true;
+  var __vue_staticRenderFns__$w = [];
+  __vue_render__$w._withStripped = true;
 
     /* style */
-    const __vue_inject_styles__$v = function (inject) {
+    const __vue_inject_styles__$w = function (inject) {
       if (!inject) return
       inject("data-v-05a0166f_0", { source: ".dv-percent-pond {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n}\n.dv-percent-pond svg {\n  position: absolute;\n  left: 0px;\n  top: 0px;\n  width: 100%;\n  height: 100%;\n}\n.dv-percent-pond polyline {\n  transition: all 0.3s;\n}\n.dv-percent-pond text {\n  font-size: 25px;\n  font-weight: bold;\n  text-anchor: middle;\n  dominant-baseline: middle;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,kBAAkB;EAClB,aAAa;EACb,sBAAsB;AACxB;AACA;EACE,kBAAkB;EAClB,SAAS;EACT,QAAQ;EACR,WAAW;EACX,YAAY;AACd;AACA;EACE,oBAAoB;AACtB;AACA;EACE,eAAe;EACf,iBAAiB;EACjB,mBAAmB;EACnB,yBAAyB;AAC3B","file":"main.vue","sourcesContent":[".dv-percent-pond {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n}\n.dv-percent-pond svg {\n  position: absolute;\n  left: 0px;\n  top: 0px;\n  width: 100%;\n  height: 100%;\n}\n.dv-percent-pond polyline {\n  transition: all 0.3s;\n}\n.dv-percent-pond text {\n  font-size: 25px;\n  font-weight: bold;\n  text-anchor: middle;\n  dominant-baseline: middle;\n}\n"]}, media: undefined });
 
     };
     /* scoped */
-    const __vue_scope_id__$v = undefined;
+    const __vue_scope_id__$w = undefined;
     /* module identifier */
-    const __vue_module_identifier__$v = undefined;
+    const __vue_module_identifier__$w = undefined;
     /* functional template */
-    const __vue_is_functional_template__$v = false;
+    const __vue_is_functional_template__$w = false;
     /* style inject SSR */
     
     /* style inject shadow dom */
     
 
     
-    const __vue_component__$v = /*#__PURE__*/normalizeComponent(
-      { render: __vue_render__$v, staticRenderFns: __vue_staticRenderFns__$v },
-      __vue_inject_styles__$v,
-      __vue_script__$v,
-      __vue_scope_id__$v,
-      __vue_is_functional_template__$v,
-      __vue_module_identifier__$v,
+    const __vue_component__$w = /*#__PURE__*/normalizeComponent(
+      { render: __vue_render__$w, staticRenderFns: __vue_staticRenderFns__$w },
+      __vue_inject_styles__$w,
+      __vue_script__$w,
+      __vue_scope_id__$w,
+      __vue_is_functional_template__$w,
+      __vue_module_identifier__$w,
       false,
       createInjector,
       undefined,
@@ -21103,11 +21518,11 @@
     );
 
   function percentPond (Vue) {
-    Vue.component(__vue_component__$v.name, __vue_component__$v);
+    Vue.component(__vue_component__$w.name, __vue_component__$w);
   }
 
   //
-  var script$w = {
+  var script$x = {
     name: 'DvFlylineChart',
     mixins: [autoResize],
     props: {
@@ -21505,10 +21920,10 @@
   };
 
   /* script */
-  const __vue_script__$w = script$w;
+  const __vue_script__$x = script$x;
 
   /* template */
-  var __vue_render__$w = function() {
+  var __vue_render__$x = function() {
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
@@ -21789,34 +22204,34 @@
       ]
     )
   };
-  var __vue_staticRenderFns__$w = [];
-  __vue_render__$w._withStripped = true;
+  var __vue_staticRenderFns__$x = [];
+  __vue_render__$x._withStripped = true;
 
     /* style */
-    const __vue_inject_styles__$w = function (inject) {
+    const __vue_inject_styles__$x = function (inject) {
       if (!inject) return
       inject("data-v-1edfcf29_0", { source: ".dv-flyline-chart {\n  display: flex;\n  flex-direction: column;\n  background-size: 100% 100%;\n}\n.dv-flyline-chart polyline {\n  transition: all 0.3s;\n}\n.dv-flyline-chart text {\n  text-anchor: middle;\n  dominant-baseline: middle;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,sBAAsB;EACtB,0BAA0B;AAC5B;AACA;EACE,oBAAoB;AACtB;AACA;EACE,mBAAmB;EACnB,yBAAyB;AAC3B","file":"main.vue","sourcesContent":[".dv-flyline-chart {\n  display: flex;\n  flex-direction: column;\n  background-size: 100% 100%;\n}\n.dv-flyline-chart polyline {\n  transition: all 0.3s;\n}\n.dv-flyline-chart text {\n  text-anchor: middle;\n  dominant-baseline: middle;\n}\n"]}, media: undefined });
 
     };
     /* scoped */
-    const __vue_scope_id__$w = undefined;
+    const __vue_scope_id__$x = undefined;
     /* module identifier */
-    const __vue_module_identifier__$w = undefined;
+    const __vue_module_identifier__$x = undefined;
     /* functional template */
-    const __vue_is_functional_template__$w = false;
+    const __vue_is_functional_template__$x = false;
     /* style inject SSR */
     
     /* style inject shadow dom */
     
 
     
-    const __vue_component__$w = /*#__PURE__*/normalizeComponent(
-      { render: __vue_render__$w, staticRenderFns: __vue_staticRenderFns__$w },
-      __vue_inject_styles__$w,
-      __vue_script__$w,
-      __vue_scope_id__$w,
-      __vue_is_functional_template__$w,
-      __vue_module_identifier__$w,
+    const __vue_component__$x = /*#__PURE__*/normalizeComponent(
+      { render: __vue_render__$x, staticRenderFns: __vue_staticRenderFns__$x },
+      __vue_inject_styles__$x,
+      __vue_script__$x,
+      __vue_scope_id__$x,
+      __vue_is_functional_template__$x,
+      __vue_module_identifier__$x,
       false,
       createInjector,
       undefined,
@@ -21824,11 +22239,11 @@
     );
 
   function flylineChart (Vue) {
-    Vue.component(__vue_component__$w.name, __vue_component__$w);
+    Vue.component(__vue_component__$x.name, __vue_component__$x);
   }
 
   //
-  var script$x = {
+  var script$y = {
     name: 'DvFlylineChartEnhanced',
     mixins: [autoResize],
     props: {
@@ -22310,10 +22725,10 @@
   };
 
   /* script */
-  const __vue_script__$x = script$x;
+  const __vue_script__$y = script$y;
 
   /* template */
-  var __vue_render__$x = function() {
+  var __vue_render__$y = function() {
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
@@ -22574,34 +22989,34 @@
       ]
     )
   };
-  var __vue_staticRenderFns__$x = [];
-  __vue_render__$x._withStripped = true;
+  var __vue_staticRenderFns__$y = [];
+  __vue_render__$y._withStripped = true;
 
     /* style */
-    const __vue_inject_styles__$x = function (inject) {
+    const __vue_inject_styles__$y = function (inject) {
       if (!inject) return
       inject("data-v-a7b8c35c_0", { source: ".dv-flyline-chart-enhanced {\n  display: flex;\n  flex-direction: column;\n  background-size: 100% 100%;\n}\n.dv-flyline-chart-enhanced text {\n  text-anchor: middle;\n  dominant-baseline: middle;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,sBAAsB;EACtB,0BAA0B;AAC5B;AACA;EACE,mBAAmB;EACnB,yBAAyB;AAC3B","file":"main.vue","sourcesContent":[".dv-flyline-chart-enhanced {\n  display: flex;\n  flex-direction: column;\n  background-size: 100% 100%;\n}\n.dv-flyline-chart-enhanced text {\n  text-anchor: middle;\n  dominant-baseline: middle;\n}\n"]}, media: undefined });
 
     };
     /* scoped */
-    const __vue_scope_id__$x = undefined;
+    const __vue_scope_id__$y = undefined;
     /* module identifier */
-    const __vue_module_identifier__$x = undefined;
+    const __vue_module_identifier__$y = undefined;
     /* functional template */
-    const __vue_is_functional_template__$x = false;
+    const __vue_is_functional_template__$y = false;
     /* style inject SSR */
     
     /* style inject shadow dom */
     
 
     
-    const __vue_component__$x = /*#__PURE__*/normalizeComponent(
-      { render: __vue_render__$x, staticRenderFns: __vue_staticRenderFns__$x },
-      __vue_inject_styles__$x,
-      __vue_script__$x,
-      __vue_scope_id__$x,
-      __vue_is_functional_template__$x,
-      __vue_module_identifier__$x,
+    const __vue_component__$y = /*#__PURE__*/normalizeComponent(
+      { render: __vue_render__$y, staticRenderFns: __vue_staticRenderFns__$y },
+      __vue_inject_styles__$y,
+      __vue_script__$y,
+      __vue_scope_id__$y,
+      __vue_is_functional_template__$y,
+      __vue_module_identifier__$y,
       false,
       createInjector,
       undefined,
@@ -22609,11 +23024,11 @@
     );
 
   function flylineChartEnhanced (Vue) {
-    Vue.component(__vue_component__$x.name, __vue_component__$x);
+    Vue.component(__vue_component__$y.name, __vue_component__$y);
   }
 
   //
-  var script$y = {
+  var script$z = {
     name: 'DvConicalColumnChart',
     mixins: [autoResize],
     props: {
@@ -22794,10 +23209,10 @@
   };
 
   /* script */
-  const __vue_script__$y = script$y;
+  const __vue_script__$z = script$z;
 
   /* template */
-  var __vue_render__$y = function() {
+  var __vue_render__$z = function() {
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
@@ -22857,34 +23272,34 @@
       )
     ])
   };
-  var __vue_staticRenderFns__$y = [];
-  __vue_render__$y._withStripped = true;
+  var __vue_staticRenderFns__$z = [];
+  __vue_render__$z._withStripped = true;
 
     /* style */
-    const __vue_inject_styles__$y = function (inject) {
+    const __vue_inject_styles__$z = function (inject) {
       if (!inject) return
       inject("data-v-382f06c7_0", { source: ".dv-conical-column-chart {\n  width: 100%;\n  height: 100%;\n}\n.dv-conical-column-chart text {\n  text-anchor: middle;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,WAAW;EACX,YAAY;AACd;AACA;EACE,mBAAmB;AACrB","file":"main.vue","sourcesContent":[".dv-conical-column-chart {\n  width: 100%;\n  height: 100%;\n}\n.dv-conical-column-chart text {\n  text-anchor: middle;\n}\n"]}, media: undefined });
 
     };
     /* scoped */
-    const __vue_scope_id__$y = undefined;
+    const __vue_scope_id__$z = undefined;
     /* module identifier */
-    const __vue_module_identifier__$y = undefined;
+    const __vue_module_identifier__$z = undefined;
     /* functional template */
-    const __vue_is_functional_template__$y = false;
+    const __vue_is_functional_template__$z = false;
     /* style inject SSR */
     
     /* style inject shadow dom */
     
 
     
-    const __vue_component__$y = /*#__PURE__*/normalizeComponent(
-      { render: __vue_render__$y, staticRenderFns: __vue_staticRenderFns__$y },
-      __vue_inject_styles__$y,
-      __vue_script__$y,
-      __vue_scope_id__$y,
-      __vue_is_functional_template__$y,
-      __vue_module_identifier__$y,
+    const __vue_component__$z = /*#__PURE__*/normalizeComponent(
+      { render: __vue_render__$z, staticRenderFns: __vue_staticRenderFns__$z },
+      __vue_inject_styles__$z,
+      __vue_script__$z,
+      __vue_scope_id__$z,
+      __vue_is_functional_template__$z,
+      __vue_module_identifier__$z,
       false,
       createInjector,
       undefined,
@@ -22892,15 +23307,15 @@
     );
 
   function conicalColumnChart (Vue) {
-    Vue.component(__vue_component__$y.name, __vue_component__$y);
+    Vue.component(__vue_component__$z.name, __vue_component__$z);
   }
 
   function digitalFlop (Vue) {
-    Vue.component(__vue_component__$r.name, __vue_component__$r);
+    Vue.component(__vue_component__$s.name, __vue_component__$s);
   }
 
   //
-  var script$z = {
+  var script$A = {
     name: 'DvScrollBoard',
     mixins: [autoResize],
     props: {
@@ -23314,10 +23729,10 @@
   };
 
   /* script */
-  const __vue_script__$z = script$z;
+  const __vue_script__$A = script$A;
 
   /* template */
-  var __vue_render__$z = function() {
+  var __vue_render__$A = function() {
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
@@ -23405,34 +23820,34 @@
         : _vm._e()
     ])
   };
-  var __vue_staticRenderFns__$z = [];
-  __vue_render__$z._withStripped = true;
+  var __vue_staticRenderFns__$A = [];
+  __vue_render__$A._withStripped = true;
 
     /* style */
-    const __vue_inject_styles__$z = function (inject) {
+    const __vue_inject_styles__$A = function (inject) {
       if (!inject) return
       inject("data-v-26e19f4c_0", { source: ".dv-scroll-board {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  color: #fff;\n}\n.dv-scroll-board .text {\n  padding: 0 10px;\n  box-sizing: border-box;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.dv-scroll-board .header {\n  display: flex;\n  flex-direction: row;\n  font-size: 15px;\n}\n.dv-scroll-board .header .header-item {\n  padding: 0 10px;\n  box-sizing: border-box;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  transition: all 0.3s;\n}\n.dv-scroll-board .rows {\n  overflow: hidden;\n}\n.dv-scroll-board .rows .row-item {\n  display: flex;\n  font-size: 14px;\n  transition: all 0.3s;\n}\n.dv-scroll-board .rows .ceil {\n  padding: 0 10px;\n  box-sizing: border-box;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.dv-scroll-board .rows .index {\n  border-radius: 3px;\n  padding: 0px 3px;\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;EACZ,WAAW;AACb;AACA;EACE,eAAe;EACf,sBAAsB;EACtB,mBAAmB;EACnB,gBAAgB;EAChB,uBAAuB;AACzB;AACA;EACE,aAAa;EACb,mBAAmB;EACnB,eAAe;AACjB;AACA;EACE,eAAe;EACf,sBAAsB;EACtB,mBAAmB;EACnB,gBAAgB;EAChB,uBAAuB;EACvB,oBAAoB;AACtB;AACA;EACE,gBAAgB;AAClB;AACA;EACE,aAAa;EACb,eAAe;EACf,oBAAoB;AACtB;AACA;EACE,eAAe;EACf,sBAAsB;EACtB,mBAAmB;EACnB,gBAAgB;EAChB,uBAAuB;AACzB;AACA;EACE,kBAAkB;EAClB,gBAAgB;AAClB","file":"main.vue","sourcesContent":[".dv-scroll-board {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  color: #fff;\n}\n.dv-scroll-board .text {\n  padding: 0 10px;\n  box-sizing: border-box;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.dv-scroll-board .header {\n  display: flex;\n  flex-direction: row;\n  font-size: 15px;\n}\n.dv-scroll-board .header .header-item {\n  padding: 0 10px;\n  box-sizing: border-box;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  transition: all 0.3s;\n}\n.dv-scroll-board .rows {\n  overflow: hidden;\n}\n.dv-scroll-board .rows .row-item {\n  display: flex;\n  font-size: 14px;\n  transition: all 0.3s;\n}\n.dv-scroll-board .rows .ceil {\n  padding: 0 10px;\n  box-sizing: border-box;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.dv-scroll-board .rows .index {\n  border-radius: 3px;\n  padding: 0px 3px;\n}\n"]}, media: undefined });
 
     };
     /* scoped */
-    const __vue_scope_id__$z = undefined;
+    const __vue_scope_id__$A = undefined;
     /* module identifier */
-    const __vue_module_identifier__$z = undefined;
+    const __vue_module_identifier__$A = undefined;
     /* functional template */
-    const __vue_is_functional_template__$z = false;
+    const __vue_is_functional_template__$A = false;
     /* style inject SSR */
     
     /* style inject shadow dom */
     
 
     
-    const __vue_component__$z = /*#__PURE__*/normalizeComponent(
-      { render: __vue_render__$z, staticRenderFns: __vue_staticRenderFns__$z },
-      __vue_inject_styles__$z,
-      __vue_script__$z,
-      __vue_scope_id__$z,
-      __vue_is_functional_template__$z,
-      __vue_module_identifier__$z,
+    const __vue_component__$A = /*#__PURE__*/normalizeComponent(
+      { render: __vue_render__$A, staticRenderFns: __vue_staticRenderFns__$A },
+      __vue_inject_styles__$A,
+      __vue_script__$A,
+      __vue_scope_id__$A,
+      __vue_is_functional_template__$A,
+      __vue_module_identifier__$A,
       false,
       createInjector,
       undefined,
@@ -23440,11 +23855,11 @@
     );
 
   function scrollBoard (Vue) {
-    Vue.component(__vue_component__$z.name, __vue_component__$z);
+    Vue.component(__vue_component__$A.name, __vue_component__$A);
   }
 
   //
-  var script$A = {
+  var script$B = {
     name: 'DvScrollRankingBoard',
     mixins: [autoResize],
     props: {
@@ -23685,10 +24100,10 @@
   };
 
   /* script */
-  const __vue_script__$A = script$A;
+  const __vue_script__$B = script$B;
 
   /* template */
-  var __vue_render__$A = function() {
+  var __vue_render__$B = function() {
     var _vm = this;
     var _h = _vm.$createElement;
     var _c = _vm._self._c || _h;
@@ -23741,34 +24156,34 @@
       0
     )
   };
-  var __vue_staticRenderFns__$A = [];
-  __vue_render__$A._withStripped = true;
+  var __vue_staticRenderFns__$B = [];
+  __vue_render__$B._withStripped = true;
 
     /* style */
-    const __vue_inject_styles__$A = function (inject) {
+    const __vue_inject_styles__$B = function (inject) {
       if (!inject) return
       inject("data-v-f297519a_0", { source: ".dv-scroll-ranking-board {\n  width: 100%;\n  height: 100%;\n  color: #fff;\n  overflow: hidden;\n}\n.dv-scroll-ranking-board .row-item {\n  transition: all 0.3s;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  overflow: hidden;\n}\n.dv-scroll-ranking-board .ranking-info {\n  display: flex;\n  width: 100%;\n  font-size: 13px;\n}\n.dv-scroll-ranking-board .ranking-info .rank {\n  width: 40px;\n  color: #1370fb;\n}\n.dv-scroll-ranking-board .ranking-info .info-name {\n  flex: 1;\n}\n.dv-scroll-ranking-board .ranking-column {\n  border-bottom: 2px solid rgba(19, 112, 251, 0.5);\n  margin-top: 5px;\n}\n.dv-scroll-ranking-board .ranking-column .inside-column {\n  position: relative;\n  height: 6px;\n  background-color: #1370fb;\n  margin-bottom: 2px;\n  border-radius: 1px;\n  overflow: hidden;\n}\n.dv-scroll-ranking-board .ranking-column .shine {\n  position: absolute;\n  left: 0%;\n  top: 2px;\n  height: 2px;\n  width: 50px;\n  transform: translateX(-100%);\n  background: radial-gradient(#28f8ff 5%, transparent 80%);\n  animation: shine 3s ease-in-out infinite alternate;\n}\n@keyframes shine {\n80% {\n    left: 0%;\n    transform: translateX(-100%);\n}\n100% {\n    left: 100%;\n    transform: translateX(0%);\n}\n}\n", map: {"version":3,"sources":["main.vue"],"names":[],"mappings":"AAAA;EACE,WAAW;EACX,YAAY;EACZ,WAAW;EACX,gBAAgB;AAClB;AACA;EACE,oBAAoB;EACpB,aAAa;EACb,sBAAsB;EACtB,uBAAuB;EACvB,gBAAgB;AAClB;AACA;EACE,aAAa;EACb,WAAW;EACX,eAAe;AACjB;AACA;EACE,WAAW;EACX,cAAc;AAChB;AACA;EACE,OAAO;AACT;AACA;EACE,gDAAgD;EAChD,eAAe;AACjB;AACA;EACE,kBAAkB;EAClB,WAAW;EACX,yBAAyB;EACzB,kBAAkB;EAClB,kBAAkB;EAClB,gBAAgB;AAClB;AACA;EACE,kBAAkB;EAClB,QAAQ;EACR,QAAQ;EACR,WAAW;EACX,WAAW;EACX,4BAA4B;EAC5B,wDAAwD;EACxD,kDAAkD;AACpD;AACA;AACE;IACE,QAAQ;IACR,4BAA4B;AAC9B;AACA;IACE,UAAU;IACV,yBAAyB;AAC3B;AACF","file":"main.vue","sourcesContent":[".dv-scroll-ranking-board {\n  width: 100%;\n  height: 100%;\n  color: #fff;\n  overflow: hidden;\n}\n.dv-scroll-ranking-board .row-item {\n  transition: all 0.3s;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  overflow: hidden;\n}\n.dv-scroll-ranking-board .ranking-info {\n  display: flex;\n  width: 100%;\n  font-size: 13px;\n}\n.dv-scroll-ranking-board .ranking-info .rank {\n  width: 40px;\n  color: #1370fb;\n}\n.dv-scroll-ranking-board .ranking-info .info-name {\n  flex: 1;\n}\n.dv-scroll-ranking-board .ranking-column {\n  border-bottom: 2px solid rgba(19, 112, 251, 0.5);\n  margin-top: 5px;\n}\n.dv-scroll-ranking-board .ranking-column .inside-column {\n  position: relative;\n  height: 6px;\n  background-color: #1370fb;\n  margin-bottom: 2px;\n  border-radius: 1px;\n  overflow: hidden;\n}\n.dv-scroll-ranking-board .ranking-column .shine {\n  position: absolute;\n  left: 0%;\n  top: 2px;\n  height: 2px;\n  width: 50px;\n  transform: translateX(-100%);\n  background: radial-gradient(#28f8ff 5%, transparent 80%);\n  animation: shine 3s ease-in-out infinite alternate;\n}\n@keyframes shine {\n  80% {\n    left: 0%;\n    transform: translateX(-100%);\n  }\n  100% {\n    left: 100%;\n    transform: translateX(0%);\n  }\n}\n"]}, media: undefined });
 
     };
     /* scoped */
-    const __vue_scope_id__$A = undefined;
+    const __vue_scope_id__$B = undefined;
     /* module identifier */
-    const __vue_module_identifier__$A = undefined;
+    const __vue_module_identifier__$B = undefined;
     /* functional template */
-    const __vue_is_functional_template__$A = false;
+    const __vue_is_functional_template__$B = false;
     /* style inject SSR */
     
     /* style inject shadow dom */
     
 
     
-    const __vue_component__$A = /*#__PURE__*/normalizeComponent(
-      { render: __vue_render__$A, staticRenderFns: __vue_staticRenderFns__$A },
-      __vue_inject_styles__$A,
-      __vue_script__$A,
-      __vue_scope_id__$A,
-      __vue_is_functional_template__$A,
-      __vue_module_identifier__$A,
+    const __vue_component__$B = /*#__PURE__*/normalizeComponent(
+      { render: __vue_render__$B, staticRenderFns: __vue_staticRenderFns__$B },
+      __vue_inject_styles__$B,
+      __vue_script__$B,
+      __vue_scope_id__$B,
+      __vue_is_functional_template__$B,
+      __vue_module_identifier__$B,
       false,
       createInjector,
       undefined,
@@ -23776,7 +24191,7 @@
     );
 
   function scrollRankingBoard (Vue) {
-    Vue.component(__vue_component__$A.name, __vue_component__$A);
+    Vue.component(__vue_component__$B.name, __vue_component__$B);
   }
 
   /**
@@ -23814,7 +24229,8 @@
     Vue.use(decoration8);
     Vue.use(decoration9);
     Vue.use(decoration10);
-    Vue.use(decoration11); // charts
+    Vue.use(decoration11);
+    Vue.use(decoration12); // charts
 
     Vue.use(charts);
     Vue.use(activeRingChart);
