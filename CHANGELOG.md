@@ -1,3 +1,14 @@
+# 2.10.0-alpha (2020-09-09)
+
+### New
+
+- **decoration12:** New decoration(Radar scan).
+
+### Optmization
+
+- **decoration** add `dur` configuration.
+- **activeRingChart** add `digitalFlopUnit` configuration.
+
 # 2.9.9-alpha (2020-08-25)
 
 ### Optmization
