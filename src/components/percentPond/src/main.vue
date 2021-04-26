@@ -236,7 +236,7 @@ export default {
 
       await $nextTick()
 
-      const { clientWidth, clientHeight } = $refs['percent-pond']
+      const { clientWidth, clientHeight } = $refs['percent-pond'] || {}
 
       this.width = clientWidth
       this.height = clientHeight
