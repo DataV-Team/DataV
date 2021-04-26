@@ -7,15 +7,15 @@
       :style="`height: ${heights[i]}px;`"
     >
       <div class="ranking-info">
-        <div class="rank">No.{{ item.ranking }}</div>
+        <div class="rank" :style="`color: ${mergedConfig.themeColor};`">No.{{ item.ranking }}</div>
         <div class="info-name" v-html="item.name" />
         <div class="ranking-value">{{ mergedConfig.valueFormatter ? mergedConfig.valueFormatter(item) : item.value + mergedConfig.unit }}</div>
       </div>
 
-      <div class="ranking-column">
+      <div class="ranking-column" :style="`border-bottom: 2px solid ${transformToRgba(mergedConfig.themeColor, 0.5)}`">
         <div
           class="inside-column"
-          :style="`width: ${item.percent}%;`"
+          :style="`width: ${item.percent}%;background-color: ${mergedConfig.themeColor};`"
         >
           <div class="shine" />
         </div>
@@ -30,6 +30,8 @@ import autoResize from '../../../mixin/autoResize'
 import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
 import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
+
+import { colorRgba } from '../../../util'
 
 export default {
   name: 'DvScrollRankingBoard',
@@ -88,7 +90,13 @@ export default {
          * @type {Function}
          * @default valueFormatter = null
          */
-        valueFormatter: null
+        valueFormatter: null,
+        /**
+         * @description theme color
+         * @type {String}
+         * @default themeColor = '#1370fb'
+         */
+        themeColor: '#1370fb',
       },
 
       mergedConfig: null,
@@ -239,6 +247,9 @@ export default {
 
       clearTimeout(animationHandler)
     },
+    transformToRgba () {
+      return colorRgba(this.mergedConfig.themeColor, 0.5)
+    }
   },
   destroyed () {
     const { stopAnimation } = this
@@ -249,7 +260,6 @@ export default {
 </script>
 
 <style lang="less">
-@color: #1370fb;
 
 .dv-scroll-ranking-board {
   width: 100%;
@@ -272,7 +282,6 @@ export default {
 
     .rank {
       width: 40px;
-      color: @color;
     }
 
     .info-name {
@@ -281,13 +290,11 @@ export default {
   }
 
   .ranking-column {
-    border-bottom: 2px solid fade(@color, 50);
     margin-top: 5px;
 
     .inside-column {
       position: relative;
       height: 6px;
-      background-color: @color;
       margin-bottom: 2px;
       border-radius: 1px;
       overflow: hidden;

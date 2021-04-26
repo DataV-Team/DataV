@@ -18,19 +18,16 @@
 }
 .dv-scroll-ranking-board .ranking-info .rank {
   width: 40px;
-  color: #1370fb;
 }
 .dv-scroll-ranking-board .ranking-info .info-name {
   flex: 1;
 }
 .dv-scroll-ranking-board .ranking-column {
-  border-bottom: 2px solid rgba(19, 112, 251, 0.5);
   margin-top: 5px;
 }
 .dv-scroll-ranking-board .ranking-column .inside-column {
   position: relative;
   height: 6px;
-  background-color: #1370fb;
   margin-bottom: 2px;
   border-radius: 1px;
   overflow: hidden;

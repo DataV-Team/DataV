@@ -1,8 +1,12 @@
 <template>
   <div class="dv-capsule-chart">
     <template v-if="mergedConfig">
-      <div class="label-column">
-        <div v-for="item in mergedConfig.data" :key="item.name">{{ item.name }}</div>
+      <div class="label-column" v-if="mergedConfig.yAxis.show">
+        <div 
+          v-for="item in mergedConfig.data" 
+          :key="item.name" 
+          :style="`font-size: ${mergedConfig.yAxis.fontSize}px; color: ${mergedConfig.yAxis.fill};`"
+        >{{ item.name }}</div>
         <div>&nbsp;</div>
       </div>
 
@@ -13,16 +17,18 @@
             :style="`width: ${capsule * 100}%; background-color: ${mergedConfig.colors[index % mergedConfig.colors.length]};`"
           >
             <div
-              v-if="mergedConfig.showValue"
+              v-if="mergedConfig.value.show"
               class="capsule-item-value"
+              :style="`font-size: ${mergedConfig.value.fontSize}px; color: ${mergedConfig.value.fill};`"
             >{{ capsuleValue[index] }}</div>
           </div>
         </div>
 
-        <div class="unit-label">
+        <div class="unit-label" v-if="mergedConfig.xAxis.show">
           <div
             v-for="(label, index) in labelData"
             :key="label + index"
+            :style="`font-size: ${mergedConfig.xAxis.fontSize}px; color: ${mergedConfig.xAxis.fill};`"
           >{{ label }}</div>
         </div>
       </div>
@@ -77,11 +83,77 @@ export default {
          */
         unit: '',
         /**
-         * @description Show item value
-         * @type {Boolean}
-         * @default showValue = false
+         * @description item value style
+         * @type {Object}
          */
-        showValue: false
+        value: {
+        /**
+          * @description Show item value
+          * @type {Boolean}
+          * @default show = false
+          */
+          show: false,
+        /**
+          * @description item value fontSize
+          * @type {Number}
+          * @default fontSize = 12
+          */  
+          fontSize: 12,
+        /**
+          * @description item value color
+          * @type {Number}
+          * @default fill = '#fff'
+          */  
+          fill: '#fff'
+        },
+        /**
+         * @description xAxis style
+         * @type {Object}
+         */
+        xAxis: {
+        /**
+          * @description Show xAxis text
+          * @type {Boolean}
+          * @default show = true
+          */
+          show: true,
+        /**
+          * @description xAxis text fontSize
+          * @type {Number}
+          * @default fontSize = 12
+          */  
+          fontSize: 12,
+        /**
+          * @description xAxis text color
+          * @type {Number}
+          * @default fill = '#fff'
+          */  
+          fill: '#fff'
+        },
+        /**
+         * @description yAxis style
+         * @type {Object}
+         */
+        yAxis: {
+        /**
+          * @description Show yAxis text
+          * @type {Boolean}
+          * @default show = true
+          */
+          show: true,
+        /**
+          * @description yAxis text fontSize
+          * @type {Number}
+          * @default fontSize = 12
+          */  
+          fontSize: 12,
+        /**
+          * @description yAxis text color
+          * @type {Number}
+          * @default fill = '#fff'
+          */  
+          fill: '#fff'
+        }
       },
 
       mergedConfig: null,
