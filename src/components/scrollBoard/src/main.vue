@@ -351,7 +351,11 @@ export default {
 
       const rowLength = rowsData.length
 
-      if (rowNum >= rowLength) return
+      if (rowNum >= rowLength) {
+        // clear setTimeout and animationHandler
+        this.stopAnimation()
+        return
+      }
 
       if (start) {
         await new Promise(resolve => setTimeout(resolve, waitTime))
@@ -387,6 +391,8 @@ export default {
       if (!animationHandler) return
 
       clearTimeout(animationHandler)
+      // clear animationHandler
+      this.animationHandler = null
     },
     emitEvent (type, ri, ci, row, ceil) {
       const { ceils, rowIndex } = row
